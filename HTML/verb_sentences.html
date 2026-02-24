@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Dutch - 100 Daily Sentences</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        th {
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.95em;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .no-cell {
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            width: 50px;
+        }
+        
+        .english-cell {
+            min-width: 180px;
+        }
+        
+        .dutch-cell {
+            min-width: 200px;
+        }
+        
+        .hidden-text {
+            display: none;
+            font-weight: bold;
+            color: #764ba2;
+            margin-top: 5px;
+        }
+        
+        .hidden-text.revealed {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        .pronunciation-text {
+            display: none;
+            color: #059669;
+            font-style: italic;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        
+        .pronunciation-text.revealed {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .reveal-btn {
+            padding: 6px 12px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+        
+        .reveal-btn:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+        
+        .reveal-btn.revealed {
+            background: #6b7280;
+        }
+        
+        .speak-btn {
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .speak-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+        }
+        
+        .speak-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .verb-cell, .noun-cell {
+            font-weight: 600;
+            color: #2563eb;
+        }
+        
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 20px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .stats {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f0f9ff;
+            border-radius: 10px;
+            color: #0369a1;
+            font-weight: 600;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇳🇱 Learn Dutch - 100 Daily Sentences</h1>
+        <p class="subtitle">Master Dutch verbs through everyday conversations</p>
+        
+        <div class="controls">
+            <button class="btn" onclick="revealAll()">📖 Reveal All Dutch</button>
+            <button class="btn" onclick="hideAll()">🔒 Hide All Dutch</button>
+            <button class="btn" onclick="revealAllPronunciation()">🗣️ Show All Pronunciations</button>
+            <button class="btn" onclick="hideAllPronunciation()">🙈 Hide All Pronunciations</button>
+        </div>
+        
+        <div style="text-align: center;">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search sentences..." onkeyup="searchTable()">
+        </div>
+        
+        <div class="stats" id="stats">
+            Total Sentences: 100 | Unique Verbs: Loading...
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #10b981;"></div>
+                <span>Dutch Text (Click to reveal)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #667eea;"></div>
+                <span>Voice Pronunciation</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #2563eb;"></div>
+                <span>Verb/Noun</span>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table id="sentenceTable">
+                <thead>
+                    <tr>
+                        <th class="no-cell">No.</th>
+                        <th class="english-cell">English Sentence</th>
+                        <th class="dutch-cell">Dutch Sentence</th>
+                        <th>Pronunciation</th>
+                        <th>🔊 Listen</th>
+                        <th>Verb (Infinitive)</th>
+                        <th>Main Noun</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        const sentences = [
+            { no: 1, english: "I work today.", dutch: "Ik werk vandaag.", pronunciation: "ik vehrk fahn-dahkh", verb: "werken", noun: "werk" },
+            { no: 2, english: "I eat bread.", dutch: "Ik eet brood.", pronunciation: "ik ayt broht", verb: "eten", noun: "brood" },
+            { no: 3, english: "I drink coffee.", dutch: "Ik drink koffie.", pronunciation: "ik drink kof-fee", verb: "drinken", noun: "koffie" },
+            { no: 4, english: "I sleep early.", dutch: "Ik slaap vroeg.", pronunciation: "ik slahp frooch", verb: "slapen", noun: "-" },
+            { no: 5, english: "I wake up early.", dutch: "Ik word vroeg wakker.", pronunciation: "ik vort frooch vah-ker", verb: "wakker worden", noun: "-" },
+            { no: 6, english: "I go home.", dutch: "Ik ga naar huis.", pronunciation: "ik khah nahr hows", verb: "gaan", noun: "huis" },
+            { no: 7, english: "I come back.", dutch: "Ik kom terug.", pronunciation: "ik kom teh-rukh", verb: "komen", noun: "-" },
+            { no: 8, english: "I read a book.", dutch: "Ik lees een boek.", pronunciation: "ik lays ayn book", verb: "lezen", noun: "boek" },
+            { no: 9, english: "I write a message.", dutch: "Ik schrijf een bericht.", pronunciation: "ik skhrayf ayn beh-rikht", verb: "schrijven", noun: "bericht" },
+            { no: 10, english: "I speak Dutch.", dutch: "Ik spreek Nederlands.", pronunciation: "ik sprayk nay-der-lahnts", verb: "spreken", noun: "Nederlands" },
+            { no: 11, english: "I listen to music.", dutch: "Ik luister naar muziek.", pronunciation: "ik lows-ter nahr mew-zeek", verb: "luisteren", noun: "muziek" },
+            { no: 12, english: "I watch TV.", dutch: "Ik kijk tv.", pronunciation: "ik kayk tay-fay", verb: "kijken", noun: "tv" },
+            { no: 13, english: "I buy food.", dutch: "Ik koop eten.", pronunciation: "ik kohp ay-ten", verb: "kopen", noun: "eten" },
+            { no: 14, english: "I pay the bill.", dutch: "Ik betaal de rekening.", pronunciation: "ik beh-tahl deh ray-keh-ning", verb: "betalen", noun: "rekening" },
+            { no: 15, english: "I cook dinner.", dutch: "Ik kook avondeten.", pronunciation: "ik kohk ah-font-ay-ten", verb: "koken", noun: "avondeten" },
+            { no: 16, english: "I clean the room.", dutch: "Ik maak de kamer schoon.", pronunciation: "ik mahk deh kah-mer skhohn", verb: "schoonmaken", noun: "kamer" },
+            { no: 17, english: "I open the door.", dutch: "Ik open de deur.", pronunciation: "ik oh-pen deh dur", verb: "openen", noun: "deur" },
+            { no: 18, english: "I close the window.", dutch: "Ik sluit het raam.", pronunciation: "ik slowt het rahm", verb: "sluiten", noun: "raam" },
+            { no: 19, english: "I call my friend.", dutch: "Ik bel mijn vriend.", pronunciation: "ik bel mayn vreent", verb: "bellen", noun: "vriend" },
+            { no: 20, english: "I help my family.", dutch: "Ik help mijn familie.", pronunciation: "ik help mayn fah-mee-lee", verb: "helpen", noun: "familie" },
+            { no: 21, english: "I learn Dutch.", dutch: "Ik leer Nederlands.", pronunciation: "ik layr nay-der-lahnts", verb: "leren", noun: "Nederlands" },
+            { no: 22, english: "I teach my child.", dutch: "Ik leer mijn kind iets.", pronunciation: "ik layr mayn kint eets", verb: "leren", noun: "kind" },
+            { no: 23, english: "I drive the car.", dutch: "Ik rijd de auto.", pronunciation: "ik rayt deh ow-toh", verb: "rijden", noun: "auto" },
+            { no: 24, english: "I ride my bike.", dutch: "Ik fiets.", pronunciation: "ik feets", verb: "fietsen", noun: "fiets" },
+            { no: 25, english: "I walk to school.", dutch: "Ik loop naar school.", pronunciation: "ik lohp nahr skhohl", verb: "lopen", noun: "school" },
+            { no: 26, english: "I run fast.", dutch: "Ik ren snel.", pronunciation: "ik ren snel", verb: "rennen", noun: "-" },
+            { no: 27, english: "I wait here.", dutch: "Ik wacht hier.", pronunciation: "ik vakht heer", verb: "wachten", noun: "-" },
+            { no: 28, english: "I start work.", dutch: "Ik begin met werken.", pronunciation: "ik beh-khin met vehr-ken", verb: "beginnen", noun: "werk" },
+            { no: 29, english: "I finish work.", dutch: "Ik maak mijn werk af.", pronunciation: "ik mahk mayn vehrk ahf", verb: "afmaken", noun: "werk" },
+            { no: 30, english: "I understand you.", dutch: "Ik begrijp je.", pronunciation: "ik beh-khrayp yeh", verb: "begrijpen", noun: "-" },
+            { no: 31, english: "I forget the key.", dutch: "Ik vergeet de sleutel.", pronunciation: "ik fer-khayt deh slur-tel", verb: "vergeten", noun: "sleutel" },
+            { no: 32, english: "I remember your name.", dutch: "Ik herinner me je naam.", pronunciation: "ik heh-rin-ner meh yeh nahm", verb: "herinneren", noun: "naam" },
+            { no: 33, english: "I need help.", dutch: "Ik heb hulp nodig.", pronunciation: "ik hep hulp noh-dikh", verb: "nodig hebben", noun: "hulp" },
+            { no: 34, english: "I want water.", dutch: "Ik wil water.", pronunciation: "ik vil vah-ter", verb: "willen", noun: "water" },
+            { no: 35, english: "I like coffee.", dutch: "Ik hou van koffie.", pronunciation: "ik how fahn kof-fee", verb: "houden van", noun: "koffie" },
+            { no: 36, english: "I love my family.", dutch: "Ik hou van mijn familie.", pronunciation: "ik how fahn mayn fah-mee-lee", verb: "houden van", noun: "familie" },
+            { no: 37, english: "I hate noise.", dutch: "Ik haat lawaai.", pronunciation: "ik haht lah-vahy", verb: "haten", noun: "lawaai" },
+            { no: 38, english: "I play football.", dutch: "Ik speel voetbal.", pronunciation: "ik spayl foot-bahl", verb: "spelen", noun: "voetbal" },
+            { no: 39, english: "I work from home.", dutch: "Ik werk thuis.", pronunciation: "ik vehrk towss", verb: "werken", noun: "thuis" },
+            { no: 40, english: "I study at night.", dutch: "Ik studeer 's avonds.", pronunciation: "ik stew-dayr s ah-fonts", verb: "studeren", noun: "-" },
+            { no: 41, english: "I visit my parents.", dutch: "Ik bezoek mijn ouders.", pronunciation: "ik beh-zook mayn ow-ders", verb: "bezoeken", noun: "ouders" },
+            { no: 42, english: "I meet a friend.", dutch: "Ik ontmoet een vriend.", pronunciation: "ik ont-moot ayn vreent", verb: "ontmoeten", noun: "vriend" },
+            { no: 43, english: "I travel by train.", dutch: "Ik reis met de trein.", pronunciation: "ik rays met deh trayn", verb: "reizen", noun: "trein" },
+            { no: 44, english: "I send an email.", dutch: "Ik stuur een e-mail.", pronunciation: "ik stewr ayn ee-mayl", verb: "sturen", noun: "e-mail" },
+            { no: 45, english: "I receive a message.", dutch: "Ik ontvang een bericht.", pronunciation: "ik ont-fahng ayn beh-rikht", verb: "ontvangen", noun: "bericht" },
+            { no: 46, english: "I fix the problem.", dutch: "Ik los het probleem op.", pronunciation: "ik los het proh-blaym op", verb: "oplossen", noun: "probleem" },
+            { no: 47, english: "I open my laptop.", dutch: "Ik open mijn laptop.", pronunciation: "ik oh-pen mayn lep-top", verb: "openen", noun: "laptop" },
+            { no: 48, english: "I close the app.", dutch: "Ik sluit de app.", pronunciation: "ik slowt deh ep", verb: "sluiten", noun: "app" },
+            { no: 49, english: "I check the time.", dutch: "Ik controleer de tijd.", pronunciation: "ik kon-troh-layr deh tayt", verb: "controleren", noun: "tijd" },
+            { no: 50, english: "I change clothes.", dutch: "Ik verander mijn kleren.", pronunciation: "ik fer-ahn-der mayn klay-ren", verb: "veranderen", noun: "kleren" },
+            { no: 51, english: "I take a shower.", dutch: "Ik neem een douche.", pronunciation: "ik naym ayn doosh", verb: "nemen", noun: "douche" },
+            { no: 52, english: "I brush my teeth.", dutch: "Ik poets mijn tanden.", pronunciation: "ik poots mayn tahn-den", verb: "poetsen", noun: "tanden" },
+            { no: 53, english: "I wash my hands.", dutch: "Ik was mijn handen.", pronunciation: "ik vahs mayn hahn-den", verb: "wassen", noun: "handen" },
+            { no: 54, english: "I comb my hair.", dutch: "Ik kam mijn haar.", pronunciation: "ik kahm mayn hahr", verb: "kammen", noun: "haar" },
+            { no: 55, english: "I sit down.", dutch: "Ik zit.", pronunciation: "ik zit", verb: "zitten", noun: "-" },
+            { no: 56, english: "I stand up.", dutch: "Ik sta op.", pronunciation: "ik stah op", verb: "opstaan", noun: "-" },
+            { no: 57, english: "I lie down.", dutch: "Ik ga liggen.", pronunciation: "ik khah likh-khen", verb: "liggen", noun: "-" },
+            { no: 58, english: "I smile.", dutch: "Ik lach.", pronunciation: "ik lakh", verb: "lachen", noun: "-" },
+            { no: 59, english: "I cry.", dutch: "Ik huil.", pronunciation: "ik howl", verb: "huilen", noun: "-" },
+            { no: 60, english: "I think about work.", dutch: "Ik denk aan werk.", pronunciation: "ik denk ahn vehrk", verb: "denken", noun: "werk" },
+            { no: 61, english: "I feel happy.", dutch: "Ik voel me blij.", pronunciation: "ik fool meh blay", verb: "voelen", noun: "-" },
+            { no: 62, english: "I hear a noise.", dutch: "Ik hoor een geluid.", pronunciation: "ik hohr ayn kheh-lowt", verb: "horen", noun: "geluid" },
+            { no: 63, english: "I see a bird.", dutch: "Ik zie een vogel.", pronunciation: "ik zee ayn foh-khel", verb: "zien", noun: "vogel" },
+            { no: 64, english: "I bring my bag.", dutch: "Ik breng mijn tas mee.", pronunciation: "ik breng mayn tahs may", verb: "brengen", noun: "tas" },
+            { no: 65, english: "I take the bus.", dutch: "Ik neem de bus.", pronunciation: "ik naym deh buss", verb: "nemen", noun: "bus" },
+            { no: 66, english: "I choose coffee.", dutch: "Ik kies koffie.", pronunciation: "ik kees kof-fee", verb: "kiezen", noun: "koffie" },
+            { no: 67, english: "I build a house.", dutch: "Ik bouw een huis.", pronunciation: "ik bow ayn hows", verb: "bouwen", noun: "huis" },
+            { no: 68, english: "I use the computer.", dutch: "Ik gebruik de computer.", pronunciation: "ik kheh-browk deh kom-pew-ter", verb: "gebruiken", noun: "computer" },
+            { no: 69, english: "I search online.", dutch: "Ik zoek online.", pronunciation: "ik zook on-layn", verb: "zoeken", noun: "-" },
+            { no: 70, english: "I answer the question.", dutch: "Ik beantwoord de vraag.", pronunciation: "ik beh-ahnt-vohrt deh frahkh", verb: "beantwoorden", noun: "vraag" },
+            { no: 71, english: "I explain the problem.", dutch: "Ik leg het probleem uit.", pronunciation: "ik lekh het proh-blaym owt", verb: "uitleggen", noun: "probleem" },
+            { no: 72, english: "I decide today.", dutch: "Ik beslis vandaag.", pronunciation: "ik beh-sliss fahn-dahkh", verb: "beslissen", noun: "-" },
+            { no: 73, english: "I try again.", dutch: "Ik probeer opnieuw.", pronunciation: "ik proh-bayr op-neew", verb: "proberen", noun: "-" },
+            { no: 74, english: "I agree with you.", dutch: "Ik ben het met je eens.", pronunciation: "ik ben het met yeh ayns", verb: "eens zijn", noun: "-" },
+            { no: 75, english: "I disagree.", dutch: "Ik ben het niet eens.", pronunciation: "ik ben het neet ayns", verb: "oneens zijn", noun: "-" },
+            { no: 76, english: "I open the window.", dutch: "Ik open het raam.", pronunciation: "ik oh-pen het rahm", verb: "openen", noun: "raam" },
+            { no: 77, english: "I close the door.", dutch: "Ik sluit de deur.", pronunciation: "ik slowt deh dur", verb: "sluiten", noun: "deur" },
+            { no: 78, english: "I return home.", dutch: "Ik keer terug naar huis.", pronunciation: "ik kayr teh-rukh nahr hows", verb: "terugkeren", noun: "huis" },
+            { no: 79, english: "I grow older.", dutch: "Ik word ouder.", pronunciation: "ik vort ow-der", verb: "worden", noun: "-" },
+            { no: 80, english: "I improve daily.", dutch: "Ik verbeter dagelijks.", pronunciation: "ik fer-bay-ter dah-kheh-laks", verb: "verbeteren", noun: "-" },
+            { no: 81, english: "I plan my day.", dutch: "Ik plan mijn dag.", pronunciation: "ik plahn mayn dakh", verb: "plannen", noun: "dag" },
+            { no: 82, english: "I organize my work.", dutch: "Ik organiseer mijn werk.", pronunciation: "ik or-khah-nee-sayr mayn vehrk", verb: "organiseren", noun: "werk" },
+            { no: 83, english: "I check my phone.", dutch: "Ik controleer mijn telefoon.", pronunciation: "ik kon-troh-layr mayn teh-leh-fohn", verb: "controleren", noun: "telefoon" },
+            { no: 84, english: "I download a file.", dutch: "Ik download een bestand.", pronunciation: "ik down-loht ayn beh-stahnt", verb: "downloaden", noun: "bestand" },
+            { no: 85, english: "I upload a document.", dutch: "Ik upload een document.", pronunciation: "ik up-loht ayn doh-kew-ment", verb: "uploaden", noun: "document" },
+            { no: 86, english: "I print the paper.", dutch: "Ik print het papier.", pronunciation: "ik print het pah-peer", verb: "printen", noun: "papier" },
+            { no: 87, english: "I save the file.", dutch: "Ik sla het bestand op.", pronunciation: "ik slah het beh-stahnt op", verb: "opslaan", noun: "bestand" },
+            { no: 88, english: "I delete the message.", dutch: "Ik verwijder het bericht.", pronunciation: "ik fer-vay-der het beh-rikht", verb: "verwijderen", noun: "bericht" },
+            { no: 89, english: "I share the link.", dutch: "Ik deel de link.", pronunciation: "ik dayl deh link", verb: "delen", noun: "link" },
+            { no: 90, english: "I cook rice.", dutch: "Ik kook rijst.", pronunciation: "ik kohk rayst", verb: "koken", noun: "rijst" },
+            { no: 91, english: "I cut vegetables.", dutch: "Ik snijd groenten.", pronunciation: "ik snayt khroon-ten", verb: "snijden", noun: "groenten" },
+            { no: 92, english: "I open the fridge.", dutch: "Ik open de koelkast.", pronunciation: "ik oh-pen deh kool-kahst", verb: "openen", noun: "koelkast" },
+            { no: 93, english: "I close the fridge.", dutch: "Ik sluit de koelkast.", pronunciation: "ik slowt deh kool-kahst", verb: "sluiten", noun: "koelkast" },
+            { no: 94, english: "I buy groceries.", dutch: "Ik koop boodschappen.", pronunciation: "ik kohp boht-skhah-pen", verb: "kopen", noun: "boodschappen" },
+            { no: 95, english: "I carry the bag.", dutch: "Ik draag de tas.", pronunciation: "ik drahkh deh tahs", verb: "dragen", noun: "tas" },
+            { no: 96, english: "I fix my bike.", dutch: "Ik repareer mijn fiets.", pronunciation: "ik reh-pah-rayr mayn feets", verb: "repareren", noun: "fiets" },
+            { no: 97, english: "I call the doctor.", dutch: "Ik bel de dokter.", pronunciation: "ik bel deh dok-ter", verb: "bellen", noun: "dokter" },
+            { no: 98, english: "I send a package.", dutch: "Ik stuur een pakket.", pronunciation: "ik stewr ayn pah-ket", verb: "sturen", noun: "pakket" },
+            { no: 99, english: "I check the mail.", dutch: "Ik controleer de post.", pronunciation: "ik kon-troh-layr deh post", verb: "controleren", noun: "post" },
+            { no: 100, english: "I relax at home.", dutch: "Ik ontspan thuis.", pronunciation: "ik ont-spahn towss", verb: "ontspannen", noun: "thuis" }
+        ];
+        
+        function populateTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            sentences.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="no-cell">${item.no}</td>
+                    <td class="english-cell">${item.english}</td>
+                    <td class="dutch-cell">
+                        <button class="reveal-btn" onclick="toggleReveal(${index}, 'dutch')">Click to reveal</button>
+                        <div class="hidden-text" id="dutch-${index}">${item.dutch}</div>
+                    </td>
+                    <td>
+                        <button class="reveal-btn" onclick="toggleReveal(${index}, 'pronunciation')">Click to reveal</button>
+                        <div class="pronunciation-text" id="pronunciation-${index}">${item.pronunciation}</div>
+                    </td>
+                    <td>
+                        <button class="speak-btn" onclick="speak('${item.dutch.replace(/'/g, "\\'")}')">
+                            🔊 Listen
+                        </button>
+                    </td>
+                    <td class="verb-cell">${item.verb}</td>
+                    <td class="noun-cell">${item.noun}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            updateStats();
+        }
+        
+        function toggleReveal(index, type) {
+            const element = document.getElementById(`${type}-${index}`);
+            const button = element.previousElementSibling;
+            
+            if (element.classList.contains('revealed')) {
+                element.classList.remove('revealed');
+                button.textContent = 'Click to reveal';
+                button.classList.remove('revealed');
+            } else {
+                element.classList.add('revealed');
+                button.textContent = 'Hide';
+                button.classList.add('revealed');
+            }
+        }
+        
+        function revealAll() {
+            sentences.forEach((item, index) => {
+                const element = document.getElementById(`dutch-${index}`);
+                const button = element.previousElementSibling;
+                element.classList.add('revealed');
+                button.textContent = 'Hide';
+                button.classList.add('revealed');
+            });
+        }
+        
+        function hideAll() {
+            sentences.forEach((item, index) => {
+                const element = document.getElementById(`dutch-${index}`);
+                const button = element.previousElementSibling;
+                element.classList.remove('revealed');
+                button.textContent = 'Click to reveal';
+                button.classList.remove('revealed');
+            });
+        }
+        
+        function revealAllPronunciation() {
+            sentences.forEach((item, index) => {
+                const element = document.getElementById(`pronunciation-${index}`);
+                const button = element.previousElementSibling;
+                element.classList.add('revealed');
+                button.textContent = 'Hide';
+                button.classList.add('revealed');
+            });
+        }
+        
+        function hideAllPronunciation() {
+            sentences.forEach((item, index) => {
+                const element = document.getElementById(`pronunciation-${index}`);
+                const button = element.previousElementSibling;
+                element.classList.remove('revealed');
+                button.textContent = 'Click to reveal';
+                button.classList.remove('revealed');
+            });
+        }
+        
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'nl-NL'; // Dutch language
+                utterance.rate = 0.8; // Slower for learning
+                utterance.pitch = 1;
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Sorry, your browser does not support text-to-speech.');
+            }
+        }
+        
+        function searchTable() {
+            const input = document.getElementById('searchBox');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('sentenceTable');
+            const rows = table.getElementsByTagName('tr');
+            
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                const cells = row.getElementsByTagName('td');
+                let found = false;
+                
+                for (let j = 0; j < cells.length; j++) {
+                    const cell = cells[j];
+                    if (cell) {
+                        const textValue = cell.textContent || cell.innerText;
+                        if (textValue.toLowerCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                
+                row.style.display = found ? '' : 'none';
+            }
+        }
+        
+        function updateStats() {
+            const uniqueVerbs = new Set(sentences.map(s => s.verb)).size;
+            document.getElementById('stats').textContent = 
+                `Total Sentences: ${sentences.length} | Unique Verbs: ${uniqueVerbs}`;
+        }
+        
+        // Initialize table on page load
+        window.onload = populateTable;
+    </script>
+</body>
+</html>

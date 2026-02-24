@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutch Learning - 100 Essential Sentences</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+        
+        tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        tbody tr:nth-child(even):hover {
+            background: #f3f4f6;
+        }
+        
+        .row-number {
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+        }
+        
+        .hidden-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        
+        .hidden-content.visible {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .reveal-btn {
+            padding: 6px 14px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        
+        .reveal-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        .reveal-btn.revealed {
+            background: #10b981;
+        }
+        
+        .speak-btn {
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .speak-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
+        }
+        
+        .speak-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .dutch-text {
+            font-weight: 600;
+            color: #1e40af;
+            font-size: 1.05em;
+        }
+        
+        .pronunciation {
+            color: #059669;
+            font-style: italic;
+            font-size: 0.95em;
+            margin-top: 4px;
+        }
+        
+        .noun-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #dbeafe;
+            color: #1e40af;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .speaker-icon {
+            font-size: 1.1em;
+        }
+        
+        .filter-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        .filter-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇳🇱 Dutch Learning - 100 Essential Sentences</h1>
+        <p class="subtitle">Learn Dutch pronunciation with interactive practice</p>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalSentences">100</div>
+                <div class="stat-label">Total Sentences</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="revealedCount">0</div>
+                <div class="stat-label">Revealed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="progressPercent">0%</div>
+                <div class="stat-label">Progress</div>
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <div class="filter-section">
+            <input type="text" class="filter-input" id="searchInput" placeholder="🔍 Search by English or Dutch word...">
+        </div>
+        
+        <div class="controls">
+            <button class="btn btn-primary" onclick="revealAll()">👁️ Reveal All</button>
+            <button class="btn btn-secondary" onclick="hideAll()">🔒 Hide All</button>
+            <button class="btn btn-secondary" onclick="resetProgress()">🔄 Reset Progress</button>
+        </div>
+        
+        <div class="table-container">
+            <table id="sentenceTable">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th style="width: 25%;">English Sentence</th>
+                        <th style="width: 25%;">Dutch Sentence</th>
+                        <th style="width: 20%;">Pronunciation</th>
+                        <th style="width: 15%;">🔊 Listen</th>
+                        <th style="width: 15%;">Noun</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Table content will be generated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        const sentences = [
+            { no: 1, english: "This is my house.", dutch: "Dit is mijn huis.", pronunciation: "dit is mayn house", noun: "huis" },
+            { no: 2, english: "The door is open.", dutch: "De deur is open.", pronunciation: "duh dur is oh-pun", noun: "deur" },
+            { no: 3, english: "The window is closed.", dutch: "Het raam is dicht.", pronunciation: "het rahm is dikht", noun: "raam" },
+            { no: 4, english: "The table is clean.", dutch: "De tafel is schoon.", pronunciation: "duh tah-fel is skhohn", noun: "tafel" },
+            { no: 5, english: "The chair is broken.", dutch: "De stoel is kapot.", pronunciation: "duh stool is kah-pot", noun: "stoel" },
+            { no: 6, english: "The light is on.", dutch: "Het licht is aan.", pronunciation: "het likht is ahn", noun: "licht" },
+            { no: 7, english: "The light is off.", dutch: "Het licht is uit.", pronunciation: "het likht is owt", noun: "licht" },
+            { no: 8, english: "The room is big.", dutch: "De kamer is groot.", pronunciation: "duh kah-mer is khroht", noun: "kamer" },
+            { no: 9, english: "The kitchen is small.", dutch: "De keuken is klein.", pronunciation: "duh kur-ken is klayn", noun: "keuken" },
+            { no: 10, english: "The floor is dirty.", dutch: "De vloer is vies.", pronunciation: "duh floor is fees", noun: "vloer" },
+            { no: 11, english: "The car is new.", dutch: "De auto is nieuw.", pronunciation: "duh ow-toh is neew", noun: "auto" },
+            { no: 12, english: "The bike is fast.", dutch: "De fiets is snel.", pronunciation: "duh feets is snel", noun: "fiets" },
+            { no: 13, english: "The bus is late.", dutch: "De bus is laat.", pronunciation: "duh bus is laht", noun: "bus" },
+            { no: 14, english: "The train is full.", dutch: "De trein is vol.", pronunciation: "duh trayn is vol", noun: "trein" },
+            { no: 15, english: "The ticket is expensive.", dutch: "Het ticket is duur.", pronunciation: "het tik-ket is dewr", noun: "ticket" },
+            { no: 16, english: "My phone is here.", dutch: "Mijn telefoon is hier.", pronunciation: "mayn tay-leh-fohn is heer", noun: "telefoon" },
+            { no: 17, english: "The bag is heavy.", dutch: "De tas is zwaar.", pronunciation: "duh tas is zvahr", noun: "tas" },
+            { no: 18, english: "The key is missing.", dutch: "De sleutel is weg.", pronunciation: "duh slur-tel is vekh", noun: "sleutel" },
+            { no: 19, english: "The book is interesting.", dutch: "Het boek is interessant.", pronunciation: "het book is in-teh-reh-sant", noun: "boek" },
+            { no: 20, english: "The pen is blue.", dutch: "De pen is blauw.", pronunciation: "duh pen is blouw", noun: "pen" },
+            { no: 21, english: "The water is cold.", dutch: "Het water is koud.", pronunciation: "het vah-ter is kowt", noun: "water" },
+            { no: 22, english: "The coffee is hot.", dutch: "De koffie is heet.", pronunciation: "duh kof-fee is hayt", noun: "koffie" },
+            { no: 23, english: "The food is ready.", dutch: "Het eten is klaar.", pronunciation: "het ay-ten is klahr", noun: "eten" },
+            { no: 24, english: "The bread is fresh.", dutch: "Het brood is vers.", pronunciation: "het broht is fers", noun: "brood" },
+            { no: 25, english: "The milk is warm.", dutch: "De melk is warm.", pronunciation: "duh melk is varm", noun: "melk" },
+            { no: 26, english: "The shop is closed.", dutch: "De winkel is gesloten.", pronunciation: "duh vin-kel is kheh-sloh-ten", noun: "winkel" },
+            { no: 27, english: "The office is busy.", dutch: "Het kantoor is druk.", pronunciation: "het kan-tohr is druk", noun: "kantoor" },
+            { no: 28, english: "The meeting is today.", dutch: "De vergadering is vandaag.", pronunciation: "duh fer-khah-deh-ring is van-dahkh", noun: "vergadering" },
+            { no: 29, english: "The work is easy.", dutch: "Het werk is makkelijk.", pronunciation: "het verk is mak-keh-lak", noun: "werk" },
+            { no: 30, english: "The problem is small.", dutch: "Het probleem is klein.", pronunciation: "het proh-blaym is klayn", noun: "probleem" },
+            { no: 31, english: "The weather is nice.", dutch: "Het weer is mooi.", pronunciation: "het vayr is moy", noun: "weer" },
+            { no: 32, english: "The sky is clear.", dutch: "De lucht is helder.", pronunciation: "duh lukht is hel-der", noun: "lucht" },
+            { no: 33, english: "The sun is bright.", dutch: "De zon is fel.", pronunciation: "duh zon is fel", noun: "zon" },
+            { no: 34, english: "The rain is heavy.", dutch: "De regen is zwaar.", pronunciation: "duh ray-khen is zvahr", noun: "regen" },
+            { no: 35, english: "The wind is strong.", dutch: "De wind is sterk.", pronunciation: "duh vint is sterk", noun: "wind" },
+            { no: 36, english: "My family is here.", dutch: "Mijn familie is hier.", pronunciation: "mayn fah-mee-lee is heer", noun: "familie" },
+            { no: 37, english: "My mother is home.", dutch: "Mijn moeder is thuis.", pronunciation: "mayn moo-der is tows", noun: "moeder" },
+            { no: 38, english: "My father is tired.", dutch: "Mijn vader is moe.", pronunciation: "mayn fah-der is moo", noun: "vader" },
+            { no: 39, english: "My brother is tall.", dutch: "Mijn broer is lang.", pronunciation: "mayn broor is lang", noun: "broer" },
+            { no: 40, english: "My sister is happy.", dutch: "Mijn zus is blij.", pronunciation: "mayn zus is blay", noun: "zus" },
+            { no: 41, english: "The baby is asleep.", dutch: "De baby slaapt.", pronunciation: "duh bay-bee slahpt", noun: "baby" },
+            { no: 42, english: "The child is quiet.", dutch: "Het kind is stil.", pronunciation: "het kint is stil", noun: "kind" },
+            { no: 43, english: "The teacher is kind.", dutch: "De leraar is aardig.", pronunciation: "duh leh-rahr is ahr-dikh", noun: "leraar" },
+            { no: 44, english: "The student is ready.", dutch: "De student is klaar.", pronunciation: "duh stew-dent is klahr", noun: "student" },
+            { no: 45, english: "The doctor is busy.", dutch: "De dokter is druk.", pronunciation: "duh dok-ter is druk", noun: "dokter" },
+            { no: 46, english: "The park is beautiful.", dutch: "Het park is mooi.", pronunciation: "het park is moy", noun: "park" },
+            { no: 47, english: "The street is quiet.", dutch: "De straat is rustig.", pronunciation: "duh straht is rus-tikh", noun: "straat" },
+            { no: 48, english: "The city is big.", dutch: "De stad is groot.", pronunciation: "duh stat is khroht", noun: "stad" },
+            { no: 49, english: "The village is small.", dutch: "Het dorp is klein.", pronunciation: "het dorp is klayn", noun: "dorp" },
+            { no: 50, english: "The house is old.", dutch: "Het huis is oud.", pronunciation: "het house is owt", noun: "huis" },
+            { no: 51, english: "The bed is soft.", dutch: "Het bed is zacht.", pronunciation: "het bet is zakht", noun: "bed" },
+            { no: 52, english: "The pillow is white.", dutch: "Het kussen is wit.", pronunciation: "het kus-sen is vit", noun: "kussen" },
+            { no: 53, english: "The blanket is warm.", dutch: "De deken is warm.", pronunciation: "duh day-ken is varm", noun: "deken" },
+            { no: 54, english: "The clock is slow.", dutch: "De klok is langzaam.", pronunciation: "duh klok is lang-zahm", noun: "klok" },
+            { no: 55, english: "The time is short.", dutch: "De tijd is kort.", pronunciation: "duh tayt is kort", noun: "tijd" },
+            { no: 56, english: "The day is long.", dutch: "De dag is lang.", pronunciation: "duh dakh is lang", noun: "dag" },
+            { no: 57, english: "The night is dark.", dutch: "De nacht is donker.", pronunciation: "duh nakht is don-ker", noun: "nacht" },
+            { no: 58, english: "The week is busy.", dutch: "De week is druk.", pronunciation: "duh vayk is druk", noun: "week" },
+            { no: 59, english: "The month is cold.", dutch: "De maand is koud.", pronunciation: "duh mahnt is kowt", noun: "maand" },
+            { no: 60, english: "The year is new.", dutch: "Het jaar is nieuw.", pronunciation: "het yahr is neew", noun: "jaar" },
+            { no: 61, english: "The market is open.", dutch: "De markt is open.", pronunciation: "duh markt is oh-pen", noun: "markt" },
+            { no: 62, english: "The bank is nearby.", dutch: "De bank is dichtbij.", pronunciation: "duh bank is dikht-bay", noun: "bank" },
+            { no: 63, english: "The hospital is far.", dutch: "Het ziekenhuis is ver.", pronunciation: "het zee-ken-house is fer", noun: "ziekenhuis" },
+            { no: 64, english: "The school is closed.", dutch: "De school is gesloten.", pronunciation: "duh skhohl is kheh-sloh-ten", noun: "school" },
+            { no: 65, english: "The computer is slow.", dutch: "De computer is traag.", pronunciation: "duh kom-pew-ter is trahkh", noun: "computer" },
+            { no: 66, english: "The internet is fast.", dutch: "Het internet is snel.", pronunciation: "het in-ter-net is snel", noun: "internet" },
+            { no: 67, english: "The screen is bright.", dutch: "Het scherm is helder.", pronunciation: "het skherm is hel-der", noun: "scherm" },
+            { no: 68, english: "The password is wrong.", dutch: "Het wachtwoord is fout.", pronunciation: "het vakht-vohrt is fowt", noun: "wachtwoord" },
+            { no: 69, english: "The email is important.", dutch: "De e-mail is belangrijk.", pronunciation: "duh ee-mail is beh-lang-rayk", noun: "e-mail" },
+            { no: 70, english: "The message is clear.", dutch: "Het bericht is duidelijk.", pronunciation: "het beh-rikht is dow-deh-lak", noun: "bericht" },
+            { no: 71, english: "The garden is green.", dutch: "De tuin is groen.", pronunciation: "duh town is khroon", noun: "tuin" },
+            { no: 72, english: "The flower is red.", dutch: "De bloem is rood.", pronunciation: "duh bloom is roht", noun: "bloem" },
+            { no: 73, english: "The tree is tall.", dutch: "De boom is hoog.", pronunciation: "duh bohm is hohkh", noun: "boom" },
+            { no: 74, english: "The grass is wet.", dutch: "Het gras is nat.", pronunciation: "het khras is nat", noun: "gras" },
+            { no: 75, english: "The river is calm.", dutch: "De rivier is rustig.", pronunciation: "duh riv-eer is rus-tikh", noun: "rivier" },
+            { no: 76, english: "The beach is clean.", dutch: "Het strand is schoon.", pronunciation: "het strant is skhohn", noun: "strand" },
+            { no: 77, english: "The mountain is high.", dutch: "De berg is hoog.", pronunciation: "duh berkh is hohkh", noun: "berg" },
+            { no: 78, english: "The air is fresh.", dutch: "De lucht is fris.", pronunciation: "duh lukht is fris", noun: "lucht" },
+            { no: 79, english: "The noise is loud.", dutch: "Het geluid is luid.", pronunciation: "het kheh-lowt is lowt", noun: "geluid" },
+            { no: 80, english: "The music is nice.", dutch: "De muziek is mooi.", pronunciation: "duh mew-zeek is moy", noun: "muziek" },
+            { no: 81, english: "The movie is good.", dutch: "De film is goed.", pronunciation: "duh film is khoot", noun: "film" },
+            { no: 82, english: "The story is short.", dutch: "Het verhaal is kort.", pronunciation: "het fer-hahl is kort", noun: "verhaal" },
+            { no: 83, english: "The idea is simple.", dutch: "Het idee is simpel.", pronunciation: "het ee-day is sim-pel", noun: "idee" },
+            { no: 84, english: "The answer is correct.", dutch: "Het antwoord is correct.", pronunciation: "het ant-vohrt is kor-rekt", noun: "antwoord" },
+            { no: 85, english: "The question is easy.", dutch: "De vraag is makkelijk.", pronunciation: "duh frahkh is mak-keh-lak", noun: "vraag" },
+            { no: 86, english: "The price is high.", dutch: "De prijs is hoog.", pronunciation: "duh prays is hohkh", noun: "prijs" },
+            { no: 87, english: "The money is safe.", dutch: "Het geld is veilig.", pronunciation: "het khelt is fay-likh", noun: "geld" },
+            { no: 88, english: "The bill is paid.", dutch: "De rekening is betaald.", pronunciation: "duh ray-keh-ning is beh-tahlt", noun: "rekening" },
+            { no: 89, english: "The job is important.", dutch: "De baan is belangrijk.", pronunciation: "duh bahn is beh-lang-rayk", noun: "baan" },
+            { no: 90, english: "The boss is friendly.", dutch: "De baas is vriendelijk.", pronunciation: "duh bahs is freen-deh-lak", noun: "baas" },
+            { no: 91, english: "The neighbor is nice.", dutch: "De buurman is aardig.", pronunciation: "duh bewr-man is ahr-dikh", noun: "buurman" },
+            { no: 92, english: "The friend is here.", dutch: "De vriend is hier.", pronunciation: "duh freent is heer", noun: "vriend" },
+            { no: 93, english: "The party is fun.", dutch: "Het feest is leuk.", pronunciation: "het fayst is lurk", noun: "feest" },
+            { no: 94, english: "The gift is beautiful.", dutch: "Het cadeau is mooi.", pronunciation: "het kah-doh is moy", noun: "cadeau" },
+            { no: 95, english: "The plan is ready.", dutch: "Het plan is klaar.", pronunciation: "het plan is klahr", noun: "plan" },
+            { no: 96, english: "The project is finished.", dutch: "Het project is klaar.", pronunciation: "het proh-yekt is klahr", noun: "project" },
+            { no: 97, english: "The result is good.", dutch: "Het resultaat is goed.", pronunciation: "het reh-zul-taht is khoot", noun: "resultaat" },
+            { no: 98, english: "The test is difficult.", dutch: "De toets is moeilijk.", pronunciation: "duh toots is moo-ay-lak", noun: "toets" },
+            { no: 99, english: "The news is shocking.", dutch: "Het nieuws is schokkend.", pronunciation: "het neews is skhok-kent", noun: "nieuws" },
+            { no: 100, english: "The future is bright.", dutch: "De toekomst is helder.", pronunciation: "duh too-komst is hel-der", noun: "toekomst" }
+        ];
+        
+        let revealedRows = new Set();
+        
+        function generateTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            sentences.forEach((sentence, index) => {
+                const row = document.createElement('tr');
+                row.id = `row-${sentence.no}`;
+                
+                row.innerHTML = `
+                    <td class="row-number">${sentence.no}</td>
+                    <td>${sentence.english}</td>
+                    <td>
+                        <button class="reveal-btn" onclick="toggleReveal(${sentence.no}, 'dutch')">
+                            Click to Reveal
+                        </button>
+                        <div class="hidden-content" id="dutch-${sentence.no}">
+                            <div class="dutch-text">${sentence.dutch}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="reveal-btn" onclick="toggleReveal(${sentence.no}, 'pronunciation')">
+                            Click to Reveal
+                        </button>
+                        <div class="hidden-content" id="pronunciation-${sentence.no}">
+                            <div class="pronunciation">${sentence.pronunciation}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="speak-btn" onclick="speak('${sentence.dutch.replace(/'/g, "\\'")}')">
+                            <span class="speaker-icon">🔊</span> Speak
+                        </button>
+                    </td>
+                    <td>
+                        <span class="noun-badge">${sentence.noun}</span>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        function toggleReveal(rowNo, type) {
+            const content = document.getElementById(`${type}-${rowNo}`);
+            const button = content.previousElementSibling;
+            
+            if (content.classList.contains('visible')) {
+                content.classList.remove('visible');
+                button.textContent = 'Click to Reveal';
+                button.classList.remove('revealed');
+                revealedRows.delete(`${rowNo}-${type}`);
+            } else {
+                content.classList.add('visible');
+                button.textContent = 'Hide';
+                button.classList.add('revealed');
+                revealedRows.add(`${rowNo}-${type}`);
+            }
+            
+            updateProgress();
+        }
+        
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'nl-NL';
+                utterance.rate = 0.8;
+                utterance.pitch = 1;
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Speech synthesis is not supported in your browser.');
+            }
+        }
+        
+        function revealAll() {
+            sentences.forEach(sentence => {
+                const dutchContent = document.getElementById(`dutch-${sentence.no}`);
+                const pronContent = document.getElementById(`pronunciation-${sentence.no}`);
+                const dutchButton = dutchContent.previousElementSibling;
+                const pronButton = pronContent.previousElementSibling;
+                
+                dutchContent.classList.add('visible');
+                pronContent.classList.add('visible');
+                dutchButton.textContent = 'Hide';
+                pronButton.textContent = 'Hide';
+                dutchButton.classList.add('revealed');
+                pronButton.classList.add('revealed');
+                
+                revealedRows.add(`${sentence.no}-dutch`);
+                revealedRows.add(`${sentence.no}-pronunciation`);
+            });
+            
+            updateProgress();
+        }
+        
+        function hideAll() {
+            sentences.forEach(sentence => {
+                const dutchContent = document.getElementById(`dutch-${sentence.no}`);
+                const pronContent = document.getElementById(`pronunciation-${sentence.no}`);
+                const dutchButton = dutchContent.previousElementSibling;
+                const pronButton = pronContent.previousElementSibling;
+                
+                dutchContent.classList.remove('visible');
+                pronContent.classList.remove('visible');
+                dutchButton.textContent = 'Click to Reveal';
+                pronButton.textContent = 'Click to Reveal';
+                dutchButton.classList.remove('revealed');
+                pronButton.classList.remove('revealed');
+            });
+            
+            revealedRows.clear();
+            updateProgress();
+        }
+        
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset your progress?')) {
+                hideAll();
+            }
+        }
+        
+        function updateProgress() {
+            const totalPossible = sentences.length * 2; // Dutch + Pronunciation for each sentence
+            const revealed = revealedRows.size;
+            const percentage = Math.round((revealed / totalPossible) * 100);
+            
+            document.getElementById('revealedCount').textContent = Math.floor(revealed / 2);
+            document.getElementById('progressPercent').textContent = percentage + '%';
+            document.getElementById('progressFill').style.width = percentage + '%';
+        }
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#tableBody tr');
+            
+            rows.forEach(row => {
+                const english = row.cells[1].textContent.toLowerCase();
+                const dutchContent = row.querySelector('.dutch-text');
+                const dutch = dutchContent ? dutchContent.textContent.toLowerCase() : '';
+                const noun = row.cells[5].textContent.toLowerCase();
+                
+                if (english.includes(searchTerm) || dutch.includes(searchTerm) || noun.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+        
+        // Initialize table on page load
+        generateTable();
+    </script>
+</body>
+</html>

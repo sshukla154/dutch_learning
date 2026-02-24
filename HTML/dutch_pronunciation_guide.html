@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutch Pronunciation Visual Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 15px;
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #764ba2;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .vowel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .vowel-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid;
+        }
+        
+        .vowel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+        }
+        
+        .long-vowel {
+            border-left-color: #10b981;
+        }
+        
+        .short-vowel {
+            border-left-color: #ef4444;
+        }
+        
+        .compound-vowel {
+            border-left-color: #f59e0b;
+        }
+        
+        .letter {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .pronunciation {
+            font-size: 1.3em;
+            color: #764ba2;
+            margin-bottom: 8px;
+        }
+        
+        .example {
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.95em;
+        }
+        
+        .example-word {
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .memory-tip {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .memory-tip-title {
+            font-weight: bold;
+            color: #d97706;
+            margin-bottom: 5px;
+        }
+        
+        .rule-box {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .rule-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .consonant-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .consonant-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .consonant-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .consonant-table tr:hover {
+            background: #f3f4f6;
+        }
+        
+        .special-sound {
+            background: #dbeafe;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #1e40af;
+        }
+        
+        .speak-button {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+            border: none;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .speak-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .speak-button:active {
+            transform: scale(0.95);
+        }
+        
+        .speaker-icon {
+            font-size: 1.2em;
+        }
+        
+        .pronunciation-cell {
+            padding: 8px !important;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: #e5e7eb;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: #d1d5db;
+        }
+        
+        .tab.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .visual-diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .flowchart {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .flow-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 150px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .arrow {
+            font-size: 2em;
+            color: #667eea;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇳🇱 Dutch Pronunciation Visual Guide</h1>
+        <p class="subtitle">Master Dutch pronunciation with visual memory aids</p>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('vowels')">Vowels</button>
+            <button class="tab" onclick="showTab('consonants')">Consonants</button>
+            <button class="tab" onclick="showTab('rules')">Key Rules</button>
+            <button class="tab" onclick="showTab('tricks')">Memory Tricks</button>
+        </div>
+        
+        <!-- VOWELS TAB -->
+        <div id="vowels" class="tab-content active">
+            <div class="section">
+                <h2 class="section-title">🔵 Long Vowels (Full Sound)</h2>
+                
+                <div class="memory-tip">
+                    <div class="memory-tip-title">💡 Remember:</div>
+                    Long vowels = End of word OR double letters OR single consonant + vowel
+                </div>
+                
+                <div class="vowel-grid">
+                    <div class="vowel-card long-vowel">
+                        <div class="letter">A / AA</div>
+                        <div class="pronunciation">आ (ah)</div>
+                        <div class="example">
+                            <span class="example-word">straat</span> (स्ट्रात) = street<br>
+                            <span class="example-word">maan</span> (मान) = moon
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card long-vowel">
+                        <div class="letter">E / EE</div>
+                        <div class="pronunciation">ए (ay)</div>
+                        <div class="example">
+                            <span class="example-word">zee</span> (ज़े) = sea<br>
+                            <span class="example-word">breed</span> (ब्रेत) = broad
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card long-vowel">
+                        <div class="letter">I / IE</div>
+                        <div class="pronunciation">ई (ee)</div>
+                        <div class="example">
+                            <span class="example-word">vier</span> (फ़ीर) = four<br>
+                            <span class="example-word">bier</span> (बीर) = beer
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card long-vowel">
+                        <div class="letter">O / OO</div>
+                        <div class="pronunciation">ओ (oh)</div>
+                        <div class="example">
+                            <span class="example-word">boot</span> (बोत) = boat<br>
+                            <span class="example-word">boom</span> (बोम) = tree
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card long-vowel">
+                        <div class="letter">U / UU</div>
+                        <div class="pronunciation">यू (ew)</div>
+                        <div class="example">
+                            <span class="example-word">vuur</span> (फ़्यूर) = fire<br>
+                            <span class="example-word">muur</span> (म्यूर) = wall
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">🔴 Short Vowels (Only in Closed Syllables)</h2>
+                
+                <div class="vowel-grid">
+                    <div class="vowel-card short-vowel">
+                        <div class="letter">A</div>
+                        <div class="pronunciation">Like "a" in "was"</div>
+                        <div class="example">
+                            <span class="example-word">kat</span> (कत) = cat<br>
+                            <span class="example-word">man</span> (मन) = man
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card short-vowel">
+                        <div class="letter">E</div>
+                        <div class="pronunciation">Like "e" in "bell"</div>
+                        <div class="example">
+                            <span class="example-word">bed</span> (बेत) = bed<br>
+                            <span class="example-word">pen</span> (पेन) = pen
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card short-vowel">
+                        <div class="letter">I</div>
+                        <div class="pronunciation">Like "i" in "lips"</div>
+                        <div class="example">
+                            <span class="example-word">kind</span> (किन्त) = child<br>
+                            <span class="example-word">wit</span> (वित) = white
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card short-vowel">
+                        <div class="letter">O</div>
+                        <div class="pronunciation">Short "o" sound</div>
+                        <div class="example">
+                            <span class="example-word">zon</span> (ज़ोन) = sun<br>
+                            <span class="example-word">bond</span> (बोन्त) = union
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">🟡 Compound Vowels (Diphthongs)</h2>
+                
+                <div class="vowel-grid">
+                    <div class="vowel-card compound-vowel">
+                        <div class="letter">EI / IJ</div>
+                        <div class="pronunciation">ऐ / S (like "ay" in "day")</div>
+                        <div class="example">
+                            <span class="example-word">trein</span> (ट्रैन) = train<br>
+                            <span class="example-word">hij</span> (है) = he
+                        </div>
+                        <div class="memory-tip">
+                            <div class="memory-tip-title">💡 Tip:</div>
+                            EI and IJ sound EXACTLY the same!
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card compound-vowel">
+                        <div class="letter">UI</div>
+                        <div class="pronunciation">आउ (like "ow" in "now")</div>
+                        <div class="example">
+                            <span class="example-word">huis</span> (हाउस) = house<br>
+                            <span class="example-word">tuin</span> (ताउन) = garden
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card compound-vowel">
+                        <div class="letter">OU / AU</div>
+                        <div class="pronunciation">आउ (like "ow" in "how")</div>
+                        <div class="example">
+                            <span class="example-word">oud</span> (आउत) = old<br>
+                            <span class="example-word">vrouw</span> (फ़्राउ) = woman
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card compound-vowel">
+                        <div class="letter">OE</div>
+                        <div class="pronunciation">ऊ (like "oo" in "moon")</div>
+                        <div class="example">
+                            <span class="example-word">boek</span> (बूक) = book<br>
+                            <span class="example-word">koe</span> (कू) = cow
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card compound-vowel">
+                        <div class="letter">EU</div>
+                        <div class="pronunciation">अ (like "u" in "fur" but rounder)</div>
+                        <div class="example">
+                            <span class="example-word">deur</span> (दर) = door<br>
+                            <span class="example-word">neus</span> (नस) = nose
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card compound-vowel">
+                        <div class="letter">AAI</div>
+                        <div class="pronunciation">आई</div>
+                        <div class="example">
+                            <span class="example-word">fraai</span> (फ़्राई) = beautiful<br>
+                            <span class="example-word">haai</span> (हाई) = shark
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card compound-vowel">
+                        <div class="letter">OOI</div>
+                        <div class="pronunciation">ऊई</div>
+                        <div class="example">
+                            <span class="example-word">kooi</span> (कोई) = cage<br>
+                            <span class="example-word">dooi</span> (दोई) = thaw
+                        </div>
+                    </div>
+                    
+                    <div class="vowel-card compound-vowel">
+                        <div class="letter">EEUW</div>
+                        <div class="pronunciation">एऊ</div>
+                        <div class="example">
+                            <span class="example-word">leeuw</span> (लेऊ) = lion<br>
+                            <span class="example-word">eeuw</span> (एऊ) = century
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CONSONANTS TAB -->
+        <div id="consonants" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">Special Dutch Consonants</h2>
+                
+                <table class="consonant-table">
+                    <tr>
+                        <th>Letter(s)</th>
+                        <th>Sound</th>
+                        <th>Example</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td><strong>G / CH</strong></td>
+                        <td><span class="special-sound">ख़ (guttural)</span></td>
+                        <td><strong>goed</strong> (ख़ूत) = good<br><strong>licht</strong> (लिख़्त) = light</td>
+                        <td>Like Scottish "loch" - from the throat!</td>
+                    </tr>
+                    <tr>
+                        <td><strong>J</strong></td>
+                        <td><span class="special-sound">य (y)</span></td>
+                        <td><strong>ja</strong> (या) = yes<br><strong>jaar</strong> (यार) = year</td>
+                        <td>Like English "y" in "yard"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>V</strong></td>
+                        <td><span class="special-sound">व / फ़ (v/f)</span></td>
+                        <td><strong>vriend</strong> (फ़्रीन्त) = friend</td>
+                        <td>Between English "v" and "f"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>W</strong></td>
+                        <td><span class="special-sound">व (soft v)</span></td>
+                        <td><strong>water</strong> (वातर) = water</td>
+                        <td>Softer than English "w"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>R</strong></td>
+                        <td><span class="special-sound">र (rolled)</span></td>
+                        <td><strong>raam</strong> (राम) = window</td>
+                        <td>Always rolled/trilled</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SCH</strong></td>
+                        <td><span class="special-sound">स्ख़ (s + ch)</span></td>
+                        <td><strong>schaap</strong> (स्ख़ाप) = sheep</td>
+                        <td>Combination of "s" + guttural "ch"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NG</strong></td>
+                        <td><span class="special-sound">ङ (ng)</span></td>
+                        <td><strong>ding</strong> (दिंग) = thing</td>
+                        <td>Like "ng" in "singer"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Final D</strong></td>
+                        <td><span class="special-sound">त (t)</span></td>
+                        <td><strong>bed</strong> (बेत) = bed<br><strong>goed</strong> (ख़ूत) = good</td>
+                        <td>D at end of word becomes T</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Final B</strong></td>
+                        <td><span class="special-sound">प (p)</span></td>
+                        <td><strong>heb</strong> (हेप) = have</td>
+                        <td>B at end of word becomes P</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <!-- RULES TAB -->
+        <div id="rules" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">Golden Rules for Dutch Pronunciation</h2>
+                
+                <div class="visual-diagram">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Open vs Closed Syllables</h3>
+                    <div class="flowchart">
+                        <div class="flow-box">
+                            <strong>OPEN</strong><br>
+                            Ends in vowel<br>
+                            ma-ken<br>
+                            Long vowel!
+                        </div>
+                        <div class="arrow">vs</div>
+                        <div class="flow-box">
+                            <strong>CLOSED</strong><br>
+                            Ends in consonant<br>
+                            man<br>
+                            Short vowel!
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="rule-box">
+                    <div class="rule-title">📏 Rule 1: Long Vowel in Closed Syllable</div>
+                    When a long vowel appears in a closed syllable, write it DOUBLE:<br>
+                    <strong>taal</strong> (ताल) = language, <strong>been</strong> (बीन) = leg
+                </div>
+                
+                <div class="rule-box">
+                    <div class="rule-title">📏 Rule 2: Long Vowel in Open Syllable</div>
+                    When aa, ee, oo, uu appear in open syllable, write them SINGLE:<br>
+                    <strong>ha-ren</strong> (हारन) = hairs (NOT haaren)
+                </div>
+                
+                <div class="rule-box">
+                    <div class="rule-title">📏 Rule 3: IE, OE, EU Never Change</div>
+                    These vowels stay the same in both open and closed syllables:<br>
+                    <strong>deu-ren</strong> (दुरन) = doors, <strong>die-ren</strong> (दीरन) = animals
+                </div>
+                
+                <div class="rule-box">
+                    <div class="rule-title">📏 Rule 4: Final Letters Change</div>
+                    • Final <strong>D</strong> → <strong>T</strong> sound<br>
+                    • Final <strong>B</strong> → <strong>P</strong> sound<br>
+                    • Final <strong>-IG</strong> → <strong>-अख़</strong> sound
+                </div>
+                
+                <div class="rule-box">
+                    <div class="rule-title">📏 Rule 5: Stress Pattern</div>
+                    Stress is usually on the FIRST syllable:<br>
+                    <strong>WIN-ter</strong>, <strong>VA-der</strong>, <strong>LO-pen</strong><br><br>
+                    Exception: Words with prefixes be-, ge-, her-, ont-, ter-, ver-, wan-<br>
+                    Stress on SECOND syllable: <strong>be-GIN</strong>, <strong>ver-RAAD</strong>
+                </div>
+                
+                <div class="visual-diagram">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Double Letter Decision Tree</h3>
+                    <div style="text-align: left; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                        <p><strong>Is the syllable CLOSED (ends in consonant)?</strong></p>
+                        <p style="margin-left: 20px;">↳ YES → Use DOUBLE vowel (aa, ee, oo, uu)</p>
+                        <p style="margin-left: 40px;">Example: <strong>taal</strong>, <strong>been</strong></p>
+                        <p style="margin-left: 20px;">↳ NO (Open syllable) → Use SINGLE vowel (a, e, o, u)</p>
+                        <p style="margin-left: 40px;">Example: <strong>ma-ken</strong>, <strong>bo-men</strong></p>
+                        <br>
+                        <p><strong>Exception:</strong> ie, oe, eu NEVER change!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MEMORY TRICKS TAB -->
+        <div id="tricks" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">🧠 Memory Tricks & Mnemonics</h2>
+                
+                <div class="memory-tip" style="margin-bottom: 20px;">
+                    <div class="memory-tip-title">🎯 The "G" Sound Trick</div>
+                    Think of clearing your throat or the Scottish "loch" - it's that scratchy sound!<br>
+                    Practice: <strong>goed</strong> (good), <strong>dag</strong> (day), <strong>licht</strong> (light)
+                </div>
+                
+                <div class="memory-tip" style="margin-bottom: 20px;">
+                    <div class="memory-tip-title">🎯 EI = IJ Memory Hook</div>
+                    "Either way, it's the SAME!" - EI and IJ are pronounced identically.<br>
+                    <strong>trein</strong> = <strong>train</strong>, <strong>hij</strong> = <strong>he</strong> (both sound like "ay")
+                </div>
+                
+                <div class="memory-tip" style="margin-bottom: 20px;">
+                    <div class="memory-tip-title">🎯 The UI House Trick</div>
+                    UI makes "ow" sound like you stubbed your toe in your <strong>huis</strong> (house): "OW!"<br>
+                    <strong>huis</strong>, <strong>tuin</strong>, <strong>muis</strong> all have that "OW" sound
+                </div>
+                
+                <div class="memory-tip" style="margin-bottom: 20px;">
+                    <div class="memory-tip-title">🎯 OE = Moon Moo</div>
+                    OE sounds like "oo" in "moon" - remember the cow (<strong>koe</strong>) goes "moo" at the moon!
+                </div>
+                
+                <div class="memory-tip" style="margin-bottom: 20px;">
+                    <div class="memory-tip-title">🎯 Final D/B Devoicing</div>
+                    "Dead letters lose their voice" - Final D→T, Final B→P<br>
+                    <strong>bed</strong> sounds like "bet", <strong>heb</strong> sounds like "hep"
+                </div>
+                
+                <div class="memory-tip" style="margin-bottom: 20px;">
+                    <div class="memory-tip-title">🎯 The AA/EE/OO/UU Dance</div>
+                    In CLOSED syllables (trapped by consonants), long vowels need a partner - write DOUBLE!<br>
+                    In OPEN syllables (free to breathe), they dance alone - write SINGLE!
+                </div>
+                
+                <div class="memory-tip" style="margin-bottom: 20px;">
+                    <div class="memory-tip-title">🎯 The "SCH" Sneeze</div>
+                    SCH = Say "S" then clear your throat "CH" = like sneezing!<br>
+                    <strong>schaap</strong> (sheep), <strong>school</strong> (school)
+                </div>
+                
+                <div class="memory-tip" style="margin-bottom: 20px;">
+                    <div class="memory-tip-title">🎯 IE Never Changes Club</div>
+                    IE, OE, EU are stubborn - they NEVER double or change in open syllables!<br>
+                    <strong>deu-ren</strong> (NOT deuuren), <strong>die-ren</strong> (NOT dieren)
+                </div>
+                
+                <div class="rule-box" style="background: #dcfce7; border-left-color: #10b981;">
+                    <div class="rule-title" style="color: #059669;">Quick Reference Card</div>
+                    <strong>Same sound, different spelling:</strong><br>
+                    • EI = IJ (both "ay")<br>
+                    • OU = AU (both "ow")<br><br>
+                    
+                    <strong>Unique Dutch sounds:</strong><br>
+                    • G/CH = throat-clearing "kh"<br>
+                    • UI = "ow" in "now"<br>
+                    • EU = rounded "uh"<br>
+                    • OE = "oo" in "moon"<br><br>
+                    
+                    <strong>Quick tips:</strong><br>
+                    • R is always rolled<br>
+                    • J = English Y<br>
+                    • W = soft V<br>
+                    • Final D/B lose voice (→T/P)
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

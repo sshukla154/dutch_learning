@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Outdoor Things - English & Dutch</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #11998e;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #38ef7d;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2em;
+            border: 2px solid #11998e;
+        }
+        
+        td {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            font-size: 1.1em;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f0fff4;
+        }
+        
+        tr:hover {
+            background-color: #d4f4dd;
+            transition: background-color 0.3s;
+        }
+        
+        .image-link {
+            background-color: #11998e;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .image-link:hover {
+            background-color: #38ef7d;
+            transform: scale(1.05);
+        }
+        
+        .voice-btn {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            margin: 2px;
+            display: inline-block;
+        }
+        
+        .voice-btn:hover {
+            background-color: #ee5a52;
+            transform: scale(1.05);
+        }
+        
+        .voice-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .pronunciation {
+            color: #555;
+            font-style: italic;
+            font-size: 0.95em;
+        }
+        
+        .emoji {
+            font-size: 2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Learn Outdoor Things! 🌳</h1>
+        <div class="subtitle">English & Dutch Learning for Kids</div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- TRANSPORTATION -->
+                <tr>
+                    <td class="emoji">🚗</td>
+                    <td>Car <br><span class="pronunciation">(KAR)</span></td>
+                    <td>Auto <br><span class="pronunciation">(OW-toh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Car', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Auto', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=car" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🚲</td>
+                    <td>Bicycle <br><span class="pronunciation">(BY-sik-ul)</span></td>
+                    <td>Fiets <br><span class="pronunciation">(FEETS)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Bicycle', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Fiets', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=bicycle" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🚆</td>
+                    <td>Train <br><span class="pronunciation">(TRAYN)</span></td>
+                    <td>Trein <br><span class="pronunciation">(TRAYN)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Train', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Trein', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=train" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🚌</td>
+                    <td>Bus <br><span class="pronunciation">(BUS)</span></td>
+                    <td>Bus <br><span class="pronunciation">(BUS)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Bus', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Bus', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=bus" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🚚</td>
+                    <td>Truck <br><span class="pronunciation">(TRUK)</span></td>
+                    <td>Vrachtwagen <br><span class="pronunciation">(VRAKHT-vah-gen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Truck', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vrachtwagen', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=truck" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">✈️</td>
+                    <td>Airplane <br><span class="pronunciation">(AIR-playn)</span></td>
+                    <td>Vliegtuig <br><span class="pronunciation">(FLEEG-toyg)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Airplane', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vliegtuig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=airplane" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🚢</td>
+                    <td>Ship <br><span class="pronunciation">(SHIP)</span></td>
+                    <td>Schip <br><span class="pronunciation">(SKHIP)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Ship', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Schip', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=ship" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🚁</td>
+                    <td>Helicopter <br><span class="pronunciation">(HEL-ih-kop-ter)</span></td>
+                    <td>Helikopter <br><span class="pronunciation">(hay-lee-KOP-ter)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Helicopter', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Helikopter', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=helicopter" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🛵</td>
+                    <td>Scooter <br><span class="pronunciation">(SKOO-ter)</span></td>
+                    <td>Scooter <br><span class="pronunciation">(SKOO-ter)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Scooter', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Scooter', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=scooter" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🏍️</td>
+                    <td>Motorcycle <br><span class="pronunciation">(MOH-ter-sy-kul)</span></td>
+                    <td>Motor <br><span class="pronunciation">(MOH-tor)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Motorcycle', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Motor', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=motorcycle" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <!-- NATURE -->
+                <tr>
+                    <td class="emoji">🌳</td>
+                    <td>Tree <br><span class="pronunciation">(TREE)</span></td>
+                    <td>Boom <br><span class="pronunciation">(BOHM)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Tree', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Boom', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=tree" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🌸</td>
+                    <td>Flower <br><span class="pronunciation">(FLOW-er)</span></td>
+                    <td>Bloem <br><span class="pronunciation">(BLOOM)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Flower', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Bloem', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=flower" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🌿</td>
+                    <td>Plant <br><span class="pronunciation">(PLANT)</span></td>
+                    <td>Plant <br><span class="pronunciation">(PLAHNT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Plant', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Plant', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=plant" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🌾</td>
+                    <td>Grass <br><span class="pronunciation">(GRASS)</span></td>
+                    <td>Gras <br><span class="pronunciation">(GRAHS)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Grass', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Gras', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=grass" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🦆</td>
+                    <td>Bird <br><span class="pronunciation">(BURD)</span></td>
+                    <td>Vogel <br><span class="pronunciation">(FOH-ghel)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Bird', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vogel', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=bird" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🐕</td>
+                    <td>Dog <br><span class="pronunciation">(DOG)</span></td>
+                    <td>Hond <br><span class="pronunciation">(HONT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Dog', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Hond', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=dog" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🐈</td>
+                    <td>Cat <br><span class="pronunciation">(KAT)</span></td>
+                    <td>Kat <br><span class="pronunciation">(KAHT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Cat', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Kat', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=cat" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🦋</td>
+                    <td>Butterfly <br><span class="pronunciation">(BUT-er-fly)</span></td>
+                    <td>Vlinder <br><span class="pronunciation">(FLIN-der)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Butterfly', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vlinder', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=butterfly" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <!-- STRUCTURES & PLACES -->
+                <tr>
+                    <td class="emoji">🏢</td>
+                    <td>Building <br><span class="pronunciation">(BIL-ding)</span></td>
+                    <td>Gebouw <br><span class="pronunciation">(gheh-BOW)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Building', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Gebouw', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=building" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🌉</td>
+                    <td>Bridge <br><span class="pronunciation">(BRIJ)</span></td>
+                    <td>Brug <br><span class="pronunciation">(BRUKH)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Bridge', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Brug', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=bridge" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🛣️</td>
+                    <td>Road <br><span class="pronunciation">(ROHD)</span></td>
+                    <td>Weg <br><span class="pronunciation">(VEKH)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Road', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Weg', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=road" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🚦</td>
+                    <td>Traffic Light <br><span class="pronunciation">(TRAF-ik lite)</span></td>
+                    <td>Stoplicht <br><span class="pronunciation">(STOP-likht)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Traffic Light', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Stoplicht', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=traffic+light" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🏞️</td>
+                    <td>Park <br><span class="pronunciation">(PARK)</span></td>
+                    <td>Park <br><span class="pronunciation">(PAHRK)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Park', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Park', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=park" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🛝</td>
+                    <td>Playground <br><span class="pronunciation">(PLAY-ground)</span></td>
+                    <td>Speeltuin <br><span class="pronunciation">(SPAYL-toyn)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Playground', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Speeltuin', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=playground" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🏫</td>
+                    <td>School <br><span class="pronunciation">(SKOOL)</span></td>
+                    <td>School <br><span class="pronunciation">(SKHOHL)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('School', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('School', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=school+building" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🏪</td>
+                    <td>Shop/Store <br><span class="pronunciation">(SHOP / STOR)</span></td>
+                    <td>Winkel <br><span class="pronunciation">(VING-kel)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Shop', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Winkel', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=shop+store" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <!-- OUTDOOR ELEMENTS -->
+                <tr>
+                    <td class="emoji">☀️</td>
+                    <td>Sun <br><span class="pronunciation">(SUN)</span></td>
+                    <td>Zon <br><span class="pronunciation">(ZON)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Sun', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zon', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=sun" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">☁️</td>
+                    <td>Cloud <br><span class="pronunciation">(KLOWD)</span></td>
+                    <td>Wolk <br><span class="pronunciation">(VOLKH)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Cloud', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Wolk', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=cloud" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🌧️</td>
+                    <td>Rain <br><span class="pronunciation">(RAYN)</span></td>
+                    <td>Regen <br><span class="pronunciation">(RAY-ghen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Rain', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Regen', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=rain" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">🌈</td>
+                    <td>Rainbow <br><span class="pronunciation">(RAYN-boh)</span></td>
+                    <td>Regenboog <br><span class="pronunciation">(RAY-ghen-bohkh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Rainbow', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Regenboog', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=rainbow" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="emoji">⛰️</td>
+                    <td>Mountain <br><span class="pronunciation">(MOWN-tin)</span></td>
+                    <td>Berg <br><span class="pronunciation">(BERKH)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Mountain', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Berg', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=mountain" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="margin-top: 30px; text-align: center; color: #11998e; font-size: 1.2em;">
+            🌟 Click "📸 View" to see pictures! 🌟<br>
+            🔊 Press the buttons to hear how to say each word! 🔊
+        </div>
+    </div>
+    
+    <script>
+        function speak(text, lang) {
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+            
+            // Create a new speech synthesis utterance
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            utterance.rate = 0.8; // Slightly slower for kids to understand better
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            
+            // Speak the text
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>

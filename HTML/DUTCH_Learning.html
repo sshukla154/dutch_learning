@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUTCH Learning - Index</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        
+        .file-list {
+            list-style: none;
+        }
+        
+        .file-item {
+            margin-bottom: 15px;
+            transition: transform 0.2s ease;
+        }
+        
+        .file-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .file-link {
+            display: block;
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .file-link:hover {
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .file-link::before {
+            content: "📄 ";
+            margin-right: 10px;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+        }
+        
+        .stats {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            color: #666;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 15px 30px;
+            background: #e5e7eb;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #333;
+        }
+        
+        .tab:hover {
+            background: #d1d5db;
+            transform: translateY(-2px);
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .learner-name {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇳🇱 DUTCH Learning</h1>
+        <p class="subtitle">Your Dutch Language Learning Resources</p>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('learner1')">👨 Learner1's Learning</button>
+            <button class="tab" onclick="showTab('learner2')">👩 Learner2's Learning</button>
+        </div>
+        
+        <!-- Learner1's Learning Tab -->
+        <div id="learner1" class="tab-content active">
+            <div class="learner-name">👨 Learner1's Learning</div>
+            
+            <div class="stats">
+                <strong>Total Files: 10</strong>
+            </div>
+            
+            <ul class="file-list">
+                <li class="file-item">
+					<a href="house_learning.html" class="file-link">House Rooms And Household Items</a>
+				</li>
+				<li class="file-item">
+					<a href="days_months_weather_learning.html" class="file-link">Days Months and Weathers</a>
+				</li>
+				<li class="file-item">
+					<a href="body_parts_learning.html" class="file-link">Body Parts</a>
+				</li>
+				<li class="file-item">
+					<a href="outdoor_learning.html" class="file-link">Outdoor Vocabulary</a>
+				</li>
+				<li class="file-item">
+					<a href="shapes_learning.html" class="file-link">Interactive shapes</a>
+				</li>
+				<li class="file-item">
+					<a href="stationary_learning.html" class="file-link">Stationary learning</a>
+				</li>
+				<li class="file-item">
+					<a href="family_tree_learning.html" class="file-link">Family tree learning</a>
+				</li>
+				<li class="file-item">
+					<a href="animals_learning.html" class="file-link">Animals learning</a>
+				</li>
+				<li class="file-item">
+					<a href="numbers_learning.html" class="file-link">Numbers and Symbols</a>
+				</li>
+				<li class="file-item">
+					<a href="time_learning.html" class="file-link">Time Learning</a>
+				</li>
+            </ul>
+        </div>
+        
+        <!-- Learner2's Learning Tab -->
+        <div id="learner2" class="tab-content">
+            <div class="learner-name">👩 Learner2's Learning</div>
+            
+            <div class="stats">
+                <strong>Total Files: 5</strong>
+            </div>
+            
+            <ul class="file-list">
+                <li class="file-item">
+					<a href="common_dutch_words.html" class="file-link">Common Dutch Words</a>
+				</li>
+				<li class="file-item">
+					<a href="dutch_pronunciation_guide.html" class="file-link">Dutch Pronunciation Guide</a>
+				</li>
+				<li class="file-item">
+					<a href="verb_adjective_prepostion.html" class="file-link">Verb and Adjective</a>
+				</li>
+				<li class="file-item">
+					<a href="noun_sentences.html" class="file-link">Noun Sentences</a>
+				</li>
+				<li class="file-item">
+					<a href="verb_sentences.html" class="file-link">Verb Sentences</a>
+				</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            Last updated: February 2026<br>
+            Location: Dutch Learning\HTML
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Dutch Words - Learn by Difficulty</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .tab {
+            padding: 15px 30px;
+            background: #e5e7eb;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: #d1d5db;
+            transform: translateY(-2px);
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus {
+            border-color: #764ba2;
+        }
+        
+        .words-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .words-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        
+        .words-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .words-table tr:hover {
+            background: #f9fafb;
+        }
+        
+        .words-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .dutch-word {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+        
+        .dutch-cell {
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .dutch-hidden {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: transparent;
+            user-select: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 100px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .dutch-hidden::before {
+            content: "👁️ Click to reveal";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 0.85em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .dutch-visible {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+            animation: revealWord 0.3s ease-in-out;
+        }
+        
+        @keyframes revealWord {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .pronunciation {
+            background: #dbeafe;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            color: #1e40af;
+            display: inline-block;
+        }
+        
+        .pronunciation-hidden {
+            background: #e5e7eb;
+            color: transparent;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            min-width: 150px;
+            user-select: none;
+            position: relative;
+        }
+        
+        .pronunciation-hidden::before {
+            content: "🔒 Hidden";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #6b7280;
+            font-size: 0.85em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .pronunciation-visible {
+            background: #dbeafe;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            color: #1e40af;
+            display: inline-block;
+            animation: revealWord 0.3s ease-in-out;
+        }
+        
+        .speak-button {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 0.95em;
+            border: none;
+            width: 100%;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .speak-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .speak-button:active {
+            transform: scale(0.95);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .page-button {
+            padding: 10px 18px;
+            background: #e5e7eb;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .page-button:hover {
+            background: #d1d5db;
+        }
+        
+        .page-button.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .page-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-info {
+            padding: 10px 20px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .tip-box {
+            background: #fef3c7;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #f59e0b;
+        }
+        
+        .tip-title {
+            font-weight: bold;
+            color: #d97706;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .badge-easy {
+            background: #dcfce7;
+            color: #059669;
+        }
+        
+        .badge-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .badge-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        @media (max-width: 768px) {
+            .words-table {
+                font-size: 0.9em;
+            }
+            
+            .words-table th,
+            .words-table td {
+                padding: 12px 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Common Dutch Words</h1>
+        <p class="subtitle">Learn Dutch vocabulary organized by difficulty level</p>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('easy')">🟢 Easy Words</button>
+            <button class="tab" onclick="showTab('medium')">🟡 Medium Words</button>
+            <button class="tab" onclick="showTab('hard')">🔴 Hard Words</button>
+        </div>
+        
+        <!-- EASY WORDS TAB -->
+        <div id="easy" class="tab-content active">
+            <span class="difficulty-badge badge-easy">🟢 BEGINNER LEVEL</span>
+            
+            <div class="tip-box">
+                <div class="tip-title">💡 Learning Tip</div>
+                These are the most common Dutch words you'll use daily. Master these first! <strong>👁️ Click on the purple boxes to reveal Dutch words</strong> - this helps test your memory! Use the search to find specific words, and click 🔊 to hear pronunciation.
+            </div>
+            
+            <div class="tip-box" style="background: #e0e7ff; border-left-color: #667eea;">
+                <div class="tip-title" style="color: #667eea;">🔤 Pronunciation Guide</div>
+                <strong>Easy phonetic spelling!</strong> Pronunciations are written how they sound in English:<br>
+                • <strong>"ah"</strong> = like "father" | <strong>"oo"</strong> = like "food" | <strong>"ay"</strong> = like "day"<br>
+                • <strong>"uh"</strong> = like "about" | <strong>"oh"</strong> = like "go" | <strong>"ew"</strong> = like "few"<br>
+                • <strong>Guttural G</strong> = throat-clearing sound (like Scottish "loch") - the trickiest Dutch sound!<br>
+                💡 <strong>Tip:</strong> Always click 🔊 Play to hear the authentic pronunciation!
+            </div>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchEasy" placeholder="🔍 Search easy words..." onkeyup="filterWords('easy')">
+            </div>
+            
+            <div id="easyTableContainer"></div>
+            <div id="easyPagination" class="pagination"></div>
+        </div>
+        
+        <!-- MEDIUM WORDS TAB -->
+        <div id="medium" class="tab-content">
+            <span class="difficulty-badge badge-medium">🟡 INTERMEDIATE LEVEL</span>
+            
+            <div class="tip-box">
+                <div class="tip-title">💡 Coming Soon</div>
+                Medium-level words will be added here. This section is ready for your word list!
+            </div>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchMedium" placeholder="🔍 Search medium words..." onkeyup="filterWords('medium')">
+            </div>
+            
+            <div id="mediumTableContainer"></div>
+            <div id="mediumPagination" class="pagination"></div>
+        </div>
+        
+        <!-- HARD WORDS TAB -->
+        <div id="hard" class="tab-content">
+            <span class="difficulty-badge badge-hard">🔴 ADVANCED LEVEL</span>
+            
+            <div class="tip-box">
+                <div class="tip-title">💡 Coming Soon</div>
+                Advanced vocabulary will be added here. This section is ready for your word list!
+            </div>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchHard" placeholder="🔍 Search hard words..." onkeyup="filterWords('hard')">
+            </div>
+            
+            <div id="hardTableContainer"></div>
+            <div id="hardPagination" class="pagination"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Word data organized by difficulty
+        const wordsData = {
+            easy: [
+                // Page 1 - Original 50 words
+                {en: "The", nl: "De", pronunciation: "duh"},
+                {en: "Then", nl: "Den", pronunciation: "den"},
+                {en: "That", nl: "Dat", pronunciation: "daht"},
+                {en: "This", nl: "Deze", pronunciation: "day-zuh"},
+                {en: "This", nl: "Dit", pronunciation: "dit"},
+                {en: "And", nl: "En", pronunciation: "en"},
+                {en: "A / An", nl: "Een", pronunciation: "ayn (or just 'uh')"},
+                {en: "It", nl: "Het", pronunciation: "het"},
+                {en: "In", nl: "In", pronunciation: "in"},
+                {en: "Too / To", nl: "Te", pronunciation: "tuh"},
+                {en: "I", nl: "Ik", pronunciation: "ick"},
+                {en: "To have", nl: "Hebben", pronunciation: "heb-bun"},
+                {en: "Not", nl: "Niet", pronunciation: "neet"},
+                {en: "On", nl: "Op", pronunciation: "op"},
+                {en: "Before / For", nl: "Voor", pronunciation: "vohr (like 'for')"},
+                {en: "There", nl: "Er", pronunciation: "air"},
+                {en: "You (informal)", nl: "Je", pronunciation: "yuh"},
+                {en: "Shall / Will", nl: "Zullen", pronunciation: "zul-lun"},
+                {en: "Can / To be able to", nl: "Kunnen", pronunciation: "kun-nun"},
+                {en: "Or", nl: "Of", pronunciation: "of"},
+                {en: "What", nl: "Wat", pronunciation: "vaht"},
+                {en: "To go", nl: "Gaan", pronunciation: "gahn"},
+                {en: "He", nl: "Hij", pronunciation: "hay"},
+                {en: "Him", nl: "Hem", pronunciation: "hem"},
+                {en: "Her", nl: "Haar", pronunciation: "hahr"},
+                {en: "Come / To come", nl: "Komen", pronunciation: "koh-mun"},
+                {en: "So", nl: "Zo", pronunciation: "zoh"},
+                {en: "Should / Must", nl: "Moeten", pronunciation: "moo-tun"},
+                {en: "My", nl: "Mijn", pronunciation: "myne (like 'mine')"},
+                {en: "She", nl: "Zij", pronunciation: "zay"},
+                {en: "We", nl: "We", pronunciation: "vuh"},
+                {en: "More", nl: "Meer", pronunciation: "mare (like 'air')"},
+                {en: "To make", nl: "Maken", pronunciation: "mah-kun"},
+                {en: "Stand / To stand", nl: "Staan", pronunciation: "stahn"},
+                {en: "Good", nl: "Goed", pronunciation: "goot (guttural G)"},
+                {en: "Other", nl: "Ander", pronunciation: "ahn-der"},
+                {en: "To do", nl: "Doen", pronunciation: "doon"},
+                {en: "Me (object)", nl: "Me", pronunciation: "muh"},
+                {en: "You (formal)", nl: "U", pronunciation: "ew (like 'few')"},
+                {en: "Me (stressed)", nl: "Mij", pronunciation: "may"},
+                {en: "To let / To allow", nl: "Laten", pronunciation: "lah-tun"},
+                {en: "Already", nl: "Al", pronunciation: "al"},
+                {en: "There (that place)", nl: "Daar", pronunciation: "dahr"},
+                {en: "To think", nl: "Denken", pronunciation: "denk-un"},
+                {en: "Then (past)", nl: "Toen", pronunciation: "toon"},
+                {en: "To give", nl: "Geven", pronunciation: "gay-vun (guttural G)"},
+                {en: "How", nl: "Hoe", pronunciation: "hoo"},
+                {en: "Now", nl: "Nu", pronunciation: "new"},
+                {en: "To find", nl: "Vinden", pronunciation: "vin-dun"},
+                {en: "Man", nl: "Man", pronunciation: "mahn"},
+                
+                // Page 2 - New 50 words
+                {en: "Year", nl: "Jaar", pronunciation: "yahr"},
+                {en: "Here", nl: "Hier", pronunciation: "here"},
+                {en: "We", nl: "Wij", pronunciation: "vay"},
+                {en: "To keep", nl: "Houden", pronunciation: "how-dun"},
+                {en: "To sit", nl: "Zitten", pronunciation: "zit-tun"},
+                {en: "Hand", nl: "Hand", pronunciation: "hahnt"},
+                {en: "Long", nl: "Lang", pronunciation: "lahng"},
+                {en: "Two", nl: "Twee", pronunciation: "tway"},
+                {en: "Day", nl: "Dag", pronunciation: "dahkh (guttural)"},
+                {en: "First", nl: "Eerst", pronunciation: "ayrst"},
+                {en: "Only", nl: "Alleen", pronunciation: "ah-layn"},
+                {en: "To bring", nl: "Brengen", pronunciation: "breng-un"},
+                {en: "To begin", nl: "Beginnen", pronunciation: "buh-gin-nun"},
+                {en: "Self", nl: "Zelf", pronunciation: "zelf"},
+                {en: "To hear", nl: "Horen", pronunciation: "hoh-run"},
+                {en: "New", nl: "Nieuw", pronunciation: "neew"},
+                {en: "Late", nl: "Laat", pronunciation: "laht"},
+                {en: "To feel", nl: "Voelen", pronunciation: "voo-lun"},
+                {en: "Place", nl: "Plaats", pronunciation: "plahts"},
+                {en: "Life", nl: "Leven", pronunciation: "lay-vun"},
+                {en: "House", nl: "Huis", pronunciation: "howss"},
+                {en: "To fall", nl: "Vallen", pronunciation: "vah-lun"},
+                {en: "Mother", nl: "Moeder", pronunciation: "moo-der"},
+                {en: "To speak", nl: "Spreken", pronunciation: "spray-kun"},
+                {en: "Word", nl: "Woord", pronunciation: "vohrt"},
+                {en: "Yes", nl: "Ja", pronunciation: "yah"},
+                {en: "When", nl: "Wanneer", pronunciation: "vah-nayr"},
+                {en: "Father", nl: "Vader", pronunciation: "vah-der"},
+                {en: "Work", nl: "Werk", pronunciation: "verk"},
+                {en: "Each", nl: "Elk", pronunciation: "elk"},
+                {en: "Far", nl: "Ver", pronunciation: "vair"},
+                {en: "Later", nl: "Later", pronunciation: "lah-ter"},
+                {en: "To tell", nl: "Vertellen", pronunciation: "ver-tel-lun"},
+                {en: "You", nl: "Jij", pronunciation: "yay"},
+                {en: "Three", nl: "Drie", pronunciation: "dree"},
+                {en: "Old", nl: "Oud", pronunciation: "owt"},
+                {en: "Sometimes", nl: "Soms", pronunciation: "soms"},
+                {en: "World", nl: "Wereld", pronunciation: "vay-relt"},
+                {en: "Hour", nl: "Uur", pronunciation: "oor"},
+                {en: "Name", nl: "Naam", pronunciation: "nahm"},
+                {en: "Kind", nl: "Soort", pronunciation: "sohrt"},
+                {en: "To work", nl: "Werken", pronunciation: "ver-kun"},
+                {en: "Full", nl: "Vol", pronunciation: "vol"},
+                {en: "Which", nl: "Welk", pronunciation: "velk"},
+                {en: "Book", nl: "Boek", pronunciation: "book"},
+                {en: "Door", nl: "Deur", pronunciation: "dur"},
+                {en: "Thing", nl: "Ding", pronunciation: "ding"},
+                {en: "No", nl: "Nee", pronunciation: "nay"},
+                {en: "Water", nl: "Water", pronunciation: "vah-ter"},
+                
+                // Page 3 - Third 50 words
+                {en: "Fact", nl: "Feit", pronunciation: "fayt"},
+                {en: "To wait", nl: "Wachten", pronunciation: "vakh-tun"},
+                {en: "To learn", nl: "Leren", pronunciation: "lay-run"},
+                {en: "Open", nl: "Open", pronunciation: "oh-pun"},
+                {en: "Problem", nl: "Probleem", pronunciation: "pro-blaym"},
+                {en: "Group", nl: "Groep", pronunciation: "groop"},
+                {en: "Young", nl: "Jong", pronunciation: "yong"},
+                {en: "White", nl: "Wit", pronunciation: "vit"},
+                {en: "So that", nl: "Zodat", pronunciation: "zoh-daht"},
+                {en: "Laugh", nl: "Lachen", pronunciation: "lakh-un (guttural)"},
+                {en: "Bed", nl: "Bed", pronunciation: "bet"},
+                {en: "Further", nl: "Verder", pronunciation: "ver-der"},
+                {en: "Moment", nl: "Moment", pronunciation: "moh-ment"},
+                {en: "State", nl: "Staat", pronunciation: "staht"},
+                {en: "Friend", nl: "Vriend", pronunciation: "vreent"},
+                {en: "Week", nl: "Week", pronunciation: "vake"},
+                {en: "Last", nl: "Laatste", pronunciation: "laht-stuh"},
+                {en: "To help", nl: "Helpen", pronunciation: "hel-pun"},
+                {en: "Light", nl: "Licht", pronunciation: "likht (guttural)"},
+                {en: "Deep", nl: "Diep", pronunciation: "deep"},
+                {en: "Night", nl: "Nacht", pronunciation: "nahkht (guttural)"},
+                {en: "Along", nl: "Langs", pronunciation: "lahngs"},
+                {en: "Both", nl: "Beide", pronunciation: "bay-duh"},
+                {en: "You", nl: "Jullie", pronunciation: "yuh-lee"},
+                {en: "Free", nl: "Vrij", pronunciation: "vray"},
+                {en: "Feeling", nl: "Gevoel", pronunciation: "guh-vool (guttural G)"},
+                {en: "Half", nl: "Half", pronunciation: "half"},
+                {en: "Table", nl: "Tafel", pronunciation: "tah-ful"},
+                {en: "School", nl: "School", pronunciation: "skhohl (guttural)"},
+                {en: "Four", nl: "Vier", pronunciation: "veer"},
+                {en: "Death", nl: "Dood", pronunciation: "doht"},
+                {en: "Social", nl: "Sociaal", pronunciation: "soh-see-ahl"},
+                {en: "Hard", nl: "Hard", pronunciation: "hart"},
+                {en: "Wine", nl: "Wijn", pronunciation: "vine"},
+                {en: "Month", nl: "Maand", pronunciation: "mahnt"},
+                {en: "Mouth", nl: "Mond", pronunciation: "mont"},
+                {en: "Reason", nl: "Reden", pronunciation: "ray-dun"},
+                {en: "Foot", nl: "Voet", pronunciation: "voot"},
+                {en: "Idea", nl: "Idee", pronunciation: "ee-day"},
+                {en: "Old", nl: "Oud", pronunciation: "owt"},
+                {en: "Role", nl: "Rol", pronunciation: "rol"},
+                {en: "You", nl: "Jou", pronunciation: "yow"},
+                {en: "Answer", nl: "Antwoord", pronunciation: "ahnt-vohrt"},
+                {en: "To sleep", nl: "Slapen", pronunciation: "slah-pun"},
+                {en: "Plan", nl: "Plan", pronunciation: "plahn"},
+                {en: "Mostly", nl: "Meestal", pronunciation: "may-stahl"},
+                {en: "Street", nl: "Straat", pronunciation: "straht"},
+                {en: "Person", nl: "Persoon", pronunciation: "per-sohn"},
+                {en: "Shoulder", nl: "Schouder", pronunciation: "skhow-der"},
+                {en: "Listen", nl: "Luisteren", pronunciation: "lows-tuh-run"},
+                
+                // Page 4 - Lesson 4 (50 words)
+                {en: "Influence", nl: "Invloed", pronunciation: "in-vloot"},
+                {en: "Heart", nl: "Hart", pronunciation: "hart"},
+                {en: "Son", nl: "Zoon", pronunciation: "zohn"},
+                {en: "Busy", nl: "Bezig", pronunciation: "buh-zikh (guttural)"},
+                {en: "Arm", nl: "Arm", pronunciation: "arm"},
+                {en: "Ten", nl: "Tien", pronunciation: "teen"},
+                {en: "Loose", nl: "Los", pronunciation: "los"},
+                {en: "Five", nl: "Vijf", pronunciation: "vayf"},
+                {en: "Minute", nl: "Minuut", pronunciation: "mee-newt"},
+                {en: "Love", nl: "Liefde", pronunciation: "leef-duh"},
+                {en: "Some", nl: "Sommige", pronunciation: "som-mih-khuh"},
+                {en: "Directly", nl: "Direct", pronunciation: "dee-rekt"},
+                {en: "Relationship", nl: "Relatie", pronunciation: "reh-lah-tsee"},
+                {en: "System", nl: "Systeem", pronunciation: "sis-taym"},
+                {en: "Process", nl: "Proces", pronunciation: "proh-ses"},
+                {en: "Mean", nl: "Menen", pronunciation: "may-nun"},
+                {en: "Third", nl: "Derde", pronunciation: "der-duh"},
+                {en: "Drink", nl: "Drinken", pronunciation: "drink-un"},
+                {en: "Contact", nl: "Contact", pronunciation: "kon-takt"},
+                {en: "Function", nl: "Functie", pronunciation: "funk-tsee"},
+                {en: "Warm", nl: "Warm", pronunciation: "varm"},
+                {en: "Finger", nl: "Vinger", pronunciation: "ving-er"},
+                {en: "Color", nl: "Kleur", pronunciation: "klur"},
+                {en: "Pain", nl: "Pijn", pronunciation: "payn"},
+                {en: "Glass", nl: "Glas", pronunciation: "khlas (guttural)"},
+                {en: "Article", nl: "Artikel", pronunciation: "ar-tee-kul"},
+                {en: "End", nl: "Eind", pronunciation: "aynt"},
+                {en: "Personally", nl: "Persoonlijk", pronunciation: "per-sohn-luk"},
+                {en: "Red", nl: "Rood", pronunciation: "roht"},
+                {en: "Doctor", nl: "Dokter", pronunciation: "dok-ter"},
+                {en: "Sea", nl: "Zee", pronunciation: "zay"},
+                {en: "To grow", nl: "Groeien", pronunciation: "groo-yun"},
+                {en: "Cold", nl: "Koud", pronunciation: "kowt"},
+                {en: "To lead", nl: "Leiden", pronunciation: "lay-dun"},
+                {en: "To stand", nl: "Staan", pronunciation: "stahn"},
+                {en: "Family", nl: "Familie", pronunciation: "fah-mee-lee"},
+                {en: "Period", nl: "Periode", pronunciation: "pay-ree-oh-duh"},
+                {en: "Since", nl: "Sinds", pronunciation: "sints"},
+                {en: "Result", nl: "Resultaat", pronunciation: "reh-zul-taht"},
+                {en: "Normal", nl: "Normaal", pronunciation: "nor-mahl"},
+                {en: "Round", nl: "Rond", pronunciation: "ront"},
+                {en: "Organization", nl: "Organisatie", pronunciation: "or-khah-nee-sah-tsee"},
+                {en: "Special", nl: "Speciaal", pronunciation: "spay-see-ahl"},
+                {en: "Patient", nl: "Patient", pronunciation: "pah-see-ent"},
+                {en: "Brother", nl: "Broer", pronunciation: "broor"},
+                {en: "To deliver", nl: "Leveren", pronunciation: "lay-vuh-run"},
+                {en: "To hope", nl: "Hopen", pronunciation: "hoh-pun"},
+                {en: "Total", nl: "Totaal", pronunciation: "toh-tahl"},
+                {en: "Six", nl: "Zes", pronunciation: "zes"},
+                {en: "Blue", nl: "Blauw", pronunciation: "blouw"},
+                
+                // Page 5 - Lesson 5 (50 words)
+                {en: "Step", nl: "Stap", pronunciation: "stap"},
+                {en: "Character", nl: "Karakter", pronunciation: "kah-rak-ter"},
+                {en: "Theory", nl: "Theorie", pronunciation: "tay-oh-ree"},
+                {en: "Blood", nl: "Bloed", pronunciation: "bloot"},
+                {en: "Better", nl: "Beter", pronunciation: "bay-ter"},
+                {en: "Daughter", nl: "Dochter", pronunciation: "dokh-ter (guttural)"},
+                {en: "To step", nl: "Stappen", pronunciation: "stah-pun"},
+                {en: "Dream", nl: "Droom", pronunciation: "drohm"},
+                {en: "Meter", nl: "Meter", pronunciation: "may-ter"},
+                {en: "Stone", nl: "Steen", pronunciation: "stayn"},
+                {en: "Help", nl: "Hulp", pronunciation: "hulp"},
+                {en: "Rest", nl: "Rest", pronunciation: "rest"},
+                {en: "Music", nl: "Muziek", pronunciation: "mew-zeek"},
+                {en: "Meal", nl: "Maaltijd", pronunciation: "mahl-tayt"},
+                {en: "To open", nl: "Openen", pronunciation: "oh-puh-nun"},
+                {en: "Bank", nl: "Bank", pronunciation: "bank"},
+                {en: "Paper", nl: "Papier", pronunciation: "pah-peer"},
+                {en: "Hope", nl: "Hoop", pronunciation: "hohp"},
+                {en: "Minister", nl: "Minister", pronunciation: "mee-nis-ter"},
+                {en: "Wind", nl: "Wind", pronunciation: "vint"},
+                {en: "Coffee", nl: "Koffie", pronunciation: "kof-fee"},
+                {en: "To stop", nl: "Stoppen", pronunciation: "stop-pun"},
+                {en: "Ear", nl: "Oor", pronunciation: "ohr"},
+                {en: "Information", nl: "Informatie", pronunciation: "in-for-mah-tsee"},
+                {en: "Method", nl: "Methode", pronunciation: "may-toh-duh"},
+                {en: "Lip", nl: "Lip", pronunciation: "lip"},
+                {en: "Position", nl: "Positie", pronunciation: "poh-zee-tsee"},
+                {en: "All", nl: "Alle", pronunciation: "ah-luh"},
+                {en: "Enormous", nl: "Enorm", pronunciation: "eh-norm"},
+                {en: "Photo", nl: "Foto", pronunciation: "foh-toh"},
+                {en: "Movie", nl: "Film", pronunciation: "film"},
+                {en: "Activity", nl: "Activiteit", pronunciation: "ak-tee-vee-tayt"},
+                {en: "Modern", nl: "Modern", pronunciation: "moh-dern"},
+                {en: "Luck", nl: "Geluk", pronunciation: "khuh-luk (guttural)"},
+                {en: "Base", nl: "Basis", pronunciation: "bah-sis"},
+                {en: "Sister", nl: "Zuster", pronunciation: "zus-ter"},
+                {en: "Awake", nl: "Wakker", pronunciation: "vak-ker"},
+                {en: "Aunt", nl: "Tante", pronunciation: "tahn-tuh"},
+                {en: "Fire", nl: "Vuur", pronunciation: "voor"},
+                {en: "Price", nl: "Prijs", pronunciation: "prays"},
+                {en: "Reaction", nl: "Reactie", pronunciation: "ray-ak-tsee"},
+                {en: "Practice", nl: "Praktijk", pronunciation: "prak-tayk"},
+                {en: "Nose", nl: "Neus", pronunciation: "nurs"},
+                {en: "Terrain", nl: "Terrein", pronunciation: "teh-rayn"},
+                {en: "King", nl: "Koning", pronunciation: "koh-ning"},
+                {en: "To sing", nl: "Zingen", pronunciation: "zing-un"},
+                {en: "Fly", nl: "Vliegen", pronunciation: "vlee-khun"},
+                {en: "Culture", nl: "Cultuur", pronunciation: "kul-toor"},
+                {en: "To miss", nl: "Missen", pronunciation: "mis-sun"},
+                {en: "Law enforcement", nl: "Politie", pronunciation: "poh-lee-tsee"}
+            ],
+            medium: [
+                // Medium words will be added later
+            ],
+            hard: [
+                // Hard words will be added later
+            ]
+        };
+        
+        // Pagination settings
+        const itemsPerPage = 50;
+        let currentPages = {
+            easy: 1,
+            medium: 1,
+            hard: 1
+        };
+        
+        let filteredData = {
+            easy: [...wordsData.easy],
+            medium: [...wordsData.medium],
+            hard: [...wordsData.hard]
+        };
+        
+        // Initialize all tabs
+        function initializeTabs() {
+            renderTable('easy');
+            renderTable('medium');
+            renderTable('hard');
+        }
+        
+        // Show specific tab
+        function showTab(tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // Render table for specific difficulty
+        function renderTable(difficulty) {
+            const container = document.getElementById(`${difficulty}TableContainer`);
+            const data = filteredData[difficulty];
+            const currentPage = currentPages[difficulty];
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, data.length);
+            const pageData = data.slice(startIndex, endIndex);
+            
+            let tableHTML = `
+                <table class="words-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">English</th>
+                            <th style="width: 20%;">Dutch</th>
+                            <th style="width: 35%;">Pronunciation</th>
+                            <th style="width: 20%;">Listen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            pageData.forEach((word, index) => {
+                const uniqueId = `dutch-${difficulty}-${currentPage}-${index}`;
+                const pronunciationId = `pronunciation-${difficulty}-${currentPage}-${index}`;
+                tableHTML += `
+                    <tr class="word-row">
+                        <td>${word.en}</td>
+                        <td class="dutch-cell" onclick="revealDutch('${uniqueId}', '${pronunciationId}')">
+                            <span id="${uniqueId}" class="dutch-hidden">${word.nl}</span>
+                        </td>
+                        <td>
+                            <span id="${pronunciationId}" class="pronunciation-hidden">${word.pronunciation}</span>
+                        </td>
+                        <td>
+                            <button class="speak-button" onclick="speakDutch('${word.nl}')">
+                                🔊 Play
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = tableHTML;
+            renderPagination(difficulty);
+        }
+        
+        // Render pagination controls
+        function renderPagination(difficulty) {
+            const container = document.getElementById(`${difficulty}Pagination`);
+            const data = filteredData[difficulty];
+            const totalPages = Math.ceil(data.length / itemsPerPage);
+            const currentPage = currentPages[difficulty];
+            
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = `
+                <button class="page-button" onclick="changePage('${difficulty}', ${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    ◀ Previous
+                </button>
+                <span class="page-info">Page ${currentPage} of ${totalPages}</span>
+                <button class="page-button" onclick="changePage('${difficulty}', ${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    Next ▶
+                </button>
+            `;
+            
+            container.innerHTML = paginationHTML;
+        }
+        
+        // Change page
+        function changePage(difficulty, newPage) {
+            const totalPages = Math.ceil(filteredData[difficulty].length / itemsPerPage);
+            if (newPage < 1 || newPage > totalPages) return;
+            
+            currentPages[difficulty] = newPage;
+            renderTable(difficulty);
+            
+            // Scroll to top of table
+            document.getElementById(`${difficulty}TableContainer`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Filter words based on search
+        function filterWords(difficulty) {
+            const searchInput = document.getElementById(`search${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`).value.toLowerCase();
+            
+            if (searchInput === '') {
+                filteredData[difficulty] = [...wordsData[difficulty]];
+            } else {
+                filteredData[difficulty] = wordsData[difficulty].filter(word => 
+                    word.en.toLowerCase().includes(searchInput) || 
+                    word.nl.toLowerCase().includes(searchInput)
+                );
+            }
+            
+            currentPages[difficulty] = 1;
+            renderTable(difficulty);
+        }
+        
+        // Text-to-speech function
+        function speakDutch(word) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'nl-NL';
+                utterance.rate = 0.85;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                const voices = window.speechSynthesis.getVoices();
+                const dutchVoice = voices.find(voice => 
+                    voice.lang.startsWith('nl') || 
+                    voice.lang === 'nl-NL' || 
+                    voice.lang === 'nl-BE'
+                );
+                
+                if (dutchVoice) {
+                    utterance.voice = dutchVoice;
+                }
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Sorry, your browser does not support text-to-speech. Please try Chrome, Edge, or Safari.');
+            }
+        }
+        
+        // Reveal Dutch word and pronunciation on click
+        function revealDutch(elementId, pronunciationId) {
+            const element = document.getElementById(elementId);
+            const pronunciation = document.getElementById(pronunciationId);
+            
+            if (element && element.classList.contains('dutch-hidden')) {
+                element.classList.remove('dutch-hidden');
+                element.classList.add('dutch-visible');
+                // Remove the click handler from parent
+                element.parentElement.onclick = null;
+                element.parentElement.style.cursor = 'default';
+            }
+            
+            if (pronunciation && pronunciation.classList.contains('pronunciation-hidden')) {
+                pronunciation.classList.remove('pronunciation-hidden');
+                pronunciation.classList.add('pronunciation-visible');
+            }
+        }
+        
+        // Load voices when ready
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = function() {
+                window.speechSynthesis.getVoices();
+            };
+        }
+        
+        // Initialize on page load
+        window.onload = function() {
+            initializeTabs();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Family Tree - English & Dutch</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #fa709a;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #fee140;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2em;
+            border: 2px solid #fa709a;
+        }
+        
+        td {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #fff9f0;
+        }
+        
+        tr:hover {
+            background-color: #ffe8e8;
+            transition: background-color 0.3s;
+        }
+        
+        .image-link {
+            background-color: #fa709a;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .image-link:hover {
+            background-color: #fee140;
+            color: #333;
+            transform: scale(1.05);
+        }
+        
+        .voice-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            margin: 2px;
+            display: inline-block;
+        }
+        
+        .voice-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        
+        .voice-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .pronunciation {
+            color: #555;
+            font-style: italic;
+            font-size: 0.95em;
+        }
+        
+        .number {
+            font-weight: bold;
+            color: #fa709a;
+            font-size: 1.1em;
+        }
+        
+        .symbol {
+            font-size: 2.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👨‍👩‍👧‍👦 Learn Family Tree! 👪</h1>
+        <div class="subtitle">English & Dutch Learning for Kids</div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Symbol</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- IMMEDIATE FAMILY -->
+                <tr>
+                    <td class="number">1</td>
+                    <td class="symbol">👨</td>
+                    <td>Father <br><span class="pronunciation">(FAH-thur)</span></td>
+                    <td>Vader <br><span class="pronunciation">(VAH-der)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Father', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vader', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=father" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">2</td>
+                    <td class="symbol">👩</td>
+                    <td>Mother <br><span class="pronunciation">(MUH-thur)</span></td>
+                    <td>Moeder <br><span class="pronunciation">(MOO-der)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Mother', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Moeder', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=mother" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">3</td>
+                    <td class="symbol">👦</td>
+                    <td>Son <br><span class="pronunciation">(SUN)</span></td>
+                    <td>Zoon <br><span class="pronunciation">(ZOHN)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Son', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zoon', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=son" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">4</td>
+                    <td class="symbol">👧</td>
+                    <td>Daughter <br><span class="pronunciation">(DAW-tur)</span></td>
+                    <td>Dochter <br><span class="pronunciation">(DOKH-ter)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Daughter', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Dochter', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=daughter" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">5</td>
+                    <td class="symbol">👦</td>
+                    <td>Brother <br><span class="pronunciation">(BRUH-thur)</span></td>
+                    <td>Broer <br><span class="pronunciation">(BROOR)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Brother', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Broer', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=brother" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">6</td>
+                    <td class="symbol">👧</td>
+                    <td>Sister <br><span class="pronunciation">(SIS-tur)</span></td>
+                    <td>Zus <br><span class="pronunciation">(ZUS)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Sister', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zus', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=sister" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <!-- GRANDPARENTS -->
+                <tr>
+                    <td class="number">7</td>
+                    <td class="symbol">👴</td>
+                    <td>Grandfather <br><span class="pronunciation">(GRAND-fah-thur)</span></td>
+                    <td>Opa <br><span class="pronunciation">(OH-pah)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Grandfather', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Opa', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=grandfather" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">8</td>
+                    <td class="symbol">👵</td>
+                    <td>Grandmother <br><span class="pronunciation">(GRAND-muh-thur)</span></td>
+                    <td>Oma <br><span class="pronunciation">(OH-mah)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Grandmother', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Oma', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=grandmother" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">9</td>
+                    <td class="symbol">👶</td>
+                    <td>Grandson <br><span class="pronunciation">(GRAND-sun)</span></td>
+                    <td>Kleinzoon <br><span class="pronunciation">(KLAYN-zohn)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Grandson', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Kleinzoon', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=grandson" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">10</td>
+                    <td class="symbol">👶</td>
+                    <td>Granddaughter <br><span class="pronunciation">(GRAND-daw-tur)</span></td>
+                    <td>Kleindochter <br><span class="pronunciation">(KLAYN-dokh-ter)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Granddaughter', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Kleindochter', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=granddaughter" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <!-- EXTENDED FAMILY -->
+                <tr>
+                    <td class="number">11</td>
+                    <td class="symbol">👨</td>
+                    <td>Uncle <br><span class="pronunciation">(UN-kul)</span></td>
+                    <td>Oom <br><span class="pronunciation">(OHM)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Uncle', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Oom', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=uncle" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">12</td>
+                    <td class="symbol">👩</td>
+                    <td>Aunt <br><span class="pronunciation">(ANT)</span></td>
+                    <td>Tante <br><span class="pronunciation">(TAHN-tuh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Aunt', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tante', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=aunt" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">13</td>
+                    <td class="symbol">👧</td>
+                    <td>Niece <br><span class="pronunciation">(NEESS)</span></td>
+                    <td>Nicht <br><span class="pronunciation">(NIKHT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Niece', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Nicht', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=niece" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">14</td>
+                    <td class="symbol">👦</td>
+                    <td>Nephew <br><span class="pronunciation">(NEF-yoo)</span></td>
+                    <td>Neef <br><span class="pronunciation">(NAYF)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Nephew', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Neef', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=nephew" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">15</td>
+                    <td class="symbol">👧</td>
+                    <td>Cousin (female) <br><span class="pronunciation">(KUH-zin)</span></td>
+                    <td>Nicht <br><span class="pronunciation">(NIKHT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Cousin', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Nicht', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=cousin" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">16</td>
+                    <td class="symbol">👦</td>
+                    <td>Cousin (male) <br><span class="pronunciation">(KUH-zin)</span></td>
+                    <td>Neef <br><span class="pronunciation">(NAYF)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Cousin', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Neef', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=cousin" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <!-- IN-LAWS -->
+                <tr>
+                    <td class="number">17</td>
+                    <td class="symbol">💑</td>
+                    <td>Husband <br><span class="pronunciation">(HUZ-band)</span></td>
+                    <td>Echtgenoot <br><span class="pronunciation">(EKHT-guh-noht)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Husband', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Echtgenoot', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=husband" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">18</td>
+                    <td class="symbol">💑</td>
+                    <td>Wife <br><span class="pronunciation">(WIFE)</span></td>
+                    <td>Echtgenote <br><span class="pronunciation">(EKHT-guh-noh-tuh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Wife', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Echtgenote', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=wife" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">19</td>
+                    <td class="symbol">👨</td>
+                    <td>Father-in-law <br><span class="pronunciation">(FAH-thur-in-law)</span></td>
+                    <td>Schoonvader <br><span class="pronunciation">(SKHOHN-vah-der)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Father in law', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Schoonvader', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=father+in+law" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">20</td>
+                    <td class="symbol">👩</td>
+                    <td>Mother-in-law <br><span class="pronunciation">(MUH-thur-in-law)</span></td>
+                    <td>Schoonmoeder <br><span class="pronunciation">(SKHOHN-moo-der)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Mother in law', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Schoonmoeder', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=mother+in+law" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">21</td>
+                    <td class="symbol">👨</td>
+                    <td>Brother-in-law <br><span class="pronunciation">(BRUH-thur-in-law)</span></td>
+                    <td>Zwager <br><span class="pronunciation">(ZVAH-gher)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Brother in law', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zwager', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=brother+in+law" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">22</td>
+                    <td class="symbol">👩</td>
+                    <td>Sister-in-law <br><span class="pronunciation">(SIS-tur-in-law)</span></td>
+                    <td>Schoonzus <br><span class="pronunciation">(SKHOHN-zus)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Sister in law', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Schoonzus', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=sister+in+law" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">23</td>
+                    <td class="symbol">👨</td>
+                    <td>Son-in-law <br><span class="pronunciation">(SUN-in-law)</span></td>
+                    <td>Schoonzoon <br><span class="pronunciation">(SKHOHN-zohn)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Son in law', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Schoonzoon', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=son+in+law" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">24</td>
+                    <td class="symbol">👩</td>
+                    <td>Daughter-in-law <br><span class="pronunciation">(DAW-tur-in-law)</span></td>
+                    <td>Schoondochter <br><span class="pronunciation">(SKHOHN-dokh-ter)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Daughter in law', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Schoondochter', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=daughter+in+law" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <!-- STEP FAMILY -->
+                <tr>
+                    <td class="number">25</td>
+                    <td class="symbol">👨</td>
+                    <td>Stepfather <br><span class="pronunciation">(STEP-fah-thur)</span></td>
+                    <td>Stiefvader <br><span class="pronunciation">(STEEF-vah-der)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Stepfather', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Stiefvader', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=stepfather" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">26</td>
+                    <td class="symbol">👩</td>
+                    <td>Stepmother <br><span class="pronunciation">(STEP-muh-thur)</span></td>
+                    <td>Stiefmoeder <br><span class="pronunciation">(STEEF-moo-der)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Stepmother', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Stiefmoeder', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=stepmother" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">27</td>
+                    <td class="symbol">👦</td>
+                    <td>Stepbrother <br><span class="pronunciation">(STEP-bruh-thur)</span></td>
+                    <td>Stiefbroer <br><span class="pronunciation">(STEEF-broor)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Stepbrother', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Stiefbroer', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=stepbrother" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">28</td>
+                    <td class="symbol">👧</td>
+                    <td>Stepsister <br><span class="pronunciation">(STEP-sis-tur)</span></td>
+                    <td>Stiefzus <br><span class="pronunciation">(STEEF-zus)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Stepsister', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Stiefzus', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=stepsister" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <!-- OTHER FAMILY MEMBERS -->
+                <tr>
+                    <td class="number">29</td>
+                    <td class="symbol">👨‍👩‍👧‍👦</td>
+                    <td>Parents <br><span class="pronunciation">(PAIR-ents)</span></td>
+                    <td>Ouders <br><span class="pronunciation">(OW-ders)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Parents', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Ouders', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=parents" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">30</td>
+                    <td class="symbol">👶</td>
+                    <td>Children <br><span class="pronunciation">(CHIL-dren)</span></td>
+                    <td>Kinderen <br><span class="pronunciation">(KIN-duh-ren)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Children', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Kinderen', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=children" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">31</td>
+                    <td class="symbol">👶</td>
+                    <td>Baby <br><span class="pronunciation">(BAY-bee)</span></td>
+                    <td>Baby <br><span class="pronunciation">(BAY-bee)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Baby', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Baby', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=baby" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">32</td>
+                    <td class="symbol">👶</td>
+                    <td>Twin <br><span class="pronunciation">(TWIN)</span></td>
+                    <td>Tweeling <br><span class="pronunciation">(TWAY-ling)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Twin', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tweeling', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=twins" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">33</td>
+                    <td class="symbol">👨‍👩‍👧‍👦</td>
+                    <td>Family <br><span class="pronunciation">(FAM-uh-lee)</span></td>
+                    <td>Familie <br><span class="pronunciation">(fah-MEE-lee)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Family', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Familie', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=family" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">34</td>
+                    <td class="symbol">🏠</td>
+                    <td>Relatives <br><span class="pronunciation">(REL-uh-tivz)</span></td>
+                    <td>Verwanten <br><span class="pronunciation">(fer-VAHN-ten)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Relatives', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Verwanten', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=relatives" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">35</td>
+                    <td class="symbol">👴👵</td>
+                    <td>Grandparents <br><span class="pronunciation">(GRAND-pair-ents)</span></td>
+                    <td>Grootouders <br><span class="pronunciation">(GROHT-ow-ders)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Grandparents', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Grootouders', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=grandparents" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="margin-top: 30px; text-align: center; color: #fa709a; font-size: 1.2em;">
+            🌟 Click "📸 View" to see pictures! 🌟
+        </div>
+    </div>
+    
+    <script>
+        function speak(text, lang) {
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+            
+            // Create a new speech synthesis utterance
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            utterance.rate = 0.8; // Slightly slower for kids to understand better
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            
+            // Speak the text
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>

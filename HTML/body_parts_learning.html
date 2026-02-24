@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Body Parts - English & Dutch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #f0f0f0;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1em;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2em;
+            border: 2px solid #5a67d8;
+        }
+
+        td {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+
+        .emoji {
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        .body-part-name {
+            font-size: 1.3em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .word {
+            font-size: 1.3em;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .pronunciation {
+            font-size: 0.95em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .speak-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            margin: 3px;
+        }
+
+        .speak-btn:hover {
+            background: #45a049;
+        }
+
+        .speak-btn:active {
+            transform: scale(0.95);
+        }
+
+        .image-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .image-btn:hover {
+            background: #0b7dda;
+        }
+
+        .button-cell {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .table-container {
+                font-size: 0.9em;
+            }
+
+            .emoji {
+                font-size: 2em;
+            }
+
+            th, td {
+                padding: 10px 5px;
+            }
+
+            .word {
+                font-size: 1.1em;
+            }
+
+            .speak-btn {
+                padding: 6px 10px;
+                font-size: 0.8em;
+            }
+
+            .image-btn {
+                padding: 8px 12px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Learn Body Parts!</h1>
+        <div class="subtitle">English & Dutch with Pronunciation</div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>🎭 Emoji</th>
+                        <th>Body Part</th>
+                        <th>🇬🇧 English</th>
+                        <th>🇳🇱 Dutch</th>
+                        <th>🔊 Listen</th>
+                        <th>📸 Images</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Head -->
+                    <tr>
+                        <td class="emoji">👤</td>
+                        <td><div class="body-part-name">Head</div></td>
+                        <td>
+                            <div class="word">Head</div>
+                            <div class="pronunciation">/hed/</div>
+                        </td>
+                        <td>
+                            <div class="word">Hoofd</div>
+                            <div class="pronunciation">/hoːft/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('head', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('hoofd', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+head" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Eyes -->
+                    <tr>
+                        <td class="emoji">👀</td>
+                        <td><div class="body-part-name">Eyes</div></td>
+                        <td>
+                            <div class="word">Eyes</div>
+                            <div class="pronunciation">/aɪz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Ogen</div>
+                            <div class="pronunciation">/ˈoːɣə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('eyes', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('ogen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+eyes" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Nose -->
+                    <tr>
+                        <td class="emoji">👃</td>
+                        <td><div class="body-part-name">Nose</div></td>
+                        <td>
+                            <div class="word">Nose</div>
+                            <div class="pronunciation">/nəʊz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Neus</div>
+                            <div class="pronunciation">/nøːs/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('nose', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('neus', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+nose" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Mouth -->
+                    <tr>
+                        <td class="emoji">👄</td>
+                        <td><div class="body-part-name">Mouth</div></td>
+                        <td>
+                            <div class="word">Mouth</div>
+                            <div class="pronunciation">/maʊθ/</div>
+                        </td>
+                        <td>
+                            <div class="word">Mond</div>
+                            <div class="pronunciation">/mɔnt/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('mouth', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('mond', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+mouth" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Ears -->
+                    <tr>
+                        <td class="emoji">👂</td>
+                        <td><div class="body-part-name">Ears</div></td>
+                        <td>
+                            <div class="word">Ears</div>
+                            <div class="pronunciation">/ɪəz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Oren</div>
+                            <div class="pronunciation">/ˈoːrə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('ears', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('oren', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+ears" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Hair -->
+                    <tr>
+                        <td class="emoji">💇</td>
+                        <td><div class="body-part-name">Hair</div></td>
+                        <td>
+                            <div class="word">Hair</div>
+                            <div class="pronunciation">/heə/</div>
+                        </td>
+                        <td>
+                            <div class="word">Haar</div>
+                            <div class="pronunciation">/ɦaːr/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('hair', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('haar', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+hair" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Arms -->
+                    <tr>
+                        <td class="emoji">💪</td>
+                        <td><div class="body-part-name">Arms</div></td>
+                        <td>
+                            <div class="word">Arms</div>
+                            <div class="pronunciation">/ɑːmz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Armen</div>
+                            <div class="pronunciation">/ˈɑrmə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('arms', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('armen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+arms" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Hands -->
+                    <tr>
+                        <td class="emoji">✋</td>
+                        <td><div class="body-part-name">Hands</div></td>
+                        <td>
+                            <div class="word">Hands</div>
+                            <div class="pronunciation">/hændz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Handen</div>
+                            <div class="pronunciation">/ˈɦɑndə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('hands', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('handen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+hands" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Fingers -->
+                    <tr>
+                        <td class="emoji">👆</td>
+                        <td><div class="body-part-name">Fingers</div></td>
+                        <td>
+                            <div class="word">Fingers</div>
+                            <div class="pronunciation">/ˈfɪŋɡəz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Vingers</div>
+                            <div class="pronunciation">/ˈvɪŋərs/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('fingers', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('vingers', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+fingers" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Legs -->
+                    <tr>
+                        <td class="emoji">🦵</td>
+                        <td><div class="body-part-name">Legs</div></td>
+                        <td>
+                            <div class="word">Legs</div>
+                            <div class="pronunciation">/leɡz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Benen</div>
+                            <div class="pronunciation">/ˈbeːnə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('legs', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('benen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+legs" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Feet -->
+                    <tr>
+                        <td class="emoji">🦶</td>
+                        <td><div class="body-part-name">Feet</div></td>
+                        <td>
+                            <div class="word">Feet</div>
+                            <div class="pronunciation">/fiːt/</div>
+                        </td>
+                        <td>
+                            <div class="word">Voeten</div>
+                            <div class="pronunciation">/ˈvutə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('feet', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('voeten', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+feet" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Toes -->
+                    <tr>
+                        <td class="emoji">🦶</td>
+                        <td><div class="body-part-name">Toes</div></td>
+                        <td>
+                            <div class="word">Toes</div>
+                            <div class="pronunciation">/təʊz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Tenen</div>
+                            <div class="pronunciation">/ˈteːnə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('toes', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('tenen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+toes" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Stomach -->
+                    <tr>
+                        <td class="emoji">🫃</td>
+                        <td><div class="body-part-name">Stomach</div></td>
+                        <td>
+                            <div class="word">Stomach</div>
+                            <div class="pronunciation">/ˈstʌmək/</div>
+                        </td>
+                        <td>
+                            <div class="word">Buik</div>
+                            <div class="pronunciation">/bœyk/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('stomach', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('buik', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+stomach+belly" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Back -->
+                    <tr>
+                        <td class="emoji">🫸</td>
+                        <td><div class="body-part-name">Back</div></td>
+                        <td>
+                            <div class="word">Back</div>
+                            <div class="pronunciation">/bæk/</div>
+                        </td>
+                        <td>
+                            <div class="word">Rug</div>
+                            <div class="pronunciation">/rʏx/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('back', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('rug', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+back" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Chest -->
+                    <tr>
+                        <td class="emoji">🫁</td>
+                        <td><div class="body-part-name">Chest</div></td>
+                        <td>
+                            <div class="word">Chest</div>
+                            <div class="pronunciation">/tʃest/</div>
+                        </td>
+                        <td>
+                            <div class="word">Borst</div>
+                            <div class="pronunciation">/bɔrst/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('chest', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('borst', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+chest" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Neck -->
+                    <tr>
+                        <td class="emoji">🧣</td>
+                        <td><div class="body-part-name">Neck</div></td>
+                        <td>
+                            <div class="word">Neck</div>
+                            <div class="pronunciation">/nek/</div>
+                        </td>
+                        <td>
+                            <div class="word">Nek</div>
+                            <div class="pronunciation">/nɛk/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('neck', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('nek', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+neck" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Shoulders -->
+                    <tr>
+                        <td class="emoji">🤷</td>
+                        <td><div class="body-part-name">Shoulders</div></td>
+                        <td>
+                            <div class="word">Shoulders</div>
+                            <div class="pronunciation">/ˈʃəʊldəz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Schouders</div>
+                            <div class="pronunciation">/ˈsxʌudərs/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('shoulders', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('schouders', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+shoulders" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Knees -->
+                    <tr>
+                        <td class="emoji">🦵</td>
+                        <td><div class="body-part-name">Knees</div></td>
+                        <td>
+                            <div class="word">Knees</div>
+                            <div class="pronunciation">/niːz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Knieën</div>
+                            <div class="pronunciation">/kniˈjeː(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('knees', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('knieën', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+knees" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Elbows -->
+                    <tr>
+                        <td class="emoji">💪</td>
+                        <td><div class="body-part-name">Elbows</div></td>
+                        <td>
+                            <div class="word">Elbows</div>
+                            <div class="pronunciation">/ˈelbəʊz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Ellebogen</div>
+                            <div class="pronunciation">/ˈɛləboːɣə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('elbows', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('ellebogen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+elbows" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Teeth -->
+                    <tr>
+                        <td class="emoji">🦷</td>
+                        <td><div class="body-part-name">Teeth</div></td>
+                        <td>
+                            <div class="word">Teeth</div>
+                            <div class="pronunciation">/tiːθ/</div>
+                        </td>
+                        <td>
+                            <div class="word">Tanden</div>
+                            <div class="pronunciation">/ˈtɑndə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('teeth', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('tanden', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+teeth" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Tongue -->
+                    <tr>
+                        <td class="emoji">👅</td>
+                        <td><div class="body-part-name">Tongue</div></td>
+                        <td>
+                            <div class="word">Tongue</div>
+                            <div class="pronunciation">/tʌŋ/</div>
+                        </td>
+                        <td>
+                            <div class="word">Tong</div>
+                            <div class="pronunciation">/tɔŋ/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('tongue', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('tong', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+tongue" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Face -->
+                    <tr>
+                        <td class="emoji">😊</td>
+                        <td><div class="body-part-name">Face</div></td>
+                        <td>
+                            <div class="word">Face</div>
+                            <div class="pronunciation">/feɪs/</div>
+                        </td>
+                        <td>
+                            <div class="word">Gezicht</div>
+                            <div class="pronunciation">/ɣəˈzɪxt/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('face', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('gezicht', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+face" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Eyebrows -->
+                    <tr>
+                        <td class="emoji">🤨</td>
+                        <td><div class="body-part-name">Eyebrows</div></td>
+                        <td>
+                            <div class="word">Eyebrows</div>
+                            <div class="pronunciation">/ˈaɪbraʊz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Wenkbrauwen</div>
+                            <div class="pronunciation">/ˈʋɛŋkbrʌuʋə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('eyebrows', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('wenkbrauwen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+eyebrows" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Chin -->
+                    <tr>
+                        <td class="emoji">🧔</td>
+                        <td><div class="body-part-name">Chin</div></td>
+                        <td>
+                            <div class="word">Chin</div>
+                            <div class="pronunciation">/tʃɪn/</div>
+                        </td>
+                        <td>
+                            <div class="word">Kin</div>
+                            <div class="pronunciation">/kɪn/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('chin', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('kin', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+chin" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Cheeks -->
+                    <tr>
+                        <td class="emoji">😊</td>
+                        <td><div class="body-part-name">Cheeks</div></td>
+                        <td>
+                            <div class="word">Cheeks</div>
+                            <div class="pronunciation">/tʃiːks/</div>
+                        </td>
+                        <td>
+                            <div class="word">Wangen</div>
+                            <div class="pronunciation">/ˈʋɑŋə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('cheeks', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('wangen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+cheeks" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Forehead -->
+                    <tr>
+                        <td class="emoji">🤔</td>
+                        <td><div class="body-part-name">Forehead</div></td>
+                        <td>
+                            <div class="word">Forehead</div>
+                            <div class="pronunciation">/ˈfɔːhed/</div>
+                        </td>
+                        <td>
+                            <div class="word">Voorhoofd</div>
+                            <div class="pronunciation">/ˈvoːrɦoːft/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('forehead', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('voorhoofd', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+forehead" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Lips -->
+                    <tr>
+                        <td class="emoji">💋</td>
+                        <td><div class="body-part-name">Lips</div></td>
+                        <td>
+                            <div class="word">Lips</div>
+                            <div class="pronunciation">/lɪps/</div>
+                        </td>
+                        <td>
+                            <div class="word">Lippen</div>
+                            <div class="pronunciation">/ˈlɪpə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('lips', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('lippen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+lips" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Thumb -->
+                    <tr>
+                        <td class="emoji">👍</td>
+                        <td><div class="body-part-name">Thumb</div></td>
+                        <td>
+                            <div class="word">Thumb</div>
+                            <div class="pronunciation">/θʌm/</div>
+                        </td>
+                        <td>
+                            <div class="word">Duim</div>
+                            <div class="pronunciation">/dœym/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('thumb', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('duim', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+thumb" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Wrist -->
+                    <tr>
+                        <td class="emoji">⌚</td>
+                        <td><div class="body-part-name">Wrist</div></td>
+                        <td>
+                            <div class="word">Wrist</div>
+                            <div class="pronunciation">/rɪst/</div>
+                        </td>
+                        <td>
+                            <div class="word">Pols</div>
+                            <div class="pronunciation">/pɔls/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('wrist', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('pols', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+wrist" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Palm -->
+                    <tr>
+                        <td class="emoji">🤚</td>
+                        <td><div class="body-part-name">Palm</div></td>
+                        <td>
+                            <div class="word">Palm</div>
+                            <div class="pronunciation">/pɑːm/</div>
+                        </td>
+                        <td>
+                            <div class="word">Handpalm</div>
+                            <div class="pronunciation">/ˈɦɑntpɑlm/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('palm', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('handpalm', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+palm+hand" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Ankle -->
+                    <tr>
+                        <td class="emoji">🦶</td>
+                        <td><div class="body-part-name">Ankle</div></td>
+                        <td>
+                            <div class="word">Ankle</div>
+                            <div class="pronunciation">/ˈæŋkl/</div>
+                        </td>
+                        <td>
+                            <div class="word">Enkel</div>
+                            <div class="pronunciation">/ˈɛŋkəl/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('ankle', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('enkel', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+ankle" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Heel -->
+                    <tr>
+                        <td class="emoji">👠</td>
+                        <td><div class="body-part-name">Heel</div></td>
+                        <td>
+                            <div class="word">Heel</div>
+                            <div class="pronunciation">/hiːl/</div>
+                        </td>
+                        <td>
+                            <div class="word">Hiel</div>
+                            <div class="pronunciation">/ɦil/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('heel', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('hiel', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+heel" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Hip -->
+                    <tr>
+                        <td class="emoji">🕺</td>
+                        <td><div class="body-part-name">Hip</div></td>
+                        <td>
+                            <div class="word">Hip</div>
+                            <div class="pronunciation">/hɪp/</div>
+                        </td>
+                        <td>
+                            <div class="word">Heup</div>
+                            <div class="pronunciation">/ɦøːp/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('hip', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('heup', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+hip" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Waist -->
+                    <tr>
+                        <td class="emoji">👖</td>
+                        <td><div class="body-part-name">Waist</div></td>
+                        <td>
+                            <div class="word">Waist</div>
+                            <div class="pronunciation">/weɪst/</div>
+                        </td>
+                        <td>
+                            <div class="word">Taille</div>
+                            <div class="pronunciation">/ˈtɑjə/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('waist', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('taille', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+waist" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Heart -->
+                    <tr>
+                        <td class="emoji">❤️</td>
+                        <td><div class="body-part-name">Heart</div></td>
+                        <td>
+                            <div class="word">Heart</div>
+                            <div class="pronunciation">/hɑːt/</div>
+                        </td>
+                        <td>
+                            <div class="word">Hart</div>
+                            <div class="pronunciation">/ɦɑrt/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('heart', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('hart', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+heart+anatomy" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Brain -->
+                    <tr>
+                        <td class="emoji">🧠</td>
+                        <td><div class="body-part-name">Brain</div></td>
+                        <td>
+                            <div class="word">Brain</div>
+                            <div class="pronunciation">/breɪn/</div>
+                        </td>
+                        <td>
+                            <div class="word">Hersenen</div>
+                            <div class="pronunciation">/ˈɦɛrsənə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('brain', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('hersenen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+brain+anatomy" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Lungs -->
+                    <tr>
+                        <td class="emoji">🫁</td>
+                        <td><div class="body-part-name">Lungs</div></td>
+                        <td>
+                            <div class="word">Lungs</div>
+                            <div class="pronunciation">/lʌŋz/</div>
+                        </td>
+                        <td>
+                            <div class="word">Longen</div>
+                            <div class="pronunciation">/ˈlɔŋə(n)/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('lungs', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('longen', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+lungs+anatomy" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Skin -->
+                    <tr>
+                        <td class="emoji">🤲</td>
+                        <td><div class="body-part-name">Skin</div></td>
+                        <td>
+                            <div class="word">Skin</div>
+                            <div class="pronunciation">/skɪn/</div>
+                        </td>
+                        <td>
+                            <div class="word">Huid</div>
+                            <div class="pronunciation">/ɦœyt/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('skin', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('huid', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+skin" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Bone -->
+                    <tr>
+                        <td class="emoji">🦴</td>
+                        <td><div class="body-part-name">Bone</div></td>
+                        <td>
+                            <div class="word">Bone</div>
+                            <div class="pronunciation">/bəʊn/</div>
+                        </td>
+                        <td>
+                            <div class="word">Bot</div>
+                            <div class="pronunciation">/bɔt/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('bone', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('bot', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+bone" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+
+                    <!-- Blood -->
+                    <tr>
+                        <td class="emoji">🩸</td>
+                        <td><div class="body-part-name">Blood</div></td>
+                        <td>
+                            <div class="word">Blood</div>
+                            <div class="pronunciation">/blʌd/</div>
+                        </td>
+                        <td>
+                            <div class="word">Bloed</div>
+                            <div class="pronunciation">/blut/</div>
+                        </td>
+                        <td class="button-cell">
+                            <button class="speak-btn" onclick="speak('blood', 'en-GB')">🇬🇧 EN</button>
+                            <button class="speak-btn" onclick="speak('bloed', 'nl-NL')">🇳🇱 NL</button>
+                        </td>
+                        <td class="button-cell">
+                            <a href="https://www.google.com/search?tbm=isch&q=human+blood" target="_blank" class="image-btn">View</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function speak(word, language) {
+            // Check if browser supports speech synthesis
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                // Create a new speech synthesis utterance
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = language;
+                utterance.rate = 0.8; // Slower speed for learning
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                // Speak the word
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Sorry, your browser does not support text-to-speech!');
+            }
+        }
+    </script>
+</body>
+</html>

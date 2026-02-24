@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Stationary & School Items - English & Dutch</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #00f2fe;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #4facfe;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2em;
+            border: 2px solid #00f2fe;
+        }
+        
+        td {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f0f9ff;
+        }
+        
+        tr:hover {
+            background-color: #e0f4ff;
+            transition: background-color 0.3s;
+        }
+        
+        .image-link {
+            background-color: #4facfe;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .image-link:hover {
+            background-color: #00f2fe;
+            transform: scale(1.05);
+        }
+        
+        .voice-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            margin: 2px;
+            display: inline-block;
+        }
+        
+        .voice-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        
+        .voice-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .pronunciation {
+            color: #555;
+            font-style: italic;
+            font-size: 0.95em;
+        }
+        
+        .number {
+            font-weight: bold;
+            color: #00f2fe;
+            font-size: 1.1em;
+        }
+        
+        .symbol {
+            font-size: 2.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Learn Stationary & School Items! ✏️</h1>
+        <div class="subtitle">English & Dutch Learning for Kids</div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Symbol</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number">1</td>
+                    <td class="symbol">✏️</td>
+                    <td>Pencil <br><span class="pronunciation">(PEN-sil)</span></td>
+                    <td>Potlood <br><span class="pronunciation">(POT-loht)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Pencil', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Potlood', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=pencil" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">2</td>
+                    <td class="symbol">🖊️</td>
+                    <td>Pen <br><span class="pronunciation">(PEN)</span></td>
+                    <td>Pen <br><span class="pronunciation">(PEN)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Pen', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Pen', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=pen" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">3</td>
+                    <td class="symbol">🖍️</td>
+                    <td>Crayon <br><span class="pronunciation">(KRAY-on)</span></td>
+                    <td>Kleurpotlood <br><span class="pronunciation">(KLUR-pot-loht)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Crayon', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Kleurpotlood', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=crayon" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">4</td>
+                    <td class="symbol">🖌️</td>
+                    <td>Marker <br><span class="pronunciation">(MAR-kur)</span></td>
+                    <td>Stift <br><span class="pronunciation">(STIFT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Marker', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Stift', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=marker+pen" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">5</td>
+                    <td class="symbol">🖍️</td>
+                    <td>Highlighter <br><span class="pronunciation">(HY-ly-tur)</span></td>
+                    <td>Markeerstift <br><span class="pronunciation">(mar-KAYR-stift)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Highlighter', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Markeerstift', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=highlighter" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">6</td>
+                    <td class="symbol">📓</td>
+                    <td>Notebook <br><span class="pronunciation">(NOTE-book)</span></td>
+                    <td>Schrift <br><span class="pronunciation">(SKRIFT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Notebook', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Schrift', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=notebook" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">7</td>
+                    <td class="symbol">📕</td>
+                    <td>Book <br><span class="pronunciation">(BOOK)</span></td>
+                    <td>Boek <br><span class="pronunciation">(BOOK)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Book', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Boek', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=book" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">8</td>
+                    <td class="symbol">📄</td>
+                    <td>Paper <br><span class="pronunciation">(PAY-pur)</span></td>
+                    <td>Papier <br><span class="pronunciation">(pah-PEER)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Paper', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Papier', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=paper" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">9</td>
+                    <td class="symbol">📐</td>
+                    <td>Ruler <br><span class="pronunciation">(ROO-lur)</span></td>
+                    <td>Liniaal <br><span class="pronunciation">(lee-nee-AHL)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Ruler', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Liniaal', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=ruler" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">10</td>
+                    <td class="symbol">✂️</td>
+                    <td>Scissors <br><span class="pronunciation">(SIZ-urz)</span></td>
+                    <td>Schaar <br><span class="pronunciation">(SKHAHR)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Scissors', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Schaar', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=scissors" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">11</td>
+                    <td class="symbol">🖇️</td>
+                    <td>Glue <br><span class="pronunciation">(GLOO)</span></td>
+                    <td>Lijm <br><span class="pronunciation">(LAYM)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Glue', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Lijm', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=glue+stick" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">12</td>
+                    <td class="symbol">🗑️</td>
+                    <td>Eraser <br><span class="pronunciation">(ih-RAY-zur)</span></td>
+                    <td>Gum <br><span class="pronunciation">(KHUM)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Eraser', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Gum', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=eraser" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">13</td>
+                    <td class="symbol">✏️</td>
+                    <td>Pencil Sharpener <br><span class="pronunciation">(PEN-sil SHAR-puh-nur)</span></td>
+                    <td>Puntenslijper <br><span class="pronunciation">(PUN-ten-slay-per)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Pencil Sharpener', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Puntenslijper', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=pencil+sharpener" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">14</td>
+                    <td class="symbol">📌</td>
+                    <td>Pushpin <br><span class="pronunciation">(PUSH-pin)</span></td>
+                    <td>Punaise <br><span class="pronunciation">(poo-NAY-zuh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Pushpin', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Punaise', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=pushpin" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">15</td>
+                    <td class="symbol">📎</td>
+                    <td>Paper Clip <br><span class="pronunciation">(PAY-pur KLIP)</span></td>
+                    <td>Paperclip <br><span class="pronunciation">(PAY-per-klip)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Paper Clip', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Paperclip', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=paper+clip" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">16</td>
+                    <td class="symbol">📏</td>
+                    <td>Stapler <br><span class="pronunciation">(STAY-plur)</span></td>
+                    <td>Nietmachine <br><span class="pronunciation">(NEET-mah-shee-nuh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Stapler', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Nietmachine', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=stapler" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">17</td>
+                    <td class="symbol">🗂️</td>
+                    <td>Folder <br><span class="pronunciation">(FOHL-dur)</span></td>
+                    <td>Map <br><span class="pronunciation">(MAP)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Folder', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Map', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=folder" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">18</td>
+                    <td class="symbol">📁</td>
+                    <td>Binder <br><span class="pronunciation">(BYN-dur)</span></td>
+                    <td>Ringband <br><span class="pronunciation">(RING-bahnt)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Binder', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Ringband', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=binder" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">19</td>
+                    <td class="symbol">🎨</td>
+                    <td>Paint <br><span class="pronunciation">(PAYNT)</span></td>
+                    <td>Verf <br><span class="pronunciation">(FERF)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Paint', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Verf', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=paint" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">20</td>
+                    <td class="symbol">🖌️</td>
+                    <td>Paintbrush <br><span class="pronunciation">(PAYNT-brush)</span></td>
+                    <td>Kwast <br><span class="pronunciation">(KWAHST)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Paintbrush', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Kwast', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=paintbrush" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">21</td>
+                    <td class="symbol">🎒</td>
+                    <td>Backpack <br><span class="pronunciation">(BAK-pak)</span></td>
+                    <td>Rugzak <br><span class="pronunciation">(RUKH-zahk)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Backpack', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Rugzak', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=backpack" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">22</td>
+                    <td class="symbol">📚</td>
+                    <td>Textbook <br><span class="pronunciation">(TEKST-book)</span></td>
+                    <td>Lesboek <br><span class="pronunciation">(LES-book)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Textbook', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Lesboek', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=textbook" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">23</td>
+                    <td class="symbol">🗓️</td>
+                    <td>Calendar <br><span class="pronunciation">(KAL-un-dur)</span></td>
+                    <td>Kalender <br><span class="pronunciation">(kah-LEN-der)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Calendar', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Kalender', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">24</td>
+                    <td class="symbol">🖥️</td>
+                    <td>Computer <br><span class="pronunciation">(kum-PYOO-tur)</span></td>
+                    <td>Computer <br><span class="pronunciation">(kom-PYU-ter)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Computer', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Computer', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=computer" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">25</td>
+                    <td class="symbol">⌨️</td>
+                    <td>Keyboard <br><span class="pronunciation">(KEE-bord)</span></td>
+                    <td>Toetsenbord <br><span class="pronunciation">(TOOT-sen-bort)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Keyboard', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Toetsenbord', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=keyboard" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">26</td>
+                    <td class="symbol">🖱️</td>
+                    <td>Mouse <br><span class="pronunciation">(MOWS)</span></td>
+                    <td>Muis <br><span class="pronunciation">(MOYS)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Mouse', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Muis', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=computer+mouse" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">27</td>
+                    <td class="symbol">🖨️</td>
+                    <td>Printer <br><span class="pronunciation">(PRIN-tur)</span></td>
+                    <td>Printer <br><span class="pronunciation">(PRIN-ter)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Printer', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Printer', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=printer" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">28</td>
+                    <td class="symbol">🖊️</td>
+                    <td>Pencil Case <br><span class="pronunciation">(PEN-sil KAYSS)</span></td>
+                    <td>Etui <br><span class="pronunciation">(ay-TWEE)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Pencil Case', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Etui', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=pencil+case" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">29</td>
+                    <td class="symbol">📐</td>
+                    <td>Protractor <br><span class="pronunciation">(proh-TRAK-tur)</span></td>
+                    <td>Gradenboog <br><span class="pronunciation">(GRAH-den-bohkh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Protractor', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Gradenboog', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=protractor" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">30</td>
+                    <td class="symbol">📐</td>
+                    <td>Compass <br><span class="pronunciation">(KUM-pus)</span></td>
+                    <td>Passer <br><span class="pronunciation">(PAH-ser)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Compass', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Passer', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=geometry+compass" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">31</td>
+                    <td class="symbol">🧮</td>
+                    <td>Calculator <br><span class="pronunciation">(KAL-kyuh-lay-tur)</span></td>
+                    <td>Rekenmachine <br><span class="pronunciation">(RAY-ken-mah-shee-nuh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Calculator', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Rekenmachine', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=calculator" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">32</td>
+                    <td class="symbol">📋</td>
+                    <td>Clipboard <br><span class="pronunciation">(KLIP-bord)</span></td>
+                    <td>Klembord <br><span class="pronunciation">(KLEM-bort)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Clipboard', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Klembord', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=clipboard" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">33</td>
+                    <td class="symbol">📦</td>
+                    <td>Pencil Box <br><span class="pronunciation">(PEN-sil BOKS)</span></td>
+                    <td>Pennendoos <br><span class="pronunciation">(PEN-nen-dohs)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Pencil Box', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Pennendoos', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=pencil+box" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">34</td>
+                    <td class="symbol">🎓</td>
+                    <td>Dictionary <br><span class="pronunciation">(DIK-shun-air-ee)</span></td>
+                    <td>Woordenboek <br><span class="pronunciation">(VOHR-den-book)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Dictionary', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Woordenboek', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=dictionary" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">35</td>
+                    <td class="symbol">🗃️</td>
+                    <td>Filing Cabinet <br><span class="pronunciation">(FY-ling KAB-ih-net)</span></td>
+                    <td>Archiefkast <br><span class="pronunciation">(ar-KHEEF-kahst)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Filing Cabinet', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Archiefkast', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=filing+cabinet" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">36</td>
+                    <td class="symbol">🪑</td>
+                    <td>Office Chair <br><span class="pronunciation">(OFF-iss CHAIR)</span></td>
+                    <td>Bureaustoel <br><span class="pronunciation">(boo-ROH-stool)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Office Chair', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Bureaustoel', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=office+chair" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">37</td>
+                    <td class="symbol">🏢</td>
+                    <td>Desk <br><span class="pronunciation">(DESK)</span></td>
+                    <td>Bureau <br><span class="pronunciation">(boo-ROH)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Desk', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Bureau', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=desk" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">38</td>
+                    <td class="symbol">💡</td>
+                    <td>Desk Lamp <br><span class="pronunciation">(DESK LAMP)</span></td>
+                    <td>Bureaulamp <br><span class="pronunciation">(boo-ROH-lahmp)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Desk Lamp', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Bureaulamp', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=desk+lamp" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">39</td>
+                    <td class="symbol">📞</td>
+                    <td>Telephone <br><span class="pronunciation">(TEL-uh-fohn)</span></td>
+                    <td>Telefoon <br><span class="pronunciation">(tay-lay-FOHN)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Telephone', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Telefoon', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=telephone" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                
+                <tr>
+                    <td class="number">40</td>
+                    <td class="symbol">📱</td>
+                    <td>Tablet <br><span class="pronunciation">(TAB-let)</span></td>
+                    <td>Tablet <br><span class="pronunciation">(TAB-let)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Tablet', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tablet', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=tablet" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="margin-top: 30px; text-align: center; color: #4facfe; font-size: 1.2em;">
+            🌟 Click "📸 View" to see pictures! 🌟
+        </div>
+    </div>
+    
+    <script>
+        function speak(text, lang) {
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+            
+            // Create a new speech synthesis utterance
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            utterance.rate = 0.8; // Slightly slower for kids to understand better
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            
+            // Speak the text
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>

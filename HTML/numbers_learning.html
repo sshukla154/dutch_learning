@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Numbers - English & Dutch</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ffa751 0%, #ffe259 100%);
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #ff6b35;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #ffa751;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #ffa751 0%, #ffe259 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 30px 0 15px 0;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #ffa751 0%, #ffe259 100%);
+            color: white;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2em;
+            border: 2px solid #ff6b35;
+        }
+        
+        td {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #fff8f0;
+        }
+        
+        tr:hover {
+            background-color: #ffe8d6;
+            transition: background-color 0.3s;
+        }
+        
+        .image-link {
+            background-color: #ffa751;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .image-link:hover {
+            background-color: #ff6b35;
+            transform: scale(1.05);
+        }
+        
+        .voice-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            margin: 2px;
+            display: inline-block;
+        }
+        
+        .voice-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        
+        .voice-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .pronunciation {
+            color: #555;
+            font-style: italic;
+            font-size: 0.95em;
+        }
+        
+        .number-symbol {
+            font-weight: bold;
+            color: #ff6b35;
+            font-size: 2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Learn Numbers! 🔢</h1>
+        <div class="subtitle">English & Dutch Learning for Kids</div>
+        
+        <!-- BASIC NUMBERS 0-20 -->
+        <div class="section-title">📌 Basic Numbers 0 to 20</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number-symbol">0</td>
+                    <td>Zero <br><span class="pronunciation">(ZEER-oh)</span></td>
+                    <td>Nul <br><span class="pronunciation">(NUL)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Zero', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Nul', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+0+zero" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">1</td>
+                    <td>One <br><span class="pronunciation">(WUN)</span></td>
+                    <td>Één <br><span class="pronunciation">(AYN)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('One', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Één', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+1+one" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">2</td>
+                    <td>Two <br><span class="pronunciation">(TOO)</span></td>
+                    <td>Twee <br><span class="pronunciation">(TWAY)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Two', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Twee', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+2+two" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">3</td>
+                    <td>Three <br><span class="pronunciation">(THREE)</span></td>
+                    <td>Drie <br><span class="pronunciation">(DREE)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Three', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Drie', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+3+three" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">4</td>
+                    <td>Four <br><span class="pronunciation">(FOR)</span></td>
+                    <td>Vier <br><span class="pronunciation">(FEER)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Four', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vier', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+4+four" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">5</td>
+                    <td>Five <br><span class="pronunciation">(FIVE)</span></td>
+                    <td>Vijf <br><span class="pronunciation">(FAYF)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Five', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vijf', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+5+five" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">6</td>
+                    <td>Six <br><span class="pronunciation">(SIKS)</span></td>
+                    <td>Zes <br><span class="pronunciation">(ZES)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Six', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zes', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+6+six" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">7</td>
+                    <td>Seven <br><span class="pronunciation">(SEV-en)</span></td>
+                    <td>Zeven <br><span class="pronunciation">(ZAY-ven)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Seven', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zeven', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+7+seven" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">8</td>
+                    <td>Eight <br><span class="pronunciation">(AYT)</span></td>
+                    <td>Acht <br><span class="pronunciation">(AKHT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Eight', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Acht', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+8+eight" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">9</td>
+                    <td>Nine <br><span class="pronunciation">(NINE)</span></td>
+                    <td>Negen <br><span class="pronunciation">(NAY-ghen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Nine', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Negen', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+9+nine" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">10</td>
+                    <td>Ten <br><span class="pronunciation">(TEN)</span></td>
+                    <td>Tien <br><span class="pronunciation">(TEEN)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Ten', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tien', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+10+ten" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">11</td>
+                    <td>Eleven <br><span class="pronunciation">(ih-LEV-en)</span></td>
+                    <td>Elf <br><span class="pronunciation">(ELF)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Eleven', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Elf', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+11+eleven" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">12</td>
+                    <td>Twelve <br><span class="pronunciation">(TWELV)</span></td>
+                    <td>Twaalf <br><span class="pronunciation">(TVAHLF)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Twelve', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Twaalf', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+12+twelve" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">13</td>
+                    <td>Thirteen <br><span class="pronunciation">(thur-TEEN)</span></td>
+                    <td>Dertien <br><span class="pronunciation">(DER-teen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Thirteen', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Dertien', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+13+thirteen" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">14</td>
+                    <td>Fourteen <br><span class="pronunciation">(for-TEEN)</span></td>
+                    <td>Veertien <br><span class="pronunciation">(FAYR-teen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Fourteen', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Veertien', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+14+fourteen" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">15</td>
+                    <td>Fifteen <br><span class="pronunciation">(fif-TEEN)</span></td>
+                    <td>Vijftien <br><span class="pronunciation">(FAYF-teen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Fifteen', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vijftien', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+15+fifteen" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">16</td>
+                    <td>Sixteen <br><span class="pronunciation">(siks-TEEN)</span></td>
+                    <td>Zestien <br><span class="pronunciation">(ZES-teen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Sixteen', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zestien', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+16+sixteen" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">17</td>
+                    <td>Seventeen <br><span class="pronunciation">(sev-en-TEEN)</span></td>
+                    <td>Zeventien <br><span class="pronunciation">(ZAY-ven-teen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Seventeen', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zeventien', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+17+seventeen" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">18</td>
+                    <td>Eighteen <br><span class="pronunciation">(ay-TEEN)</span></td>
+                    <td>Achttien <br><span class="pronunciation">(AKH-teen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Eighteen', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Achttien', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+18+eighteen" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">19</td>
+                    <td>Nineteen <br><span class="pronunciation">(nine-TEEN)</span></td>
+                    <td>Negentien <br><span class="pronunciation">(NAY-ghen-teen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Nineteen', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Negentien', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+19+nineteen" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">20</td>
+                    <td>Twenty <br><span class="pronunciation">(TWEN-tee)</span></td>
+                    <td>Twintig <br><span class="pronunciation">(TVIN-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Twenty', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Twintig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+20+twenty" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- TENS -->
+        <div class="section-title">📌 Tens (30, 40, 50...)</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number-symbol">30</td>
+                    <td>Thirty <br><span class="pronunciation">(THUR-tee)</span></td>
+                    <td>Dertig <br><span class="pronunciation">(DER-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Thirty', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Dertig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+30+thirty" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">40</td>
+                    <td>Forty <br><span class="pronunciation">(FOR-tee)</span></td>
+                    <td>Veertig <br><span class="pronunciation">(FAYR-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Forty', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Veertig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+40+forty" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">50</td>
+                    <td>Fifty <br><span class="pronunciation">(FIF-tee)</span></td>
+                    <td>Vijftig <br><span class="pronunciation">(FAYF-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Fifty', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vijftig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+50+fifty" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">60</td>
+                    <td>Sixty <br><span class="pronunciation">(SIKS-tee)</span></td>
+                    <td>Zestig <br><span class="pronunciation">(ZES-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Sixty', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zestig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+60+sixty" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">70</td>
+                    <td>Seventy <br><span class="pronunciation">(SEV-en-tee)</span></td>
+                    <td>Zeventig <br><span class="pronunciation">(ZAY-ven-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Seventy', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zeventig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+70+seventy" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">80</td>
+                    <td>Eighty <br><span class="pronunciation">(AY-tee)</span></td>
+                    <td>Tachtig <br><span class="pronunciation">(TAKH-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Eighty', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tachtig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+80+eighty" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">90</td>
+                    <td>Ninety <br><span class="pronunciation">(NINE-tee)</span></td>
+                    <td>Negentig <br><span class="pronunciation">(NAY-ghen-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Ninety', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Negentig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+90+ninety" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- COMPOUND NUMBERS 21-99 -->
+        <div class="section-title">📌 Numbers 21 to 99 (Dutch reverses: unit + en + ten)</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number-symbol">21</td>
+                    <td>Twenty-one <br><span class="pronunciation">(TWEN-tee-wun)</span></td>
+                    <td>Eenentwintig <br><span class="pronunciation">(AYN-en-tvin-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Twenty-one', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Eenentwintig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+21" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">22</td>
+                    <td>Twenty-two <br><span class="pronunciation">(TWEN-tee-too)</span></td>
+                    <td>Tweeëntwintig <br><span class="pronunciation">(TWAY-en-tvin-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Twenty-two', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tweeëntwintig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+22" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">25</td>
+                    <td>Twenty-five <br><span class="pronunciation">(TWEN-tee-five)</span></td>
+                    <td>Vijfentwintig <br><span class="pronunciation">(FAYF-en-tvin-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Twenty-five', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vijfentwintig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+25" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">32</td>
+                    <td>Thirty-two <br><span class="pronunciation">(THUR-tee-too)</span></td>
+                    <td>Tweeëndertig <br><span class="pronunciation">(TWAY-en-der-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Thirty-two', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tweeëndertig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+32" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">48</td>
+                    <td>Forty-eight <br><span class="pronunciation">(FOR-tee-ayt)</span></td>
+                    <td>Achtenveertig <br><span class="pronunciation">(AKH-ten-fayr-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Forty-eight', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Achtenveertig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+48" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">59</td>
+                    <td>Fifty-nine <br><span class="pronunciation">(FIF-tee-nine)</span></td>
+                    <td>Negenenvijftig <br><span class="pronunciation">(NAY-ghen-en-fayf-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Fifty-nine', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Negenenvijftig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+59" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">67</td>
+                    <td>Sixty-seven <br><span class="pronunciation">(SIKS-tee-sev-en)</span></td>
+                    <td>Zevenenzestig <br><span class="pronunciation">(ZAY-ven-en-zes-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Sixty-seven', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zevenenzestig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+67" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">74</td>
+                    <td>Seventy-four <br><span class="pronunciation">(SEV-en-tee-for)</span></td>
+                    <td>Vierenzeventig <br><span class="pronunciation">(FEER-en-zay-ven-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Seventy-four', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vierenzeventig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+74" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">86</td>
+                    <td>Eighty-six <br><span class="pronunciation">(AY-tee-siks)</span></td>
+                    <td>Zesentachtig <br><span class="pronunciation">(ZES-en-takh-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Eighty-six', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zesentachtig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+86" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">99</td>
+                    <td>Ninety-nine <br><span class="pronunciation">(NINE-tee-nine)</span></td>
+                    <td>Negenennegentig <br><span class="pronunciation">(NAY-ghen-en-nay-ghen-tikh)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Ninety-nine', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Negenennegentig', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+99" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- HUNDREDS AND THOUSANDS -->
+        <div class="section-title">📌 Hundreds and Thousands</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number-symbol">100</td>
+                    <td>One Hundred <br><span class="pronunciation">(wun HUN-dred)</span></td>
+                    <td>Honderd <br><span class="pronunciation">(HON-dert)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('One Hundred', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Honderd', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+100" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">101</td>
+                    <td>One Hundred One <br><span class="pronunciation">(wun HUN-dred wun)</span></td>
+                    <td>Honderd Één <br><span class="pronunciation">(HON-dert AYN)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('One Hundred One', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Honderd Één', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+101" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">200</td>
+                    <td>Two Hundred <br><span class="pronunciation">(too HUN-dred)</span></td>
+                    <td>Tweehonderd <br><span class="pronunciation">(TWAY-hon-dert)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Two Hundred', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tweehonderd', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+200" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">500</td>
+                    <td>Five Hundred <br><span class="pronunciation">(five HUN-dred)</span></td>
+                    <td>Vijfhonderd <br><span class="pronunciation">(FAYF-hon-dert)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Five Hundred', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vijfhonderd', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+500" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">1,000</td>
+                    <td>One Thousand <br><span class="pronunciation">(wun THOW-zand)</span></td>
+                    <td>Duizend <br><span class="pronunciation">(DOY-zent)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('One Thousand', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Duizend', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+1000" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">2,000</td>
+                    <td>Two Thousand <br><span class="pronunciation">(too THOW-zand)</span></td>
+                    <td>Tweeduizend <br><span class="pronunciation">(TWAY-doy-zent)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Two Thousand', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tweeduizend', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+2000" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">10,000</td>
+                    <td>Ten Thousand <br><span class="pronunciation">(ten THOW-zand)</span></td>
+                    <td>Tienduizend <br><span class="pronunciation">(TEEN-doy-zent)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Ten Thousand', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tienduizend', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+10000" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">100,000</td>
+                    <td>One Hundred Thousand <br><span class="pronunciation">(wun HUN-dred THOW-zand)</span></td>
+                    <td>Honderdduizend <br><span class="pronunciation">(HON-dert-doy-zent)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('One Hundred Thousand', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Honderdduizend', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+100000" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">1,000,000</td>
+                    <td>One Million <br><span class="pronunciation">(wun MIL-yun)</span></td>
+                    <td>Miljoen <br><span class="pronunciation">(mil-YOON)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('One Million', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Miljoen', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=number+1+million" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- MATHEMATICAL SYMBOLS -->
+        <div class="section-title">📌 Mathematical Symbols</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number-symbol">+</td>
+                    <td>Plus / Add <br><span class="pronunciation">(PLUS / AD)</span></td>
+                    <td>Plus / Optellen <br><span class="pronunciation">(PLUS / OP-tel-len)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Plus', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Plus', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=plus+sign+math" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">−</td>
+                    <td>Minus / Subtract <br><span class="pronunciation">(MY-nus / sub-TRAKT)</span></td>
+                    <td>Min / Aftrekken <br><span class="pronunciation">(MIN / AF-trek-ken)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Minus', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Min', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=minus+sign+math" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">×</td>
+                    <td>Times / Multiply <br><span class="pronunciation">(TIMES / MUL-tih-ply)</span></td>
+                    <td>Keer / Vermenigvuldigen <br><span class="pronunciation">(KAYR / fer-MAY-nikh-ful-dikh-en)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Times', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Keer', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=multiplication+sign+math" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">÷</td>
+                    <td>Divided by <br><span class="pronunciation">(dih-VY-ded by)</span></td>
+                    <td>Gedeeld door <br><span class="pronunciation">(ghe-DAYLT dohr)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Divided by', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Gedeeld door', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=division+sign+math" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">=</td>
+                    <td>Equals / Is <br><span class="pronunciation">(EE-kwulz / IZ)</span></td>
+                    <td>Is / Gelijk aan <br><span class="pronunciation">(IS / ghe-LAYK ahn)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Equals', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Is gelijk aan', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=equals+sign+math" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">&gt;</td>
+                    <td>Greater than <br><span class="pronunciation">(GRAY-tur than)</span></td>
+                    <td>Groter dan <br><span class="pronunciation">(GROH-ter dahn)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Greater than', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Groter dan', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=greater+than+sign" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">&lt;</td>
+                    <td>Less than <br><span class="pronunciation">(LES than)</span></td>
+                    <td>Kleiner dan <br><span class="pronunciation">(KLAY-ner dahn)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Less than', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Kleiner dan', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=less+than+sign" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">½</td>
+                    <td>One Half <br><span class="pronunciation">(wun HAFF)</span></td>
+                    <td>Een Half <br><span class="pronunciation">(ayn HAHLF)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('One Half', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Een Half', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=one+half+fraction" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">¼</td>
+                    <td>One Quarter <br><span class="pronunciation">(wun KWAR-tur)</span></td>
+                    <td>Een Kwart <br><span class="pronunciation">(ayn KWAHRT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('One Quarter', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Een Kwart', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=one+quarter+fraction" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">¾</td>
+                    <td>Three Quarters <br><span class="pronunciation">(three KWAR-turz)</span></td>
+                    <td>Drie Kwart <br><span class="pronunciation">(DREE KWAHRT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Three Quarters', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Drie Kwart', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=three+quarters+fraction" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number-symbol">%</td>
+                    <td>Percent <br><span class="pronunciation">(pur-SENT)</span></td>
+                    <td>Procent <br><span class="pronunciation">(proh-SENT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Percent', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Procent', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=percent+sign" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="margin-top: 30px; text-align: center; color: #ffa751; font-size: 1.2em;">
+            🌟 Click "📸 View" to see pictures! 🌟
+            <br><br>
+            💡 <strong>Dutch Tip:</strong> Numbers 21-99 reverse the order: say the unit first, then "en", then the tens!
+            <br><br>
+            ➕ <strong>Math Examples:</strong> 
+            <br>2 + 3 = 5 → "Two plus three equals five" / "Twee plus drie is vijf"
+            <br>5 × 4 = 20 → "Five times four equals twenty" / "Vijf keer vier is twintig"
+        </div>
+    </div>
+    
+    <script>
+        function speak(text, lang) {
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+            
+            // Create a new speech synthesis utterance
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            utterance.rate = 0.8; // Slightly slower for kids to understand better
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            
+            // Speak the text
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>
