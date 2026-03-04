@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutch for Kids – Lessons</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral:#ff6b6b; --teal:#2ec4b6; --purple:#845ec2; --orange:#ff9a3c;
+            --blue:#0095d9; --green:#22b573; --dark:#1a1a2e;
+            --O:#0095d9; --P:#ff6b6b; --S:#22b573; --K:#ff9a3c;
+            --I:#845ec2; --A:#2ec4b6; --T:#e67e22; --M:#16a085;
+            --L:#8e44ad; --E:#2980b9; --N:#c0392b; --U:#d35400;
+        }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        body {
+            font-family:'Nunito',sans-serif;
+            background:linear-gradient(160deg,#ffecd2 0%,#fcb69f 15%,#a1c4fd 55%,#c2e9fb 100%);
+            min-height:100vh; padding:24px 16px 48px;
+        }
+        .page-wrapper { max-width:1060px; margin:0 auto; }
+
+        /* ── HEADER ── */
+        .header { text-align:center; margin-bottom:28px; animation:dropIn 0.6s ease both; }
+        .badge {
+            display:inline-block; background:var(--coral); color:white;
+            font-family:'Baloo 2',cursive; font-size:0.82em; font-weight:700;
+            padding:4px 16px; border-radius:99px; letter-spacing:1px; margin-bottom:8px;
+            box-shadow:0 3px 10px rgba(255,107,107,0.4);
+        }
+        h1 { font-family:'Baloo 2',cursive; font-size:2.6em; font-weight:800; color:var(--dark); line-height:1.1; }
+        h1 span { color:var(--coral); }
+        .subtitle { font-size:1em; color:#555; margin-top:5px; }
+
+        /* ══════════════════════════════
+           TILE GRID (replaces tabs)
+        ══════════════════════════════ */
+        .lesson-grid {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:16px;
+            margin-bottom:28px;
+            animation:dropIn 0.6s 0.1s ease both;
+            opacity:0; animation-fill-mode:forwards;
+        }
+        @media(max-width:680px){ .lesson-grid{ grid-template-columns:repeat(2,1fr); } }
+        @media(max-width:420px){ .lesson-grid{ grid-template-columns:1fr; } }
+
+        .lesson-tile {
+            background:white; border-radius:22px;
+            padding:28px 18px 22px; text-align:center;
+            box-shadow:0 6px 22px rgba(0,0,0,0.10);
+            cursor:pointer; transition:all 0.25s;
+            border:4px solid transparent;
+            position:relative; overflow:hidden;
+        }
+        .lesson-tile:not(.locked):hover {
+            transform:translateY(-7px);
+            box-shadow:0 16px 34px rgba(0,0,0,0.15);
+        }
+        .lesson-tile.locked { opacity:0.5; cursor:not-allowed; }
+
+        .tile-0 { border-color:var(--blue); }
+        .tile-0 .tile-open-btn { background:var(--blue); box-shadow:0 4px 12px rgba(0,149,217,0.4); }
+        .tile-1 { border-color:var(--coral); }
+        .tile-1 .tile-open-btn { background:var(--coral); box-shadow:0 4px 12px rgba(255,107,107,0.4); }
+        .tile-2 { border-color:var(--purple); }
+        .tile-2 .tile-open-btn { background:var(--purple); box-shadow:0 4px 12px rgba(132,94,194,0.4); }
+        .tile-3,.tile-4,.tile-5 { border-color:#ccc; }
+
+        .tile-icon { font-size:3em; display:block; margin-bottom:10px; line-height:1; }
+        .tile-title {
+            font-family:'Baloo 2',cursive; font-size:1.22em; font-weight:800;
+            color:var(--dark); margin-bottom:5px;
+        }
+        .tile-desc { font-size:0.79em; color:#777; line-height:1.55; margin-bottom:10px; min-height:34px; }
+        .tile-count {
+            display:inline-block; font-size:0.72em; font-weight:800;
+            padding:3px 11px; border-radius:99px; color:white; margin-bottom:12px;
+        }
+        .cnt-0{ background:var(--blue); }
+        .cnt-1{ background:var(--coral); }
+        .cnt-2{ background:var(--purple); }
+
+        .tile-open-btn {
+            display:inline-block; padding:9px 22px;
+            border-radius:99px; font-family:'Nunito',sans-serif;
+            font-weight:800; font-size:0.87em; color:white;
+            border:none; cursor:pointer; pointer-events:none;
+            transition:all 0.2s;
+        }
+        .lesson-tile:not(.locked):hover .tile-open-btn {
+            filter:brightness(1.1); transform:scale(1.04);
+        }
+        .lock-badge {
+            position:absolute; top:12px; right:14px;
+            font-size:1.4em; opacity:0.55;
+        }
+
+        /* ── BACK BUTTON ── */
+        .back-btn {
+            display:inline-flex; align-items:center; gap:6px;
+            background:white; border:none; border-radius:99px;
+            padding:9px 20px; font-family:'Nunito',sans-serif;
+            font-weight:800; font-size:0.88em; color:#666;
+            cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,0.09);
+            transition:all 0.2s; margin-bottom:20px;
+        }
+        .back-btn:hover { color:var(--dark); transform:translateY(-1px); }
+
+        /* ── LESSON SCREEN ── */
+        #screen-lesson { display:none; animation:riseUp 0.4s ease both; }
+
+        .lesson-content { display:none; }
+
+        /* ── SECTION TITLE ── */
+        .section-title {
+            font-family:'Baloo 2',cursive; font-size:1.45em; font-weight:700;
+            color:var(--dark); margin:0 0 14px;
+            display:flex; align-items:center; gap:10px;
+        }
+        .section-title::after {
+            content:''; flex:1; height:3px; border-radius:99px;
+            background:linear-gradient(90deg,rgba(0,0,0,0.12) 0%,transparent 100%);
+        }
+
+        /* ── TABLE ── */
+        .table-wrap {
+            background:white; border-radius:20px;
+            box-shadow:0 6px 24px rgba(0,0,0,0.1); margin-bottom:36px; overflow-x:auto;
+        }
+        table { width:100%; border-collapse:collapse; min-width:520px; }
+        thead tr { background:linear-gradient(90deg,#1a1a2e 0%,#2d2d5e 100%); }
+        thead th {
+            color:white; font-family:'Baloo 2',cursive; font-size:0.86em; font-weight:700;
+            padding:13px 14px; text-align:left; letter-spacing:0.5px; text-transform:uppercase; white-space:nowrap;
+        }
+        tbody tr { border-bottom:1px solid #f0f0f0; transition:background 0.15s; }
+        tbody tr:last-child { border-bottom:none; }
+        tbody tr:hover { background:#fafafa !important; }
+        tbody td { padding:11px 14px; font-size:1em; vertical-align:middle; color:var(--dark); }
+
+        /* ── ALPHABET TABLE ── */
+        .letter-cap   { font-family:'Baloo 2',cursive; font-size:2em; font-weight:800; line-height:1; }
+        .letter-small { font-family:'Baloo 2',cursive; font-size:1.3em; font-weight:700; opacity:0.5; line-height:1; }
+        .phonetic-text { font-weight:700; font-size:1.02em; }
+        .phonetic-sub  { font-size:0.75em; color:#888; font-style:italic; margin-top:2px; }
+        .row-accent td:first-child { border-left:5px solid var(--row-color); }
+        .row-accent .letter-cap    { color:var(--row-color); }
+
+        /* ── VOICE BUTTONS ── */
+        .voice-btn {
+            display:inline-flex; align-items:center; gap:5px;
+            border:none; border-radius:99px; padding:6px 13px;
+            font-family:'Nunito',sans-serif; font-size:0.8em; font-weight:700;
+            cursor:pointer; transition:all 0.2s; box-shadow:0 2px 6px rgba(0,0,0,0.13);
+            color:white; white-space:nowrap;
+        }
+        .voice-btn:hover { filter:brightness(1.1); transform:scale(1.05); }
+        .voice-btn:active { transform:scale(0.94); }
+        .voice-btn.speaking { animation:pulse 0.5s infinite alternate; }
+        @keyframes pulse {
+            from { box-shadow:0 0 0 0 rgba(0,0,0,0.2); }
+            to   { box-shadow:0 0 0 7px rgba(0,0,0,0); }
+        }
+        .btn-letter   { background:#3b4a6b; }
+        .btn-phonetic { background:#6d4c9e; }
+        .btn-nl       { background:#c03030; }
+
+        /* ── WORD TABLE ── */
+        .word-display { font-family:'Baloo 2',cursive; font-size:1.5em; font-weight:800; color:var(--dark); }
+        .meaning-tag {
+            display:inline-block; background:#f0f0f0; color:#555;
+            font-size:0.76em; font-weight:700; padding:3px 9px; border-radius:99px;
+        }
+        .lblock-row { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+        .lblock {
+            font-family:'Baloo 2',cursive; font-size:1em; font-weight:800;
+            width:32px; height:32px; border-radius:7px;
+            display:flex; align-items:center; justify-content:center;
+            color:white; box-shadow:0 2px 6px rgba(0,0,0,0.18); flex-shrink:0;
+        }
+        .lblock-O{background:var(--O);} .lblock-P{background:var(--P);}
+        .lblock-S{background:var(--S);} .lblock-K{background:var(--K);}
+        .lblock-I{background:var(--I);} .lblock-A{background:var(--A);}
+        .lblock-T{background:var(--T);} .lblock-M{background:var(--M);}
+        .lblock-L{background:var(--L);} .lblock-E{background:var(--E);}
+        .lblock-N{background:var(--N);} .lblock-U{background:var(--U);}
+        .sym { font-size:0.95em; font-weight:900; color:#bbb; }
+        tr.word-even { background:#fafeff; }
+        tr.word-odd  { background:#fff8f4; }
+
+        /* ── DOUBLE LETTERS ── */
+        .combo-display { font-family:'Baloo 2',cursive; font-size:1.8em; font-weight:800; letter-spacing:2px; }
+        .combo-type {
+            display:inline-block; font-size:0.7em; font-weight:700;
+            padding:2px 9px; border-radius:99px; color:white; margin-left:6px; vertical-align:middle;
+        }
+        .type-double { background:#0095d9; }
+        .type-diph   { background:#845ec2; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes dropIn { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes riseUp { from{opacity:0;transform:translateY(14px)}  to{opacity:1;transform:translateY(0)} }
+
+        @media(max-width:640px){
+            h1{font-size:1.9em}
+            thead th{font-size:0.75em;padding:10px 8px}
+            tbody td{padding:9px 8px}
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <div class="header">
+        <div class="badge">🇳🇱 Dutch for Kids</div>
+        <h1>Learn <span>Dutch</span></h1>
+        <p class="subtitle">Letters · Sounds · Words — step by step! 🎉</p>
+    </div>
+
+    <!-- ══════════════════════════════
+         SCREEN 1 — LESSON TILE PICKER
+    ══════════════════════════════ -->
+    <div id="screen-picker">
+
+        <div class="lesson-grid">
+
+            <div class="lesson-tile tile-0" onclick="openLesson(0)">
+                <span class="tile-icon">🔤</span>
+                <div class="tile-title">Lesson 0</div>
+                <div class="tile-desc">Full A–Z alphabet + double letters &amp; diphthongs</div>
+                <div><span class="tile-count cnt-0">26 letters · 12 combos</span></div>
+                <button class="tile-open-btn">Open Lesson →</button>
+            </div>
+
+            <div class="lesson-tile tile-1" onclick="openLesson(1)">
+                <span class="tile-icon">📖</span>
+                <div class="tile-title">Lesson 1</div>
+                <div class="tile-desc">Letters O, P, S, K, I, A — sounds &amp; first words</div>
+                <div><span class="tile-count cnt-1">24 words</span></div>
+                <button class="tile-open-btn">Open Lesson →</button>
+            </div>
+
+            <div class="lesson-tile tile-2" onclick="openLesson(2)">
+                <span class="tile-icon">📖</span>
+                <div class="tile-title">Lesson 2</div>
+                <div class="tile-desc">Letters T, M, L, E, N, U — new sounds &amp; more words</div>
+                <div><span class="tile-count cnt-2">114 words</span></div>
+                <button class="tile-open-btn">Open Lesson →</button>
+            </div>
+
+            <div class="lesson-tile tile-3 locked">
+                <span class="lock-badge">🔒</span>
+                <span class="tile-icon">📖</span>
+                <div class="tile-title">Lesson 3</div>
+                <div class="tile-desc">Coming soon!</div>
+            </div>
+
+            <div class="lesson-tile tile-4 locked">
+                <span class="lock-badge">🔒</span>
+                <span class="tile-icon">📖</span>
+                <div class="tile-title">Lesson 4</div>
+                <div class="tile-desc">Coming soon!</div>
+            </div>
+
+            <div class="lesson-tile tile-5 locked">
+                <span class="lock-badge">🔒</span>
+                <span class="tile-icon">📖</span>
+                <div class="tile-title">Lesson 5</div>
+                <div class="tile-desc">Coming soon!</div>
+            </div>
+
+        </div>
+
+        <!-- Voice status bar -->
+        <div style="background:white;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.09);padding:16px 20px;margin-bottom:24px;">
+            <div id="voice-info" style="font-size:0.88em;font-weight:700;color:#888;margin-bottom:10px;">🔄 Loading Dutch voice...</div>
+            <div style="font-size:0.82em;color:#555;line-height:1.7;">
+                <strong>💡 Note:</strong> The status bar above tells you which Dutch voice was found on your device.
+                <strong style="color:#c0392b;">⚠️ If you see a red warning</strong>, install a Dutch TTS voice:
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-top:10px;">
+                    <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:8px;padding:8px 12px;">
+                        <div style="font-weight:800;color:#e67e22;margin-bottom:2px;">🤖 Android</div>
+                        Settings → General Management → Text-to-speech → Install <em>Google Dutch (nl-NL)</em>
+                    </div>
+                    <div style="background:#f0f8ff;border-left:4px solid #2980b9;border-radius:8px;padding:8px 12px;">
+                        <div style="font-weight:800;color:#2980b9;margin-bottom:2px;">🍎 iOS / Mac</div>
+                        Settings → Accessibility → Spoken Content → Voices → Dutch
+                    </div>
+                    <div style="background:#f0fff4;border-left:4px solid #27ae60;border-radius:8px;padding:8px 12px;">
+                        <div style="font-weight:800;color:#27ae60;margin-bottom:2px;">🪟 Windows</div>
+                        Settings → Time &amp; Language → Speech → Add Dutch voice
+                    </div>
+                    <div style="background:#f5f0ff;border-left:4px solid #8e44ad;border-radius:8px;padding:8px 12px;">
+                        <div style="font-weight:800;color:#8e44ad;margin-bottom:2px;">🌐 Chrome Desktop</div>
+                        Dutch voice usually comes with Google Chrome automatically
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /screen-picker -->
+
+    <!-- ══════════════════════════════
+         SCREEN 2 — LESSON CONTENT
+    ══════════════════════════════ -->
+    <div id="screen-lesson">
+
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:8px;">
+            <button class="back-btn" onclick="goBack()">← All Lessons</button>
+            <span class="badge" id="lesson-badge" style="margin-bottom:0;font-size:0.9em;">Lesson 0</span>
+        </div>
+
+        <!-- Lesson 0 -->
+        <div id="lesson-0" class="lesson-content">
+            <div class="section-title">🔤 Complete Dutch Alphabet — All 26 Letters</div>
+            <div class="table-wrap" id="alpha-table-0"></div>
+            <div class="section-title">🔡 Double Letters &amp; Diphthongs</div>
+            <div class="table-wrap" id="double-table-0"></div>
+        </div>
+
+        <!-- Lesson 1 -->
+        <div id="lesson-1" class="lesson-content">
+            <div class="section-title">🔤 The Alphabet Sounds</div>
+            <div class="table-wrap" id="alpha-table-1"></div>
+            <div class="section-title">📝 Build Your Words!</div>
+            <div class="table-wrap" id="words-table-1"></div>
+        </div>
+
+        <!-- Lesson 2 -->
+        <div id="lesson-2" class="lesson-content">
+            <div class="section-title">🔤 The Alphabet Sounds</div>
+            <div class="table-wrap" id="alpha-table-2"></div>
+            <div class="section-title">📝 Build Your Words!</div>
+            <div class="table-wrap" id="words-table-2"></div>
+        </div>
+
+    </div><!-- /screen-lesson -->
+
+    <div style="text-align:center;margin-top:10px;font-size:1.1em;color:#888;">
+        🌟 Tap any 🔊 button to hear the pronunciation! 🌟
+    </div>
+
+</div><!-- /page-wrapper -->
+
+<script>
+/* ── VOICE ── */
+let dutchVoice = null;
+const FEMALE_HINTS = [
+    'female','vrouw','google nederlands','google dutch',
+    'xander','lotte','fenna','emma','anna','laura','fem',
+];
+function scoreDutchVoice(v) {
+    if (!v.lang.startsWith('nl')) return -1;
+    let score = 0;
+    const name = v.name.toLowerCase();
+    if (v.localService === false) score += 40;
+    if (FEMALE_HINTS.some(h => name.includes(h))) score += 20;
+    if (v.lang === 'nl-NL') score += 10;
+    return score;
+}
+function loadDutchVoice() {
+    const voices   = window.speechSynthesis.getVoices();
+    const nlVoices = voices.filter(v => v.lang.startsWith('nl'));
+    if (nlVoices.length === 0) { dutchVoice = null; }
+    else {
+        nlVoices.sort((a,b) => scoreDutchVoice(b) - scoreDutchVoice(a));
+        dutchVoice = nlVoices[0];
+    }
+    const info = document.getElementById('voice-info');
+    if (!info) return;
+    if (dutchVoice) {
+        const isOnline  = dutchVoice.localService === false ? ' 🌐 online' : ' 💾 offline';
+        const isFemale  = FEMALE_HINTS.some(h => dutchVoice.name.toLowerCase().includes(h));
+        const genderTag = isFemale ? ' 👩 female' : ' 👤';
+        info.innerHTML  = '🔊 Dutch voice active: <strong>' + dutchVoice.name + '</strong>'
+                        + ' <span style="color:#aaa;font-weight:400">[' + dutchVoice.lang + isOnline + genderTag + ']</span>';
+        info.style.color = '#22b573';
+    } else {
+        info.textContent = '⚠️ No Dutch voice found on this device.';
+        info.style.color = '#e74c3c';
+    }
+}
+window.speechSynthesis.onvoiceschanged = loadDutchVoice;
+loadDutchVoice();
+setTimeout(loadDutchVoice, 500);
+setTimeout(loadDutchVoice, 1500);
+
+function sv(btn, text, lang, rate) {
+    window.speechSynthesis.cancel();
+    document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('speaking'));
+    btn.classList.add('speaking');
+    const u   = new SpeechSynthesisUtterance(text);
+    if (dutchVoice && lang && lang.startsWith('nl')) u.voice = dutchVoice;
+    u.lang   = lang  || 'nl-NL';
+    u.rate   = rate  || 0.75;
+    u.pitch  = 1.0;
+    u.volume = 1;
+    u.onend  = () => btn.classList.remove('speaking');
+    window.speechSynthesis.speak(u);
+}
+
+/* ── NAVIGATION ── */
+const BADGE_LABELS  = ['🔤 Lesson 0 — Alphabet', '📖 Lesson 1 — O P S K I A', '📖 Lesson 2 — T M L E N U'];
+const BADGE_COLOURS = ['var(--blue)', 'var(--coral)', 'var(--purple)'];
+
+function openLesson(num) {
+    document.getElementById('screen-picker').style.display = 'none';
+    document.getElementById('screen-lesson').style.display = 'block';
+
+    document.querySelectorAll('.lesson-content').forEach(el => el.style.display = 'none');
+    document.getElementById('lesson-' + num).style.display = 'block';
+
+    const badge = document.getElementById('lesson-badge');
+    badge.textContent       = BADGE_LABELS[num]  || ('Lesson ' + num);
+    badge.style.background  = BADGE_COLOURS[num] || 'var(--coral)';
+
+    window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function goBack() {
+    document.getElementById('screen-lesson').style.display = 'none';
+    document.getElementById('screen-picker').style.display  = 'block';
+    window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+/* ── DATA ── */
+const LC = {
+    A:'#2ec4b6',B:'#e74c3c',C:'#8e44ad',D:'#2471a3',
+    E:'#2980b9',F:'#ca6f1e',G:'#7d6608',H:'#117a65',
+    I:'#845ec2',J:'#1a5276',K:'#ff9a3c',L:'#8e44ad',
+    M:'#16a085',N:'#c0392b',O:'#0095d9',P:'#ff6b6b',
+    Q:'#6c3483',R:'#1e8bc3',S:'#22b573',T:'#e67e22',
+    U:'#d35400',V:'#717d7e',W:'#0e6655',X:'#922b21',
+    Y:'#4a235a',Z:'#1b4f72'
+};
+
+const ALPHA = {
+    0: [
+        ['A','a','Aa',             'aa — like in father',             'aa',  'aa'],
+        ['B','b','Bee',            'bay',                             'bee', 'bee'],
+        ['C','c','See',            'say',                             'see', 'see'],
+        ['D','d','Dee',            'day',                             'dee', 'dee'],
+        ['E','e','Ee',             'ay',                              'ee',  'ee'],
+        ['F','f','Ef',             'ef',                              'ef',  'ef'],
+        ['G','g','Gee',            'harsh "khay" sound',              'gee', 'gee'],
+        ['H','h','Haa',            'haa',                             'haa', 'haa'],
+        ['I','i','Ie',             'ee — like in see',                'ie',  'ie'],
+        ['J','j','Jee',            'yay',                             'jee', 'jee'],
+        ['K','k','Kaa',            'kaa',                             'kaa', 'kaa'],
+        ['L','l','El',             'el',                              'el',  'el'],
+        ['M','m','Em',             'em',                              'em',  'em'],
+        ['N','n','En',             'en',                              'en',  'en'],
+        ['O','o','Oo',             'oh',                              'oo',  'oo'],
+        ['P','p','Pee',            'pay',                             'pee', 'pee'],
+        ['Q','q','Kuu',            'kuu',                             'kuu', 'kuu'],
+        ['R','r','Er',             'er',                              'er',  'er'],
+        ['S','s','Es',             'ess',                             'es',  'es'],
+        ['T','t','Tee',            'tay',                             'tee', 'tee'],
+        ['U','u','Uu',             'long "u" sound',                  'uu',  'uu'],
+        ['V','v','Vee',            'vay',                             'vee', 'vee'],
+        ['W','w','Wee',            'way',                             'wee', 'wee'],
+        ['X','x','Iks',            'iks',                             'iks', 'iks'],
+        ['Y','y','Ij / Griekse ij','eye',                             'ij',  'ij'],
+        ['Z','z','Zet',            'zet',                             'zet', 'zet'],
+    ],
+    1: [
+        ['O','o','Oo',  'long "o" like in go',          'oo',  'oo'],
+        ['P','p','Pee', 'like "pee" — Dutch name for P','pee', 'pee'],
+        ['S','s','Es',  'like "ess"',                   'es',  'es'],
+        ['K','k','Kaa', 'like "kaa" — car without r',   'kaa', 'kaa'],
+        ['I','i','Ie',  'like "ee" in see',             'ie',  'ie'],
+        ['A','a','Aa',  'like "aa" in father',          'aa',  'aa'],
+    ],
+    2: [
+        ['T','t','Thaa','tongue tip on upper teeth',    'tee', 'teh'],
+        ['M','m','Mu',  'closed lips — "m"',            'em',  'm'],
+        ['L','l','Le',  'tongue touches roof — "luh"',  'el',  'leh'],
+        ['E','e','Eha', 'short "eh" sound',             'ee',  'eeh'],
+        ['N','n','Na',  'from nose — "n"',              'en',  'n'],
+        ['U','u','Uh',  'like "uh" — short "u"',        'uu',  'uhh'],
+    ]
+};
+
+const WORDS = {
+    1: [
+        ['Op','On / Up'],['Pop','Doll'],['Sop','Sauce'],['Os','Ox'],
+        ['Kok','Cook'],['Sok','Sock'],['Pok','Poke'],['Kop','Cup / Head'],
+        ['Ik','I (me)'],['Sik','Goatee'],['Kik','Kick'],['Pik','Pick'],
+        ['Sip','Sip'],['Kip','Chicken'],['Pip','Pip'],['Is','Ice / Is'],
+        ['Sap','Juice'],['Kap','Hood / Cap'],['Pap','Porridge'],['As','Ash / Axis'],
+        ['Pak','Package'],['Kas','Cupboard'],['Sas','Lock / Sluice'],['Pas','Step / Just'],
+    ],
+    2: [
+        ['Tak','Branch'],['Pak','Package'],['Tas','Bag'],['Tap','Tap / Faucet'],
+        ['Top','Top'],['Tik','Tick'],['Tok','Tock'],['Tip','Tip'],
+        ['Kat','Cat'],['Pop','Doll'],['Sap','Juice'],['Sok','Sock'],
+        ['Kip','Chicken'],['Pot','Pot'],['Kit','Kit'],['Pit','Pit'],
+        ['Tot','Until'],['Ot','Ot'],['At','At'],['Kot','Kennel'],
+        ['Sik','Goatee'],['Pas','Step'],['Sop','Sauce'],['Kop','Cup'],
+        ['Pap','Porridge'],['Ik','I (me)'],['Mat','Mat'],['Mot','Moth'],
+        ['Mos','Moss'],['Mis','Miss'],['Mik','Aim'],['Mak','Tame'],
+        ['Map','Map'],['Mop','Mop'],['Mam','Mum'],['Som','Sum'],
+        ['Kam','Comb'],['Tom','Tom'],['Tam','Tam'],['Tim','Tim'],
+        ['Om','Uncle'],['Sam','Sam'],['Kim','Kim'],['Pim','Pim'],
+        ['Pom','Pompom'],['Sis','Sis'],['Kas','Cupboard'],['Kap','Hood'],
+        ['Op','On / Up'],['Lip','Lip'],['Lap','Lap'],['Lak','Varnish'],
+        ['Lik','Lick'],['Lok','Lock / Curl'],['Los','Loose'],['Lot','Lot'],
+        ['Lat','Lath'],['Tol','Top (toy)'],['Pil','Pill'],['Til','Sesame'],
+        ['Mol','Mole'],['Lam','Lamb'],['Mal','Crazy'],['Al','Already'],
+        ['Pal','Pal'],['Pol','Pol'],['Lis','Lys'],['Met','With'],
+        ['Mes','Knife'],['Es','Ash tree'],['Les','Lesson'],['Lek','Leaking'],
+        ['Pek','Pitch'],['Pel','Peel'],['Tel','Count'],['Tem','Tame'],
+        ['Sem','Sem'],['Pet','Pet'],['Mok','Mug'],['Mep','Slap'],
+        ['Sip','Sip'],['Mat','Mat'],['Net','Net'],['Nat','Wet'],
+        ['Nap','Nap'],['Nep','Fake'],['Nek','Neck'],['Nok','Hook / Notch'],
+        ['Nop','Nop'],['Nip','Nip'],['Nis','Niche'],['Kok','Cook'],
+        ['Kan','Can / Jug'],['Pan','Pan'],['Man','Man'],['En','And'],
+        ['Pen','Pen'],['Pin','Pin'],['Kin','Chin'],['Min','Min'],
+        ['In','In'],['Nel','Nel'],['Kon','Could'],['Uk','Uk'],
+        ['Puk','Puck'],['Pup','Pup'],['Put','Well / Pit'],['Nut','Nut'],
+        ['Nul','Zero'],['Mul','Mule'],['Mus','Mouse'],['Kus','Kiss'],
+        ['Lus','Loop / Desire'],['Tuk','Tuck'],['Tak','Branch'],['Tas','Bag'],
+        ['Pul','Pull'],['Kun','Can (plural)'],
+    ]
+};
+
+/* ── RENDER ALPHABET TABLE ── */
+function renderAlpha(lesson) {
+    const rows = ALPHA[lesson].map((r, i) => {
+        const [cap, small, dutchName, soundsLike, dutchSpeak, phonSpeak] = r;
+        const col = LC[cap] || '#888';
+        return `
+        <tr class="row-accent" style="--row-color:${col}">
+            <td>${i+1}</td>
+            <td><span class="letter-cap">${cap}</span></td>
+            <td><span class="letter-small">${small}</span></td>
+            <td><div class="phonetic-text">${dutchName}</div><div class="phonetic-sub">${soundsLike}</div></td>
+            <td><button class="voice-btn btn-letter" onclick="sv(this,'${dutchSpeak}','nl-NL',0.8)">🔊 "${dutchName}"</button></td>
+            <td><button class="voice-btn btn-phonetic" onclick="sv(this,'${phonSpeak}','nl-NL',0.6)">🔉 Hear sound</button></td>
+        </tr>`;
+    }).join('');
+    document.getElementById('alpha-table-' + lesson).innerHTML = `
+    <table>
+        <thead><tr>
+            <th>#</th><th>Capital</th><th>Small</th>
+            <th>Dutch Name &amp; Sounds Like</th>
+            <th>🇳🇱 Dutch Letter Name</th>
+            <th>🔉 Phonetic Sound</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+    </table>`;
+}
+
+/* ── RENDER WORDS TABLE ── */
+function renderWords(lesson) {
+    const rows = WORDS[lesson].map((w, i) => {
+        const [word, meaning] = w;
+        const blocks = word.toUpperCase().split('').map(l =>
+            `<div class="lblock lblock-${l}" style="${LC[l] ? '' : 'background:#aaa'}">${l}</div>`
+        ).join('<span class="sym">+</span>');
+        const bg = i % 2 === 0 ? 'word-even' : 'word-odd';
+        return `
+        <tr class="${bg}">
+            <td>${i+1}</td>
+            <td><span class="word-display">${word}</span></td>
+            <td><span class="meaning-tag">🇬🇧 ${meaning}</span></td>
+            <td><div class="lblock-row">${blocks}</div></td>
+            <td><button class="voice-btn btn-nl" onclick="sv(this,'${word}','nl-NL',0.7)">🇳🇱 "${word}"</button></td>
+        </tr>`;
+    }).join('');
+    document.getElementById('words-table-' + lesson).innerHTML = `
+    <table>
+        <thead><tr>
+            <th>#</th><th>Word</th><th>Meaning</th>
+            <th>Letters</th>
+            <th>🇳🇱 Dutch Pronunciation</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+    </table>`;
+}
+
+/* ── DOUBLE LETTERS DATA ── */
+const DOUBLES = [
+    ['AA','double','Long "ah"',   'like "aah" — open wide, longer than A',   'maan', 'moon',  'maan'],
+    ['EE','double','Long "ay"',   'like "ay" in "hail" — long E',            'meer', 'more',  'meer'],
+    ['OO','double','Long "oh"',   'like "oa" in "boat" — long O',            'boot', 'boat',  'boot'],
+    ['UU','double','Long "ew"',   'rounded lips — like "ew" in "few"',       'muur', 'wall',  'muur'],
+    ['IE','combo', 'Long "ee"',   'like "ee" in "sheep" — long I',           'bier', 'beer',  'bier'],
+    ['OE','combo', '"oo" in food','like "oo" in "do" or "two"',              'boek', 'book',  'boek'],
+    ['EU','diph',  'Unique "eu"', 'no English equal — round lips, say "ay"', 'neus', 'nose',  'neus'],
+    ['EI','diph',  '"ay" sound',  'like "ay" in "maze" — same as IJ',        'eigen','own',   'eigen'],
+    ['IJ','diph',  '"ay" sound',  'same sound as EI — learn by spelling',    'tijd', 'time',  'tijd'],
+    ['UI','diph',  'Unique "ui"', 'start "uh", glide to "y"',                'huis', 'house', 'huis'],
+    ['AU','diph',  '"ow" sound',  'like "ow" in "now" — same as OU',         'auto', 'car',   'auto'],
+    ['OU','diph',  '"ow" sound',  'same sound as AU — like "ow" in "now"',   'hout', 'wood',  'hout'],
+];
+
+/* ── RENDER DOUBLES TABLE ── */
+function renderDoubles() {
+    const typeLabel = {double:'Double Vowel', combo:'Vowel Combo', diph:'Diphthong'};
+    const typeClass = {double:'type-double',  combo:'type-double', diph:'type-diph'};
+    const rows = DOUBLES.map((r, i) => {
+        const [combo, type, dutchSound, engHint, example, meaning, speakText] = r;
+        const bg = i % 2 === 0 ? 'word-even' : 'word-odd';
+        const letters = combo.split('').map(l => {
+            const col = LC[l] || '#888';
+            return `<div class="lblock" style="background:${col}">${l}</div>`;
+        }).join('<span class="sym">+</span>');
+        return `
+        <tr class="${bg}">
+            <td>${i+1}</td>
+            <td>
+                <span class="combo-display">${combo}</span>
+                <span class="combo-type ${typeClass[type]}">${typeLabel[type]}</span>
+            </td>
+            <td><div class="phonetic-text">${dutchSound}</div><div class="phonetic-sub">${engHint}</div></td>
+            <td><div class="lblock-row">${letters}</div></td>
+            <td><span class="meaning-tag">e.g. <strong>${example}</strong> = ${meaning}</span></td>
+            <td><div style="display:flex;flex-direction:column;gap:6px;">
+                <button class="voice-btn btn-letter" onclick="sv(this,'${speakText}','nl-NL',0.7)">🔊 Hear example</button>
+                <button class="voice-btn btn-phonetic" onclick="sv(this,'${combo.toLowerCase()}','nl-NL',0.6)">🔉 Sound only</button>
+            </div></td>
+        </tr>`;
+    }).join('');
+    document.getElementById('double-table-0').innerHTML = `
+    <table>
+        <thead><tr>
+            <th>#</th><th>Combo</th><th>Dutch Sound &amp; Hint</th>
+            <th>Letters</th><th>Example</th><th>🔊 Listen</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+    </table>`;
+}
+
+/* ── INIT ── */
+renderAlpha(0);
+renderDoubles();
+renderAlpha(1); renderWords(1);
+renderAlpha(2); renderWords(2);
+</script>
+</body>
+</html>

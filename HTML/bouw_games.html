@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutch Games 🎮</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coral:#ff6b6b; --blue:#0095d9; --green:#22b573; --purple:#845ec2;
+  --orange:#ff9a3c; --dark:#1a1a2e; --teal:#2ec4b6;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(160deg,#ffecd2 0%,#fcb69f 15%,#a1c4fd 55%,#c2e9fb 100%);
+  min-height:100vh; padding:20px 16px 80px;
+}
+.page { max-width:760px; margin:0 auto; }
+
+/* ── SCREENS ── */
+.screen { display:none; animation:riseUp .4s ease both; }
+.screen.active { display:block; }
+
+/* ── HEADER ── */
+.hdr { text-align:center; margin-bottom:26px; }
+.badge { display:inline-block; background:var(--coral); color:white; font-family:'Baloo 2',cursive; font-weight:700; font-size:.82em; padding:4px 16px; border-radius:99px; margin-bottom:8px; box-shadow:0 3px 10px rgba(255,107,107,.4); }
+h1 { font-family:'Baloo 2',cursive; font-size:2.4em; font-weight:800; color:var(--dark); }
+h1 span { color:var(--coral); }
+.sub { color:#666; font-size:.95em; margin-top:4px; }
+
+/* ── HOME LESSON CARDS ── */
+.lesson-cards { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:8px; }
+@media(max-width:500px) { .lesson-cards { grid-template-columns:1fr; } }
+.lcard {
+  background:white; border-radius:24px; padding:32px 22px; text-align:center;
+  box-shadow:0 8px 28px rgba(0,0,0,.11); cursor:pointer; transition:all .25s;
+  border:4px solid transparent;
+}
+.lcard:hover { transform:translateY(-6px); box-shadow:0 16px 36px rgba(0,0,0,.15); }
+.lcard.l1 { border-color:var(--blue); }
+.lcard.l2 { border-color:var(--purple); }
+.lcard .ico { font-size:3.5em; display:block; margin-bottom:12px; }
+.lcard h2 { font-family:'Baloo 2',cursive; font-size:1.7em; font-weight:800; color:var(--dark); margin-bottom:8px; }
+.lcard p { color:#777; font-size:.88em; line-height:1.6; }
+.lcard .go-btn {
+  display:inline-block; margin-top:16px; padding:10px 28px; border-radius:99px;
+  font-family:'Nunito',sans-serif; font-weight:800; font-size:.92em;
+  color:white; border:none; cursor:pointer; transition:all .2s;
+}
+.lcard .go-btn:hover { filter:brightness(1.1); transform:scale(1.04); }
+.btn-blue { background:var(--blue); box-shadow:0 4px 14px rgba(0,149,217,.4); }
+.btn-purple { background:var(--purple); box-shadow:0 4px 14px rgba(132,94,194,.4); }
+
+/* ── VOICE STATUS ── */
+.voice-card {
+  background:white; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,.09);
+  padding:14px 18px; margin-top:22px;
+}
+.vgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:8px; margin-top:8px; }
+.vtile { border-radius:8px; padding:8px 12px; font-size:.78em; line-height:1.65; }
+
+/* ── BACK BTN ── */
+.back {
+  display:inline-flex; align-items:center; gap:6px; background:white; border:none;
+  border-radius:99px; padding:8px 18px; font-family:'Nunito',sans-serif; font-weight:800;
+  font-size:.88em; color:#666; cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,.08);
+  transition:all .2s; margin-bottom:20px;
+}
+.back:hover { color:var(--dark); transform:translateY(-1px); }
+
+/* ── GAME TABS ── */
+.game-tabs {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:20px;
+}
+.gtab {
+  padding:11px 6px; border:3px solid transparent; border-radius:16px; cursor:pointer;
+  background:white; text-align:center; font-family:'Nunito',sans-serif; font-size:.76em;
+  font-weight:800; color:#777; transition:all .2s; box-shadow:0 3px 10px rgba(0,0,0,.07);
+  line-height:1.4; position:relative;
+}
+.gtab .gi { font-size:1.45em; display:block; margin-bottom:3px; }
+.gtab:hover { transform:translateY(-2px); color:var(--dark); }
+.gtab.on-listen  { background:var(--blue);   color:white; border-color:var(--blue);   box-shadow:0 4px 14px rgba(0,149,217,.4); }
+.gtab.on-spell   { background:var(--purple); color:white; border-color:var(--purple); box-shadow:0 4px 14px rgba(132,94,194,.4); }
+.gtab.on-match   { background:var(--orange); color:white; border-color:var(--orange); box-shadow:0 4px 14px rgba(255,154,60,.4); }
+.gtab.on-meaning { background:var(--green);  color:white; border-color:var(--green);  box-shadow:0 4px 14px rgba(34,181,115,.4); }
+.gtab .done-badge {
+  position:absolute; top:-6px; right:-6px; background:var(--green); color:white;
+  font-size:.65em; width:18px; height:18px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-weight:900;
+}
+
+/* ── SCORE ROW ── */
+.srow { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.spill {
+  background:white; border-radius:99px; padding:6px 16px; font-weight:800;
+  font-size:.88em; color:var(--dark); box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.spill em { color:var(--green); font-style:normal; }
+.qlbl { font-size:.82em; font-weight:700; color:#888; }
+
+/* ── PROGRESS ── */
+.pwrap {
+  background:white; border-radius:99px; height:10px; margin-bottom:18px;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.07); overflow:hidden;
+}
+.pbar { height:100%; border-radius:99px; transition:width .4s ease; }
+.pb-listen  { background:linear-gradient(90deg,var(--blue),#00c2ff); }
+.pb-spell   { background:linear-gradient(90deg,var(--purple),#b07ffb); }
+.pb-match   { background:linear-gradient(90deg,var(--orange),#ffca6b); }
+.pb-meaning { background:linear-gradient(90deg,var(--green),#6ef0b6); }
+
+/* ── GAME PANELS ── */
+.gpanel { display:none; animation:riseUp .35s ease both; }
+.gpanel.on { display:block; }
+
+/* ── ALL QUESTIONS LIST ── */
+.questions-list { display:flex; flex-direction:column; gap:16px; }
+
+/* ── QUESTION CARD (per-question) ── */
+.qcard {
+  background:white; border-radius:20px; padding:22px 20px;
+  box-shadow:0 6px 22px rgba(0,0,0,.09);
+  border-left:5px solid #ddd; transition:border-color .3s;
+}
+.qcard.answered-ok  { border-left-color:var(--green); }
+.qcard.answered-bad { border-left-color:var(--coral); }
+.qcard.answered-ok .qcard-inner  { opacity:.8; }
+
+.qcard-num { font-size:.75em; font-weight:800; color:#aaa; margin-bottom:8px; letter-spacing:.5px; }
+.qcard-prompt { font-family:'Baloo 2',cursive; font-size:1.1em; font-weight:700; color:var(--dark); margin-bottom:12px; line-height:1.5; }
+.qcard-bigw { font-family:'Baloo 2',cursive; font-size:2.6em; font-weight:800; color:var(--dark); text-align:center; margin:4px 0 14px; letter-spacing:2px; }
+
+/* ── PLAY BUTTON (per-card) ── */
+.gbtn {
+  width:100%; padding:12px; border:none; border-radius:12px; color:white;
+  font-family:'Nunito',sans-serif; font-size:.92em; font-weight:800; cursor:pointer;
+  transition:all .2s; margin-bottom:12px; display:flex; align-items:center;
+  justify-content:center; gap:8px;
+}
+.gbtn:hover { filter:brightness(1.08); transform:scale(1.02); }
+.gbtn.speaking { animation:gpulse .5s infinite alternate; }
+@keyframes gpulse { from{box-shadow:0 0 0 0 rgba(0,0,0,.25)} to{box-shadow:0 0 0 10px rgba(0,0,0,0)} }
+.gbtn-nl { background:linear-gradient(135deg,var(--blue),#0070b8); box-shadow:0 4px 14px rgba(0,149,217,.35); }
+.gbtn-gn { background:linear-gradient(135deg,var(--green),#1a9e5c); box-shadow:0 4px 14px rgba(34,181,115,.35); }
+.gbtn-pu { background:linear-gradient(135deg,#6d4c9e,#9b6fd6); box-shadow:0 4px 14px rgba(109,76,158,.35); }
+
+/* ── OPTIONS ── */
+.opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.opt {
+  padding:13px 10px; border:3px solid #ebebeb; border-radius:12px;
+  background:white; font-family:'Baloo 2',cursive; font-size:1.15em; font-weight:700;
+  color:var(--dark); cursor:pointer; transition:all .2s; text-align:center;
+}
+.opt:hover:not(:disabled) { border-color:var(--blue); background:#f0f8ff; transform:translateY(-2px); }
+.opt.ok  { border-color:var(--green)!important; background:#e7fff2!important; color:var(--green)!important; animation:pop .35s ease; }
+.opt.bad { border-color:var(--coral)!important; background:#fff0f0!important; color:var(--coral)!important; animation:shake .4s ease; }
+.opt.rev { border-color:var(--green)!important; background:#e7fff2!important; color:var(--green)!important; }
+.opt:disabled { cursor:not-allowed; }
+
+/* ── EMOJI OPTIONS ── */
+.eopts { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.eopt {
+  padding:14px 10px; border:3px solid #ebebeb; border-radius:12px;
+  background:white; cursor:pointer; transition:all .2s; text-align:center;
+}
+.eopt:hover:not(:disabled) { border-color:var(--orange); background:#fff8f0; transform:translateY(-2px); }
+.eopt.ok  { border-color:var(--green)!important; background:#e7fff2!important; animation:pop .35s ease; }
+.eopt.bad { border-color:var(--coral)!important; background:#fff0f0!important; animation:shake .4s ease; }
+.eopt.rev { border-color:var(--green)!important; background:#e7fff2!important; }
+.eopt:disabled { cursor:not-allowed; }
+.eico { font-size:2.2em; display:block; margin-bottom:4px; }
+.elbl { font-family:'Baloo 2',cursive; font-size:.86em; font-weight:700; color:var(--dark); }
+
+/* ── SPELL ── */
+.sdrop {
+  min-height:56px; border:3px dashed #ddd; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  gap:6px; flex-wrap:wrap; padding:6px; margin-bottom:12px;
+  background:#fafafa; transition:border-color .2s;
+}
+.sdrop.has { border-color:var(--purple); border-style:solid; }
+.sph { color:#ccc; font-weight:700; font-size:.85em; }
+.glbrow { display:flex; align-items:center; justify-content:center; gap:7px; flex-wrap:wrap; margin:8px 0; }
+.glb {
+  font-family:'Baloo 2',cursive; font-size:1.3em; font-weight:800;
+  width:44px; height:44px; border-radius:11px;
+  display:flex; align-items:center; justify-content:center;
+  color:white; box-shadow:0 3px 9px rgba(0,0,0,.18);
+  cursor:pointer; transition:all .2s; user-select:none;
+}
+.glb:hover:not(.used) { transform:translateY(-4px) scale(1.07); }
+.glb.used { opacity:.2; cursor:not-allowed; transform:none!important; }
+.sslot {
+  font-family:'Baloo 2',cursive; font-size:1.3em; font-weight:800;
+  width:44px; height:44px; border-radius:11px;
+  display:flex; align-items:center; justify-content:center;
+  color:white; box-shadow:0 3px 9px rgba(0,0,0,.18);
+  animation:popIn .2s ease both;
+}
+.bclr {
+  padding:11px 16px; border:2px solid #ddd; border-radius:12px;
+  background:white; color:#888; font-family:'Nunito',sans-serif;
+  font-size:.85em; font-weight:700; cursor:pointer; transition:all .2s;
+}
+.bclr:hover { border-color:var(--coral); color:var(--coral); }
+
+/* ── FEEDBACK ── */
+.fb { border-radius:12px; padding:11px 14px; font-family:'Baloo 2',cursive; font-size:.95em; font-weight:700; margin-top:12px; display:none; }
+.fb.show { display:block; animation:riseUp .3s ease both; }
+.fb.ok  { background:#e7fff2; color:var(--green); }
+.fb.bad { background:#fff0f0; color:var(--coral); }
+
+/* ── GTAG ── */
+.gtag { display:inline-block; border-radius:99px; padding:3px 12px; font-size:.72em; font-weight:800; color:white; margin-bottom:12px; }
+.tg-listen  { background:var(--blue); }
+.tg-spell   { background:var(--purple); }
+.tg-match   { background:var(--orange); }
+.tg-meaning { background:var(--green); }
+
+/* ── GAME COMPLETE BANNER ── */
+.game-complete-banner {
+  background:white; border-radius:20px; padding:30px 24px; text-align:center;
+  box-shadow:0 8px 28px rgba(0,0,0,.11); margin-top:24px;
+  display:none; animation:riseUp .5s ease both;
+}
+.game-complete-banner.show { display:block; }
+.gc-emo { font-size:3.5em; margin-bottom:8px; }
+.gc-score { font-family:'Baloo 2',cursive; font-size:2.4em; font-weight:800; color:var(--dark); }
+.gc-msg { color:#666; font-size:.95em; margin:8px 0 20px; line-height:1.5; }
+.gc-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.gcbtn {
+  padding:13px 26px; border:none; border-radius:13px; color:white;
+  font-family:'Nunito',sans-serif; font-size:.95em; font-weight:800;
+  cursor:pointer; transition:all .2s;
+}
+.gcbtn:hover { filter:brightness(1.1); transform:scale(1.03); }
+.gcbtn-next { background:linear-gradient(135deg,#845ec2,#b07ffb); box-shadow:0 4px 14px rgba(132,94,194,.4); font-size:1.05em; }
+
+/* ── CONFETTI ── */
+.cp { position:fixed; width:9px; height:9px; border-radius:2px; animation:fall 1.2s ease-in forwards; pointer-events:none; z-index:9999; }
+@keyframes fall { 0%{transform:translateY(-10px) rotate(0deg);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
+
+/* ── KEYFRAMES ── */
+@keyframes riseUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pop    { 0%{transform:scale(1)} 50%{transform:scale(1.07)} 100%{transform:scale(1)} }
+@keyframes shake  { 0%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} 100%{transform:translateX(0)} }
+@keyframes popIn  { from{opacity:0;transform:scale(.4)} to{opacity:1;transform:scale(1)} }
+
+@media(max-width:600px) {
+  h1 { font-size:1.9em; }
+  .game-tabs { grid-template-columns:repeat(2,1fr); }
+  .glb { width:38px; height:38px; font-size:1.15em; }
+  .sslot { width:38px; height:38px; font-size:1.15em; }
+  .qcard-bigw { font-size:2em; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div class="badge">🇳🇱 Dutch Games</div>
+  <h1>Let's <span>Play!</span> 🎮</h1>
+  <p class="sub">Test your Dutch with 4 fun games — choose a lesson to begin!</p>
+</div>
+
+<!-- HOME -->
+<div class="screen active" id="s-home">
+  <div class="lesson-cards">
+    <div class="lcard l1" onclick="launchLesson(1)">
+      <span class="ico">1️⃣</span>
+      <h2>Lesson 1</h2>
+      <p>24 words using letters<br><strong>O · P · S · K · I · A</strong></p>
+      <button class="go-btn btn-blue">Play Lesson 1 →</button>
+    </div>
+    <div class="lcard l2" onclick="launchLesson(2)">
+      <span class="ico">2️⃣</span>
+      <h2>Lesson 2</h2>
+      <p>114 words using letters<br><strong>T · M · L · E · N · U</strong> + all previous</p>
+      <button class="go-btn btn-purple">Play Lesson 2 →</button>
+    </div>
+  </div>
+  <div class="voice-card">
+    <div id="vi" style="font-size:.88em;font-weight:700;color:#888;margin-bottom:10px;">🔄 Loading Dutch voice...</div>
+    <div style="font-size:.79em;color:#555;line-height:1.7;">
+      <strong>💡 Tip:</strong> Install a Dutch TTS voice for best audio quality.
+      <div class="vgrid">
+        <div class="vtile" style="background:#fff8f0;border-left:4px solid #e67e22;"><strong style="color:#e67e22;">🤖 Android</strong><br>Settings → General Management → Text-to-speech → Install <em>Google Dutch (nl-NL)</em></div>
+        <div class="vtile" style="background:#f0f8ff;border-left:4px solid #2980b9;"><strong style="color:#2980b9;">🍎 iOS / Mac</strong><br>Settings → Accessibility → Spoken Content → Voices → Dutch</div>
+        <div class="vtile" style="background:#f0fff4;border-left:4px solid #27ae60;"><strong style="color:#27ae60;">🪟 Windows</strong><br>Settings → Time &amp; Language → Speech → Add Dutch voice</div>
+        <div class="vtile" style="background:#f5f0ff;border-left:4px solid #8e44ad;"><strong style="color:#8e44ad;">🌐 Chrome</strong><br>Dutch voice usually comes with Google Chrome automatically</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GAME SCREEN -->
+<div class="screen" id="s-game">
+  <button class="back" onclick="goHome()">← Choose Lesson</button>
+  <div style="text-align:center;margin-bottom:16px;">
+    <div class="badge" id="g-badge">Lesson 1 Games</div>
+  </div>
+
+  <!-- Game tabs -->
+  <div class="game-tabs">
+    <div class="gtab" id="gt-listen"  onclick="switchGame('listen')"> <span class="gi">🔊</span>Listen &amp; Pick</div>
+    <div class="gtab" id="gt-spell"   onclick="switchGame('spell')">  <span class="gi">🔤</span>Spell It!</div>
+    <div class="gtab" id="gt-match"   onclick="switchGame('match')">  <span class="gi">🖼️</span>Match It!</div>
+    <div class="gtab" id="gt-meaning" onclick="switchGame('meaning')"><span class="gi">💬</span>Meaning?</div>
+  </div>
+
+  <!-- Score row -->
+  <div class="srow">
+    <div class="spill">⭐ Score: <em id="g-score">0</em> / <em id="g-total">0</em></div>
+    <div class="qlbl" id="g-qlbl">0 of 0 answered</div>
+  </div>
+  <div class="pwrap"><div class="pbar pb-listen" id="g-pbar" style="width:0%"></div></div>
+
+  <!-- LISTEN panel -->
+  <div class="gpanel" id="gp-listen">
+    <div class="questions-list" id="ql-listen"></div>
+    <div class="game-complete-banner" id="gc-listen">
+      <div class="gc-emo" id="gce-listen">🎉</div>
+      <div class="gc-score" id="gcs-listen">0 / 0</div>
+      <div class="gc-msg" id="gcm-listen">Well done!</div>
+      <div class="gc-btns">
+        <button class="gcbtn" style="background:var(--coral);" onclick="restartGame('listen')">🔄 Try Again</button>
+        <button class="gcbtn gcbtn-next" id="gc-next-listen" onclick="goNextGame('listen')">Next Game ➡️</button>
+        <button class="gcbtn" style="background:#777;" onclick="goHome()">🏠 Home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPELL panel -->
+  <div class="gpanel" id="gp-spell">
+    <div class="questions-list" id="ql-spell"></div>
+    <div class="game-complete-banner" id="gc-spell">
+      <div class="gc-emo" id="gce-spell">🎉</div>
+      <div class="gc-score" id="gcs-spell">0 / 0</div>
+      <div class="gc-msg" id="gcm-spell">Well done!</div>
+      <div class="gc-btns">
+        <button class="gcbtn" style="background:var(--coral);" onclick="restartGame('spell')">🔄 Try Again</button>
+        <button class="gcbtn gcbtn-next" id="gc-next-spell" onclick="goNextGame('spell')">Next Game ➡️</button>
+        <button class="gcbtn" style="background:#777;" onclick="goHome()">🏠 Home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATCH panel -->
+  <div class="gpanel" id="gp-match">
+    <div class="questions-list" id="ql-match"></div>
+    <div class="game-complete-banner" id="gc-match">
+      <div class="gc-emo" id="gce-match">🎉</div>
+      <div class="gc-score" id="gcs-match">0 / 0</div>
+      <div class="gc-msg" id="gcm-match">Well done!</div>
+      <div class="gc-btns">
+        <button class="gcbtn" style="background:var(--coral);" onclick="restartGame('match')">🔄 Try Again</button>
+        <button class="gcbtn gcbtn-next" id="gc-next-match" onclick="goNextGame('match')">Next Game ➡️</button>
+        <button class="gcbtn" style="background:#777;" onclick="goHome()">🏠 Home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEANING panel -->
+  <div class="gpanel" id="gp-meaning">
+    <div class="questions-list" id="ql-meaning"></div>
+    <div class="game-complete-banner" id="gc-meaning">
+      <div class="gc-emo" id="gce-meaning">🎉</div>
+      <div class="gc-score" id="gcs-meaning">0 / 0</div>
+      <div class="gc-msg" id="gcm-meaning">Well done!</div>
+      <div class="gc-btns">
+        <button class="gcbtn" style="background:var(--coral);" onclick="restartGame('meaning')">🔄 Try Again</button>
+        <button class="gcbtn gcbtn-next" id="gc-next-meaning" onclick="goNextGame('meaning')">🏠 Back to Home</button>
+        <button class="gcbtn" style="background:#777;" onclick="goHome()">🏠 Home</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /s-game -->
+</div><!-- /page -->
+
+<script>
+/* ════ VOICE ════ */
+let dutchVoice = null, engVoice = null;
+const FH = ['female','vrouw','google nederlands','google dutch','lotte','fenna','emma','anna','laura','fem'];
+
+function scoreVoice(v) {
+  if (!v.lang.startsWith('nl')) return -1;
+  let s = 0; const n = v.name.toLowerCase();
+  if (!v.localService) s += 40;
+  if (FH.some(h => n.includes(h))) s += 20;
+  if (v.lang === 'nl-NL') s += 10;
+  return s;
+}
+function loadVoices() {
+  const all = window.speechSynthesis.getVoices();
+  const nl  = all.filter(v => v.lang.startsWith('nl'));
+  if (nl.length) { nl.sort((a,b) => scoreVoice(b) - scoreVoice(a)); dutchVoice = nl[0]; }
+  engVoice = all.find(v => v.lang === 'en-GB') || all.find(v => v.lang.startsWith('en')) || null;
+  const el = document.getElementById('vi'); if (!el) return;
+  if (dutchVoice) {
+    const online = dutchVoice.localService === false ? ' 🌐 online' : ' 💾 offline';
+    const fem    = FH.some(h => dutchVoice.name.toLowerCase().includes(h)) ? ' 👩' : ' 👤';
+    el.innerHTML = '🔊 Dutch voice active: <strong>' + dutchVoice.name + '</strong> <span style="color:#aaa;font-weight:400">[' + dutchVoice.lang + online + fem + ']</span>';
+    el.style.color = '#22b573';
+  } else {
+    el.textContent = '⚠️ No Dutch voice found. See install tips below.';
+    el.style.color = '#e74c3c';
+  }
+}
+window.speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices(); setTimeout(loadVoices, 500); setTimeout(loadVoices, 1500);
+
+function spkNL(text, rate = 0.75) {
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if (dutchVoice) u.voice = dutchVoice;
+  u.lang = 'nl-NL'; u.rate = rate; u.pitch = 1.0; u.volume = 1;
+  window.speechSynthesis.speak(u);
+}
+function spkEN(text, rate = 0.85) {
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if (engVoice) u.voice = engVoice;
+  u.lang = 'en-US'; u.rate = rate; u.pitch = 1.1; u.volume = 1;
+  window.speechSynthesis.speak(u);
+}
+function markSpeaking(btn, ms = 1800) {
+  if (!btn) return;
+  btn.classList.add('speaking'); setTimeout(() => btn.classList.remove('speaking'), ms);
+}
+
+/* ════ LETTER COLOURS ════ */
+const LC = {
+  A:'#2ec4b6',B:'#e74c3c',C:'#8e44ad',D:'#2471a3',E:'#2980b9',F:'#ca6f1e',
+  G:'#7d6608',H:'#117a65',I:'#845ec2',J:'#1a5276',K:'#ff9a3c',L:'#8e44ad',
+  M:'#16a085',N:'#c0392b',O:'#0095d9',P:'#ff6b6b',Q:'#6c3483',R:'#1e8bc3',
+  S:'#22b573',T:'#e67e22',U:'#d35400',V:'#717d7e',W:'#0e6655',X:'#922b21',
+  Y:'#4a235a',Z:'#1b4f72'
+};
+
+/* ════ WORD DATA ════ */
+const ALL_WORDS = {
+  1: [
+    ['Op','On / Up','⬆️'],['Pop','Doll','🪆'],['Sop','Sauce','🥫'],['Os','Ox','🐂'],
+    ['Kok','Cook','👨‍🍳'],['Sok','Sock','🧦'],['Pok','Poke','👉'],['Kop','Cup / Head','☕'],
+    ['Ik','I (me)','🙋'],['Sik','Goatee','🧔'],['Kik','Kick','🦵'],['Pik','Pick','⛏️'],
+    ['Sip','Sip','🥤'],['Kip','Chicken','🐔'],['Pip','Pip','🌱'],['Is','Ice / Is','🧊'],
+    ['Sap','Juice','🧃'],['Kap','Hood / Cap','🧢'],['Pap','Porridge','🥣'],['As','Ash / Axis','🌋'],
+    ['Pak','Package','📦'],['Kas','Cupboard','🗄️'],['Sas','Lock / Sluice','🚪'],['Pas','Step / Just','👣'],
+  ],
+  2: [
+    ['Tak','Branch','🌿'],['Pak','Package','📦'],['Tas','Bag','👜'],['Tap','Tap / Faucet','🚰'],
+    ['Top','Top','🔝'],['Tik','Tick','✅'],['Tok','Tock','⏰'],['Tip','Tip','💡'],
+    ['Kat','Cat','🐱'],['Pop','Doll','🪆'],['Sap','Juice','🧃'],['Sok','Sock','🧦'],
+    ['Kip','Chicken','🐔'],['Pot','Pot','🪴'],['Kit','Kit','🧰'],['Pit','Pit','🕳️'],
+    ['Tot','Until','⏳'],['Ot','Odd one','🤷'],['At','At','📍'],['Kot','Kennel','🏠'],
+    ['Sik','Goatee','🧔'],['Pas','Step','👣'],['Sop','Sauce','🥫'],['Kop','Cup','☕'],
+    ['Pap','Porridge','🥣'],['Ik','I (me)','🙋'],['Mat','Mat','🧹'],['Mot','Moth','🦋'],
+    ['Mos','Moss','🌱'],['Mis','Miss','❌'],['Mik','Aim','🎯'],['Mak','Tame','🐾'],
+    ['Map','Map','🗺️'],['Mop','Mop','🧹'],['Mam','Mum','👩'],['Som','Sum','➕'],
+    ['Kam','Comb','💈'],['Tom','Tom','🥁'],['Tam','Tam','🎩'],['Tim','Tim','👦'],
+    ['Om','Uncle','👴'],['Sam','Sam','🧑'],['Kim','Kim','👧'],['Pim','Pim','🧒'],
+    ['Pom','Pompom','🎀'],['Sis','Sis','👧'],['Kas','Cupboard','🗄️'],['Kap','Hood / Cap','🧢'],
+    ['Op','On / Up','⬆️'],['Lip','Lip','💋'],['Lap','Lap','🪑'],['Lak','Varnish','🪣'],
+    ['Lik','Lick','👅'],['Lok','Lock / Curl','💇'],['Los','Loose','🔓'],['Lot','Lot','🎟️'],
+    ['Lat','Lath','📏'],['Tol','Top (toy)','🌀'],['Pil','Pill','💊'],['Til','Sesame','🌾'],
+    ['Mol','Mole','🐛'],['Lam','Lamb','🐑'],['Mal','Crazy','🤪'],['Al','Already','✔️'],
+    ['Pal','Pal','🤝'],['Pol','Pol','🏺'],['Lis','Lily','🌸'],['Met','With','🫱'],
+    ['Mes','Knife','🔪'],['Es','Ash tree','🌲'],['Les','Lesson','📖'],['Lek','Leaking','💧'],
+    ['Pek','Pitch','⚫'],['Pel','Peel','🍋'],['Tel','Count','🔢'],['Tem','Tame','🐴'],
+    ['Sem','Sem','🧑'],['Pet','Pet','🐾'],['Mok','Mug','☕'],['Mep','Slap','👋'],
+    ['Sip','Sip','🥤'],['Net','Net','🎾'],['Nat','Wet','💦'],['Nap','Nap','😴'],
+    ['Nep','Fake','🎭'],['Nek','Neck','🦒'],['Nok','Hook / Notch','🔔'],['Nop','Nop','🙅'],
+    ['Nip','Nip','🤏'],['Nis','Niche','🏠'],['Kok','Cook','👨‍🍳'],['Kan','Can / Jug','🫙'],
+    ['Pan','Pan','🍳'],['Man','Man','👨'],['En','And','🔗'],['Pen','Pen','✏️'],
+    ['Pin','Pin','📌'],['Kin','Chin','🫦'],['Min','Min','⏱️'],['In','In','📥'],
+    ['Nel','Nel','👵'],['Kon','Could','💭'],['Uk','Uk','❓'],['Puk','Puck','🏒'],
+    ['Pup','Pup','🐶'],['Put','Well / Pit','🪣'],['Nut','Nut','🥜'],['Nul','Zero','0️⃣'],
+    ['Mul','Mule','🐴'],['Mus','Mouse','🐭'],['Kus','Kiss','💋'],['Lus','Loop / Desire','🧶'],
+    ['Tuk','Tuck','🛏️'],['Pul','Pull','↩️'],['Kun','Can (plural)','✅'],
+  ]
+};
+
+/* ════ STATE ════ */
+const GAME_ORDER = ['listen','spell','match','meaning'];
+let activeLesson = 1;
+let gWords = [];
+let gState = {};
+let curGame = 'listen';
+
+function launchLesson(lesson) {
+  activeLesson = lesson;
+  gWords = ALL_WORDS[lesson];
+  document.getElementById('g-badge').textContent = 'Lesson ' + lesson + ' — ' + gWords.length + ' words';
+  GAME_ORDER.forEach(g => resetGameState(g));
+  showScreen('s-game');
+  switchGame('listen');
+}
+
+function resetGameState(g) {
+  gState[g] = {
+    queue:    shuffle([...gWords]),
+    answered: 0,
+    score:    0,
+    complete: false,
+    spellBuilt: [],   // per-question spell state stored separately
+  };
+}
+
+function goHome() {
+  window.speechSynthesis.cancel();
+  showScreen('s-home');
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ════ GAME SWITCHING ════ */
+function switchGame(g) {
+  curGame = g;
+  window.speechSynthesis.cancel();
+
+  GAME_ORDER.forEach(t => {
+    document.getElementById('gt-' + t).className = 'gtab';
+    const p = document.getElementById('gp-' + t);
+    p.classList.remove('on'); p.style.display = 'none';
+  });
+  document.getElementById('gt-' + g).classList.add('on-' + g);
+  const active = document.getElementById('gp-' + g);
+  active.style.display = 'block';
+  active.classList.add('on');
+
+  document.getElementById('g-pbar').className = 'pbar pb-' + g;
+  updateScoreRow(g);
+
+  // Render all questions if not yet rendered
+  renderAllQuestions(g);
+}
+
+function nextGameName(g) {
+  const idx = GAME_ORDER.indexOf(g);
+  return GAME_ORDER[(idx + 1) % GAME_ORDER.length];
+}
+
+function goNextGame(g) {
+  const next = nextGameName(g);
+  switchGame(next);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ════ SCORE ROW ════ */
+function updateScoreRow(g) {
+  const s = gState[g]; if (!s) return;
+  const total = s.queue.length;
+  const done  = s.answered;
+  document.getElementById('g-pbar').style.width = (done / total * 100) + '%';
+  document.getElementById('g-qlbl').textContent = done + ' of ' + total + ' answered';
+  document.getElementById('g-score').textContent = s.score;
+  document.getElementById('g-total').textContent = total;
+}
+
+function onAnswered(g) {
+  const s = gState[g];
+  s.answered++;
+  updateScoreRow(g);
+  // Mark tab done if complete
+  if (s.answered >= s.queue.length) {
+    s.complete = true;
+    showGameComplete(g);
+    const badge = document.createElement('span');
+    badge.className = 'done-badge'; badge.textContent = '✓';
+    const tab = document.getElementById('gt-' + g);
+    if (!tab.querySelector('.done-badge')) tab.appendChild(badge);
+  }
+}
+
+/* ════ GAME COMPLETE ════ */
+function showGameComplete(g) {
+  const s = gState[g];
+  const pct = s.score / s.queue.length;
+  document.getElementById('gce-' + g).textContent = pct === 1 ? '🏆' : pct >= .75 ? '🎉' : pct >= .5 ? '👍' : '💪';
+  document.getElementById('gcs-' + g).textContent = s.score + ' / ' + s.queue.length;
+  document.getElementById('gcm-' + g).textContent =
+    pct === 1 ? 'Perfect score! You are amazing! 🌟'
+    : pct >= .75 ? 'Great job! Almost perfect!'
+    : pct >= .5  ? 'Good effort! Keep practising!'
+    : 'Keep going — practice makes perfect!';
+
+  // Update next game button label
+  const nextG = nextGameName(g);
+  const nextBtn = document.getElementById('gc-next-' + g);
+  if (GAME_ORDER.indexOf(g) === GAME_ORDER.length - 1) {
+    nextBtn.textContent = '🏠 Back to Home';
+    nextBtn.onclick = () => goHome();
+  } else {
+    const labels = {listen:'🔤 Spell It!', spell:'🖼️ Match It!', match:'💬 Meaning?', meaning:'🏠 Home'};
+    nextBtn.textContent = (labels[g] || 'Next Game') + ' ➡️';
+  }
+
+  const banner = document.getElementById('gc-' + g);
+  banner.classList.add('show');
+  banner.scrollIntoView({ behavior:'smooth', block:'center' });
+  if (pct >= .5) confetti();
+}
+
+function restartGame(g) {
+  document.getElementById('gc-' + g).classList.remove('show');
+  const tab = document.getElementById('gt-' + g);
+  const badge = tab.querySelector('.done-badge');
+  if (badge) badge.remove();
+  resetGameState(g);
+  document.getElementById('ql-' + g).innerHTML = '';
+  switchGame(g);
+}
+
+/* ════ RENDER ALL QUESTIONS ════ */
+function renderAllQuestions(g) {
+  const container = document.getElementById('ql-' + g);
+  if (container.children.length > 0) return; // already rendered
+
+  const s = gState[g];
+  s.queue.forEach((w, qi) => {
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.id = 'qcard-' + g + '-' + qi;
+
+    if (g === 'listen')  card.innerHTML = buildListenCard(w, qi);
+    if (g === 'spell')   card.innerHTML = buildSpellCard(w, qi);
+    if (g === 'match')   card.innerHTML = buildMatchCard(w, qi);
+    if (g === 'meaning') card.innerHTML = buildMeaningCard(w, qi);
+
+    container.appendChild(card);
+  });
+
+  // Auto-play first word
+  const first = gState[g].queue[0];
+  setTimeout(() => {
+    if (g === 'listen' || g === 'match') spkNL(first[0]);
+    if (g === 'meaning') {
+      spkNL('Wat betekent dit Nederlandse woord in het Engels?', 0.8);
+      setTimeout(() => spkNL(first[0], 0.75), 3000);
+    }
+    if (g === 'spell') {
+      const q = `What do we call ${first[1]} in Dutch? Make the word!`;
+      spkEN(q, 0.85);
+    }
+  }, 400);
+}
+
+/* ════ LISTEN CARD ════ */
+function buildListenCard(w, qi) {
+  const opts = shuffle([w, ...getWrongs(w)]);
+  return `
+    <div class="qcard-num">Q${qi+1}</div>
+    <span class="gtag tg-listen">🔊 Listen &amp; Pick</span>
+    <div class="qcard-prompt">Listen to the Dutch word and tap the correct spelling!</div>
+    <button class="gbtn gbtn-nl" id="lp-${qi}" onclick="listenPlay(${qi})">🔊 Play Word Again</button>
+    <div class="opts" id="lo-${qi}">
+      ${opts.map(o => `<button class="opt" data-word="${o[0]}" onclick="checkListen(this,'${o[0]}','${w[0]}',${qi})">${o[0]}</button>`).join('')}
+    </div>
+    <div class="fb" id="lf-${qi}"></div>`;
+}
+
+function listenPlay(qi) {
+  const w = gState['listen'].queue[qi];
+  spkNL(w[0]);
+  markSpeaking(document.getElementById('lp-' + qi));
+}
+
+function checkListen(btn, chosen, correct, qi) {
+  const s = gState['listen'];
+  const card = document.getElementById('qcard-listen-' + qi);
+  if (card.classList.contains('answered-ok') || card.classList.contains('answered-bad')) return;
+
+  document.querySelectorAll('#lo-' + qi + ' .opt').forEach(b => b.disabled = true);
+  const w = gWords.find(x => x[0] === correct);
+  if (chosen === correct) {
+    btn.classList.add('ok');
+    s.score++;
+    setFB('lf-' + qi, '🎉 Correct! "' + correct + '" means ' + (w ? w[1] : ''), 'ok');
+    card.classList.add('answered-ok');
+    confetti();
+  } else {
+    btn.classList.add('bad');
+    document.querySelectorAll('#lo-' + qi + ' .opt').forEach(b => { if (b.dataset.word === correct) b.classList.add('rev'); });
+    setFB('lf-' + qi, '❌ The word was "' + correct + '"', 'bad');
+    card.classList.add('answered-bad');
+  }
+  onAnswered('listen');
+}
+
+/* ════ SPELL CARD ════ */
+const spellState = {}; // keyed by qi
+
+function buildSpellCard(w, qi) {
+  spellState[qi] = { built: [], answered: false };
+  const scrambled = shuffle([...w[0].toUpperCase().split('')]);
+  const lettersHtml = scrambled.map((l, i) =>
+    `<div class="glb" id="sl-${qi}-${i}" style="background:${LC[l]||'#888'}" onclick="addSpellLetter(${qi},'${l}',${i})">${l}</div>`
+  ).join('');
+  return `
+    <div class="qcard-num">Q${qi+1}</div>
+    <span class="gtag tg-spell">🔤 Spell It!</span>
+    <div class="qcard-prompt" style="font-size:.85em;color:#888;">🇬🇧 Listen and spell the Dutch word:</div>
+    <div style="text-align:center;font-size:3em;margin:6px 0 10px;">${w[2]}</div>
+    <button class="gbtn gbtn-pu" id="sa-${qi}" onclick="spellAskQ(${qi})">🎧 Hear the question</button>
+    <div class="sdrop" id="sd-${qi}"><span class="sph">Tap letters below ↓</span></div>
+    <div class="glbrow" id="ss-${qi}">${lettersHtml}</div>
+    <div style="margin-top:8px;"><button class="bclr" onclick="clearSpellQ(${qi})">✖ Clear</button></div>
+    <div class="fb" id="sf-${qi}"></div>`;
+}
+
+function spellAskQ(qi) {
+  const w = gState['spell'].queue[qi];
+  const q = `What do we call ${w[1]} in Dutch? Make the word!`;
+  const btn = document.getElementById('sa-' + qi);
+  markSpeaking(btn, 2800);
+  spkEN(q, 0.85);
+}
+
+function addSpellLetter(qi, letter, idx) {
+  const ss = spellState[qi];
+  if (ss.answered) return;
+  const src = document.getElementById('sl-' + qi + '-' + idx);
+  if (src.classList.contains('used')) return;
+  src.classList.add('used');
+  ss.built.push({ letter, idx });
+
+  const drop = document.getElementById('sd-' + qi);
+  drop.classList.add('has');
+  const ph = drop.querySelector('.sph'); if (ph) ph.remove();
+
+  const slot = document.createElement('div');
+  slot.className = 'sslot';
+  slot.style.background = LC[letter] || '#888';
+  slot.textContent = letter;
+  drop.appendChild(slot);
+
+  const w = gState['spell'].queue[qi];
+  if (ss.built.length === w[0].length) {
+    setTimeout(() => checkSpellQ(qi), 280);
+  }
+}
+
+function clearSpellQ(qi) {
+  const ss = spellState[qi];
+  if (ss.answered) return;
+  ss.built = [];
+  document.querySelectorAll('[id^="sl-' + qi + '-"]').forEach(el => el.classList.remove('used'));
+  const drop = document.getElementById('sd-' + qi);
+  drop.classList.remove('has');
+  drop.innerHTML = '<span class="sph">Tap letters below ↓</span>';
+}
+
+function checkSpellQ(qi) {
+  const ss = spellState[qi];
+  if (ss.answered) return;
+  ss.answered = true;
+  document.querySelectorAll('[id^="sl-' + qi + '-"]').forEach(el => el.onclick = null);
+
+  const s = gState['spell'];
+  const w = s.queue[qi];
+  const formed  = ss.built.map(x => x.letter).join('');
+  const correct = w[0].toUpperCase();
+  const card = document.getElementById('qcard-spell-' + qi);
+
+  if (formed === correct) {
+    s.score++;
+    setFB('sf-' + qi, '🎉 Perfect! "' + w[0] + '" = ' + w[1] + ' ' + w[2], 'ok');
+    card.classList.add('answered-ok');
+    confetti();
+  } else {
+    setFB('sf-' + qi, '❌ The correct spelling is "' + w[0] + '" — try again next round!', 'bad');
+    card.classList.add('answered-bad');
+  }
+  onAnswered('spell');
+}
+
+/* ════ MATCH CARD ════ */
+function buildMatchCard(w, qi) {
+  const opts = shuffle([w, ...getWrongs(w)]);
+  return `
+    <div class="qcard-num">Q${qi+1}</div>
+    <span class="gtag tg-match">🖼️ Match It!</span>
+    <div class="qcard-prompt">Which picture matches this Dutch word?</div>
+    <div class="qcard-bigw">${w[0]}</div>
+    <div class="eopts" id="mo-${qi}">
+      ${opts.map(o => `<button class="eopt" data-word="${o[0]}" onclick="checkMatch(this,'${o[0]}','${w[0]}',${qi})">
+        <span class="eico">${o[2]}</span>
+        <span class="elbl">${o[1]}</span>
+      </button>`).join('')}
+    </div>
+    <div class="fb" id="mf-${qi}"></div>`;
+}
+
+function checkMatch(btn, chosen, correct, qi) {
+  const s = gState['match'];
+  const card = document.getElementById('qcard-match-' + qi);
+  if (card.classList.contains('answered-ok') || card.classList.contains('answered-bad')) return;
+
+  document.querySelectorAll('#mo-' + qi + ' .eopt').forEach(b => b.disabled = true);
+  const cw = gWords.find(x => x[0] === correct);
+  if (chosen === correct) {
+    btn.classList.add('ok');
+    s.score++;
+    setFB('mf-' + qi, '🎉 Yes! ' + (cw ? cw[2] : '') + ' = "' + correct + '" means ' + (cw ? cw[1] : ''), 'ok');
+    card.classList.add('answered-ok');
+    confetti();
+  } else {
+    btn.classList.add('bad');
+    document.querySelectorAll('#mo-' + qi + ' .eopt').forEach(b => {
+      if (b.dataset.word === correct) b.classList.add('rev');
+    });
+    setFB('mf-' + qi, '❌ "' + correct + '" = ' + (cw ? cw[2] + ' (' + cw[1] + ')' : ''), 'bad');
+    card.classList.add('answered-bad');
+  }
+  onAnswered('match');
+}
+
+/* ════ MEANING CARD ════ */
+function buildMeaningCard(w, qi) {
+  const opts = shuffle([w, ...getWrongs(w)]);
+  return `
+    <div class="qcard-num">Q${qi+1}</div>
+    <span class="gtag tg-meaning">💬 What Does It Mean?</span>
+    <div class="qcard-prompt">What does this Dutch word mean in English?</div>
+    <div class="qcard-bigw">${w[0]}</div>
+    <button class="gbtn gbtn-gn" id="mp-${qi}" onclick="meaningPlayQ(${qi})">🔊 Hear it in Dutch</button>
+    <div class="opts" id="mg-${qi}">
+      ${opts.map(o => `<button class="opt" style="font-size:.9em;padding:12px 8px" data-meaning="${o[1].replace(/"/g,'&quot;')}"
+        onclick="checkMeaning(this,'${o[1].replace(/'/g,"\\'")}','${w[1].replace(/'/g,"\\'")}',${qi})">${o[1]}</button>`).join('')}
+    </div>
+    <div class="fb" id="mef-${qi}"></div>`;
+}
+
+function meaningPlayQ(qi) {
+  const w = gState['meaning'].queue[qi];
+  spkNL(w[0]);
+  markSpeaking(document.getElementById('mp-' + qi));
+}
+
+function checkMeaning(btn, chosen, correct, qi) {
+  const s = gState['meaning'];
+  const card = document.getElementById('qcard-meaning-' + qi);
+  if (card.classList.contains('answered-ok') || card.classList.contains('answered-bad')) return;
+
+  document.querySelectorAll('#mg-' + qi + ' .opt').forEach(b => b.disabled = true);
+  if (chosen === correct) {
+    btn.classList.add('ok');
+    s.score++;
+    setFB('mef-' + qi, '🎉 Correct! It means "' + correct + '"', 'ok');
+    card.classList.add('answered-ok');
+    confetti();
+  } else {
+    btn.classList.add('bad');
+    document.querySelectorAll('#mg-' + qi + ' .opt').forEach(b => { if (b.dataset.meaning === correct) b.classList.add('rev'); });
+    setFB('mef-' + qi, '❌ It means "' + correct + '"', 'bad');
+    card.classList.add('answered-bad');
+  }
+  onAnswered('meaning');
+}
+
+/* ════ HELPERS ════ */
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function getWrongs(correct, count = 3) {
+  const pool = gWords.filter(w => w[0] !== correct[0]);
+  return shuffle(pool).slice(0, count);
+}
+
+function setFB(id, msg, type) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'fb ' + type + ' show';
+}
+
+function confetti() {
+  const colors = ['#ff6b6b','#0095d9','#22b573','#ff9a3c','#845ec2','#2ec4b6','#fff'];
+  for (let i = 0; i < 30; i++) {
+    const el = document.createElement('div');
+    el.className = 'cp';
+    el.style.cssText = `left:${Math.random()*100}vw;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};animation-delay:${Math.random()*.4}s;animation-duration:${.9+Math.random()*.7}s;border-radius:${Math.random()>.5?'50%':'2px'}`;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1800);
+  }
+}
+</script>
+</body>
+</html>
