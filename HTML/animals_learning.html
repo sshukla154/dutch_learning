@@ -13,7 +13,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             padding: 30px;
@@ -59,16 +59,16 @@
         }
         
         th {
-            padding: 15px;
+            padding: 15px 10px;
             text-align: left;
-            font-size: 1.2em;
+            font-size: 1.1em;
             border: 2px solid #38f9d7;
         }
         
         td {
-            padding: 12px;
+            padding: 12px 8px;
             border: 2px solid #e0e0e0;
-            font-size: 1.1em;
+            font-size: 1em;
             vertical-align: middle;
         }
         
@@ -84,11 +84,11 @@
         .image-link {
             background-color: #43e97b;
             color: white;
-            padding: 8px 15px;
+            padding: 6px 12px;
             text-decoration: none;
             border-radius: 8px;
             display: inline-block;
-            font-size: 0.9em;
+            font-size: 0.85em;
             transition: all 0.3s;
         }
         
@@ -100,11 +100,11 @@
         .voice-btn {
             background-color: #28a745;
             color: white;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.9em;
+            font-size: 0.85em;
             transition: all 0.3s;
             margin: 2px;
             display: inline-block;
@@ -119,10 +119,31 @@
             transform: scale(0.95);
         }
         
+        .sound-btn {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.3s;
+            margin: 2px;
+        }
+        
+        .sound-btn:hover {
+            background-color: #ee5a52;
+            transform: scale(1.05);
+        }
+        
+        .sound-btn:active {
+            transform: scale(0.95);
+        }
+        
         .pronunciation {
             color: #555;
             font-style: italic;
-            font-size: 0.95em;
+            font-size: 0.9em;
         }
         
         .number {
@@ -132,8 +153,37 @@
         }
         
         .symbol {
-            font-size: 2.5em;
+            font-size: 2.2em;
             text-align: center;
+        }
+        
+        .habitat {
+            font-size: 0.85em;
+            padding: 4px 8px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 2px;
+            font-weight: bold;
+        }
+        
+        .land {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .water {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .sky {
+            background-color: #e7f3ff;
+            color: #004085;
+        }
+        
+        .both-land-water {
+            background: linear-gradient(90deg, #d4edda 50%, #d1ecf1 50%);
+            color: #155724;
         }
     </style>
 </head>
@@ -149,21 +199,30 @@
                 <tr>
                     <th>#</th>
                     <th>Symbol</th>
-                    <th>English</th>
-                    <th>Dutch</th>
+                    <th>English / Dutch</th>
                     <th>🔊 Listen</th>
-                    <th>See Picture</th>
+                    <th>🎵 Sound</th>
+                    <th>🌍 Lives</th>
+                    <th>Picture</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="number">1</td>
                     <td class="symbol">🐕</td>
-                    <td>Dog <br><span class="pronunciation">(DOG)</span></td>
-                    <td>Hond <br><span class="pronunciation">(HONT)</span></td>
+                    <td>
+                        Dog <span class="pronunciation">(DOG)</span><br>
+                        Hond <span class="pronunciation">(HONT)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Dog', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Hond', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('dog')">🔊 Woof!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🏡 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=dog" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -171,11 +230,19 @@
                 <tr>
                     <td class="number">2</td>
                     <td class="symbol">🐈</td>
-                    <td>Cat <br><span class="pronunciation">(KAT)</span></td>
-                    <td>Kat <br><span class="pronunciation">(KAHT)</span></td>
+                    <td>
+                        Cat <span class="pronunciation">(KAT)</span><br>
+                        Kat <span class="pronunciation">(KAHT)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Cat', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Kat', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('cat')">🔊 Meow!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🏡 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=cat" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -183,11 +250,19 @@
                 <tr>
                     <td class="number">3</td>
                     <td class="symbol">🐰</td>
-                    <td>Rabbit <br><span class="pronunciation">(RAB-it)</span></td>
-                    <td>Konijn <br><span class="pronunciation">(koh-NAYN)</span></td>
+                    <td>
+                        Rabbit <span class="pronunciation">(RAB-it)</span><br>
+                        Konijn <span class="pronunciation">(koh-NAYN)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Rabbit', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Konijn', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('rabbit')">🔊 Squeak!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🏡 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=rabbit" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -195,11 +270,19 @@
                 <tr>
                     <td class="number">4</td>
                     <td class="symbol">🐹</td>
-                    <td>Hamster <br><span class="pronunciation">(HAM-stur)</span></td>
-                    <td>Hamster <br><span class="pronunciation">(HAHM-ster)</span></td>
+                    <td>
+                        Hamster <span class="pronunciation">(HAM-stur)</span><br>
+                        Hamster <span class="pronunciation">(HAHM-ster)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Hamster', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Hamster', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('hamster')">🔊 Squeak!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🏡 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=hamster" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -207,11 +290,19 @@
                 <tr>
                     <td class="number">5</td>
                     <td class="symbol">🐦</td>
-                    <td>Parrot <br><span class="pronunciation">(PAIR-ut)</span></td>
-                    <td>Papegaai <br><span class="pronunciation">(pah-puh-KHAY)</span></td>
+                    <td>
+                        Parrot <span class="pronunciation">(PAIR-ut)</span><br>
+                        Papegaai <span class="pronunciation">(pah-puh-KHAY)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Parrot', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Papegaai', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('parrot')">🔊 Squawk!</button>
+                    </td>
+                    <td>
+                        <span class="habitat sky">🌤️ Sky</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=parrot" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -219,11 +310,19 @@
                 <tr>
                     <td class="number">6</td>
                     <td class="symbol">🐠</td>
-                    <td>Fish <br><span class="pronunciation">(FISH)</span></td>
-                    <td>Vis <br><span class="pronunciation">(FIS)</span></td>
+                    <td>
+                        Fish <span class="pronunciation">(FISH)</span><br>
+                        Vis <span class="pronunciation">(FIS)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Fish', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Vis', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('fish')">🔊 Blub!</button>
+                    </td>
+                    <td>
+                        <span class="habitat water">🌊 Water</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=goldfish" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -231,11 +330,19 @@
                 <tr>
                     <td class="number">7</td>
                     <td class="symbol">🐢</td>
-                    <td>Turtle <br><span class="pronunciation">(TUR-tul)</span></td>
-                    <td>Schildpad <br><span class="pronunciation">(SKHIL-paht)</span></td>
+                    <td>
+                        Turtle <span class="pronunciation">(TUR-tul)</span><br>
+                        Schildpad <span class="pronunciation">(SKHIL-paht)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Turtle', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Schildpad', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('turtle')">🔊 Quiet</button>
+                    </td>
+                    <td>
+                        <span class="habitat both-land-water">🏝️ Land & Water</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=pet+turtle" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -243,11 +350,19 @@
                 <tr>
                     <td class="number">8</td>
                     <td class="symbol">🐴</td>
-                    <td>Horse <br><span class="pronunciation">(HORSS)</span></td>
-                    <td>Paard <br><span class="pronunciation">(PAHRT)</span></td>
+                    <td>
+                        Horse <span class="pronunciation">(HORSS)</span><br>
+                        Paard <span class="pronunciation">(PAHRT)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Horse', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Paard', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('horse')">🔊 Neigh!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🏡 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=horse" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -261,21 +376,30 @@
                 <tr>
                     <th>#</th>
                     <th>Symbol</th>
-                    <th>English</th>
-                    <th>Dutch</th>
+                    <th>English / Dutch</th>
                     <th>🔊 Listen</th>
-                    <th>See Picture</th>
+                    <th>🎵 Sound</th>
+                    <th>🌍 Lives</th>
+                    <th>Picture</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="number">9</td>
                     <td class="symbol">🦁</td>
-                    <td>Lion <br><span class="pronunciation">(LY-un)</span></td>
-                    <td>Leeuw <br><span class="pronunciation">(LAY-oo)</span></td>
+                    <td>
+                        Lion <span class="pronunciation">(LY-un)</span><br>
+                        Leeuw <span class="pronunciation">(LAY-oo)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Lion', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Leeuw', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('lion')">🔊 ROAR!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌍 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=lion" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -283,11 +407,19 @@
                 <tr>
                     <td class="number">10</td>
                     <td class="symbol">🐯</td>
-                    <td>Tiger <br><span class="pronunciation">(TY-gur)</span></td>
-                    <td>Tijger <br><span class="pronunciation">(TAY-gher)</span></td>
+                    <td>
+                        Tiger <span class="pronunciation">(TY-gur)</span><br>
+                        Tijger <span class="pronunciation">(TAY-gher)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Tiger', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Tijger', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('tiger')">🔊 ROAR!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌍 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=tiger" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -295,11 +427,19 @@
                 <tr>
                     <td class="number">11</td>
                     <td class="symbol">🐻</td>
-                    <td>Bear <br><span class="pronunciation">(BAIR)</span></td>
-                    <td>Beer <br><span class="pronunciation">(BAYR)</span></td>
+                    <td>
+                        Bear <span class="pronunciation">(BAIR)</span><br>
+                        Beer <span class="pronunciation">(BAYR)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Bear', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Beer', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('bear')">🔊 Growl!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌍 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=bear" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -307,11 +447,19 @@
                 <tr>
                     <td class="number">12</td>
                     <td class="symbol">🐘</td>
-                    <td>Elephant <br><span class="pronunciation">(EL-uh-funt)</span></td>
-                    <td>Olifant <br><span class="pronunciation">(oh-lee-FAHNT)</span></td>
+                    <td>
+                        Elephant <span class="pronunciation">(EL-uh-funt)</span><br>
+                        Olifant <span class="pronunciation">(oh-lee-FAHNT)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Elephant', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Olifant', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('elephant')">🔊 Trumpet!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌍 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=elephant" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -319,11 +467,19 @@
                 <tr>
                     <td class="number">13</td>
                     <td class="symbol">🦒</td>
-                    <td>Giraffe <br><span class="pronunciation">(juh-RAFF)</span></td>
-                    <td>Giraffe <br><span class="pronunciation">(zhee-RAH-fuh)</span></td>
+                    <td>
+                        Giraffe <span class="pronunciation">(juh-RAFF)</span><br>
+                        Giraffe <span class="pronunciation">(zhee-RAH-fuh)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Giraffe', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Giraffe', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('giraffe')">🔊 Hum</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌍 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=giraffe" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -331,11 +487,19 @@
                 <tr>
                     <td class="number">14</td>
                     <td class="symbol">🦓</td>
-                    <td>Zebra <br><span class="pronunciation">(ZEE-bruh)</span></td>
-                    <td>Zebra <br><span class="pronunciation">(ZAY-brah)</span></td>
+                    <td>
+                        Zebra <span class="pronunciation">(ZEE-bruh)</span><br>
+                        Zebra <span class="pronunciation">(ZAY-brah)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Zebra', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Zebra', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('zebra')">🔊 Whinny!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌍 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=zebra" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -343,11 +507,19 @@
                 <tr>
                     <td class="number">15</td>
                     <td class="symbol">🐵</td>
-                    <td>Monkey <br><span class="pronunciation">(MUNG-kee)</span></td>
-                    <td>Aap <br><span class="pronunciation">(AHP)</span></td>
+                    <td>
+                        Monkey <span class="pronunciation">(MUNG-kee)</span><br>
+                        Aap <span class="pronunciation">(AHP)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Monkey', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Aap', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('monkey')">🔊 Ooh Ooh!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌍 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=monkey" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -355,35 +527,39 @@
                 <tr>
                     <td class="number">16</td>
                     <td class="symbol">🦍</td>
-                    <td>Gorilla <br><span class="pronunciation">(guh-RIL-uh)</span></td>
-                    <td>Gorilla <br><span class="pronunciation">(goh-RIL-lah)</span></td>
+                    <td>
+                        Gorilla <span class="pronunciation">(guh-RIL-uh)</span><br>
+                        Gorilla <span class="pronunciation">(goh-RIL-lah)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Gorilla', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Gorilla', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('gorilla')">🔊 Grunt!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌍 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=gorilla" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
                 
                 <tr>
-                    <td class="number">17</td>
-                    <td class="symbol">🦘</td>
-                    <td>Kangaroo <br><span class="pronunciation">(kang-guh-ROO)</span></td>
-                    <td>Kangoeroe <br><span class="pronunciation">(kahn-ghoo-ROO)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Kangaroo', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Kangoeroe', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=kangaroo" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
                     <td class="number">18</td>
                     <td class="symbol">🐼</td>
-                    <td>Panda <br><span class="pronunciation">(PAN-duh)</span></td>
-                    <td>Panda <br><span class="pronunciation">(PAHN-dah)</span></td>
+                    <td>
+                        Panda <span class="pronunciation">(PAN-duh)</span><br>
+                        Panda <span class="pronunciation">(PAHN-dah)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Panda', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Panda', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('panda')">🔊 Bleat!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌍 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=panda" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -397,21 +573,30 @@
                 <tr>
                     <th>#</th>
                     <th>Symbol</th>
-                    <th>English</th>
-                    <th>Dutch</th>
+                    <th>English / Dutch</th>
                     <th>🔊 Listen</th>
-                    <th>See Picture</th>
+                    <th>🎵 Sound</th>
+                    <th>🌍 Lives</th>
+                    <th>Picture</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="number">19</td>
                     <td class="symbol">🐄</td>
-                    <td>Cow <br><span class="pronunciation">(KOW)</span></td>
-                    <td>Koe <br><span class="pronunciation">(KOO)</span></td>
+                    <td>
+                        Cow <span class="pronunciation">(KOW)</span><br>
+                        Koe <span class="pronunciation">(KOO)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Cow', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Koe', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('cow')">🔊 Moo!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌾 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=cow" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -419,11 +604,19 @@
                 <tr>
                     <td class="number">20</td>
                     <td class="symbol">🐖</td>
-                    <td>Pig <br><span class="pronunciation">(PIG)</span></td>
-                    <td>Varken <br><span class="pronunciation">(FAR-ken)</span></td>
+                    <td>
+                        Pig <span class="pronunciation">(PIG)</span><br>
+                        Varken <span class="pronunciation">(FAR-ken)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Pig', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Varken', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('pig')">🔊 Oink!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌾 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=pig" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -431,11 +624,19 @@
                 <tr>
                     <td class="number">21</td>
                     <td class="symbol">🐑</td>
-                    <td>Sheep <br><span class="pronunciation">(SHEEP)</span></td>
-                    <td>Schaap <br><span class="pronunciation">(SKHAHP)</span></td>
+                    <td>
+                        Sheep <span class="pronunciation">(SHEEP)</span><br>
+                        Schaap <span class="pronunciation">(SKHAHP)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Sheep', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Schaap', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('sheep')">🔊 Baa!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌾 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=sheep" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -443,35 +644,39 @@
                 <tr>
                     <td class="number">22</td>
                     <td class="symbol">🐐</td>
-                    <td>Goat <br><span class="pronunciation">(GOHT)</span></td>
-                    <td>Geit <br><span class="pronunciation">(KHAYT)</span></td>
+                    <td>
+                        Goat <span class="pronunciation">(GOHT)</span><br>
+                        Geit <span class="pronunciation">(KHAYT)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Goat', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Geit', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('goat')">🔊 Meh!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌾 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=goat" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
                 
                 <tr>
-                    <td class="number">23</td>
-                    <td class="symbol">🦌</td>
-                    <td>Deer <br><span class="pronunciation">(DEER)</span></td>
-                    <td>Hert <br><span class="pronunciation">(HAIRT)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Deer', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Hert', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=deer" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
                     <td class="number">24</td>
                     <td class="symbol">🦊</td>
-                    <td>Fox <br><span class="pronunciation">(FOKS)</span></td>
-                    <td>Vos <br><span class="pronunciation">(FOS)</span></td>
+                    <td>
+                        Fox <span class="pronunciation">(FOKS)</span><br>
+                        Vos <span class="pronunciation">(FOS)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Fox', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Vos', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('fox')">🔊 Yip!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌲 Forest</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=fox" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -479,11 +684,19 @@
                 <tr>
                     <td class="number">25</td>
                     <td class="symbol">🐺</td>
-                    <td>Wolf <br><span class="pronunciation">(WULF)</span></td>
-                    <td>Wolf <br><span class="pronunciation">(VOLF)</span></td>
+                    <td>
+                        Wolf <span class="pronunciation">(WULF)</span><br>
+                        Wolf <span class="pronunciation">(VOLF)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Wolf', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Wolf', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('wolf')">🔊 Howl!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌲 Forest</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=wolf" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -491,37 +704,21 @@
                 <tr>
                     <td class="number">26</td>
                     <td class="symbol">🐿️</td>
-                    <td>Squirrel <br><span class="pronunciation">(SKWUR-ul)</span></td>
-                    <td>Eekhoorn <br><span class="pronunciation">(AYK-hohrn)</span></td>
+                    <td>
+                        Squirrel <span class="pronunciation">(SKWUR-ul)</span><br>
+                        Eekhoorn <span class="pronunciation">(AYK-hohrn)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Squirrel', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Eekhoorn', 'nl-NL')">🇳🇱 NL</button>
                     </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('squirrel')">🔊 Chatter!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌳 Trees</span>
+                    </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=squirrel" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">27</td>
-                    <td class="symbol">🦔</td>
-                    <td>Hedgehog <br><span class="pronunciation">(HEJ-hog)</span></td>
-                    <td>Egel <br><span class="pronunciation">(AY-ghel)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Hedgehog', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Egel', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=hedgehog" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">28</td>
-                    <td class="symbol">🐀</td>
-                    <td>Mouse <br><span class="pronunciation">(MOWS)</span></td>
-                    <td>Muis <br><span class="pronunciation">(MOYS)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Mouse', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Muis', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=mouse+animal" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
             </tbody>
         </table>
@@ -533,21 +730,30 @@
                 <tr>
                     <th>#</th>
                     <th>Symbol</th>
-                    <th>English</th>
-                    <th>Dutch</th>
+                    <th>English / Dutch</th>
                     <th>🔊 Listen</th>
-                    <th>See Picture</th>
+                    <th>🎵 Sound</th>
+                    <th>🌍 Lives</th>
+                    <th>Picture</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="number">29</td>
                     <td class="symbol">🐳</td>
-                    <td>Whale <br><span class="pronunciation">(WAYL)</span></td>
-                    <td>Walvis <br><span class="pronunciation">(VAHL-vis)</span></td>
+                    <td>
+                        Whale <span class="pronunciation">(WAYL)</span><br>
+                        Walvis <span class="pronunciation">(VAHL-vis)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Whale', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Walvis', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('whale')">🔊 Sing!</button>
+                    </td>
+                    <td>
+                        <span class="habitat water">🌊 Ocean</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=whale" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -555,11 +761,19 @@
                 <tr>
                     <td class="number">30</td>
                     <td class="symbol">🐬</td>
-                    <td>Dolphin <br><span class="pronunciation">(DOL-fin)</span></td>
-                    <td>Dolfijn <br><span class="pronunciation">(dol-FAYN)</span></td>
+                    <td>
+                        Dolphin <span class="pronunciation">(DOL-fin)</span><br>
+                        Dolfijn <span class="pronunciation">(dol-FAYN)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Dolphin', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Dolfijn', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('dolphin')">🔊 Click!</button>
+                    </td>
+                    <td>
+                        <span class="habitat water">🌊 Ocean</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=dolphin" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -567,83 +781,39 @@
                 <tr>
                     <td class="number">31</td>
                     <td class="symbol">🦈</td>
-                    <td>Shark <br><span class="pronunciation">(SHARK)</span></td>
-                    <td>Haai <br><span class="pronunciation">(HAH-ee)</span></td>
+                    <td>
+                        Shark <span class="pronunciation">(SHARK)</span><br>
+                        Haai <span class="pronunciation">(HAH-ee)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Shark', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Haai', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('shark')">🔊 Silent</button>
+                    </td>
+                    <td>
+                        <span class="habitat water">🌊 Ocean</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=shark" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
                 
                 <tr>
-                    <td class="number">32</td>
-                    <td class="symbol">🐙</td>
-                    <td>Octopus <br><span class="pronunciation">(OK-tuh-pus)</span></td>
-                    <td>Octopus <br><span class="pronunciation">(OK-toh-pus)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Octopus', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Octopus', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=octopus" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">33</td>
-                    <td class="symbol">🦀</td>
-                    <td>Crab <br><span class="pronunciation">(KRAB)</span></td>
-                    <td>Krab <br><span class="pronunciation">(KRAHP)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Crab', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Krab', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=crab" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">34</td>
-                    <td class="symbol">🦞</td>
-                    <td>Lobster <br><span class="pronunciation">(LOB-stur)</span></td>
-                    <td>Kreeft <br><span class="pronunciation">(KRAYFT)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Lobster', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Kreeft', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=lobster" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">35</td>
-                    <td class="symbol">🐡</td>
-                    <td>Jellyfish <br><span class="pronunciation">(JEL-ee-fish)</span></td>
-                    <td>Kwal <br><span class="pronunciation">(KVAHL)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Jellyfish', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Kwal', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=jellyfish" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">36</td>
-                    <td class="symbol">⭐</td>
-                    <td>Starfish <br><span class="pronunciation">(STAR-fish)</span></td>
-                    <td>Zeester <br><span class="pronunciation">(ZAY-ster)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Starfish', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Zeester', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=starfish" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
                     <td class="number">37</td>
                     <td class="symbol">🐸</td>
-                    <td>Frog <br><span class="pronunciation">(FROG)</span></td>
-                    <td>Kikker <br><span class="pronunciation">(KIK-ker)</span></td>
+                    <td>
+                        Frog <span class="pronunciation">(FROG)</span><br>
+                        Kikker <span class="pronunciation">(KIK-ker)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Frog', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Kikker', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('frog')">🔊 Ribbit!</button>
+                    </td>
+                    <td>
+                        <span class="habitat both-land-water">💧 Land & Water</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=frog" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -651,25 +821,21 @@
                 <tr>
                     <td class="number">38</td>
                     <td class="symbol">🐊</td>
-                    <td>Crocodile <br><span class="pronunciation">(KROK-uh-dyl)</span></td>
-                    <td>Krokodil <br><span class="pronunciation">(kroh-koh-DIL)</span></td>
+                    <td>
+                        Crocodile <span class="pronunciation">(KROK-uh-dyl)</span><br>
+                        Krokodil <span class="pronunciation">(kroh-koh-DIL)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Crocodile', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Krokodil', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=crocodile" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">39</td>
-                    <td class="symbol">🦭</td>
-                    <td>Seal <br><span class="pronunciation">(SEEL)</span></td>
-                    <td>Zeehond <br><span class="pronunciation">(ZAY-hont)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Seal', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Zeehond', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="sound-btn" onclick="playSound('crocodile')">🔊 Hiss!</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=seal+animal" target="_blank" class="image-link">📸 View</a></td>
+                    <td>
+                        <span class="habitat both-land-water">💧 Land & Water</span>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=crocodile" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
             </tbody>
         </table>
@@ -681,21 +847,30 @@
                 <tr>
                     <th>#</th>
                     <th>Symbol</th>
-                    <th>English</th>
-                    <th>Dutch</th>
+                    <th>English / Dutch</th>
                     <th>🔊 Listen</th>
-                    <th>See Picture</th>
+                    <th>🎵 Sound</th>
+                    <th>🌍 Lives</th>
+                    <th>Picture</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="number">40</td>
                     <td class="symbol">🦅</td>
-                    <td>Eagle <br><span class="pronunciation">(EE-gul)</span></td>
-                    <td>Arend <br><span class="pronunciation">(AH-rent)</span></td>
+                    <td>
+                        Eagle <span class="pronunciation">(EE-gul)</span><br>
+                        Arend <span class="pronunciation">(AH-rent)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Eagle', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Arend', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('eagle')">🔊 Screech!</button>
+                    </td>
+                    <td>
+                        <span class="habitat sky">🌤️ Sky</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=eagle" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -703,107 +878,59 @@
                 <tr>
                     <td class="number">41</td>
                     <td class="symbol">🦉</td>
-                    <td>Owl <br><span class="pronunciation">(OWL)</span></td>
-                    <td>Uil <br><span class="pronunciation">(OYL)</span></td>
+                    <td>
+                        Owl <span class="pronunciation">(OWL)</span><br>
+                        Uil <span class="pronunciation">(OYL)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Owl', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Uil', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('owl')">🔊 Hoot!</button>
+                    </td>
+                    <td>
+                        <span class="habitat sky">🌤️ Sky</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=owl" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
                 
                 <tr>
-                    <td class="number">42</td>
-                    <td class="symbol">🐦</td>
-                    <td>Sparrow <br><span class="pronunciation">(SPAIR-oh)</span></td>
-                    <td>Mus <br><span class="pronunciation">(MUS)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Sparrow', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Mus', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=sparrow" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">43</td>
-                    <td class="symbol">🕊️</td>
-                    <td>Dove <br><span class="pronunciation">(DUV)</span></td>
-                    <td>Duif <br><span class="pronunciation">(DOYF)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Dove', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Duif', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=dove+bird" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
                     <td class="number">44</td>
                     <td class="symbol">🦆</td>
-                    <td>Duck <br><span class="pronunciation">(DUK)</span></td>
-                    <td>Eend <br><span class="pronunciation">(AYNT)</span></td>
+                    <td>
+                        Duck <span class="pronunciation">(DUK)</span><br>
+                        Eend <span class="pronunciation">(AYNT)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Duck', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Eend', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('duck')">🔊 Quack!</button>
+                    </td>
+                    <td>
+                        <span class="habitat both-land-water">💧 Land & Water</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=duck" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
                 
                 <tr>
-                    <td class="number">45</td>
-                    <td class="symbol">🦢</td>
-                    <td>Swan <br><span class="pronunciation">(SWON)</span></td>
-                    <td>Zwaan <br><span class="pronunciation">(ZVAHN)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Swan', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Zwaan', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=swan" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">46</td>
-                    <td class="symbol">🐧</td>
-                    <td>Penguin <br><span class="pronunciation">(PEN-gwin)</span></td>
-                    <td>Pinguïn <br><span class="pronunciation">(pin-gwEEN)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Penguin', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Pinguïn', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=penguin" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">47</td>
-                    <td class="symbol">🦚</td>
-                    <td>Peacock <br><span class="pronunciation">(PEE-kok)</span></td>
-                    <td>Pauw <br><span class="pronunciation">(POW)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Peacock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Pauw', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=peacock" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">48</td>
-                    <td class="symbol">🦜</td>
-                    <td>Macaw <br><span class="pronunciation">(muh-KAW)</span></td>
-                    <td>Ara <br><span class="pronunciation">(AH-rah)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Macaw', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Ara', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=macaw" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
                     <td class="number">49</td>
                     <td class="symbol">🐓</td>
-                    <td>Rooster <br><span class="pronunciation">(ROO-stur)</span></td>
-                    <td>Haan <br><span class="pronunciation">(HAHN)</span></td>
+                    <td>
+                        Rooster <span class="pronunciation">(ROO-stur)</span><br>
+                        Haan <span class="pronunciation">(HAHN)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Rooster', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Haan', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('rooster')">🔊 Cock-a-doodle!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌾 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=rooster" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -811,11 +938,19 @@
                 <tr>
                     <td class="number">50</td>
                     <td class="symbol">🐔</td>
-                    <td>Chicken <br><span class="pronunciation">(CHIK-un)</span></td>
-                    <td>Kip <br><span class="pronunciation">(KIP)</span></td>
+                    <td>
+                        Chicken <span class="pronunciation">(CHIK-un)</span><br>
+                        Kip <span class="pronunciation">(KIP)</span>
+                    </td>
                     <td>
                         <button class="voice-btn" onclick="speak('Chicken', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Kip', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td>
+                        <button class="sound-btn" onclick="playSound('chicken')">🔊 Cluck!</button>
+                    </td>
+                    <td>
+                        <span class="habitat land">🌾 Land</span>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=chicken" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
@@ -824,23 +959,67 @@
         
         <div style="margin-top: 30px; text-align: center; color: #43e97b; font-size: 1.2em;">
             🌟 Click "📸 View" to see pictures! 🌟<br>
-            Press the 🇬🇧 EN or 🇳🇱 NL buttons to hear the words!
+            Press the 🇬🇧 EN or 🇳🇱 NL buttons to hear the words!<br>
+            Click 🔊 to hear the animal sounds!
         </div>
     </div>
     
     <script>
         function speak(text, lang) {
-            // Cancel any ongoing speech
             window.speechSynthesis.cancel();
-            
-            // Create a new speech synthesis utterance
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = lang;
-            utterance.rate = 0.8; // Slightly slower for kids to understand better
+            utterance.rate = 0.8;
             utterance.pitch = 1;
             utterance.volume = 1;
+            window.speechSynthesis.speak(utterance);
+        }
+        
+        function playSound(animal) {
+            const sounds = {
+                'dog': 'Woof woof!',
+                'cat': 'Meow meow!',
+                'rabbit': 'Squeak squeak!',
+                'hamster': 'Squeak squeak!',
+                'parrot': 'Squawk squawk!',
+                'fish': 'Blub blub!',
+                'turtle': '...',
+                'horse': 'Neigh neigh!',
+                'lion': 'ROAR ROAR!',
+                'tiger': 'ROAR ROAR!',
+                'bear': 'Growl growl!',
+                'elephant': 'Trumpet trumpet!',
+                'giraffe': 'Hmmm...',
+                'zebra': 'Whinny whinny!',
+                'monkey': 'Ooh ooh ah ah!',
+                'gorilla': 'Grunt grunt!',
+                'panda': 'Bleat bleat!',
+                'cow': 'Moo moo!',
+                'pig': 'Oink oink!',
+                'sheep': 'Baa baa!',
+                'goat': 'Meh meh!',
+                'fox': 'Yip yip yip!',
+                'wolf': 'Awoooo!',
+                'squirrel': 'Chatter chatter!',
+                'whale': 'Wooooooo!',
+                'dolphin': 'Click click click!',
+                'shark': '...',
+                'frog': 'Ribbit ribbit!',
+                'crocodile': 'Hiss hiss!',
+                'eagle': 'Screech screech!',
+                'owl': 'Hoot hoot!',
+                'duck': 'Quack quack!',
+                'rooster': 'Cock-a-doodle-doo!',
+                'chicken': 'Cluck cluck!'
+            };
             
-            // Speak the text
+            const soundText = sounds[animal] || 'No sound';
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(soundText);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9;
+            utterance.pitch = 1.2;
+            utterance.volume = 1;
             window.speechSynthesis.speak(utterance);
         }
     </script>
