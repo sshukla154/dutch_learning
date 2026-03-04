@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn Time - English & Dutch</title>
+    <title>Learn Days, Months & Seasons - English & Dutch</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             padding: 20px;
             margin: 0;
         }
@@ -23,7 +23,7 @@
         
         h1 {
             text-align: center;
-            color: #fcb69f;
+            color: #f5576c;
             font-size: 2.5em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -31,19 +31,30 @@
         
         .subtitle {
             text-align: center;
-            color: #ff8a65;
+            color: #f093fb;
             font-size: 1.3em;
             margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #f5576c;
+            font-size: 2em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #f093fb;
+            padding-bottom: 10px;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            margin-bottom: 40px;
         }
         
         thead {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
         }
         
@@ -51,27 +62,26 @@
             padding: 15px;
             text-align: left;
             font-size: 1.2em;
-            border: 2px solid #fcb69f;
+            border: 2px solid #f5576c;
         }
         
         td {
             padding: 12px;
             border: 2px solid #e0e0e0;
             font-size: 1.1em;
-            vertical-align: middle;
         }
         
         tr:nth-child(even) {
-            background-color: #fff8f0;
+            background-color: #fff5f9;
         }
         
         tr:hover {
-            background-color: #ffe8d6;
+            background-color: #ffe8f0;
             transition: background-color 0.3s;
         }
         
         .image-link {
-            background-color: #ff8a65;
+            background-color: #f093fb;
             color: white;
             padding: 8px 15px;
             text-decoration: none;
@@ -82,7 +92,7 @@
         }
         
         .image-link:hover {
-            background-color: #fcb69f;
+            background-color: #f5576c;
             transform: scale(1.05);
         }
         
@@ -116,26 +126,31 @@
         
         .number {
             font-weight: bold;
-            color: #fcb69f;
+            color: #f5576c;
             font-size: 1.1em;
         }
-        
-        .symbol {
-            font-size: 2.5em;
-            text-align: center;
+
+        .fun-fact {
+            background: linear-gradient(135deg, #fff5f9 0%, #ffe8f0 100%);
+            border-left: 5px solid #f5576c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-size: 1.1em;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>⏰ Learn How to Tell Time! 🕐</h1>
+        <h1>📅 Learn Days, Months & Seasons! 🌈</h1>
         <div class="subtitle">English & Dutch Learning for Kids</div>
         
+        <!-- DAYS OF THE WEEK -->
+        <h2>🗓️ Days of the Week</h2>
         <table>
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Symbol</th>
                     <th>English</th>
                     <th>Dutch</th>
                     <th>🔊 Listen</th>
@@ -145,223 +160,446 @@
             <tbody>
                 <tr>
                     <td class="number">1</td>
-                    <td class="symbol">⏰</td>
-                    <td>Clock <br><span class="pronunciation">(KLOK)</span></td>
-                    <td>Klok <br><span class="pronunciation">(KLOHK)</span></td>
+                    <td>Monday <br><span class="pronunciation">(MUN-day)</span></td>
+                    <td>Maandag <br><span class="pronunciation">(MAHN-dahkh)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Klok', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Monday', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Maandag', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=monday+calendar" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
                     <td class="number">2</td>
-                    <td class="symbol">⌚</td>
-                    <td>Watch <br><span class="pronunciation">(WOCH)</span></td>
-                    <td>Horloge <br><span class="pronunciation">(hor-LOH-zhuh)</span></td>
+                    <td>Tuesday <br><span class="pronunciation">(TOOZ-day)</span></td>
+                    <td>Dinsdag <br><span class="pronunciation">(DINS-dahkh)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Watch', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Horloge', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Tuesday', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Dinsdag', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=wristwatch" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=tuesday+calendar" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
                     <td class="number">3</td>
-                    <td class="symbol">🕐</td>
-                    <td>One O'Clock <br><span class="pronunciation">(WUN oh-KLOK)</span></td>
-                    <td>Een uur <br><span class="pronunciation">(AYN oor)</span></td>
+                    <td>Wednesday <br><span class="pronunciation">(WENZ-day)</span></td>
+                    <td>Woensdag <br><span class="pronunciation">(VOONS-dahkh)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('One O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Een uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Wednesday', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Woensdag', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=one+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=wednesday+calendar" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
                     <td class="number">4</td>
-                    <td class="symbol">🕑</td>
-                    <td>Two O'Clock <br><span class="pronunciation">(TOO oh-KLOK)</span></td>
-                    <td>Twee uur <br><span class="pronunciation">(TVAY oor)</span></td>
+                    <td>Thursday <br><span class="pronunciation">(THURZ-day)</span></td>
+                    <td>Donderdag <br><span class="pronunciation">(DON-der-dahkh)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Two O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Twee uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Thursday', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Donderdag', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=two+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=thursday+calendar" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
                     <td class="number">5</td>
-                    <td class="symbol">🕒</td>
-                    <td>Three O'Clock <br><span class="pronunciation">(THREE oh-KLOK)</span></td>
-                    <td>Drie uur <br><span class="pronunciation">(DREE oor)</span></td>
+                    <td>Friday <br><span class="pronunciation">(FRY-day)</span></td>
+                    <td>Vrijdag <br><span class="pronunciation">(VRAY-dahkh)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Three O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Drie uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Friday', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vrijdag', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=three+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=friday+calendar" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
                     <td class="number">6</td>
-                    <td class="symbol">🕓</td>
-                    <td>Four O'Clock <br><span class="pronunciation">(FOR oh-KLOK)</span></td>
-                    <td>Vier uur <br><span class="pronunciation">(FEER oor)</span></td>
+                    <td>Saturday <br><span class="pronunciation">(SAT-ur-day)</span></td>
+                    <td>Zaterdag <br><span class="pronunciation">(ZAH-ter-dahkh)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Four O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Vier uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Saturday', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zaterdag', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=four+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=saturday+weekend" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
                     <td class="number">7</td>
-                    <td class="symbol">🕔</td>
-                    <td>Five O'Clock <br><span class="pronunciation">(FYVE oh-KLOK)</span></td>
-                    <td>Vijf uur <br><span class="pronunciation">(FAYF oor)</span></td>
+                    <td>Sunday <br><span class="pronunciation">(SUN-day)</span></td>
+                    <td>Zondag <br><span class="pronunciation">(ZON-dahkh)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Five O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Vijf uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Sunday', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zondag', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=five+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=sunday+weekend" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
+            </tbody>
+        </table>
+
+        <div class="fun-fact">
+            <strong>🌟 Fun Fact:</strong> In Dutch, "Maandag" means "Moon day" and "Zondag" means "Sun day" - just like in English!
+        </div>
+
+        <!-- TIME EXPRESSIONS -->
+        <h2>⏰ Time Expressions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number">1</td>
+                    <td>Day Before Yesterday <br><span class="pronunciation">(DAY bih-FOR YES-tur-day)</span></td>
+                    <td>Eergisteren <br><span class="pronunciation">(AYR-ghis-tuh-ren)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Day Before Yesterday', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Eergisteren', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=day+before+yesterday+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">2</td>
+                    <td>Yesterday <br><span class="pronunciation">(YES-tur-day)</span></td>
+                    <td>Gisteren <br><span class="pronunciation">(GHIS-tuh-ren)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Yesterday', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Gisteren', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=yesterday+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">3</td>
+                    <td>Today <br><span class="pronunciation">(tuh-DAY)</span></td>
+                    <td>Vandaag <br><span class="pronunciation">(van-DAHKH)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Today', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vandaag', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=today+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">4</td>
+                    <td>Tomorrow <br><span class="pronunciation">(tuh-MOR-oh)</span></td>
+                    <td>Morgen <br><span class="pronunciation">(MOR-ghen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Tomorrow', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Morgen', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=tomorrow+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">5</td>
+                    <td>Day After Tomorrow <br><span class="pronunciation">(DAY AF-tur tuh-MOR-oh)</span></td>
+                    <td>Overmorgen <br><span class="pronunciation">(OH-ver-mor-ghen)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Day After Tomorrow', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Overmorgen', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=day+after+tomorrow+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="fun-fact">
+            <strong>🌟 Fun Fact:</strong> Dutch has special single words for "day before yesterday" (Eergisteren) and "day after tomorrow" (Overmorgen) - isn't that cool?
+        </div>
+
+        <!-- MONTHS OF THE YEAR -->
+        <h2>📆 Months of the Year</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number">1</td>
+                    <td>January <br><span class="pronunciation">(JAN-yoo-air-ee)</span></td>
+                    <td>Januari <br><span class="pronunciation">(yah-noo-AH-ree)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('January', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Januari', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=january+winter+snow" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">2</td>
+                    <td>February <br><span class="pronunciation">(FEB-roo-air-ee)</span></td>
+                    <td>Februari <br><span class="pronunciation">(fay-broo-AH-ree)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('February', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Februari', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=february+valentines" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">3</td>
+                    <td>March <br><span class="pronunciation">(MARCH)</span></td>
+                    <td>Maart <br><span class="pronunciation">(MAHRT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('March', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Maart', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=march+spring+flowers" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">4</td>
+                    <td>April <br><span class="pronunciation">(AY-pril)</span></td>
+                    <td>April <br><span class="pronunciation">(ah-PRIL)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('April', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('April', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=april+spring+rain" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">5</td>
+                    <td>May <br><span class="pronunciation">(MAY)</span></td>
+                    <td>Mei <br><span class="pronunciation">(MAY)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('May', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Mei', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=may+flowers+blooming" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">6</td>
+                    <td>June <br><span class="pronunciation">(JOON)</span></td>
+                    <td>Juni <br><span class="pronunciation">(YOO-nee)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('June', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Juni', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=june+summer+sunshine" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">7</td>
+                    <td>July <br><span class="pronunciation">(joo-LY)</span></td>
+                    <td>Juli <br><span class="pronunciation">(YOO-lee)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('July', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Juli', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=july+summer+beach" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
                 <tr>
                     <td class="number">8</td>
-                    <td class="symbol">🕕</td>
-                    <td>Six O'Clock <br><span class="pronunciation">(SIKS oh-KLOK)</span></td>
-                    <td>Zes uur <br><span class="pronunciation">(ZES oor)</span></td>
+                    <td>August <br><span class="pronunciation">(AW-gust)</span></td>
+                    <td>Augustus <br><span class="pronunciation">(ow-GOOS-toos)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Six O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Zes uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('August', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Augustus', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=six+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=august+summer+vacation" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
                     <td class="number">9</td>
-                    <td class="symbol">🕖</td>
-                    <td>Seven O'Clock <br><span class="pronunciation">(SEV-un oh-KLOK)</span></td>
-                    <td>Zeven uur <br><span class="pronunciation">(ZAY-ven oor)</span></td>
+                    <td>September <br><span class="pronunciation">(sep-TEM-bur)</span></td>
+                    <td>September <br><span class="pronunciation">(sep-TEM-ber)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Seven O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Zeven uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('September', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('September', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=seven+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=september+autumn+fall" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
                     <td class="number">10</td>
-                    <td class="symbol">🕗</td>
-                    <td>Eight O'Clock <br><span class="pronunciation">(AYT oh-KLOK)</span></td>
-                    <td>Acht uur <br><span class="pronunciation">(AKHT oor)</span></td>
+                    <td>October <br><span class="pronunciation">(ok-TOH-bur)</span></td>
+                    <td>Oktober <br><span class="pronunciation">(ok-TOH-ber)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Eight O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Acht uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('October', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Oktober', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=eight+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=october+autumn+leaves" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
                     <td class="number">11</td>
-                    <td class="symbol">🕘</td>
-                    <td>Nine O'Clock <br><span class="pronunciation">(NYNE oh-KLOK)</span></td>
-                    <td>Negen uur <br><span class="pronunciation">(NAY-ghen oor)</span></td>
+                    <td>November <br><span class="pronunciation">(noh-VEM-bur)</span></td>
+                    <td>November <br><span class="pronunciation">(noh-VEM-ber)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Nine O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Negen uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('November', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('November', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=nine+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=november+fall+leaves" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
                     <td class="number">12</td>
-                    <td class="symbol">🕙</td>
-                    <td>Ten O'Clock <br><span class="pronunciation">(TEN oh-KLOK)</span></td>
-                    <td>Tien uur <br><span class="pronunciation">(TEEN oor)</span></td>
+                    <td>December <br><span class="pronunciation">(dih-SEM-bur)</span></td>
+                    <td>December <br><span class="pronunciation">(day-SEM-ber)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Ten O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Tien uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('December', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('December', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=ten+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=december+winter+christmas" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
+            </tbody>
+        </table>
+
+        <div class="fun-fact">
+            <strong>🌟 Fun Fact:</strong> Many months have very similar names in English and Dutch! Can you spot which ones?
+        </div>
+
+        <!-- SEASONS -->
+        <h2>🌸 Seasons of the Year</h2>
+        <table>
+            <thead>
                 <tr>
-                    <td class="number">13</td>
-                    <td class="symbol">🕚</td>
-                    <td>Eleven O'Clock <br><span class="pronunciation">(ih-LEV-un oh-KLOK)</span></td>
-                    <td>Elf uur <br><span class="pronunciation">(ELF oor)</span></td>
+                    <th>#</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number">1</td>
+                    <td>Spring <br><span class="pronunciation">(SPRING)</span></td>
+                    <td>Lente <br><span class="pronunciation">(LEN-tuh)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Eleven O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Elf uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Spring', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Lente', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=eleven+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=spring+season+flowers+blooming" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
-                    <td class="number">14</td>
-                    <td class="symbol">🕛</td>
-                    <td>Twelve O'Clock <br><span class="pronunciation">(TWELV oh-KLOK)</span></td>
-                    <td>Twaalf uur <br><span class="pronunciation">(TVAHF oor)</span></td>
+                    <td class="number">2</td>
+                    <td>Summer <br><span class="pronunciation">(SUM-ur)</span></td>
+                    <td>Zomer <br><span class="pronunciation">(ZOH-mer)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Twelve O Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Twaalf uur', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Summer', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zomer', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=twelve+o+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=summer+season+beach+sunshine" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
-                    <td class="number">15</td>
-                    <td class="symbol">🕧</td>
-                    <td>Half Past <br><span class="pronunciation">(HAF PAST)</span></td>
-                    <td>Half <br><span class="pronunciation">(HAHLF)</span></td>
+                    <td class="number">3</td>
+                    <td>Autumn/Fall <br><span class="pronunciation">(AW-tum / FALL)</span></td>
+                    <td>Herfst <br><span class="pronunciation">(HERFST)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Half Past', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Half', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Autumn', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Herfst', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=half+past+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=autumn+fall+season+leaves" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
-                    <td class="number">16</td>
-                    <td class="symbol">🕐</td>
-                    <td>Quarter Past <br><span class="pronunciation">(KWOR-tur PAST)</span></td>
-                    <td>Kwart Over <br><span class="pronunciation">(KVART OH-ver)</span></td>
+                    <td class="number">4</td>
+                    <td>Winter <br><span class="pronunciation">(WIN-tur)</span></td>
+                    <td>Winter <br><span class="pronunciation">(VIN-ter)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Quarter Past', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Kwart Over', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Winter', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Winter', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=quarter+past+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=winter+season+snow" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
+            </tbody>
+        </table>
+
+        <div class="fun-fact">
+            <strong>🌟 Fun Fact:</strong> "Winter" is spelled the same in English and Dutch, but it sounds a bit different! The Dutch "W" sounds like "V" in English.
+        </div>
+
+        <!-- TIME OF DAY -->
+        <h2>🌅 Time of Day</h2>
+        <table>
+            <thead>
                 <tr>
-                    <td class="number">17</td>
-                    <td class="symbol">🕐</td>
-                    <td>Quarter To <br><span class="pronunciation">(KWOR-tur TOO)</span></td>
-                    <td>Kwart Voor <br><span class="pronunciation">(KVART FOHR)</span></td>
+                    <th>#</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number">1</td>
+                    <td>Morning <br><span class="pronunciation">(MOR-ning)</span></td>
+                    <td>Ochtend <br><span class="pronunciation">(OKH-tent)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Quarter To', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Kwart Voor', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Morning', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Ochtend', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=quarter+to+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=morning+sunrise" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
-                    <td class="number">18</td>
-                    <td class="symbol">⏱️</td>
-                    <td>Minute <br><span class="pronunciation">(MIN-it)</span></td>
-                    <td>Minuut <br><span class="pronunciation">(mee-NOOT)</span></td>
+                    <td class="number">2</td>
+                    <td>Afternoon <br><span class="pronunciation">(af-tur-NOON)</span></td>
+                    <td>Middag <br><span class="pronunciation">(MID-dahkh)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Minute', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Minuut', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Afternoon', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Middag', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=minute+clock" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=afternoon+sun" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
-                    <td class="number">19</td>
-                    <td class="symbol">⏰</td>
+                    <td class="number">3</td>
+                    <td>Evening <br><span class="pronunciation">(EEV-ning)</span></td>
+                    <td>Avond <br><span class="pronunciation">(AH-vont)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Evening', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Avond', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=evening+sunset" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">4</td>
+                    <td>Night <br><span class="pronunciation">(NITE)</span></td>
+                    <td>Nacht <br><span class="pronunciation">(NAKHT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Night', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Nacht', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=night+moon+stars" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="fun-fact">
+            <strong>🌟 Fun Fact:</strong> "Goedemorgen" (Good morning), "Goedemiddag" (Good afternoon), and "Goedenavond" (Good evening) are common Dutch greetings!
+        </div>
+
+        <!-- GENERAL TIME WORDS -->
+        <h2>🕐 General Time Words</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number">1</td>
+                    <td>Week <br><span class="pronunciation">(WEEK)</span></td>
+                    <td>Week <br><span class="pronunciation">(VAYK)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Week', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Week', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=week+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">2</td>
+                    <td>Weekend <br><span class="pronunciation">(WEEK-end)</span></td>
+                    <td>Weekend <br><span class="pronunciation">(VAYK-ent)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Weekend', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Weekend', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=weekend+fun" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">3</td>
                     <td>Hour <br><span class="pronunciation">(OW-ur)</span></td>
                     <td>Uur <br><span class="pronunciation">(OOR)</span></td>
                     <td>
@@ -370,143 +608,329 @@
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=hour+clock" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
-                    <td class="number">20</td>
-                    <td class="symbol">⏲️</td>
+                    <td class="number">4</td>
+                    <td>Minute <br><span class="pronunciation">(MIN-it)</span></td>
+                    <td>Minuut <br><span class="pronunciation">(mee-NOOT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Minute', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Minuut', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=minute+clock" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">5</td>
                     <td>Second <br><span class="pronunciation">(SEK-und)</span></td>
-                    <td>Seconde <br><span class="pronunciation">(seh-KON-duh)</span></td>
+                    <td>Seconde <br><span class="pronunciation">(say-KON-duh)</span></td>
                     <td>
                         <button class="voice-btn" onclick="speak('Second', 'en-US')">🇬🇧 EN</button>
                         <button class="voice-btn" onclick="speak('Seconde', 'nl-NL')">🇳🇱 NL</button>
                     </td>
                     <td><a href="https://www.google.com/search?tbm=isch&q=second+hand+clock" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
-                    <td class="number">21</td>
-                    <td class="symbol">🌅</td>
-                    <td>Morning <br><span class="pronunciation">(MOR-ning)</span></td>
-                    <td>Ochtend <br><span class="pronunciation">(OKH-tent)</span></td>
+                    <td class="number">6</td>
+                    <td>Clock <br><span class="pronunciation">(KLOK)</span></td>
+                    <td>Klok <br><span class="pronunciation">(KLOHK)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Morning', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Ochtend', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Clock', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Klok', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=morning+time" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=clock" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
-                    <td class="number">22</td>
-                    <td class="symbol">☀️</td>
-                    <td>Afternoon <br><span class="pronunciation">(af-tur-NOON)</span></td>
-                    <td>Middag <br><span class="pronunciation">(MIH-dahkh)</span></td>
+                    <td class="number">7</td>
+                    <td>Time <br><span class="pronunciation">(TIME)</span></td>
+                    <td>Tijd <br><span class="pronunciation">(TAYT)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Afternoon', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Middag', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Time', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Tijd', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=afternoon+time" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=time+concept" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
-                
                 <tr>
-                    <td class="number">23</td>
-                    <td class="symbol">🌆</td>
-                    <td>Evening <br><span class="pronunciation">(EEV-ning)</span></td>
-                    <td>Avond <br><span class="pronunciation">(AH-vont)</span></td>
+                    <td class="number">8</td>
+                    <td>Year <br><span class="pronunciation">(YEER)</span></td>
+                    <td>Jaar <br><span class="pronunciation">(YAHR)</span></td>
                     <td>
-                        <button class="voice-btn" onclick="speak('Evening', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Avond', 'nl-NL')">🇳🇱 NL</button>
+                        <button class="voice-btn" onclick="speak('Year', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Jaar', 'nl-NL')">🇳🇱 NL</button>
                     </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=evening+time" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">24</td>
-                    <td class="symbol">🌙</td>
-                    <td>Night <br><span class="pronunciation">(NYTE)</span></td>
-                    <td>Nacht <br><span class="pronunciation">(NAKHT)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Night', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Nacht', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=night+time" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">25</td>
-                    <td class="symbol">🕛</td>
-                    <td>Noon / Midday <br><span class="pronunciation">(NOON / MID-day)</span></td>
-                    <td>Middag <br><span class="pronunciation">(MIH-dahkh)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Noon', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Middag', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=noon+clock" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">26</td>
-                    <td class="symbol">🌃</td>
-                    <td>Midnight <br><span class="pronunciation">(MID-nyte)</span></td>
-                    <td>Middernacht <br><span class="pronunciation">(MIH-der-nakht)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Midnight', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Middernacht', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=midnight+clock" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">27</td>
-                    <td class="symbol">⏰</td>
-                    <td>Alarm Clock <br><span class="pronunciation">(uh-LARM KLOK)</span></td>
-                    <td>Wekker <br><span class="pronunciation">(VEK-ker)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Alarm Clock', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Wekker', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=alarm+clock" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">28</td>
-                    <td class="symbol">⏱️</td>
-                    <td>Stopwatch <br><span class="pronunciation">(STOP-woch)</span></td>
-                    <td>Stopwatch <br><span class="pronunciation">(STOP-votsh)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Stopwatch', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Stopwatch', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=stopwatch" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">29</td>
-                    <td class="symbol">⏲️</td>
-                    <td>Timer <br><span class="pronunciation">(TY-mur)</span></td>
-                    <td>Timer <br><span class="pronunciation">(TY-mer)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('Timer', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Timer', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=timer" target="_blank" class="image-link">📸 View</a></td>
-                </tr>
-                
-                <tr>
-                    <td class="number">30</td>
-                    <td class="symbol">📅</td>
-                    <td>What Time Is It? <br><span class="pronunciation">(WUT TYME IZ IT?)</span></td>
-                    <td>Hoe Laat Is Het? <br><span class="pronunciation">(HOO LAHT IS HET?)</span></td>
-                    <td>
-                        <button class="voice-btn" onclick="speak('What Time Is It?', 'en-US')">🇬🇧 EN</button>
-                        <button class="voice-btn" onclick="speak('Hoe Laat Is Het?', 'nl-NL')">🇳🇱 NL</button>
-                    </td>
-                    <td><a href="https://www.google.com/search?tbm=isch&q=what+time+is+it" target="_blank" class="image-link">📸 View</a></td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=year+calendar" target="_blank" class="image-link">📸 View</a></td>
                 </tr>
             </tbody>
         </table>
-        
-        <div style="margin-top: 30px; text-align: center; color: #ff8a65; font-size: 1.2em;">
-            🌟 Click "📸 View" to see pictures! 🌟
+
+        <div class="fun-fact">
+            <strong>🌟 Fun Fact:</strong> "Clock" and "Klok" sound almost the same in English and Dutch!
+        </div>
+
+        <!-- TIME PERIODS -->
+        <h2>📅 Time Periods & Expressions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number">1</td>
+                    <td>This Week <br><span class="pronunciation">(THIS WEEK)</span></td>
+                    <td>Deze Week <br><span class="pronunciation">(DAY-zuh VAYK)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('This Week', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Deze Week', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=this+week+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">2</td>
+                    <td>Last Week <br><span class="pronunciation">(LAST WEEK)</span></td>
+                    <td>Vorige Week <br><span class="pronunciation">(VOH-ree-ghuh VAYK)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Last Week', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vorige Week', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=last+week+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">3</td>
+                    <td>Next Week <br><span class="pronunciation">(NEXT WEEK)</span></td>
+                    <td>Volgende Week <br><span class="pronunciation">(VOL-ghen-duh VAYK)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Next Week', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Volgende Week', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=next+week+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">4</td>
+                    <td>This Month <br><span class="pronunciation">(THIS MUNTH)</span></td>
+                    <td>Deze Maand <br><span class="pronunciation">(DAY-zuh MAHNT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('This Month', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Deze Maand', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=this+month+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">5</td>
+                    <td>Last Month <br><span class="pronunciation">(LAST MUNTH)</span></td>
+                    <td>Vorige Maand <br><span class="pronunciation">(VOH-ree-ghuh MAHNT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Last Month', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vorige Maand', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=last+month+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">6</td>
+                    <td>Next Month <br><span class="pronunciation">(NEXT MUNTH)</span></td>
+                    <td>Volgende Maand <br><span class="pronunciation">(VOL-ghen-duh MAHNT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Next Month', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Volgende Maand', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=next+month+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">7</td>
+                    <td>This Year <br><span class="pronunciation">(THIS YEER)</span></td>
+                    <td>Dit Jaar <br><span class="pronunciation">(DIT YAHR)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('This Year', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Dit Jaar', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=this+year+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">8</td>
+                    <td>Last Year <br><span class="pronunciation">(LAST YEER)</span></td>
+                    <td>Vorig Jaar <br><span class="pronunciation">(VOH-rikh YAHR)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Last Year', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Vorig Jaar', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=last+year+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">9</td>
+                    <td>Next Year <br><span class="pronunciation">(NEXT YEER)</span></td>
+                    <td>Volgend Jaar <br><span class="pronunciation">(VOL-ghent YAHR)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Next Year', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Volgend Jaar', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=next+year+calendar" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="fun-fact">
+            <strong>🌟 Fun Fact:</strong> In Dutch, "Vorige" means "previous/last" and "Volgende" means "next" - they use these words for weeks, months, and years!
+        </div>
+
+        <!-- DIRECTIONS -->
+        <h2>🧭 Directions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>English</th>
+                    <th>Dutch</th>
+                    <th>🔊 Listen</th>
+                    <th>See Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number">1</td>
+                    <td>North <br><span class="pronunciation">(NORTH)</span></td>
+                    <td>Noord <br><span class="pronunciation">(NOHRT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('North', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Noord', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=north+direction+compass" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">2</td>
+                    <td>South <br><span class="pronunciation">(SOWTH)</span></td>
+                    <td>Zuid <br><span class="pronunciation">(ZOYT)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('South', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zuid', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=south+direction+compass" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">3</td>
+                    <td>East <br><span class="pronunciation">(EEST)</span></td>
+                    <td>Oost <br><span class="pronunciation">(OHST)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('East', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Oost', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=east+direction+compass" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">4</td>
+                    <td>West <br><span class="pronunciation">(WEST)</span></td>
+                    <td>West <br><span class="pronunciation">(VEST)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('West', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('West', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=west+direction+compass" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">5</td>
+                    <td>Northeast <br><span class="pronunciation">(NORTH-eest)</span></td>
+                    <td>Noordoost <br><span class="pronunciation">(NOHRT-ohst)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Northeast', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Noordoost', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=northeast+direction+compass" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">6</td>
+                    <td>Northwest <br><span class="pronunciation">(NORTH-west)</span></td>
+                    <td>Noordwest <br><span class="pronunciation">(NOHRT-vest)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Northwest', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Noordwest', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=northwest+direction+compass" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">7</td>
+                    <td>Southeast <br><span class="pronunciation">(SOWTH-eest)</span></td>
+                    <td>Zuidoost <br><span class="pronunciation">(ZOYT-ohst)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Southeast', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zuidoost', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=southeast+direction+compass" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">8</td>
+                    <td>Southwest <br><span class="pronunciation">(SOWTH-west)</span></td>
+                    <td>Zuidwest <br><span class="pronunciation">(ZOYT-vest)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Southwest', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Zuidwest', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=southwest+direction+compass" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">9</td>
+                    <td>Left <br><span class="pronunciation">(LEFT)</span></td>
+                    <td>Links <br><span class="pronunciation">(LINKS)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Left', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Links', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=left+arrow+direction" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">10</td>
+                    <td>Right <br><span class="pronunciation">(RITE)</span></td>
+                    <td>Rechts <br><span class="pronunciation">(REKHTS)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Right', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Rechts', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=right+arrow+direction" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">11</td>
+                    <td>Straight Ahead <br><span class="pronunciation">(STRAYT uh-HED)</span></td>
+                    <td>Rechtdoor <br><span class="pronunciation">(REKHT-dohr)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Straight Ahead', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Rechtdoor', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=straight+ahead+arrow" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">12</td>
+                    <td>Up <br><span class="pronunciation">(UP)</span></td>
+                    <td>Omhoog <br><span class="pronunciation">(om-HOHGH)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Up', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Omhoog', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=up+arrow+direction" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+                <tr>
+                    <td class="number">13</td>
+                    <td>Down <br><span class="pronunciation">(DOWN)</span></td>
+                    <td>Omlaag <br><span class="pronunciation">(om-LAHGH)</span></td>
+                    <td>
+                        <button class="voice-btn" onclick="speak('Down', 'en-US')">🇬🇧 EN</button>
+                        <button class="voice-btn" onclick="speak('Omlaag', 'nl-NL')">🇳🇱 NL</button>
+                    </td>
+                    <td><a href="https://www.google.com/search?tbm=isch&q=down+arrow+direction" target="_blank" class="image-link">📸 View</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="fun-fact">
+            <strong>🌟 Fun Fact:</strong> A compass always points North! The Dutch word "kompas" is very similar to English "compass".
+        </div>
+
+        <div style="margin-top: 30px; text-align: center; color: #f093fb; font-size: 1.2em;">
+            🌟 Click "📸 View" to see beautiful pictures! 🌟
+        </div>
+
+        <div style="margin-top: 20px; text-align: center; color: #f5576c; font-size: 1.1em;">
+            💡 Tip: Practice saying the words out loud with the audio buttons!
         </div>
     </div>
     
