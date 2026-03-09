@@ -1,0 +1,461 @@
+Sentence Structure: 
+- Normal sentence: Subject + Verb + Rest https://www.inburgeringonline.nl/en/q/5047-b-grammatica-reading-a2-sentence-structure-related-video-nbsp-order-of-the-39-rest-39/5047#answer-box
+	- Example: *Ik* *ga* *naar het park*
+	- Example: *Ik* *ga* *morgen met mijn verienden naar het park*
+		- Rest is composed of "Time" + "How" + "Where" i.e. *morgen* *met mijn verienden* *naar het park*
+		- Example: *Ik* *ga* *'morgen' 'met de trein' 'naar de examenlocatie'*.
+		- Example: *Ik* *fiets* *'na werk' 'door de regen' 'naar huis'*.
+		- Example: *Ik* *studeer* *'de hele dag' 'met mijn medecusisten' 'op school'*.
+		- Example: *Ik* *fiets* *'in de ochtend' 'snel' 'naar de supermarkt'*.
+
+- Inversie Sentence Structure: https://www.youtube.com/watch?v=A2O_xAAeTS0
+	- Congugative part of the sentence at second position is always verb and is called persoonform in dutch
+	- Example: 
+		1. Zondag *is* Jenny jarig 
+		2. Dat *weet* ik niet. 
+		3. Om 11.00 uur *hebben* we pauze. 
+		4. Nu *wil* ik ook een pilsje.
+		5. Dit rondje *betaal* ik.
+
+Artikel (Article): https://www.youtube.com/watch?v=zEj1pbv55SM
+Definate Articles: De and Het
+- DE is used as Singular definite article with roughly 2/3rd of dutch nouns which are of common genders including Masculean and Feminena gender.
+- HET is used as Singular definite article used with renamining nouns.It is neutral in gender.
+Indefinate Articles: Een
+- We dont need article when noun is not countable for boith the genders
+
+PRONOMEN (Pronoun):
+	- Personaal Pronomen (Personal Pronoun): https://www.youtube.com/watch?v=igcmoh3ZJJU
+		- Examples:
+			1. *Ik* ben Susy
+			2. *Hij* geeft twee dagen les en *ik* drie
+			3. *We* luisteren naar de tekst
+			4. Waar woon *je* ?
+			5. Woont *u* ook in Utrecht?
+		- Singular personal pronoun: 
+			1st Person Singular: ik
+			2nd Person Singular: Informal: jij/ je
+			2nd Person Singular: Formal: u : Used a politie form for casual equentences, stragers, suprior, and in general to person generational older
+			3rd Person Singular: hij, zij/ ze, het
+			Note: 
+			- Stressed/ Emphatic Form: Used regularlly in writing but in speaking used particularly emphasis on the person
+			- Un-Stress/ Non-Emphatic Form: Used regularlly in speaking when the emphasis is not on the pronoun but on the accompanying verb
+			- Inorder to avoid confussion or misuse of unstressed form it is best to use the stressed form because it is always correct.
+			- E.g. jij, zij
+		- Plural personal pronoun:
+			1st Person Plural: wij/ we
+			2nd Person Plural: jullie
+			3rd Person Plural: zij/ ze
+			Note: 
+			- Stressed/ Emphatic Form: Used regularlly in writing but in speaking used particularly emphasis on the person
+			- Un-Stress/ Non-Emphatic Form: Used regularlly in speaking when the emphasis is not on the pronoun but on the accompanying verb
+			- Inorder to avoid confussion or misuse of unstressed form it is best to use the stressed form because it is always correct.
+			- E.g. wij, zij
+		- Examples:
+			1. *Ik* kom uit Nederland. *Jij* komt uit Indonesie.
+			2. *Ik* woon in Nijmegen. En *jij* ?
+			3. *We* gaan verder met de les.
+			4. Hebben *jullie* al pauze ?
+			
+	- Possessief Pronomen (Possessive Pronoun): https://www.youtube.com/watch?v=ZOdpIdMek-c
+		- Example: 
+			1. Het book is *van* Felicia.
+				- Dutch uses van with reference to person or object. Use of van is the regular way of expressing possessive in Dutch
+			2. Het is Felicia*'s* boek.
+				- Same as in English, 's' can be added or noun to express possessive. No apostro phe unless the noun ends in vowel other than 'e' or the last letter is 's' or 'x' 
+			3. Het is *haar* boek.
+		- Singular Possessive Pronoun:
+			1st Person Singular: mijn
+			2nd Person Singular: Informal: jouw/ je
+			2nd Person Singular: Formal: uw : Used a politie form for casual equentences, stragers, suprior, and in general to person generational older
+			3rd Person Singular: zijn/ haar
+			Note: 
+			- Stressed/ Emphatic Form: Used regularlly in writing but in speaking used particularly emphasis on the person
+			- Un-Stress/ Non-Emphatic Form: Used regularlly in speaking when the emphasis is not on the pronoun but on the accompanying verb
+			- jouw is only emphasis on special case, je is used normally in speaking and writing
+		- Plural Possessive Pronoun:
+			1st Person Plural: ons/ onze
+				- *ons* for singular noun. E.g. ons boet (het boek)
+				- *onze* for plural noun. E.g. onze docent (de docent)
+			2nd Person Plural: jullie - Once the *jullie' has been used in a sentence, then 'je' can be its unstressed form
+			3rd Person Plural: hun
+			
+	- Personal Pronoun (Subject Form) together with the corresponding Possessive Pronoun:
+		- Singular:
+			- ik => mijn
+			- *jij*/ je => *jouw*/ je
+			- u => uw
+			- hij, *zij*/ ze => zijn/ haar
+		- Plural:
+			- *wij*/ we => *ons*/ *onze*
+			- jullie => jullie
+			- *zij*/ ze => hun	
+		- Examples:
+			1. Komen *je* ouders op bezoek?
+			2. *Ons* adres is Rozenstraat 8
+			3. Wat is *zijn* favoriete maand ?
+			
+			
+	- Personal Pronomen (Object form): https://www.youtube.com/watch?v=_IovjENb724
+		- Example: 
+			1. Kan ik jullie helpen ? (ik - subject pronoun, jullie - object pronoun)
+			2. Kunt u mij helpen ? (u - subject pronoun, mij - object pronoun)
+			3. Waar kan ik ze passen ? (ik - subject pronoun, ze - object pronoun)
+			4. Hebt u hem in een kleinere maat ? (u - subject pronoun, hem - object pronoun) 
+		- Singular Form Personal Pronoun (Comparing Subject form with Object form):
+											Subject Form				=> Object Form 
+			1st Person Singular: 			ik 							=> mij/ me
+			2nd Person Singular: Informal: 	jij/ je 					=> jou/ je
+			2nd Person Singular: Formal: 	u 							=> u
+			3rd Person Singular: 			hij (DE-woord singular) 	=> hem
+			3rd Person Singular: 			zij/ ze						=> haar
+			3rd Person Singular: 			het (HET-woord singular)	=> het
+			Note: 
+			- Stressed/ Emphatic Form: Used regularlly in writing but in speaking used particularly emphasis on the person
+			- Un-Stress/ Non-Emphatic Form: Used regularlly in speaking when the emphasis is not on the pronoun but on the accompanying verb
+			- Stressed form: mij, jou. E.g. Hij heeft jou en mij in Utrecht gezein
+			- When you want to refer to an object which is a DE-woord we can use 'hij' or 'hem'.
+			- E.g. "DE-woord": de broek. ik heb een mooie broek. Je kunt 'hem' even passen. 'Hij' staat je mooi
+			- When you want to refer to an object which is a HET-woord we can use 'het'
+			- E.g. "HET-woord": het boek. Waar is mijn boek ? Ik zie 'het' niet. 'Het' ligt niet op de tafel. 
+		- Plural Form Personal Pronoun (Comparing Subject form with Object form):
+											Subject Form				=> Object Form 
+			1st Person Plural: 				wij/ we 					=> ons
+			2nd Person Plural: 				jullie 						=> jullie
+			3rd Person Plural: 				zij/ ze 					=> hen/ ze	
+			3rd Person Plural: 				DE-/ HET-woord (Plurlaris) 	=> Ze
+			Note:
+			- hen and ze from 3rd person plural is used for persons
+			- Ze from another 3rd person plural is used for DE and HET words plural
+			- E.g. Waar zijn jenny en Johan ? - Ik haal hen/ ze even uit de kantine.
+			- E.g. Ik houd van tomaten. Ik koop Ze op de markt.
+			- Examples: 
+				1. Adil woont heir ook. Ik zie *hem* elke dag.
+				2. Mijn buurman praat elke dag met *mijn*.
+				3. Hij ziet *ons* niet.
+				4. Ik vind de boek niet mooi. Ik koop *hem* niet.
+				5. Wat een leuk T-shirt! Ik ga *het* ook kopen.
+		
+	- Regular verbs:
+		- Examples:
+			1. Hij *geeft* twee dagan les en ik drie.
+			2. We *luisteren* naar de tekst.
+			3. Waar *woon* je ?
+			4. *Woont* u ook in Utrecht ?
+		- Singular personal pronoun: 								Luisteren				Komen
+			1st Person Singular: 			ik						Luister					Kom
+			2nd Person Singular: Informal: 	jij/ je					Luistert				Komt
+			2nd Person Singular: Formal: 	u 						Luistert				Komt
+			3rd Person Singular: 			hij, zij/ ze, het		Luistert				Komt
+			- Note: 
+				1. After 2nd and 3rd person singular, we add "t" at the end
+				2. [Inverse] When jij/je follows the "Verb", the verb always drops the ending "t"
+					E.g. 	- luister jij
+							- luister je
+							- kom jij
+							- kom je
+							- zit jij ('t' is not removed because it a part of verb as in "to sit")
+							- zit je ('t' is not removed because it a part of verb as in "to sit")
+							- heet jij ('t' is not removed because it a part of verb as in "to heat")
+							- heet je ('t' is not removed because it a part of verb as in "to heat")						
+		- Plural personal pronoun: 									Luisteren				Komen
+			1st Person Plural: 				wij/ we					Luisteren				Komen
+			2nd Person Plural:			 	jullie 					Luisteren				Komen
+			3rd Person Plural: 				zij/ ze					Luisteren				Komen
+			- Note: After 2nd and 3rd person singular, we add "t" at the end
+		- Example:
+			1. *Luistert* u naar de cd?
+			2. *Komen* Julli uit Finland ?
+			3. Zij *heet* Anne-Marie.
+			4. Wij *wonen* nu in Nederland.
+		
+	- Irregular verbs (Hebben / Zijn): https://www.youtube.com/watch?v=hdRjcWkC_qk
+		- Examples:
+			1. Ik ben Susy.
+			2. Wat is je adres ?
+			3. Heeft iedereen het boek en de cd ?
+		- Singular personal pronoun: 								Hebben				zijn
+			1st Person Singular: 			ik						heb					ben
+			2nd Person Singular: Informal: 	jij/ je					hebt				bent
+			2nd Person Singular: Formal: 	u 						hebt/ heeft			bent
+			3rd Person Singular: 			hij, zij/ ze, het		heeft				is
+			- Note: 
+				1. u has 2 form i.e. u hebt and u heeft, both form are correct
+				2. [Inverse] When jij/je follows the "Verb", the verb always drops the ending "t"
+					E.g. 	- heb jij
+							- heb je
+							- ben jij
+							- ben je
+							- Examples:
+								1. Wie ben jij?
+								2. Heb je het boek ?
+								3. Wanneer heb je pauze?										
+		- Plural personal pronoun: 									Hebben				zijn
+			1st Person Plural: 				wij/ we					hebben				zijn
+			2nd Person Plural:			 	jullie 					hebben				zijn
+			3rd Person Plural: 				zij/ ze					hebben				zijn
+			- Note: After 2nd and 3rd person singular, we add "t" at the end
+		- Example:
+			1. *Luistert* u naar de cd?
+			2. *Komen* Julli uit Finland ?
+			3. Zij *heet* Anne-Marie.
+			4. Wij *wonen* nu in Nederland.
+		
+	- Modaal verbs: https://www.youtube.com/watch?v=SVwkdG7U9fQ
+		- Examples: They compliement other verb and have more then one meaning.
+			1. *Mogen* we bij het raam zitten ? 
+			2. Ik *wil* graag ijs met vruchten en chocola 
+			3. Ik *moet* even een lepel halen
+			4. Jullie *kunnen* daar zitten
+			5. *Zullen* we dat later doen ?
+		- 							 					Kunnen			Mogen	Moeten	Willen			Zullen
+			1st Person Singular: 	ik					kan				mag		moet	wil				zal
+			2nd Person Singular:	jij/ u				*kunt*/ *kan*	mag		moet	*wilt*/ *wil*	*zult*/ *zal*
+			3rd Person Singular: 	hij/ zij/ het		kan				mag		moet	wil				zal
+			1st Person Plural: 		wij					kunnen			morgen	moeten	willen			zullen
+			2nd Person Plural:		jullie 				kunnen			morgen	moeten	willen			zullen
+			3rd Person Plural: 		zij					kunnen			morgen	moeten	willen			zullen
+		Note: When the modal verb is conjugated verb in the sentence, the persoons form, the action verb if it is expressed is in infinitive form and stands at the end of the cls.
+			- Example:
+				1. Wat zullen we drinken ?
+				2. Mag ik u iets vragen 
+		Note: When it is very logical what the infinitive is you dont have to mention the infinitive
+			- Example:
+				3. Ik wil graag koffie.
+				4. Ik moet naar de les.
+		- Examples:
+			1. *Mag* ik jouw soep even proeven?
+			2. Wat *willen* jullien drinken ?
+			3. We *moeten* opdracht 3 ook maken.
+			4. *Kan* ik een toetje bestellen ?
+			5. *Zullen* we bestellen
+		
+	- Present Perfect verbs: https://www.youtube.com/watch?v=JX_X3BhAS9k
+		- Examples: Kunt u vertellen wat u fisteren *hebt gedaan*?
+					- Overdag *heb* ik *gewerkt*. Ik *heb* met klanten een huis *bekeken* en gisteravond *ben* ik naar de voetbalvereniging *geweest*, ik *heb* een wedstrijdje *gespeeld* en daarna *hebben* we nog een biertje *gedronken*.
+					- Words in ** are used to express present perfect
+					- As noticed the present perfect consist of the past participal of the verb accompanied by the appropriate form of the axillary verb hebben or zijn
+		- Example: Hebben + Participium
+			1. Ik heb met klanten een huis *bekeken*.
+			Daarna hebben we nog een biertje *gedronken*
+			2. Overdag heb ik *gewerkt*
+			- In above examples heb (/ hebben) which is axillary verb is used with participal i.e. bekeken, gedronken and gewerkt
+		- Example: Zijn + Participium
+			1. Gisteravond ben ik naar de voetbalvereniging *geweest*
+			Dat ben ik *vergeten*
+			2. Ze is met de cursus *gestopt*
+			- In above examples zijn (/ hebben) which is axillary verb is used with participal i.e. bekeken, gedronken and gewerkt
+		Note: Inorder to form a present perfect tence you first have to congugate the axillary verb i.e. hebben / zijn then add the participal.
+		Note: As an any language there are 2 verbs i.e. Regular verbs and Irregular Verbs. Means we have to learn the irregular verbs byheart.
+			Example:
+			1. We hebben een biertje *gedronken*
+			- gedronken : drunk
+			- drinken, drunk, gedroknen : to drink, drank, drunk
+			2. Dat be ik *vergeten*
+			- vergeten is forget
+			- vergeten, vergat, vergeten : to forget, forgot, forgotten
+		Note: You also have to learn if the participal is coming from axillary verb hebben or zijn
+			Example:
+			1. Overdag heb ik *gewerkt*
+			- gewerkt : to work
+			2. Ze is met de cursus *gestopt*
+			- gestopt : to stop
+		Rule:
+		1. Ze is met de cursus *gestopt*
+			- stoppen: stop - ge + stop + t
+		2. Ik heb een wedstrijdje *gespeeld*
+			- spelen: speel - ge + speel + d
+		- When to add "d" or "t" ? This is automatically determined by the consonent in the infinitive.
+		- Ending 't' is used after voiceless consonents i.e. s,f,k,ch,p,t (Trick: Soft Ketchup). E.g. gewer'kt', gefiet'st', gesto'pt'
+		- Verbs that do not have any of the consonents in Soft Ketchup in their infinitive takes the 'd' at the ending. E.g. gespee'ld', gespee'ld'
+		- Examples:
+			wer'k'en 	- wer'k' 	- gewer'kt'
+			fiet's'en 	- fiet's'	- gefiet'st'
+			sto'pp'en 	- sto'p' 	- gesto'pt'
+			spe'l'en 	- spee'l' 	- gespee'ld'
+			wo'n'en 	- woo'n' 	- gewoo'nd'
+		- There are some words which don't receive any extra prefix as they already have the prefix. e.g. 'ge'bruikt,  'be'taald, 'her'haarld, 'ver'huurd, 'ont'moet
+		- When to use hebben/ When to use Zijn as axillary verb?
+		1. Depending on what you want to emphasis
+			Example: For regular word "flietsen"
+			- ik ben naar huis gefietst
+			- ik ben naar parijs gefietst
+			- We hebben gefietst
+		2. Most irregular words come either hebben or zijn. You have to learn byheart
+			Example:
+			- Hij *is* tot 22.00 *gebleven* - bleven is the axillary word that comes from zijn
+			- Wij *hebben* iets *gedaan* - Doen is the axillary word that comes from hebben
+		- Example for axillary verb zijn:
+		1. wat is er *gebeurd*?
+		2. Ik ben naar de voetbalvereniging *geweest*.
+		3. Ben je gisteren 21 *geworden*?
+		4. Hij is tot 22.00 uur *gebleven*.
+		5. Ze is met de cursus *gestopt*.
+		6. We zijn om 9.00 uur met de cursus *begonnen*.
+		- Voorbeelden:
+		1. Julia en Martin 'zijn' in Belgie op vakantie 'geweest'.
+		2. Ik 'heb' Tanja 'gebeld', maar ze was niet thuis.
+		3. Jullie 'hebben' vandaag goed 'gewerkt'.
+		4. 'Heeft' je zus in New York 'gewoond'?
+		
+	- Seperable Perfect verbs (Scheidbare werkwoorden): https://www.youtube.com/watch?v=KoL1Zg6Axac
+		- Examples: 
+		1. Daar *komt* hij net *aan*.
+		2. Kirsten *stapte* bij het centraal station *in*.
+		3. Hij is ook bij het centraal station *ingestapt*.
+		4. U kunt direct *instappen*.
+		5. U hoeft alleen maar de straat *over* te *stelen*.
+		6. *Neemt* u deze plattegrond maar *mee*.
+		- Words in ** are seperable words. Example (from above) Aankomen, Instappen, Oversteken, Meenemen. These words are made of 2 words a prepostion and a verb which make a totally new verb with there own meaning.
+		- Seperable verbs in Present (Presens): The preposition goes to the end of the sentence.
+		Eamples: 
+		1. Instappen: Kristen 'stapt' bij het centraal station in.
+		2. Meenemen: Hij 'neemt' de plattegrond 'mee'.
+		- Seperable verbs in Simple Past (Imperfectum): In the simple past use the verb in the simple past asusual, the preposition goes to end of the sentence.
+		Eamples: 
+		1. Instappen: Kristen 'stapte' bij het centraal station in.
+		2. Meenemen: Hij 'nam' de plattegrond 'mee'.
+		- Seperable verbs in Present Perfect (Perfectum): To form the present perfect you use an axillary verb and past participal. Past participal of seperable verbs are made of past participal of the verb with a preposition in front of it.
+		Eamples: 
+		1. Instappen (Regular verb): Hij 'is' bij het cemtraal station 'ingestapt'.
+			- stappen -> gestapt
+			- instappen -> ingestapt
+		2. Meenemen (Irregular verb): Hij 'heeft' de plattegrond 'meegenomen'.
+			- nemen -> genomen
+			- meenemen -> meegenomen
+		- Seperable verb with Modal Verb: If you use with the modal verb, the infinitive of a super verb comes at the end of the sentence.
+		Eamples: 
+		1. Instappen (Regular verb): U 'kunt' direct 'instappen'
+		2. Meenemen (Irregular verb): U 'mag' de plattegrond 'meenemen'.
+		- Seperable verb with hoeven: If you use with hoeven, you have to use the word "te" as well. With seperable verbs, "te" comes between preposition and seperable verbs
+		Eamples: 
+		1. Instappen (Regular verb): U 'hoeft' nog niet 'in te stappen'
+		2. Meenemen (Irregular verb): U 'hoeft' de plattegrond 'mee te nemen'.
+		- Seperable verb with hoeven: If you use with hoeven, you have to use the word "te" as well. With seperable verbs, "te" comes between preposition and seperable verbs
+		Eamples: 
+		1. Instappen (Regular verb): Stp nog niet in!
+		2. Meenemen (Irregular verb): 'Neemt' u de plattegrond maar 'mee'.
+		- Voorbeelden:
+		1. Ik 'reken' de koffie 'af'.
+		2. Kristen 'nam' de plattegrond 'mee'.
+		3. Ik ben Kristen in Amsterdam 'tegengekomen'.
+		4. Zullen we om 11.00 uur 'afspreken' ?
+		5. U hoeft de straat niet 'over' te 'steken'.
+		6. 'Ga' maar met opdracht 4 'verder'.
+		
+		
+Conjunctions2: https://www.youtube.com/watch?v=9OBUvTiPaMc
+	- Example: *Zomerhitte* -is- Nederlands gesproken 'en' *Earth* -is- ondertiteld.
+			   -Zijn- *de films* Nederlands gesproken 'of' -hebben- *ze* ondertitels ?
+			   *Het* -spijt- me 'maar' *No Country for Old Men* is al om 19.45 uur begonnen.
+			   Nee, dat -wil- *ik* niet 'want' *ik* -heb- begin gemist.
+			   *Het* -is- nu 20.00 uur 'dus' *de film* -is- al een half uur bezig.
+		- Words in '' are conjuntions. Conjunctions connects sentences.
+		- Words in ** are subject
+		- Words in -- are conjugated verbs
+		- Conjunctions en (and), of (or), maar (but), want (?) and dus (so) connects the hoofd zien/ main clause with another hoofd zien/ main clause.
+		- The structure of hoofd zien is Subject + Conjugatred verb + Rest or Conjugated verb + Subject + Rest
+	- Voorbeelden:
+		1. Ik koop koffie 'en' (ik koop) brood
+		2. Ik ga op vakantie naar Engeland 'of' (Ik ga op vakantie naar) Frankrijk.
+		3. Ik heb niet veel geld 'maar' ik ga dit jaar wel op vakantie.
+		4. Ik ga niet mee naar de bioscocp 'want' ik voel me niet lekker.
+		5. Ik heb zin in koffie 'dus' ik ga naar de kantine.
+		
+Conjunctions2: https://www.youtube.com/watch?v=9zTJcckIIYY
+	- Example: *Ik* -herinner- me dat zo goed 'omdat' *ik* een nieuwe portemonnee -heb-.
+			   Ja, dat -heb- *ik* onmiddellijk degaan 'hoewel' *dat* wel heel onganding -is-.
+			   *De portemonnee* -is- gestolen 'terwijl' *mijn collega* naar de wc -was-.
+			   *Matti van der Schaaf* -gaat- naar de politie 'nadat' *zijn portemonnee* -is- gestolen.
+			- Words in '' are conjuntions. Conjunctions connects sentences.
+			- Words in ** are subject
+			- Words in -- are conjugated verbs
+			- Conjunctions omdat (because), hoewel (although), terwijl (while) and nadat (after) connects the hoofd zien/ main clause to bazien/ subclause.
+			- The structure of bazien is Conjuntion + Subject + Rest.
+			- The structure of Bijzin is Subject + Rest + Conjugatred verb (i.e. other verbs)
+			- Example: 
+			1. 'Omdat' ik een niewe portemonnee heb.
+			2. 'hoewel' dat wel heel onhandig is.
+			3. 'terwijl' mijn collega naar de wc was.
+			4. 'nadat' zijn portemonnee is gestolen.
+				- Note that in above examples, in some of the sentenses there are no verbs other than conjugated verb. In this case, the conjugated verb is the last word of the sentence. In last sentence there 2 more verbs, is and gestolen.
+			- Example:
+			1. Matti Van der Schaaf gaat naar de politie
+			   nadat zij portemonnee is gestolen.
+			2. Matti Van der Schaaf gaat naar de politie
+			   nadat zij portemonnee gestolen is.
+			   - Note that in above example, in 1st sentence, Bijzin end with conjugated verb 'is' and in 2nd sentence, Bijzin ends with Past participal 'gestolen'. Both sentences are 100% correct.
+			- Example:
+			1. Je kunt me bellen als ik je 'kan' 'helpen'.
+			2. We drinken even koffie omdat we 'moeten' 'wachten'.
+			   - Note that in above example, Bijzin contains the modal verb i.e. moeten, willen, kunnen, morgen, zullen or kan and an infinitive. The order is model verb + infinitive.
+			   - In above example the first part of the sentences was Hoofdzin followed by Bijzin but it also possible to start the sentence with Bijzin followed by hoofdzin with inversion. Inversion means that the hoofdzin start with conjugated verb followed by subject.
+			   - Example: 
+			   1. 'Omdat' *ik* een nieuwe portemonnee -heb-, -herinner- *ik* me dat zo goed.
+			   2. 'Terwijl' *mijn collega* naar de wc -was-, -is- *de portemonnee* gestolen.
+	- want & omdat:
+	Note:
+		- Both of these conjecntion means because.
+		- But the order of each word is different.
+		- 'want' connects 2 hoofdzin and 'omdat' connects a hoofdzin and a bazien  or a bazien followed by inversion.
+		- Example:
+		1. Ik doe deze cursus 'want' ik will Nederlands leren.
+		2. Hij gaat op vekantie naar Neferland 'want' Nederland is een mooi land.
+		3. Ik doe deze cursus 'omdat' ik Nederlands wil leren.
+		4. 'Omdat' Nederland een mooi land is, gaat hij op vakantie naar Nederland.
+		
+- Plural (pluralis): https://www.youtube.com/watch?v=Tw29Y65Kz74
+	- Examples: 
+	1. Mag ik alsjeblieft een kleine courgette, twee gele 'paprika's' en zes mooie 'tomaten'?
+	2. Onze 'buren' komen morhen eten
+	- '' are plurals words
+	- Plurals of noun in dutch is roughly divided in 3 categories:
+		1. Plural ending with -en.
+			Example:
+			de boodschap 	=> de boodschappen
+			de tomaat		=> de tomaten
+			de persoon		=> de personen
+		2. Plural ending with -S. -S ending is used in most word. Ending in unstreed like l,m,n,r, r, ert, e and je. -S sending is also used for foreign words like champignon. 
+			Example:
+			de buitenlander 	=> de buitenlanders
+			de komkommer		=> de komkommers
+			de aardappel		=> de aardappels
+			het spekje			=> de spekjes
+			het boontje			=> de boontjes
+			de champignon		=> de champignons
+			de kantine			=> de kantine
+		-When the ending vowel us a, i, o, u, y an apostrophy S is inserted
+			Example:
+			de paprika		=> de paparika's
+			de kiwi			=> de kiwi's
+			de auto			=> de auto's
+			de menu			=> de menu's
+			de hobby		=> de hobby's
+		3. Irregular form of plural:
+		- Example:
+			stad => stenden
+			kind => kinderen
+			ei	=> eieren
+		4. Some nouns in dutch dont have the plural form.
+		- Examples:
+			1. Heb je er dertig 'cent' bij?
+			2. Ik woon hier al twintig 'jaar'.
+			3. Ik heb twee 'uur' les.
+			4. Dat is dan acht 'euro'.
+			5. Mag ik twee 'kilo' andijvie?
+		- These are the case of paying, year, time, hour, length, kilometer, liquid voulume and weight
+		- Voorbeelden:
+		1. Hij heeft drie voornamen.
+		2. Zij heeft twee broers.
+		3. We eten groene papaika's.
+		4. Hebben jullie view kinderen ?
+			
+		-----------------------------
+		
+		
+
+			
+			
+			
+	
+			   
