@@ -317,6 +317,33 @@
             gap: 15px;
         }
 
+        .checkbox {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .checkbox .checkmark {
+            visibility: hidden;
+            font-weight: 700;
+        }
+
+        .checkbox.done {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .checkbox.done .checkmark {
+            visibility: visible;
+        }
+
         .file-icon {
             font-size: 1.5em;
         }
@@ -441,7 +468,7 @@
                         </div>
                     </a>
                 </li>
-                <li class="file-item" data-category="games" data-name="Stories">
+                <li class="file-item" data-category="games" data-name="stories">
                     <a href="dutch_stories.html" class="file-link">
                         <div class="file-link-content">
                             <span class="file-icon">🎮</span>
@@ -625,7 +652,7 @@
                         </div>
                     </a>
                 </li>
-                <li class="file-item" data-category="vocabulary" data-name="common dutch words">
+                <li class="file-item" data-category="vocabulary" data-name="common dutch words game">
                     <a href="common_dutch_words_game.html" class="file-link">
                         <div class="file-link-content">
                             <span class="file-icon">📝</span>
@@ -699,7 +726,7 @@
         </div>
         
         <div class="footer">
-            Last updated: March 2026
+            Last updated: October 2026
         </div>
     </div>
     
@@ -718,12 +745,12 @@
 
         // Load saved theme
         window.addEventListener('DOMContentLoaded', () => {
+            updateLessonCounts();
+            restoreDone();
+
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
             document.querySelector('.theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-            
-            // Update lesson counts
-            updateLessonCounts();
         });
 
         // Update lesson counts dynamically
@@ -735,6 +762,52 @@
             document.getElementById('track1Lessons').textContent = track1Count;
             document.getElementById('track2Lessons').textContent = track2Count;
             document.getElementById('totalLessons').textContent = totalCount;
+        }
+
+        // Ticks are kept per browser address, so ticks made on file:// do not show on localhost.
+        const DONE_KEY = 'dutchLearning.done';
+
+        function loadDone() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(DONE_KEY) || '[]');
+                return new Set(Array.isArray(saved) ? saved.filter(item => typeof item === 'string') : []);
+            } catch (e) {
+                return new Set();
+            }
+        }
+
+        function saveDone(done) {
+            try {
+                localStorage.setItem(DONE_KEY, JSON.stringify([...done]));
+            } catch (e) {
+                // Storage can be blocked (private window); the tick then lasts until the page reloads.
+            }
+        }
+
+        function lessonHref(checkbox) {
+            return checkbox.closest('a').getAttribute('href');
+        }
+
+        function toggleComplete(event, checkbox) {
+            // The checkbox sits inside the lesson link, so the click must not follow the link.
+            event.preventDefault();
+            event.stopPropagation();
+            checkbox.classList.toggle('done');
+            const done = loadDone();
+            const href = lessonHref(checkbox);
+            if (checkbox.classList.contains('done')) {
+                done.add(href);
+            } else {
+                done.delete(href);
+            }
+            saveDone(done);
+        }
+
+        function restoreDone() {
+            const done = loadDone();
+            document.querySelectorAll('.checkbox').forEach(box => {
+                box.classList.toggle('done', done.has(lessonHref(box)));
+            });
         }
 
         // Tab switching
@@ -766,7 +839,7 @@
             let visibleCount = 0;
             
             fileItems.forEach(item => {
-                const name = item.getAttribute('data-name') || '';
+                const name = (item.getAttribute('data-name') || '').toLowerCase();
                 if (name.includes(searchTerm)) {
                     item.classList.remove('hidden');
                     visibleCount++;
