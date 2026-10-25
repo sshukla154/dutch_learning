@@ -2,6 +2,8 @@
 
 My notes and interactive pages for learning Dutch.
 
+Open the lessons online: https://sshukla154.github.io/dutch_learning/
+
 ## Layout
 
 - `HTML/` has the lesson pages. `DUTCH_Learning.html` is the home page and links to every lesson; `assets/site-nav.js` adds a top bar to each lesson page that links back to the lesson list.
