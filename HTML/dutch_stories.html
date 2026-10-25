@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutch Stories for Kids 🌟</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #ff6b6b; --teal: #2ec4b6; --purple: #845ec2;
+            --orange: #ff9a3c; --blue: #0095d9; --green: #22b573;
+            --yellow: #ffd166; --dark: #1a1a2e;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fff9e6 0%, #ffecd2 30%, #d4f5e9 70%, #c8e6ff 100%);
+            min-height: 100vh; padding: 24px 16px 60px;
+        }
+        .page-wrapper { max-width: 860px; margin: 0 auto; }
+
+        .header { text-align: center; margin-bottom: 32px; animation: dropIn 0.7s ease both; }
+        .stars { font-size: 2em; letter-spacing: 4px; margin-bottom: 6px; }
+        h1 { font-family: 'Baloo 2', cursive; font-size: 2.8em; font-weight: 900; color: var(--dark); line-height: 1.1; }
+        h1 .accent { color: var(--coral); }
+        .subtitle { font-size: 1.05em; color: #666; margin-top: 6px; font-weight: 600; }
+
+        .letters-banner {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 0 0 32px;
+            animation: dropIn 0.7s 0.1s ease both; opacity: 0; animation-fill-mode: forwards;
+        }
+        .lbadge {
+            font-family: 'Baloo 2', cursive; font-size: 1.2em; font-weight: 900;
+            width: 44px; height: 44px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.18); transition: transform 0.15s;
+        }
+        .lbadge:hover { transform: scale(1.15) rotate(-5deg); }
+        .lbadge.O{background:var(--blue);} .lbadge.P{background:var(--coral);}
+        .lbadge.S{background:var(--green);} .lbadge.K{background:var(--orange);}
+        .lbadge.I{background:var(--purple);} .lbadge.A{background:var(--teal);}
+        .lbadge.T{background:#e05c8a;} .lbadge.M{background:#7b5ea7;}
+        .lbadge.L{background:#3d8b37;} .lbadge.E{background:#d4842a;}
+        .lbadge.N{background:#1e7fc2;} .lbadge.U{background:#c0392b;}
+
+        .story-tabs {
+            display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 28px;
+            animation: dropIn 0.7s 0.2s ease both; opacity: 0; animation-fill-mode: forwards;
+        }
+        .tab-btn {
+            font-family: 'Baloo 2', cursive; font-size: 1em; font-weight: 700;
+            padding: 10px 22px; border: 3px solid transparent; border-radius: 99px;
+            cursor: pointer; background: white; color: #888;
+            transition: all 0.2s; box-shadow: 0 3px 10px rgba(0,0,0,0.09);
+        }
+        .tab-btn:hover { transform: translateY(-2px); color: var(--dark); }
+        .tab-btn.active { color: white; border-color: transparent; box-shadow: 0 5px 16px rgba(0,0,0,0.2); }
+        .tab-btn.t1.active{background:var(--coral);} .tab-btn.t2.active{background:var(--blue);}
+        .tab-btn.t3.active{background:var(--green);} .tab-btn.t4.active{background:var(--purple);}
+        .tab-btn.t5.active{background:var(--orange);}
+
+        .story-panel { display: none; animation: riseUp 0.4s ease both; }
+        .story-panel.active { display: block; }
+
+        .story-card { background: white; border-radius: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 24px; }
+        .story-header { padding: 22px 28px 16px; display: flex; align-items: center; gap: 16px; }
+        .story-emoji {
+            font-size: 3em; width: 72px; height: 72px; background: #f8f8f8;
+            border-radius: 18px; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .story-title { font-family: 'Baloo 2', cursive; font-size: 1.5em; font-weight: 800; color: var(--dark); }
+        .story-english { font-size: 0.85em; color: #999; font-style: italic; margin-top: 2px; }
+
+        .sentences { padding: 8px 28px 24px; display: flex; flex-direction: column; gap: 12px; }
+        .sentence-row {
+            display: flex; align-items: flex-start; gap: 14px;
+            padding: 14px 16px; border-radius: 16px; transition: all 0.2s;
+            background: #fafafa; border: 2px solid transparent;
+        }
+        .sentence-row.reading { background: #fff8e1; border-color: var(--yellow); }
+
+        .sentence-num {
+            font-family: 'Baloo 2', cursive; font-size: 0.85em; font-weight: 800;
+            width: 28px; height: 28px; border-radius: 50%; background: #eee;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 3px; color: #888;
+        }
+        .sentence-content { flex: 1; }
+        .dutch-text { font-family: 'Baloo 2', cursive; font-size: 1.45em; font-weight: 700; color: var(--dark); line-height: 1.4; }
+        .hl { display: inline-block; border-radius: 6px; padding: 0 4px; margin: 0 1px; color: white; font-weight: 800; }
+        .hl.O{background:var(--blue);} .hl.P{background:var(--coral);}
+        .hl.S{background:var(--green);} .hl.K{background:var(--orange);}
+        .hl.I{background:var(--purple);} .hl.A{background:var(--teal);}
+        .hl.T{background:#e05c8a;} .hl.M{background:#7b5ea7;}
+        .hl.L{background:#3d8b37;} .hl.E{background:#d4842a;}
+        .hl.N{background:#1e7fc2;} .hl.U{background:#c0392b;}
+        .english-text { font-size: 0.88em; color: #888; margin-top: 5px; font-style: italic; }
+
+        .sentence-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+        .play-btn {
+            border: none; border-radius: 99px; padding: 7px 14px;
+            font-family: 'Nunito', sans-serif; font-size: 0.8em; font-weight: 800;
+            cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+            white-space: nowrap; color: white;
+        }
+        .play-btn.slow{background:var(--purple);} .play-btn.fast{background:var(--blue);}
+        .play-btn:hover { filter: brightness(1.1); transform: scale(1.04); }
+        .play-btn:active { transform: scale(0.95); }
+        .play-btn.speaking { animation: pulsebtn 0.5s infinite alternate; }
+        @keyframes pulsebtn { from{box-shadow:0 0 0 0 rgba(0,0,0,0.2);} to{box-shadow:0 0 0 8px rgba(0,0,0,0);} }
+
+        .progress-wrap { padding: 0 28px 20px; }
+        .progress-label { font-size: 0.85em; font-weight: 700; color: #888; margin-bottom: 6px; }
+        .progress-bar-bg { background: #f0f0f0; border-radius: 99px; height: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--green), var(--teal)); transition: width 0.5s ease; }
+
+        .read-all-wrap { padding: 0 28px 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .read-all-btn {
+            font-family: 'Baloo 2', cursive; font-size: 1em; font-weight: 700;
+            padding: 12px 26px; border: none; border-radius: 99px;
+            cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 14px rgba(0,0,0,0.15); color: white;
+        }
+        .read-all-btn.story { background: linear-gradient(135deg, var(--coral), var(--orange)); }
+        .read-all-btn.reset { background: #ccc; color: #555; }
+        .read-all-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+
+        .celebration { text-align: center; padding: 20px; font-size: 2em; display: none; animation: popIn 0.5s ease both; }
+
+        .word-list-title { font-family: 'Baloo 2', cursive; font-size: 1.1em; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
+        .word-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .word-chip {
+            font-family: 'Baloo 2', cursive; font-size: 1em; font-weight: 700;
+            padding: 6px 16px; border-radius: 99px; background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s;
+            color: var(--dark); border: 2px solid #eee;
+        }
+        .word-chip:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+        .word-chip.speaking { border-color: var(--coral); background: #fff3f3; }
+
+        @keyframes dropIn { from{opacity:0;transform:translateY(-14px);} to{opacity:1;transform:translateY(0);} }
+        @keyframes riseUp { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
+        @keyframes popIn { 0%{transform:scale(0.7);opacity:0;} 80%{transform:scale(1.1);} 100%{transform:scale(1);opacity:1;} }
+
+        @media (max-width:600px) {
+            h1{font-size:2em;} .dutch-text{font-size:1.2em;}
+            .sentence-row{flex-wrap:wrap;} .sentence-actions{flex-direction:row;flex-wrap:wrap;}
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <div class="header">
+        <div class="stars">🌟 📖 🌟</div>
+        <h1>Lees <span class="accent">Mee!</span></h1>
+        <div class="subtitle">Leer lezen met korte woordjes • Learn to read Dutch short words</div>
+    </div>
+
+    <div class="letters-banner">
+        <div class="lbadge O">O</div><div class="lbadge P">P</div><div class="lbadge S">S</div>
+        <div class="lbadge K">K</div><div class="lbadge I">I</div><div class="lbadge A">A</div>
+        <div class="lbadge T">T</div><div class="lbadge M">M</div><div class="lbadge L">L</div>
+        <div class="lbadge E">E</div><div class="lbadge N">N</div><div class="lbadge U">U</div>
+    </div>
+
+    <div class="story-tabs">
+        <button class="tab-btn t1 active" onclick="showStory(1,this)">🐱 De Kat</button>
+        <button class="tab-btn t2" onclick="showStory(2,this)">🌞 De Dag</button>
+        <button class="tab-btn t3" onclick="showStory(3,this)">🍎 Eten</button>
+        <button class="tab-btn t4" onclick="showStory(4,this)">🛁 Bad Tijd</button>
+        <button class="tab-btn t5" onclick="showStory(5,this)">🐕 De Hond</button>
+    </div>
+
+    <!-- STORY 1 -->
+    <div class="story-panel active" id="story-1">
+        <div class="story-card">
+            <div class="story-header">
+                <div class="story-emoji">🐱</div>
+                <div class="story-meta"><div class="story-title">De Kat</div><div class="story-english">The Cat</div></div>
+            </div>
+            <div class="progress-wrap">
+                <div class="progress-label">Zinnen gehoord: <span id="p1-text">0 / 10</span></div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="p1-bar" style="width:0%"></div></div>
+            </div>
+            <div class="sentences" id="sentences-1">
+                <div class="sentence-row" id="s1-1"><div class="sentence-num">1</div><div class="sentence-content"><div class="dutch-text">De <span class="hl K">kat</span> <span class="hl S">sit</span> <span class="hl O">op</span> de <span class="hl M">mat</span>.</div><div class="english-text">The cat sits on the mat.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'De kat sit op de mat.',0.55,'1','s1-1')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'De kat sit op de mat.',0.85,'1','s1-1')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s1-2"><div class="sentence-num">2</div><div class="sentence-content"><div class="dutch-text"><span class="hl K">Kim</span> <span class="hl S">spot</span> de <span class="hl K">kat</span>.</div><div class="english-text">Kim spots the cat.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Kim spot de kat.',0.55,'1','s1-2')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Kim spot de kat.',0.85,'1','s1-2')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s1-3"><div class="sentence-num">3</div><div class="sentence-content"><div class="dutch-text">De <span class="hl K">kat</span> <span class="hl I">is</span> <span class="hl S">stil</span>.</div><div class="english-text">The cat is quiet.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'De kat is stil.',0.55,'1','s1-3')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'De kat is stil.',0.85,'1','s1-3')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s1-4"><div class="sentence-num">4</div><div class="sentence-content"><div class="dutch-text"><span class="hl K">Kim</span> <span class="hl P">pakt</span> de <span class="hl K">kat</span> <span class="hl O">op</span>.</div><div class="english-text">Kim picks the cat up.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Kim pakt de kat op.',0.55,'1','s1-4')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Kim pakt de kat op.',0.85,'1','s1-4')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s1-5"><div class="sentence-num">5</div><div class="sentence-content"><div class="dutch-text">De <span class="hl K">kat</span> <span class="hl L">likt</span> <span class="hl K">Kim</span>.</div><div class="english-text">The cat licks Kim.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'De kat likt Kim.',0.55,'1','s1-5')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'De kat likt Kim.',0.85,'1','s1-5')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s1-6"><div class="sentence-num">6</div><div class="sentence-content"><div class="dutch-text"><span class="hl K">Kim</span> <span class="hl L">lacht</span> <span class="hl E">en</span> <span class="hl S">speelt</span>.</div><div class="english-text">Kim laughs and plays.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Kim lacht en speelt.',0.55,'1','s1-6')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Kim lacht en speelt.',0.85,'1','s1-6')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s1-7"><div class="sentence-num">7</div><div class="sentence-content"><div class="dutch-text">De <span class="hl K">kat</span> <span class="hl S">slaapt</span> <span class="hl N">nu</span>.</div><div class="english-text">The cat sleeps now.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'De kat slaapt nu.',0.55,'1','s1-7')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'De kat slaapt nu.',0.85,'1','s1-7')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s1-8"><div class="sentence-num">8</div><div class="sentence-content"><div class="dutch-text"><span class="hl K">Kim</span> <span class="hl I">is</span> <span class="hl L">lief</span>.</div><div class="english-text">Kim is sweet.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Kim is lief.',0.55,'1','s1-8')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Kim is lief.',0.85,'1','s1-8')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s1-9"><div class="sentence-num">9</div><div class="sentence-content"><div class="dutch-text">De <span class="hl K">kat</span> <span class="hl I">is</span> <span class="hl O">ook</span> <span class="hl L">lief</span>.</div><div class="english-text">The cat is also sweet.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'De kat is ook lief.',0.55,'1','s1-9')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'De kat is ook lief.',0.85,'1','s1-9')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s1-10"><div class="sentence-num">10</div><div class="sentence-content"><div class="dutch-text"><span class="hl K">Kim</span> <span class="hl E">en</span> de <span class="hl K">kat</span> <span class="hl S">slapen</span>.</div><div class="english-text">Kim and the cat sleep.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Kim en de kat slapen.',0.55,'1','s1-10')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Kim en de kat slapen.',0.85,'1','s1-10')">🐇 Snel</button></div></div>
+            </div>
+            <div class="read-all-wrap">
+                <button class="read-all-btn story" onclick="readAll(1)">▶️ Lees het verhaal!</button>
+                <button class="read-all-btn reset" onclick="resetStory(1)">🔄 Opnieuw</button>
+            </div>
+            <div class="celebration" id="cel-1">🎉 Super goed gedaan! 🌟🐱🌟</div>
+            <div style="padding:0 28px 24px;"><div class="word-list-title">📝 Woordjes:</div><div class="word-chips">
+                <span class="word-chip" onclick="sw(this,'kat')">kat 🐱</span>
+                <span class="word-chip" onclick="sw(this,'sit')">sit</span>
+                <span class="word-chip" onclick="sw(this,'op')">op</span>
+                <span class="word-chip" onclick="sw(this,'mat')">mat</span>
+                <span class="word-chip" onclick="sw(this,'spot')">spot</span>
+                <span class="word-chip" onclick="sw(this,'stil')">stil</span>
+                <span class="word-chip" onclick="sw(this,'likt')">likt</span>
+                <span class="word-chip" onclick="sw(this,'lief')">lief</span>
+                <span class="word-chip" onclick="sw(this,'nu')">nu</span>
+                <span class="word-chip" onclick="sw(this,'slapen')">slapen</span>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- STORY 2 -->
+    <div class="story-panel" id="story-2">
+        <div class="story-card">
+            <div class="story-header">
+                <div class="story-emoji">🌞</div>
+                <div class="story-meta"><div class="story-title">De Dag</div><div class="story-english">The Day</div></div>
+            </div>
+            <div class="progress-wrap">
+                <div class="progress-label">Zinnen gehoord: <span id="p2-text">0 / 10</span></div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="p2-bar" style="width:0%"></div></div>
+            </div>
+            <div class="sentences" id="sentences-2">
+                <div class="sentence-row" id="s2-1"><div class="sentence-num">1</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tom</span> <span class="hl S">staat</span> <span class="hl O">op</span>.</div><div class="english-text">Tom gets up.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tom staat op.',0.55,'2','s2-1')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tom staat op.',0.85,'2','s2-1')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s2-2"><div class="sentence-num">2</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tom</span> <span class="hl E">eet</span> een <span class="hl E">ei</span>.</div><div class="english-text">Tom eats an egg.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tom eet een ei.',0.55,'2','s2-2')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tom eet een ei.',0.85,'2','s2-2')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s2-3"><div class="sentence-num">3</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl S">snipt</span> een <span class="hl U">ui</span>.</div><div class="english-text">Mum chops an onion.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam snipt een ui.',0.55,'2','s2-3')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam snipt een ui.',0.85,'2','s2-3')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s2-4"><div class="sentence-num">4</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tom</span> <span class="hl P">pakt</span> een <span class="hl M">mok</span>.</div><div class="english-text">Tom grabs a mug.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tom pakt een mok.',0.55,'2','s2-4')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tom pakt een mok.',0.85,'2','s2-4')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s2-5"><div class="sentence-num">5</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl L">lest</span> <span class="hl T">Tom</span>.</div><div class="english-text">Mum quenches Tom's thirst.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam lest Tom.',0.55,'2','s2-5')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam lest Tom.',0.85,'2','s2-5')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s2-6"><div class="sentence-num">6</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tom</span> <span class="hl S">speelt</span> <span class="hl O">op</span> <span class="hl S">straat</span>.</div><div class="english-text">Tom plays in the street.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tom speelt op straat.',0.55,'2','s2-6')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tom speelt op straat.',0.85,'2','s2-6')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s2-7"><div class="sentence-num">7</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tom</span> <span class="hl L">loopt</span> <span class="hl S">snel</span>.</div><div class="english-text">Tom runs fast.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tom loopt snel.',0.55,'2','s2-7')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tom loopt snel.',0.85,'2','s2-7')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s2-8"><div class="sentence-num">8</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl K">kijkt</span> <span class="hl N">naar</span> <span class="hl T">Tom</span>.</div><div class="english-text">Mum looks at Tom.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam kijkt naar Tom.',0.55,'2','s2-8')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam kijkt naar Tom.',0.85,'2','s2-8')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s2-9"><div class="sentence-num">9</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tom</span> <span class="hl I">is</span> <span class="hl M">moe</span>.</div><div class="english-text">Tom is tired.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tom is moe.',0.55,'2','s2-9')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tom is moe.',0.85,'2','s2-9')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s2-10"><div class="sentence-num">10</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl K">kust</span> <span class="hl T">Tom</span> <span class="hl N">nacht</span>.</div><div class="english-text">Mum kisses Tom goodnight.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam kust Tom nacht.',0.55,'2','s2-10')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam kust Tom nacht.',0.85,'2','s2-10')">🐇 Snel</button></div></div>
+            </div>
+            <div class="read-all-wrap">
+                <button class="read-all-btn story" onclick="readAll(2)">▶️ Lees het verhaal!</button>
+                <button class="read-all-btn reset" onclick="resetStory(2)">🔄 Opnieuw</button>
+            </div>
+            <div class="celebration" id="cel-2">🎉 Wauw, super! 🌟🌞🌟</div>
+            <div style="padding:0 28px 24px;"><div class="word-list-title">📝 Woordjes:</div><div class="word-chips">
+                <span class="word-chip" onclick="sw(this,'staat')">staat</span>
+                <span class="word-chip" onclick="sw(this,'ei')">ei 🥚</span>
+                <span class="word-chip" onclick="sw(this,'ui')">ui 🧅</span>
+                <span class="word-chip" onclick="sw(this,'mok')">mok ☕</span>
+                <span class="word-chip" onclick="sw(this,'snel')">snel ⚡</span>
+                <span class="word-chip" onclick="sw(this,'straat')">straat</span>
+                <span class="word-chip" onclick="sw(this,'moe')">moe 😴</span>
+                <span class="word-chip" onclick="sw(this,'nacht')">nacht 🌙</span>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- STORY 3 -->
+    <div class="story-panel" id="story-3">
+        <div class="story-card">
+            <div class="story-header">
+                <div class="story-emoji">🍎</div>
+                <div class="story-meta"><div class="story-title">Lekker Eten</div><div class="story-english">Yummy Food</div></div>
+            </div>
+            <div class="progress-wrap">
+                <div class="progress-label">Zinnen gehoord: <span id="p3-text">0 / 10</span></div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="p3-bar" style="width:0%"></div></div>
+            </div>
+            <div class="sentences" id="sentences-3">
+                <div class="sentence-row" id="s3-1"><div class="sentence-num">1</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl M">maakt</span> <span class="hl S">soep</span>.</div><div class="english-text">Mum makes soup.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam maakt soep.',0.55,'3','s3-1')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam maakt soep.',0.85,'3','s3-1')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s3-2"><div class="sentence-num">2</div><div class="sentence-content"><div class="dutch-text"><span class="hl P">Pap</span> <span class="hl S">snipt</span> de <span class="hl U">ui</span>.</div><div class="english-text">Dad chops the onion.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Pap snipt de ui.',0.55,'3','s3-2')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Pap snipt de ui.',0.85,'3','s3-2')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s3-3"><div class="sentence-num">3</div><div class="sentence-content"><div class="dutch-text"><span class="hl A">An</span> <span class="hl E">eet</span> een <span class="hl A">appel</span>.</div><div class="english-text">An eats an apple.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'An eet een appel.',0.55,'3','s3-3')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'An eet een appel.',0.85,'3','s3-3')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s3-4"><div class="sentence-num">4</div><div class="sentence-content"><div class="dutch-text"><span class="hl S">Sap</span> <span class="hl I">is</span> <span class="hl L">lekker</span>.</div><div class="english-text">Juice is delicious.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Sap is lekker.',0.55,'3','s3-4')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Sap is lekker.',0.85,'3','s3-4')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s3-5"><div class="sentence-num">5</div><div class="sentence-content"><div class="dutch-text"><span class="hl P">Pap</span> <span class="hl P">pakt</span> een <span class="hl P">pan</span>.</div><div class="english-text">Dad grabs a pan.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Pap pakt een pan.',0.55,'3','s3-5')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Pap pakt een pan.',0.85,'3','s3-5')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s3-6"><div class="sentence-num">6</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl S">snijdt</span> een <span class="hl T">tomaat</span>.</div><div class="english-text">Mum cuts a tomato.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam snijdt een tomaat.',0.55,'3','s3-6')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam snijdt een tomaat.',0.85,'3','s3-6')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s3-7"><div class="sentence-num">7</div><div class="sentence-content"><div class="dutch-text">De <span class="hl S">soep</span> <span class="hl I">is</span> <span class="hl W">lekker</span> <span class="hl E">en</span> <span class="hl W">warm</span>.</div><div class="english-text">The soup is tasty and warm.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'De soep is lekker en warm.',0.55,'3','s3-7')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'De soep is lekker en warm.',0.85,'3','s3-7')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s3-8"><div class="sentence-num">8</div><div class="sentence-content"><div class="dutch-text"><span class="hl A">An</span> <span class="hl S">slurpt</span> de <span class="hl S">soep</span>.</div><div class="english-text">An slurps the soup.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'An slurpt de soep.',0.55,'3','s3-8')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'An slurpt de soep.',0.85,'3','s3-8')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s3-9"><div class="sentence-num">9</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl L">lacht</span> <span class="hl O">om</span> <span class="hl A">An</span>.</div><div class="english-text">Mum laughs at An.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam lacht om An.',0.55,'3','s3-9')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam lacht om An.',0.85,'3','s3-9')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s3-10"><div class="sentence-num">10</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl K">kust</span> <span class="hl A">An</span>.</div><div class="english-text">Mum kisses An.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam kust An.',0.55,'3','s3-10')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam kust An.',0.85,'3','s3-10')">🐇 Snel</button></div></div>
+            </div>
+            <div class="read-all-wrap">
+                <button class="read-all-btn story" onclick="readAll(3)">▶️ Lees het verhaal!</button>
+                <button class="read-all-btn reset" onclick="resetStory(3)">🔄 Opnieuw</button>
+            </div>
+            <div class="celebration" id="cel-3">🎉 Geweldig! 🌟🍎🌟</div>
+            <div style="padding:0 28px 24px;"><div class="word-list-title">📝 Woordjes:</div><div class="word-chips">
+                <span class="word-chip" onclick="sw(this,'soep')">soep 🍲</span>
+                <span class="word-chip" onclick="sw(this,'ui')">ui 🧅</span>
+                <span class="word-chip" onclick="sw(this,'appel')">appel 🍎</span>
+                <span class="word-chip" onclick="sw(this,'sap')">sap 🧃</span>
+                <span class="word-chip" onclick="sw(this,'pan')">pan 🍳</span>
+                <span class="word-chip" onclick="sw(this,'tomaat')">tomaat 🍅</span>
+                <span class="word-chip" onclick="sw(this,'slurpt')">slurpt</span>
+                <span class="word-chip" onclick="sw(this,'kust')">kust 😘</span>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- STORY 4 -->
+    <div class="story-panel" id="story-4">
+        <div class="story-card">
+            <div class="story-header">
+                <div class="story-emoji">🛁</div>
+                <div class="story-meta"><div class="story-title">Bad Tijd</div><div class="story-english">Bath Time</div></div>
+            </div>
+            <div class="progress-wrap">
+                <div class="progress-label">Zinnen gehoord: <span id="p4-text">0 / 10</span></div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="p4-bar" style="width:0%"></div></div>
+            </div>
+            <div class="sentences" id="sentences-4">
+                <div class="sentence-row" id="s4-1"><div class="sentence-num">1</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl L">laat</span> <span class="hl T">Tim</span> <span class="hl I">in</span> het <span class="hl B">bad</span>.</div><div class="english-text">Mum lets Tim in the bath.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam laat Tim in het bad.',0.55,'4','s4-1')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam laat Tim in het bad.',0.85,'4','s4-1')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s4-2"><div class="sentence-num">2</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tim</span> <span class="hl S">speelt</span> met een <span class="hl E">eend</span>.</div><div class="english-text">Tim plays with a duck.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tim speelt met een eend.',0.55,'4','s4-2')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tim speelt met een eend.',0.85,'4','s4-2')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s4-3"><div class="sentence-num">3</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tim</span> <span class="hl S">spat</span> met <span class="hl W">water</span>.</div><div class="english-text">Tim splashes with water.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tim spat met water.',0.55,'4','s4-3')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tim spat met water.',0.85,'4','s4-3')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s4-4"><div class="sentence-num">4</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl P">pakt</span> de <span class="hl L">lap</span>.</div><div class="english-text">Mum grabs the cloth.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam pakt de lap.',0.55,'4','s4-4')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam pakt de lap.',0.85,'4','s4-4')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s4-5"><div class="sentence-num">5</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tim</span> <span class="hl K">knalt</span> de <span class="hl E">eend</span> <span class="hl O">op</span>.</div><div class="english-text">Tim bumps the duck around.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tim knalt de eend op.',0.55,'4','s4-5')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tim knalt de eend op.',0.85,'4','s4-5')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s4-6"><div class="sentence-num">6</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl W">wast</span> <span class="hl T">Tim</span> <span class="hl S">snel</span>.</div><div class="english-text">Mum washes Tim quickly.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam wast Tim snel.',0.55,'4','s4-6')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam wast Tim snel.',0.85,'4','s4-6')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s4-7"><div class="sentence-num">7</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tim</span> <span class="hl S">stapt</span> <span class="hl U">uit</span> het bad.</div><div class="english-text">Tim steps out of the bath.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tim stapt uit het bad.',0.55,'4','s4-7')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tim stapt uit het bad.',0.85,'4','s4-7')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s4-8"><div class="sentence-num">8</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl P">pakt</span> een <span class="hl T">tuil</span>.</div><div class="english-text">Mum grabs a towel.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam pakt een handdoek.',0.55,'4','s4-8')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam pakt een handdoek.',0.85,'4','s4-8')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s4-9"><div class="sentence-num">9</div><div class="sentence-content"><div class="dutch-text"><span class="hl T">Tim</span> <span class="hl I">is</span> <span class="hl N">net</span> <span class="hl E">en</span> <span class="hl S">slim</span>.</div><div class="english-text">Tim is clean and smart.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Tim is net en slim.',0.55,'4','s4-9')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Tim is net en slim.',0.85,'4','s4-9')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s4-10"><div class="sentence-num">10</div><div class="sentence-content"><div class="dutch-text"><span class="hl M">Mam</span> <span class="hl K">knuffelt</span> <span class="hl T">Tim</span>.</div><div class="english-text">Mum hugs Tim.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Mam knuffelt Tim.',0.55,'4','s4-10')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Mam knuffelt Tim.',0.85,'4','s4-10')">🐇 Snel</button></div></div>
+            </div>
+            <div class="read-all-wrap">
+                <button class="read-all-btn story" onclick="readAll(4)">▶️ Lees het verhaal!</button>
+                <button class="read-all-btn reset" onclick="resetStory(4)">🔄 Opnieuw</button>
+            </div>
+            <div class="celebration" id="cel-4">🎉 Heel goed! 🌟🛁🌟</div>
+            <div style="padding:0 28px 24px;"><div class="word-list-title">📝 Woordjes:</div><div class="word-chips">
+                <span class="word-chip" onclick="sw(this,'bad')">bad 🛁</span>
+                <span class="word-chip" onclick="sw(this,'eend')">eend 🦆</span>
+                <span class="word-chip" onclick="sw(this,'spat')">spat 💦</span>
+                <span class="word-chip" onclick="sw(this,'lap')">lap</span>
+                <span class="word-chip" onclick="sw(this,'snel')">snel ⚡</span>
+                <span class="word-chip" onclick="sw(this,'uit')">uit</span>
+                <span class="word-chip" onclick="sw(this,'net')">net</span>
+                <span class="word-chip" onclick="sw(this,'slim')">slim 🧠</span>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- STORY 5 -->
+    <div class="story-panel" id="story-5">
+        <div class="story-card">
+            <div class="story-header">
+                <div class="story-emoji">🐕</div>
+                <div class="story-meta"><div class="story-title">De Hond</div><div class="story-english">The Dog</div></div>
+            </div>
+            <div class="progress-wrap">
+                <div class="progress-label">Zinnen gehoord: <span id="p5-text">0 / 10</span></div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="p5-bar" style="width:0%"></div></div>
+            </div>
+            <div class="sentences" id="sentences-5">
+                <div class="sentence-row" id="s5-1"><div class="sentence-num">1</div><div class="sentence-content"><div class="dutch-text"><span class="hl S">Sam</span> <span class="hl I">is</span> een <span class="hl H">hond</span>.</div><div class="english-text">Sam is a dog.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Sam is een hond.',0.55,'5','s5-1')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Sam is een hond.',0.85,'5','s5-1')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s5-2"><div class="sentence-num">2</div><div class="sentence-content"><div class="dutch-text"><span class="hl S">Sam</span> <span class="hl L">loopt</span> <span class="hl O">op</span> <span class="hl S">straat</span>.</div><div class="english-text">Sam walks in the street.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Sam loopt op straat.',0.55,'5','s5-2')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Sam loopt op straat.',0.85,'5','s5-2')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s5-3"><div class="sentence-num">3</div><div class="sentence-content"><div class="dutch-text"><span class="hl S">Sam</span> <span class="hl S">snuift</span> aan een <span class="hl S">steen</span>.</div><div class="english-text">Sam sniffs a stone.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Sam snuift aan een steen.',0.55,'5','s5-3')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Sam snuift aan een steen.',0.85,'5','s5-3')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s5-4"><div class="sentence-num">4</div><div class="sentence-content"><div class="dutch-text"><span class="hl K">Kim</span> <span class="hl P">pakt</span> een <span class="hl S">stok</span>.</div><div class="english-text">Kim picks up a stick.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Kim pakt een stok.',0.55,'5','s5-4')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Kim pakt een stok.',0.85,'5','s5-4')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s5-5"><div class="sentence-num">5</div><div class="sentence-content"><div class="dutch-text"><span class="hl S">Sam</span> <span class="hl L">loopt</span> <span class="hl S">snel</span>!</div><div class="english-text">Sam runs fast!</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Sam loopt snel!',0.55,'5','s5-5')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Sam loopt snel!',0.85,'5','s5-5')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s5-6"><div class="sentence-num">6</div><div class="sentence-content"><div class="dutch-text"><span class="hl S">Sam</span> <span class="hl P">pakt</span> de <span class="hl S">stok</span>!</div><div class="english-text">Sam grabs the stick!</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Sam pakt de stok!',0.55,'5','s5-6')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Sam pakt de stok!',0.85,'5','s5-6')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s5-7"><div class="sentence-num">7</div><div class="sentence-content"><div class="dutch-text"><span class="hl K">Kim</span> <span class="hl L">lacht</span> <span class="hl O">om</span> <span class="hl S">Sam</span>.</div><div class="english-text">Kim laughs at Sam.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Kim lacht om Sam.',0.55,'5','s5-7')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Kim lacht om Sam.',0.85,'5','s5-7')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s5-8"><div class="sentence-num">8</div><div class="sentence-content"><div class="dutch-text"><span class="hl S">Sam</span> <span class="hl I">is</span> <span class="hl M">moe</span>.</div><div class="english-text">Sam is tired.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Sam is moe.',0.55,'5','s5-8')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Sam is moe.',0.85,'5','s5-8')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s5-9"><div class="sentence-num">9</div><div class="sentence-content"><div class="dutch-text"><span class="hl S">Sam</span> <span class="hl L">likt</span> <span class="hl K">Kim</span>.</div><div class="english-text">Sam licks Kim.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Sam likt Kim.',0.55,'5','s5-9')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Sam likt Kim.',0.85,'5','s5-9')">🐇 Snel</button></div></div>
+                <div class="sentence-row" id="s5-10"><div class="sentence-num">10</div><div class="sentence-content"><div class="dutch-text"><span class="hl K">Kim</span> <span class="hl K">knuffelt</span> <span class="hl S">Sam</span>.</div><div class="english-text">Kim hugs Sam.</div></div><div class="sentence-actions"><button class="play-btn slow" onclick="rs(this,'Kim knuffelt Sam.',0.55,'5','s5-10')">🐢 Langzaam</button><button class="play-btn fast" onclick="rs(this,'Kim knuffelt Sam.',0.85,'5','s5-10')">🐇 Snel</button></div></div>
+            </div>
+            <div class="read-all-wrap">
+                <button class="read-all-btn story" onclick="readAll(5)">▶️ Lees het verhaal!</button>
+                <button class="read-all-btn reset" onclick="resetStory(5)">🔄 Opnieuw</button>
+            </div>
+            <div class="celebration" id="cel-5">🎉 Bravo! 🌟🐕🌟</div>
+            <div style="padding:0 28px 24px;"><div class="word-list-title">📝 Woordjes:</div><div class="word-chips">
+                <span class="word-chip" onclick="sw(this,'Sam')">Sam 🐕</span>
+                <span class="word-chip" onclick="sw(this,'hond')">hond</span>
+                <span class="word-chip" onclick="sw(this,'loopt')">loopt</span>
+                <span class="word-chip" onclick="sw(this,'snuift')">snuift 👃</span>
+                <span class="word-chip" onclick="sw(this,'steen')">steen 🪨</span>
+                <span class="word-chip" onclick="sw(this,'stok')">stok</span>
+                <span class="word-chip" onclick="sw(this,'snel')">snel ⚡</span>
+                <span class="word-chip" onclick="sw(this,'moe')">moe 😴</span>
+                <span class="word-chip" onclick="sw(this,'likt')">likt 😋</span>
+            </div></div>
+        </div>
+    </div>
+
+    <div style="text-align:center;color:#aaa;font-size:0.9em;margin-top:8px;">
+        🔊 Tik op 🐢 of 🐇 om te luisteren • Tap slow or fast to listen 🎧
+    </div>
+
+</div>
+
+<script>
+    // ── Female voice ──
+    let femaleVoice = null;
+    function loadVoices() {
+        const voices = window.speechSynthesis.getVoices();
+        femaleVoice =
+            voices.find(v => v.lang.startsWith('nl') && /female|vrouw|fenna|lotte|emma|linda|anna/i.test(v.name)) ||
+            voices.find(v => v.lang.startsWith('nl') && v.gender === 'female') ||
+            voices.find(v => v.lang.startsWith('nl')) ||
+            voices.find(v => /zira|victoria|samantha|karen|moira|tessa|fiona|allison|ava|susan|jane/i.test(v.name)) ||
+            null;
+    }
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    setTimeout(loadVoices, 300);
+
+    const progress = {1:0, 2:0, 3:0, 4:0, 5:0};
+    const totals   = {1:10, 2:10, 3:10, 4:10, 5:10};
+
+    const allTexts = [
+        ['De kat sit op de mat.','Kim spot de kat.','De kat is stil.','Kim pakt de kat op.','De kat likt Kim.','Kim lacht en speelt.','De kat slaapt nu.','Kim is lief.','De kat is ook lief.','Kim en de kat slapen.'],
+        ['Tom staat op.','Tom eet een ei.','Mam snipt een ui.','Tom pakt een mok.','Mam lest Tom.','Tom speelt op straat.','Tom loopt snel.','Mam kijkt naar Tom.','Tom is moe.','Mam kust Tom nacht.'],
+        ['Mam maakt soep.','Pap snipt de ui.','An eet een appel.','Sap is lekker.','Pap pakt een pan.','Mam snijdt een tomaat.','De soep is lekker en warm.','An slurpt de soep.','Mam lacht om An.','Mam kust An.'],
+        ['Mam laat Tim in het bad.','Tim speelt met een eend.','Tim spat met water.','Mam pakt de lap.','Tim knalt de eend op.','Mam wast Tim snel.','Tim stapt uit het bad.','Mam pakt een handdoek.','Tim is net en slim.','Mam knuffelt Tim.'],
+        ['Sam is een hond.','Sam loopt op straat.','Sam snuift aan een steen.','Kim pakt een stok.','Sam loopt snel!','Sam pakt de stok!','Kim lacht om Sam.','Sam is moe.','Sam likt Kim.','Kim knuffelt Sam.']
+    ];
+
+    function speak(text, rate) {
+        return new Promise(resolve => {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'nl-NL';
+            u.rate = rate || 0.75;
+            u.pitch = 1.3;
+            u.volume = 1;
+            if (femaleVoice) u.voice = femaleVoice;
+            u.onend = resolve;
+            u.onerror = resolve;
+            window.speechSynthesis.speak(u);
+        });
+    }
+
+    function rs(btn, text, rate, storyId, rowId) {
+        document.querySelectorAll('.play-btn').forEach(b => b.classList.remove('speaking'));
+        btn.classList.add('speaking');
+        const row = document.getElementById(rowId);
+        row.classList.add('reading');
+        if (!row.dataset.heard) {
+            row.dataset.heard = '1';
+            progress[storyId]++;
+            updateProgress(storyId);
+            if (progress[storyId] >= totals[storyId]) {
+                setTimeout(() => showCelebration(storyId), 800);
+            }
+        }
+        speak(text, rate).then(() => {
+            btn.classList.remove('speaking');
+            row.classList.remove('reading');
+        });
+    }
+
+    function updateProgress(sid) {
+        const n = progress[sid], t = totals[sid];
+        document.getElementById('p'+sid+'-text').textContent = n+' / '+t;
+        document.getElementById('p'+sid+'-bar').style.width = (n/t*100)+'%';
+    }
+
+    function showCelebration(sid) {
+        document.getElementById('cel-'+sid).style.display = 'block';
+    }
+
+    function resetStory(sid) {
+        document.querySelectorAll('#sentences-'+sid+' .sentence-row').forEach(r => {
+            r.classList.remove('reading');
+            delete r.dataset.heard;
+        });
+        progress[sid] = 0;
+        updateProgress(sid);
+        document.getElementById('cel-'+sid).style.display = 'none';
+    }
+
+    async function readAll(sid) {
+        const rows = document.querySelectorAll('#sentences-'+sid+' .sentence-row');
+        const texts = allTexts[sid - 1];
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].classList.add('reading');
+            rows[i].scrollIntoView({behavior:'smooth', block:'nearest'});
+            if (!rows[i].dataset.heard) {
+                rows[i].dataset.heard = '1';
+                progress[sid]++;
+                updateProgress(sid);
+            }
+            await speak(texts[i], 0.75);
+            rows[i].classList.remove('reading');
+            await new Promise(r => setTimeout(r, 350));
+        }
+        showCelebration(sid);
+    }
+
+    function sw(chip, word) {
+        document.querySelectorAll('.word-chip').forEach(c => c.classList.remove('speaking'));
+        chip.classList.add('speaking');
+        speak(word, 0.65).then(() => chip.classList.remove('speaking'));
+    }
+
+    function showStory(num, tabEl) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.story-panel').forEach(p => p.classList.remove('active'));
+        tabEl.classList.add('active');
+        document.getElementById('story-'+num).classList.add('active');
+    }
+</script>
+</body>
+</html>

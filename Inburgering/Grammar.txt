@@ -452,9 +452,83 @@ Conjunctions2: https://www.youtube.com/watch?v=9zTJcckIIYY
 			
 		-----------------------------
 		
-		
+- Comparative and Superlative (Comparatief en Superlatief): https://www.youtube.com/watch?v=QaKGH-9pQ5c
+	- Voorbeelden:
+	1. Ik heb normaal maat 40, soms 'groter'.
+	2. Deze broek zit 'beter' dan die andere broek.
+	3. Dit roze shirt staat me het 'best'.
+	4. Deze jurk is het 'mooist'.
+	'' are called Compertive and Superlative
+	In 1st and 2nd sentences - it is Compertive
+	In 3rd and 4th sentences - it is Superlative
+	- C&S with Regular Forms:
+		Basicvorm	| Comparatief	| Superlatief		|
+		Klein		| Klein'er'		| (het) klein'st'	| Even klien als
+		Groot		| Grot'er'		| (het) groot'st'	| Even groot als
+		Duur		| Duur'der'		| (het) duur'st'	| Even duur als
+		- Ending of C&S are 'er' and 'st'
+		- Adjective ending with 'r' has 'der' and 'st'
+		- Het with Superlatief is the same form as in english i.e. The Small, The Biggest
+		- Examples:
+		1. Mijn broer is 'ouder'.
+		2. Deze broek is 'duurder'.
+		3. Mijn moeder is 'kleiner' dan ik.
+		4. Jouw kamer is 'even groot als' mijn kamer.
+		5. Ik ben 'net zo groot als' jij.
+		- You use the adverb 'den' to compare something like in sentence 3.
+		- When you want to compare things that are equal then we can use 'even' + adjective + 'als' like in sentence 4 or 'net zo' + adjective + 'als' like in sentence 5
+	- C&S with Regular Forms:
+		Basicvorm	| Comparatief	| Superlatief		|
+		Goed		| Bet'er'		| (het) Be'st'		| Even goed als
+		Veel		| Me'er'		| (het) Mee'st'		| Even veel als
+		Weining		| Min'der'		| (het) Min'st'		| Even weinig als
+	- Special case
+		graag		| liev'er'		| (het) lief'st'	| Even graag als
+	- Examples:
+		1. Maria vindt geel 'mooier'.
+		   Maria vindt geel een 'mooiere' kleu dan rood.
+		2. Lija is het 'oudst'.
+		   Lija is de 'oudste' man in de groep.
+		Please note, when C&S behave like an adjective when it is place before a name as in above example
+	- Examples:
+		1. Ik eet het 'liefst' spaghetti.
+		2. Peter vindt biefstuk met frietjes get 'lekkerst'.
+		Please note, In 1, Superlatief with het will follows the verb but thats not the case with Vindt (in 2)
+	- Examples:
+		1. Ik vind rood 'mooier'.
+		2. Ik drink 'liever' koffie.
+		3. Is les 7 'leuker' dan les 6?
+		4. Mijn zus is 'even groot als' ik.
+		5. Wat vind je het 'lekkerst'?
+		6. Wat vind je de 'mooiste' kleur?
 
-			
+- Negation/ Negatie: https://www.youtube.com/watch?v=UEAKUATmbzg
+	- Examples:
+		1. Ik heb 'geen' idee.
+		2. Dit is een leuke bovenwoning, 'niet' ver van het centrum.
+		3. Wij hoeven 'geen' bad.
+		4. Dat gebruiken we toch 'niet'.
+		- Words in '' are used to express negation which is prerty much similar to english as 'not' and 'no'
+		- Examples for niet:
+			1. De kamer is niet groot.
+			2. Ik vind kip niet lekker.
+			3. John houndt niet van koffie.
+			4. ik heb dit boek niet nodig.
+			Usually NIET comes before the noun or adjective and after the verb 
+		- Examples for geen:
+			1. Heb je een balkon?
+				Nee, Ik hen geen balkon.
+			2. Is de flat ver can het centrum?
+				Geen idee.
+			Usually Geen is used a noun has to be negetated is preceeded by indefinite article or no article at all. It is same as "NO" in english.
+	- Examples:
+		1. dfe kamer is niet zonnig.
+		2. De flat is niet ver van het centrum.
+		3. Ik betaal het eten niet.
+		4. Susy heeft geen grote kamer.
+		5. Wij hebben geen tuin en geen balkon.
+		
+		
 			
 			
 	

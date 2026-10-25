@@ -894,7 +894,264 @@ Meaning: Betekenis
 Experience: Ervaring
 Understanding: Begrip
 
-
 Lesson-3
+Mrs.: Mevrouw
+Next: Voldende
+Complete: Volledig
+Difficult: Verschillend
+Education: Onderwijs
+Need: Behoefte
+Quiet: Rustig
+Once: Eenmaal
+Simple: Eenvoudig
+Apporximately: Ongeveer
+Value: Waarde
+Somewhere: Ergens
+Conversation: Gesprek
+Impression: Indruk
+Soil: Aarde
+Immediately: Onmiddellijk
+Reality: Werkelijkheid
+In person: Persoonlijk
+Space: Rumite
+Effort: Moeite
+Change: Verandering
+Sound: Geluid
+Behaviour: Gedrag
+Conscious: Bewust
+Namely: Namelijk
+Rule: Regel
+Before:  Voordat
+Equal: Gelijk
+History: Geschiedenis
+Headline: Kop
+Enough: Voldoende
+Everywhere: Overal
+Serious: Ernstig
+Quite: Nogal
+Moveover: Overigens
+Circumstance: Omstandighied
+Niether: NOch
+Besides, by the way: Trouwens
+Future: Toekomst
+Suddenly: Opeens
+Surroundings: Omgeving
+View: Opvatting
+Government: Overheid
+Distance: Afstand
+Thereafter: Vervolgens
+Science: Weterschap
+Despite: Ondanks
+Finally: Eindelijk
+Freedom: Vrijheid
+Up: Omhoog
+
 Lesson-4
+Disease: Ziekte
+Height: Hoogte
+Policy: Beleid
+Writer: Schrijver
+Society: Maatschappij
+Company: Bedrijf
+Down: Beneden
+Today: Vandaag
+Society: Samenleving
+Ratio: Verhouding
+Attitude: HOuding
+Danger: Gevaar
+Government: Regering
+Bill: Rekening
+Scientific: Wetenschappelijk
+Soldier: Soldaat
+Truth: Waarheid
+At least: Terminste
+Magnificent: Prachtig
+Profession: Beroep
+Attempt: Poging
+Cause: Oorzaak
+Opinion: Mening
+All: Allen
+Family: Gezin
+Careful: Voorzichtig
+Decision: Beslissing
+In the end: Uiteindelijk
+Ago: Geleden
+Opportunity: Gelegenheid
+Necessary: Noodzakelijk
+Present: Aanwezig
+Age: Leeftijd
+Dial: Bellen
+Impossible: Onmogelijk
+Silence: Stilte
+Therapy: Behandeling
+Wedding: Huwelijk
+Last, Previous: Vorige
+Statement: Verklaring
+Past: Verleden
+Visit: Bezoek
+Solution: Oplossing
+Because: Doordat
+Desire: Verlangen
+Contain: Bevatten
+Difficulty: Moeilijkheid
+Kitchen: Keuken
+Reminder: Herinnering
+Daily: Dagelijks
+
 Lesson-5
+Hospital: Ziekenhuis
+As soon as: Zodra
+Topic, Subject: Onderwerp
+Almost: Vrijwel
+Apprently: Blijkbaar
+DEsk: Bureau
+Assignment, Exercise: Opdracht
+Building: Debouw
+Expression: Uitdrukking
+As long as: Zolang
+Tasty, Nice: Lekker
+BOard: Bestuur
+Choice: Keuze
+Except: Behalve
+Pronunciation: Uitspraak
+Nowhere: Nergens
+Healthy: Gezond
+Proposal: Voorstel
+Safe: Veilig
+Rise: Stijgen
+Decision: Besluit
+Island: Eiland
+Contrary: Tegenstelling
+Judgment: Oordeel
+Doubt: Twijfel
+Smile: Glimlach
+Exclusively: Uitsluitend
+Perhaps: Wellicht
+Tension, stress: Spanning
+Labor: Arbeid
+Dangerous: Gevaarlijk
+Judge: Rechter
+Teacher: Leraar
+Girlfriend: Vriendin
+Security: Zekerheid
+Usually: Gewoonlijk
+Delicious: Heerlijk
+Smell: Geur
+Public: Openbaar
+Benefit: Voordeel
+Comment: Opmerking
+Meanwhile: Intussen
+Authority: Gezag
+To repeat: Herhalen
+Satisfied, Pleased: Tevreden
+Office: Kantoor
+Part: Gedeelte
+Department: Afdeling
+Measure: Maatregel
+Food: Voedsel
+
+Lesson-6
+Message: Boodschap
+Powerful: Krachtige
+Cheerful: Vrolijk
+Departure: Vertrek
+Coincidentally: Toevallig
+Excellent, Outstanding: Uitstekend
+Proof: Bewijs
+Preference: Voorkeur
+Background: Achtergrond
+Characteristics: Eigenschap
+Possession: Bezit
+Act: Handeling
+Worker: Arbeider
+Pleasent: Prettig
+Secret: Geheim
+Poem: Gedicht
+Enemy: Vijand
+Expecatation: Verwachting
+In the meantime: Inmiddels
+Undoubtedly, Surely: Ongetwijfeld
+Meeting: Vergadering
+Foreign: Buitenlands
+Education: Opleiding
+Terrible: Verschrikkelijk
+Civil servant: Ambtenaar
+Reasonable, Reasonably: REdelijk
+Habit: Gewoonte
+Request: Verzoek
+Pupil: Leerling
+Violence: Geweld
+Exception: Uitzondering
+Object: Voorwerp
+Favorable: Gunstig
+Regulation: Regeling
+Goal, Objective: Doelstelling
+Sadness: Verdriet
+Nearby: Dichtbij
+Appointment: Afspraak
+Both: Allebei
+Hill: Heuvel
+Forehead: Voorhoofd
+Horrible: Vreselijk
+Peace: Vrede
+Religion: Godsdienst
+Cooperation: Samenwerking
+Mirror: Spiegel
+Wit, Wiseness: Verstand
+Difference, distinction: Onderscheid
+Attack: Aanval
+Accident: Ongeluk
+
+Lesson-7
+Key: Sleutel
+Suitcase: Koffer
+Goodbye: Afscheid
+Association, Clud: Verenging
+Awesome, Great: Geweldig
+Bottom, Ground: Bodem
+House: Woning
+Agreement: Overeenkomst
+Chairman: Voorzitter
+Environment: Milieu
+Characteristics: Kenmerken
+Landscape: Landschap
+Final: Definitief
+Accurate: Nauwkeurig
+Contribution: Bijdrage
+Consultation: Overleg
+Husband: Man, Echtgenoot
+Surprise: Verbazing
+Curtains: Gordijnen
+Cheap: Goedkoop
+Balance: Evenwicht
+Moist: Vochtig
+Comparison: Vergelijking
+Health: Gezondheid
+Core: Kern
+Jail, Prison: Gevangenis
+Bedroom: Slaapkamer
+Clothes: Kleren
+Easy: Makkelijk
+Surprised: Verbaasd
+Blanket: Deken
+Joy: Vreugde
+Ease: Gemak
+Artist: Kunstenaar
+Major: Burgemeester
+Loss: Verlies
+Civil: Burgerlijk
+Ugly: Lelijk
+Other, remaining: Overig
+Prepared: Bereid
+Queen: Koningin
+Owner: Eigenaar
+Meeting: Ontmoeting
+Report: Verslag
+Unexpected: Onverwacht
+Staff: Personeel
+Cozy: Gezellig
+Memory: Gerugen
+Sad: Verdrietig
+Speed: Snelheid
+
+Get all the words with ge*
