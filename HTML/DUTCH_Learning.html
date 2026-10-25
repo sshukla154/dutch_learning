@@ -389,12 +389,12 @@
 
         <div class="stats-grid">
             <div class="stat-card">
-                <span class="stat-number" id="learner1Lessons">0</span>
-                <span class="stat-label">Learner1's Lessons</span>
+                <span class="stat-number" id="track1Lessons">0</span>
+                <span class="stat-label">Track 1 Lessons</span>
             </div>
             <div class="stat-card">
-                <span class="stat-number" id="learner2Lessons">0</span>
-                <span class="stat-label">Learner2's Lessons</span>
+                <span class="stat-number" id="track2Lessons">0</span>
+                <span class="stat-label">Track 2 Lessons</span>
             </div>
             <div class="stat-card">
                 <span class="stat-number" id="totalLessons">0</span>
@@ -403,13 +403,13 @@
         </div>
         
         <div class="tabs">
-            <button class="tab active" onclick="showTab('learner1')">👨 Learner1's Learning</button>
-            <button class="tab" onclick="showTab('learner2')">👩 Learner2's Learning</button>
+            <button class="tab active" onclick="showTab('track1')">📘 Track 1</button>
+            <button class="tab" onclick="showTab('track2')">📗 Track 2</button>
         </div>
         
-        <!-- Learner1's Learning Tab -->
-        <div id="learner1" class="tab-content active">
-            <div class="learner-name">👨 Learner1's Learning Journey</div>
+        <!-- Track 1 tab -->
+        <div id="track1" class="tab-content active">
+            <div class="learner-name">📘 Track 1 Learning Journey</div>
 
             <div class="category-filters">
                 <span class="category-tag active" onclick="filterByCategory(this, 'all')">All</span>
@@ -418,7 +418,7 @@
                 <span class="category-tag" onclick="filterByCategory(this, 'basics')">🔤 Basics</span>
             </div>
             
-            <ul class="file-list" id="learner1List">
+            <ul class="file-list" id="track1List">
                 <li class="file-item" data-category="vocabulary" data-name="bouw learning">
                     <a href="bouw_learning.html" class="file-link">
                         <div class="file-link-content">
@@ -596,15 +596,15 @@
                     </a>
                 </li>
             </ul>
-            <div class="no-results" id="learner1NoResults" style="display: none;">
+            <div class="no-results" id="track1NoResults" style="display: none;">
                 <div class="no-results-icon">🔍</div>
                 <p>No lessons found matching your search.</p>
             </div>
         </div>
         
-        <!-- Learner2's Learning Tab -->
-        <div id="learner2" class="tab-content">
-            <div class="learner-name">👩 Learner2's Learning Journey</div>
+        <!-- Track 2 tab -->
+        <div id="track2" class="tab-content">
+            <div class="learner-name">📗 Track 2 Learning Journey</div>
 
             <div class="category-filters">
                 <span class="category-tag active" onclick="filterByCategory(this, 'all')">All</span>
@@ -613,7 +613,7 @@
                 <span class="category-tag" onclick="filterByCategory(this, 'practice')">✍️ Practice</span>
             </div>
             
-            <ul class="file-list" id="learner2List">
+            <ul class="file-list" id="track2List">
                 <li class="file-item" data-category="vocabulary" data-name="common dutch words">
                     <a href="common_dutch_words.html" class="file-link">
                         <div class="file-link-content">
@@ -692,15 +692,14 @@
                     </a>
                 </li>
             </ul>
-            <div class="no-results" id="learner2NoResults" style="display: none;">
+            <div class="no-results" id="track2NoResults" style="display: none;">
                 <div class="no-results-icon">🔍</div>
                 <p>No lessons found matching your search.</p>
             </div>
         </div>
         
         <div class="footer">
-            Last updated: March 2026<br>
-            📂 Location: Dutch Learning\HTML
+            Last updated: March 2026
         </div>
     </div>
     
@@ -729,12 +728,12 @@
 
         // Update lesson counts dynamically
         function updateLessonCounts() {
-            const learner1Count = document.querySelectorAll('#learner1List .file-item').length;
-            const learner2Count = document.querySelectorAll('#learner2List .file-item').length;
-            const totalCount = learner1Count + learner2Count;
+            const track1Count = document.querySelectorAll('#track1List .file-item').length;
+            const track2Count = document.querySelectorAll('#track2List .file-item').length;
+            const totalCount = track1Count + track2Count;
             
-            document.getElementById('learner1Lessons').textContent = learner1Count;
-            document.getElementById('learner2Lessons').textContent = learner2Count;
+            document.getElementById('track1Lessons').textContent = track1Count;
+            document.getElementById('track2Lessons').textContent = track2Count;
             document.getElementById('totalLessons').textContent = totalCount;
         }
 
