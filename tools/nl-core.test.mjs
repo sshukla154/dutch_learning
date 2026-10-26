@@ -243,6 +243,19 @@ test('a symbol is shown as text, large for an emoji and in the display font for 
   assert.deepEqual(cells.map((n) => [n.attrs.class, n.text, n.attrs['aria-hidden']]), [['word-sym', '✏️', 'true'], ['word-sym word-sym-text', '+', 'true']]);
 });
 
+test('the element builder drops script handlers given as text and links that are not relative or https', () => {
+  const NL = load(memoryStorage(), { document: fakeDocument() });
+  const a = NL.el('a', { href: 'javascript:alert(1)', onclick: 'alert(1)', text: 'x' });
+  assert.equal(a.attrs.href, undefined);
+  assert.deepEqual(a.listeners, {});
+  const img = NL.el('img', { src: 'data:text/html,x' });
+  assert.equal(img.attrs.src, undefined);
+  for (const ok of ['https://www.google.com/search?q=x', 'DUTCH_Learning.html', '#g1', 'page.html#flashcards']) assert.equal(NL.el('a', { href: ok }).attrs.href, ok);
+  let clicked = 0;
+  NL.el('button', { onclick: () => { clicked += 1; } }).click();
+  assert.equal(clicked, 1);
+});
+
 test('the script never writes markup or loads code from data', () => {
   assert.doesNotMatch(coreSource, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|createContextualFragment|DOMParser|\beval\s*\(|new Function|srcdoc/);
 });
