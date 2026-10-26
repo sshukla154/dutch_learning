@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dutch for Kids – Lessons</title>
+<meta name="referrer" content="no-referrer">
+<script src="assets/nl-theme-init.js"></script>
+<link rel="stylesheet" href="assets/nl-tokens.css">
+<link rel="stylesheet" href="assets/nl-topbar.css">
     <style>
         :root {
             --coral:#ff6b6b; --teal:#2ec4b6; --purple:#845ec2; --orange:#ff9a3c;
-            --blue:#0095d9; --green:#22b573; --dark:#1a1a2e;
+            --blue:#0095d9; --green:#22b573; --dark: var(--ink);
             --O:#0095d9; --P:#ff6b6b; --S:#22b573; --K:#ff9a3c;
             --I:#845ec2; --A:#2ec4b6; --T:#e67e22; --M:#16a085;
             --L:#8e44ad; --E:#2980b9; --N:#c0392b; --U:#d35400;
         }
         * { box-sizing:border-box; margin:0; padding:0; }
         body {
-            font-family:'Nunito',sans-serif;
-            background:linear-gradient(160deg,#ffecd2 0%,#fcb69f 15%,#a1c4fd 55%,#c2e9fb 100%);
+            font-family: var(--f-body);
+            background:var(--surface); color:var(--ink);
             min-height:100vh; padding:24px 16px 48px;
         }
         .page-wrapper { max-width:1060px; margin:0 auto; }
@@ -24,13 +28,13 @@
         .header { text-align:center; margin-bottom:28px; animation:dropIn 0.6s ease both; }
         .badge {
             display:inline-block; background:var(--coral); color:white;
-            font-family:'Baloo 2',system-ui,sans-serif; font-size:0.82em; font-weight:700;
+            font-family: var(--f-display); font-size:0.82em; font-weight:700;
             padding:4px 16px; border-radius:99px; letter-spacing:1px; margin-bottom:8px;
             box-shadow:0 3px 10px rgba(255,107,107,0.4);
         }
-        h1 { font-family:'Baloo 2',system-ui,sans-serif; font-size:2.6em; font-weight:800; color:var(--dark); line-height:1.1; }
+        h1 { font-family: var(--f-display); font-size:2.6em; font-weight:800; color:var(--dark); line-height:1.1; }
         h1 span { color:var(--coral); }
-        .subtitle { font-size:1em; color:#555; margin-top:5px; }
+        .subtitle { font-size:1em; color:var(--muted); margin-top:5px; }
 
         /* ══════════════════════════════
            TILE GRID (replaces tabs)
@@ -47,7 +51,7 @@
         @media(max-width:420px){ .lesson-grid{ grid-template-columns:1fr; } }
 
         .lesson-tile {
-            background:white; border-radius:22px;
+            background:var(--bg); border-radius:22px;
             padding:28px 18px 22px; text-align:center;
             box-shadow:0 6px 22px rgba(0,0,0,0.10);
             cursor:pointer; transition:all 0.25s;
@@ -66,14 +70,14 @@
         .tile-1 .tile-open-btn { background:var(--coral); box-shadow:0 4px 12px rgba(255,107,107,0.4); }
         .tile-2 { border-color:var(--purple); }
         .tile-2 .tile-open-btn { background:var(--purple); box-shadow:0 4px 12px rgba(132,94,194,0.4); }
-        .tile-3,.tile-4,.tile-5 { border-color:#ccc; }
+        .tile-3,.tile-4,.tile-5 { border-color:var(--surface-2); }
 
         .tile-icon { font-size:3em; display:block; margin-bottom:10px; line-height:1; }
         .tile-title {
-            font-family:'Baloo 2',system-ui,sans-serif; font-size:1.22em; font-weight:800;
+            font-family: var(--f-display); font-size:1.22em; font-weight:800;
             color:var(--dark); margin-bottom:5px;
         }
-        .tile-desc { font-size:0.79em; color:#777; line-height:1.55; margin-bottom:10px; min-height:34px; }
+        .tile-desc { font-size:0.79em; color:var(--muted); line-height:1.55; margin-bottom:10px; min-height:34px; }
         .tile-count {
             display:inline-block; font-size:0.72em; font-weight:800;
             padding:3px 11px; border-radius:99px; color:white; margin-bottom:12px;
@@ -84,7 +88,7 @@
 
         .tile-open-btn {
             display:inline-block; padding:9px 22px;
-            border-radius:99px; font-family:'Nunito',sans-serif;
+            border-radius:99px; font-family: var(--f-body);
             font-weight:800; font-size:0.87em; color:white;
             border:none; cursor:pointer; pointer-events:none;
             transition:all 0.2s;
@@ -100,9 +104,9 @@
         /* ── BACK BUTTON ── */
         .back-btn {
             display:inline-flex; align-items:center; gap:6px;
-            background:white; border:none; border-radius:99px;
-            padding:9px 20px; font-family:'Nunito',sans-serif;
-            font-weight:800; font-size:0.88em; color:#666;
+            background:var(--bg); border:none; border-radius:99px;
+            padding:9px 20px; font-family: var(--f-body);
+            font-weight:800; font-size:0.88em; color:var(--muted);
             cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,0.09);
             transition:all 0.2s; margin-bottom:20px;
         }
@@ -115,7 +119,7 @@
 
         /* ── SECTION TITLE ── */
         .section-title {
-            font-family:'Baloo 2',system-ui,sans-serif; font-size:1.45em; font-weight:700;
+            font-family: var(--f-display); font-size:1.45em; font-weight:700;
             color:var(--dark); margin:0 0 14px;
             display:flex; align-items:center; gap:10px;
         }
@@ -126,25 +130,25 @@
 
         /* ── TABLE ── */
         .table-wrap {
-            background:white; border-radius:20px;
+            background:var(--bg); border-radius:20px;
             box-shadow:0 6px 24px rgba(0,0,0,0.1); margin-bottom:36px; overflow-x:auto;
         }
         table { width:100%; border-collapse:collapse; min-width:520px; }
-        thead tr { background:linear-gradient(90deg,#1a1a2e 0%,#2d2d5e 100%); }
+        thead tr { background:var(--inverse-bg); }
         thead th {
-            color:white; font-family:'Baloo 2',system-ui,sans-serif; font-size:0.86em; font-weight:700;
+            color:var(--inverse-ink); font-family: var(--f-display); font-size:0.86em; font-weight:700;
             padding:13px 14px; text-align:left; letter-spacing:0.5px; text-transform:uppercase; white-space:nowrap;
         }
-        tbody tr { border-bottom:1px solid #f0f0f0; transition:background 0.15s; }
+        tbody tr { border-bottom:1px solid var(--surface-2); transition:background 0.15s; }
         tbody tr:last-child { border-bottom:none; }
-        tbody tr:hover { background:#fafafa !important; }
+        tbody tr:hover { background:var(--surface) !important; }
         tbody td { padding:11px 14px; font-size:1em; vertical-align:middle; color:var(--dark); }
 
         /* ── ALPHABET TABLE ── */
-        .letter-cap   { font-family:'Baloo 2',system-ui,sans-serif; font-size:2em; font-weight:800; line-height:1; }
-        .letter-small { font-family:'Baloo 2',system-ui,sans-serif; font-size:1.3em; font-weight:700; opacity:0.5; line-height:1; }
+        .letter-cap   { font-family: var(--f-display); font-size:2em; font-weight:800; line-height:1; }
+        .letter-small { font-family: var(--f-display); font-size:1.3em; font-weight:700; opacity:0.5; line-height:1; }
         .phonetic-text { font-weight:700; font-size:1.02em; }
-        .phonetic-sub  { font-size:0.75em; color:#888; font-style:italic; margin-top:2px; }
+        .phonetic-sub  { font-size:0.75em; color:var(--muted); font-style:italic; margin-top:2px; }
         .row-accent td:first-child { border-left:5px solid var(--row-color); }
         .row-accent .letter-cap    { color:var(--row-color); }
 
@@ -152,7 +156,7 @@
         .voice-btn {
             display:inline-flex; align-items:center; gap:5px;
             border:none; border-radius:99px; padding:6px 13px;
-            font-family:'Nunito',sans-serif; font-size:0.8em; font-weight:700;
+            font-family: var(--f-body); font-size:0.8em; font-weight:700;
             cursor:pointer; transition:all 0.2s; box-shadow:0 2px 6px rgba(0,0,0,0.13);
             color:white; white-space:nowrap;
         }
@@ -168,14 +172,14 @@
         .btn-nl       { background:#c03030; }
 
         /* ── WORD TABLE ── */
-        .word-display { font-family:'Baloo 2',system-ui,sans-serif; font-size:1.5em; font-weight:800; color:var(--dark); }
+        .word-display { font-family: var(--f-display); font-size:1.5em; font-weight:800; color:var(--dark); }
         .meaning-tag {
-            display:inline-block; background:#f0f0f0; color:#555;
+            display:inline-block; background:var(--surface-2); color:var(--muted);
             font-size:0.76em; font-weight:700; padding:3px 9px; border-radius:99px;
         }
         .lblock-row { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
         .lblock {
-            font-family:'Baloo 2',system-ui,sans-serif; font-size:1em; font-weight:800;
+            font-family: var(--f-display); font-size:1em; font-weight:800;
             width:32px; height:32px; border-radius:7px;
             display:flex; align-items:center; justify-content:center;
             color:white; box-shadow:0 2px 6px rgba(0,0,0,0.18); flex-shrink:0;
@@ -186,12 +190,12 @@
         .lblock-T{background:var(--T);} .lblock-M{background:var(--M);}
         .lblock-L{background:var(--L);} .lblock-E{background:var(--E);}
         .lblock-N{background:var(--N);} .lblock-U{background:var(--U);}
-        .sym { font-size:0.95em; font-weight:900; color:#bbb; }
-        tr.word-even { background:#fafeff; }
-        tr.word-odd  { background:#fff8f4; }
+        .sym { font-size:0.95em; font-weight:900; color:var(--muted); }
+        tr.word-even { background:var(--bg); }
+        tr.word-odd  { background:var(--surface); }
 
         /* ── DOUBLE LETTERS ── */
-        .combo-display { font-family:'Baloo 2',system-ui,sans-serif; font-size:1.8em; font-weight:800; letter-spacing:2px; }
+        .combo-display { font-family: var(--f-display); font-size:1.8em; font-weight:800; letter-spacing:2px; }
         .combo-type {
             display:inline-block; font-size:0.7em; font-weight:700;
             padding:2px 9px; border-radius:99px; color:white; margin-left:6px; vertical-align:middle;
@@ -211,6 +215,13 @@
     </style>
 </head>
 <body>
+<header class="topbar">
+  <a class="brand" href="DUTCH_Learning.html"><span class="brand-mark" aria-hidden="true">nl</span>Leren</a>
+  <div class="theme-switch" role="group" aria-label="Thema">
+    <button type="button" data-theme-btn="light" aria-pressed="true">Licht</button>
+    <button type="button" data-theme-btn="dark" aria-pressed="false">Donker</button>
+  </div>
+</header>
 <div class="page-wrapper">
 
     <div class="header">
@@ -274,25 +285,25 @@
         </div>
 
         <!-- Voice status bar -->
-        <div style="background:white;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.09);padding:16px 20px;margin-bottom:24px;">
-            <div id="voice-info" style="font-size:0.88em;font-weight:700;color:#888;margin-bottom:10px;">🔄 Loading Dutch voice...</div>
-            <div style="font-size:0.82em;color:#555;line-height:1.7;">
+        <div style="background:var(--bg);border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.09);padding:16px 20px;margin-bottom:24px;">
+            <div id="voice-info" style="font-size:0.88em;font-weight:700;color:var(--muted);margin-bottom:10px;">🔄 Loading Dutch voice...</div>
+            <div style="font-size:0.82em;color:var(--muted);line-height:1.7;">
                 <strong>💡 Note:</strong> The status bar above tells you which Dutch voice was found on your device.
                 <strong style="color:#c0392b;">⚠️ If you see a red warning</strong>, install a Dutch TTS voice:
                 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-top:10px;">
-                    <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:8px;padding:8px 12px;">
+                    <div style="background:color-mix(in srgb,#e67e22 12%,var(--bg));border-left:4px solid #e67e22;border-radius:8px;padding:8px 12px;">
                         <div style="font-weight:800;color:#e67e22;margin-bottom:2px;">🤖 Android</div>
                         Settings → General Management → Text-to-speech → Install <em>Google Dutch (nl-NL)</em>
                     </div>
-                    <div style="background:#f0f8ff;border-left:4px solid #2980b9;border-radius:8px;padding:8px 12px;">
+                    <div style="background:color-mix(in srgb,#2980b9 12%,var(--bg));border-left:4px solid #2980b9;border-radius:8px;padding:8px 12px;">
                         <div style="font-weight:800;color:#2980b9;margin-bottom:2px;">🍎 iOS / Mac</div>
                         Settings → Accessibility → Spoken Content → Voices → Dutch
                     </div>
-                    <div style="background:#f0fff4;border-left:4px solid #27ae60;border-radius:8px;padding:8px 12px;">
+                    <div style="background:color-mix(in srgb,#27ae60 12%,var(--bg));border-left:4px solid #27ae60;border-radius:8px;padding:8px 12px;">
                         <div style="font-weight:800;color:#27ae60;margin-bottom:2px;">🪟 Windows</div>
                         Settings → Time &amp; Language → Speech → Add Dutch voice
                     </div>
-                    <div style="background:#f5f0ff;border-left:4px solid #8e44ad;border-radius:8px;padding:8px 12px;">
+                    <div style="background:color-mix(in srgb,#8e44ad 12%,var(--bg));border-left:4px solid #8e44ad;border-radius:8px;padding:8px 12px;">
                         <div style="font-weight:800;color:#8e44ad;margin-bottom:2px;">🌐 Chrome Desktop</div>
                         Dutch voice usually comes with Google Chrome automatically
                     </div>
@@ -338,7 +349,7 @@
 
     </div><!-- /screen-lesson -->
 
-    <div style="text-align:center;margin-top:10px;font-size:1.1em;color:#888;">
+    <div style="text-align:center;margin-top:10px;font-size:1.1em;color:var(--muted);">
         🌟 Tap any 🔊 button to hear the pronunciation! 🌟
     </div>
 
@@ -375,7 +386,7 @@ function loadDutchVoice() {
         const isFemale  = FEMALE_HINTS.some(h => dutchVoice.name.toLowerCase().includes(h));
         const genderTag = isFemale ? ' 👩 female' : ' 👤';
         info.innerHTML  = '🔊 Dutch voice active: <strong>' + dutchVoice.name + '</strong>'
-                        + ' <span style="color:#aaa;font-weight:400">[' + dutchVoice.lang + isOnline + genderTag + ']</span>';
+                        + ' <span style="color:var(--muted);font-weight:400">[' + dutchVoice.lang + isOnline + genderTag + ']</span>';
         info.style.color = '#22b573';
     } else {
         info.textContent = '⚠️ No Dutch voice found on this device.';
@@ -643,6 +654,6 @@ renderDoubles();
 renderAlpha(1); renderWords(1);
 renderAlpha(2); renderWords(2);
 </script>
-    <script src="assets/site-nav.js"></script>
+<script src="assets/nl-core.js"></script>
 </body>
 </html>
