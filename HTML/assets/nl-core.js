@@ -24,7 +24,7 @@
     { file: 'stationery_learning.html', nl: 'Kantoorartikelen', en: 'Stationery', cat: 'Woordenschat', learner: 't1', flash: true },
     { file: 'family_tree_learning.html', nl: 'De familie', en: 'Family tree', cat: 'Woordenschat', learner: 't1', flash: true },
     { file: 'animals_learning.html', nl: 'Dieren', en: 'Animals', cat: 'Woordenschat', learner: 't1', flash: false },
-    { file: 'numbers_learning.html', nl: 'Getallen', en: 'Numbers & symbols', cat: 'Basis', learner: 't1', flash: false },
+    { file: 'numbers_learning.html', nl: 'Getallen', en: 'Numbers & symbols', cat: 'Basis', learner: 't1', flash: true },
     { file: 'time_learning.html', nl: 'De tijd', en: 'Time', cat: 'Basis', learner: 't1', flash: false },
     { file: 'greetings_learning.html', nl: 'Begroetingen', en: 'Greetings', cat: 'Basis', learner: 't1', flash: true },
     { file: 'seasons_months_learning.html', nl: 'Seizoenen', en: 'Seasons & months', cat: 'Basis', learner: 't1', flash: false },
