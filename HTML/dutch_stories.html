@@ -4,32 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dutch Stories for Kids 🌟</title>
+<meta name="referrer" content="no-referrer">
+<script src="assets/nl-theme-init.js"></script>
+<link rel="stylesheet" href="assets/nl-tokens.css">
+<link rel="stylesheet" href="assets/nl-topbar.css">
     <style>
         :root {
             --coral: #ff6b6b; --teal: #2ec4b6; --purple: #845ec2;
             --orange: #ff9a3c; --blue: #0095d9; --green: #22b573;
-            --yellow: #ffd166; --dark: #1a1a2e;
+            --yellow: #ffd166; --dark: var(--ink);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #fff9e6 0%, #ffecd2 30%, #d4f5e9 70%, #c8e6ff 100%);
+            font-family: var(--f-body);
+            background: var(--surface); color: var(--ink);
             min-height: 100vh; padding: 24px 16px 60px;
         }
         .page-wrapper { max-width: 860px; margin: 0 auto; }
 
         .header { text-align: center; margin-bottom: 32px; animation: dropIn 0.7s ease both; }
         .stars { font-size: 2em; letter-spacing: 4px; margin-bottom: 6px; }
-        h1 { font-family: 'Baloo 2', system-ui, sans-serif; font-size: 2.8em; font-weight: 900; color: var(--dark); line-height: 1.1; }
+        h1 { font-family: var(--f-display); font-size: 2.8em; font-weight: 900; color: var(--dark); line-height: 1.1; }
         h1 .accent { color: var(--coral); }
-        .subtitle { font-size: 1.05em; color: #666; margin-top: 6px; font-weight: 600; }
+        .subtitle { font-size: 1.05em; color: var(--muted); margin-top: 6px; font-weight: 600; }
 
         .letters-banner {
             display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 0 0 32px;
             animation: dropIn 0.7s 0.1s ease both; opacity: 0; animation-fill-mode: forwards;
         }
         .lbadge {
-            font-family: 'Baloo 2', system-ui, sans-serif; font-size: 1.2em; font-weight: 900;
+            font-family: var(--f-display); font-size: 1.2em; font-weight: 900;
             width: 44px; height: 44px; border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
             color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.18); transition: transform 0.15s;
@@ -47,9 +51,9 @@
             animation: dropIn 0.7s 0.2s ease both; opacity: 0; animation-fill-mode: forwards;
         }
         .tab-btn {
-            font-family: 'Baloo 2', system-ui, sans-serif; font-size: 1em; font-weight: 700;
+            font-family: var(--f-display); font-size: 1em; font-weight: 700;
             padding: 10px 22px; border: 3px solid transparent; border-radius: 99px;
-            cursor: pointer; background: white; color: #888;
+            cursor: pointer; background: var(--bg); color: var(--muted);
             transition: all 0.2s; box-shadow: 0 3px 10px rgba(0,0,0,0.09);
         }
         .tab-btn:hover { transform: translateY(-2px); color: var(--dark); }
@@ -61,32 +65,32 @@
         .story-panel { display: none; animation: riseUp 0.4s ease both; }
         .story-panel.active { display: block; }
 
-        .story-card { background: white; border-radius: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 24px; }
+        .story-card { background: var(--bg); border-radius: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 24px; }
         .story-header { padding: 22px 28px 16px; display: flex; align-items: center; gap: 16px; }
         .story-emoji {
-            font-size: 3em; width: 72px; height: 72px; background: #f8f8f8;
+            font-size: 3em; width: 72px; height: 72px; background: var(--surface);
             border-radius: 18px; display: flex; align-items: center; justify-content: center;
             flex-shrink: 0; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
-        .story-title { font-family: 'Baloo 2', system-ui, sans-serif; font-size: 1.5em; font-weight: 800; color: var(--dark); }
-        .story-english { font-size: 0.85em; color: #999; font-style: italic; margin-top: 2px; }
+        .story-title { font-family: var(--f-display); font-size: 1.5em; font-weight: 800; color: var(--dark); }
+        .story-english { font-size: 0.85em; color: var(--muted); font-style: italic; margin-top: 2px; }
 
         .sentences { padding: 8px 28px 24px; display: flex; flex-direction: column; gap: 12px; }
         .sentence-row {
             display: flex; align-items: flex-start; gap: 14px;
             padding: 14px 16px; border-radius: 16px; transition: all 0.2s;
-            background: #fafafa; border: 2px solid transparent;
+            background: var(--surface); border: 2px solid transparent;
         }
-        .sentence-row.reading { background: #fff8e1; border-color: var(--yellow); }
+        .sentence-row.reading { background: color-mix(in srgb, var(--yellow) 25%, var(--bg)); border-color: var(--yellow); }
 
         .sentence-num {
-            font-family: 'Baloo 2', system-ui, sans-serif; font-size: 0.85em; font-weight: 800;
-            width: 28px; height: 28px; border-radius: 50%; background: #eee;
+            font-family: var(--f-display); font-size: 0.85em; font-weight: 800;
+            width: 28px; height: 28px; border-radius: 50%; background: var(--surface-2);
             display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0; margin-top: 3px; color: #888;
+            flex-shrink: 0; margin-top: 3px; color: var(--muted);
         }
         .sentence-content { flex: 1; }
-        .dutch-text { font-family: 'Baloo 2', system-ui, sans-serif; font-size: 1.45em; font-weight: 700; color: var(--dark); line-height: 1.4; }
+        .dutch-text { font-family: var(--f-display); font-size: 1.45em; font-weight: 700; color: var(--dark); line-height: 1.4; }
         .hl { display: inline-block; border-radius: 6px; padding: 0 4px; margin: 0 1px; color: white; font-weight: 800; }
         .hl.O{background:var(--blue);} .hl.P{background:var(--coral);}
         .hl.S{background:var(--green);} .hl.K{background:var(--orange);}
@@ -94,12 +98,12 @@
         .hl.T{background:#e05c8a;} .hl.M{background:#7b5ea7;}
         .hl.L{background:#3d8b37;} .hl.E{background:#d4842a;}
         .hl.N{background:#1e7fc2;} .hl.U{background:#c0392b;}
-        .english-text { font-size: 0.88em; color: #888; margin-top: 5px; font-style: italic; }
+        .english-text { font-size: 0.88em; color: var(--muted); margin-top: 5px; font-style: italic; }
 
         .sentence-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
         .play-btn {
             border: none; border-radius: 99px; padding: 7px 14px;
-            font-family: 'Nunito', sans-serif; font-size: 0.8em; font-weight: 800;
+            font-family: var(--f-body); font-size: 0.8em; font-weight: 800;
             cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.13);
             white-space: nowrap; color: white;
         }
@@ -110,32 +114,32 @@
         @keyframes pulsebtn { from{box-shadow:0 0 0 0 rgba(0,0,0,0.2);} to{box-shadow:0 0 0 8px rgba(0,0,0,0);} }
 
         .progress-wrap { padding: 0 28px 20px; }
-        .progress-label { font-size: 0.85em; font-weight: 700; color: #888; margin-bottom: 6px; }
-        .progress-bar-bg { background: #f0f0f0; border-radius: 99px; height: 10px; overflow: hidden; }
+        .progress-label { font-size: 0.85em; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+        .progress-bar-bg { background: var(--surface-2); border-radius: 99px; height: 10px; overflow: hidden; }
         .progress-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--green), var(--teal)); transition: width 0.5s ease; }
 
         .read-all-wrap { padding: 0 28px 28px; display: flex; gap: 12px; flex-wrap: wrap; }
         .read-all-btn {
-            font-family: 'Baloo 2', system-ui, sans-serif; font-size: 1em; font-weight: 700;
+            font-family: var(--f-display); font-size: 1em; font-weight: 700;
             padding: 12px 26px; border: none; border-radius: 99px;
             cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 14px rgba(0,0,0,0.15); color: white;
         }
         .read-all-btn.story { background: linear-gradient(135deg, var(--coral), var(--orange)); }
-        .read-all-btn.reset { background: #ccc; color: #555; }
+        .read-all-btn.reset { background: var(--surface-2); color: var(--muted); }
         .read-all-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
 
         .celebration { text-align: center; padding: 20px; font-size: 2em; display: none; animation: popIn 0.5s ease both; }
 
-        .word-list-title { font-family: 'Baloo 2', system-ui, sans-serif; font-size: 1.1em; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
+        .word-list-title { font-family: var(--f-display); font-size: 1.1em; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
         .word-chips { display: flex; flex-wrap: wrap; gap: 8px; }
         .word-chip {
-            font-family: 'Baloo 2', system-ui, sans-serif; font-size: 1em; font-weight: 700;
-            padding: 6px 16px; border-radius: 99px; background: white;
+            font-family: var(--f-display); font-size: 1em; font-weight: 700;
+            padding: 6px 16px; border-radius: 99px; background: var(--bg);
             box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s;
-            color: var(--dark); border: 2px solid #eee;
+            color: var(--dark); border: 2px solid var(--surface-2);
         }
         .word-chip:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
-        .word-chip.speaking { border-color: var(--coral); background: #fff3f3; }
+        .word-chip.speaking { border-color: var(--coral); background: color-mix(in srgb, var(--coral) 15%, var(--bg)); }
 
         @keyframes dropIn { from{opacity:0;transform:translateY(-14px);} to{opacity:1;transform:translateY(0);} }
         @keyframes riseUp { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
@@ -148,6 +152,13 @@
     </style>
 </head>
 <body>
+<header class="topbar">
+  <a class="brand" href="DUTCH_Learning.html"><span class="brand-mark" aria-hidden="true">nl</span>Leren</a>
+  <div class="theme-switch" role="group" aria-label="Thema">
+    <button type="button" data-theme-btn="light" aria-pressed="true">Licht</button>
+    <button type="button" data-theme-btn="dark" aria-pressed="false">Donker</button>
+  </div>
+</header>
 <div class="page-wrapper">
 
     <div class="header">
@@ -498,6 +509,6 @@
         document.getElementById('story-'+num).classList.add('active');
     }
 </script>
-    <script src="assets/site-nav.js"></script>
+<script src="assets/nl-core.js"></script>
 </body>
 </html>
