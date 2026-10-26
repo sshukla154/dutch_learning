@@ -24,7 +24,7 @@ const classes = (app, name) => walk(app).filter((n) => n.attrs.class === name);
 
 test('a one-group page has no section chips and no stray text between the blocks', () => {
   const app = build({ file: 'greetings_learning.html', groups: [{ title: 'Woorden', en: 'Words', words: [word('Hoi', 'Hi'), word('Hallo', 'Hello')] }] });
-  assert.ok(app.children.every((c) => typeof c === 'object'), 'every child is an element');
+  assert.ok(app.children.every((c) => c !== null && typeof c === 'object'), 'every child is an element');
   assert.equal(classes(app, 'chips').length, 0);
   assert.equal(classes(app, 'panel').length, 1);
   assert.equal(classes(app, 'word').length, 2);

@@ -1,43 +1,39 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import vm from 'node:vm';
 import { fakeDocument, walk } from './fake-dom.mjs';
+import { coreSource, loadCore as load, memoryStorage, blockedStorage } from './load-core.mjs';
 
-// NL_CORE_PATH lets a planted-mistake copy be tested; without it the real script is used.
-const source = readFileSync(process.env.NL_CORE_PATH ?? new URL('../HTML/assets/nl-core.js', import.meta.url), 'utf8');
+// A stand-in for Date that only has the local calendar getters the streak reads, so no test depends on the machine's time zone.
+const at = (year, month, day) => ({ getFullYear: () => year, getMonth: () => month - 1, getDate: () => day });
 
-const memoryStorage = (initial = {}) => {
-  const data = { ...initial };
-  return { data, getItem: (k) => (Object.hasOwn(data, k) ? data[k] : null), setItem: (k, v) => { data[k] = String(v); } };
-};
-const blockedStorage = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); } };
-
-function load(storage, extra = {}) {
-  const sandbox = { window: {}, localStorage: storage, ...extra };
-  vm.runInNewContext(source, sandbox);
-  return sandbox.window.NL;
-}
-
-test('the lesson list matches the files and the two tracks', () => {
+test('the lesson list is complete and well formed', () => {
   const NL = load(memoryStorage());
   assert.equal(NL.LESSONS.length, 23);
   assert.equal(NL.lessonsOf('t1').length, 16);
   assert.equal(NL.lessonsOf('t2').length, 7);
-  for (const l of NL.LESSONS) assert.match(l.file, /^[a-z0-9_]+\.html$/);
   assert.equal(new Set(NL.LESSONS.map((l) => l.file)).size, 23);
+  assert.deepEqual(Object.keys(NL.LEARNERS), ['t1', 't2']);
+  for (const l of NL.LESSONS) {
+    assert.match(l.file, /^[a-z0-9_]+\.html$/);
+    assert.ok(NL.CATEGORIES.slice(1).includes(l.cat), `${l.file} has the unknown category ${l.cat}`);
+    assert.ok(Object.hasOwn(NL.LEARNERS, l.learner), `${l.file} has the unknown track ${l.learner}`);
+    assert.ok(typeof l.nl === 'string' && l.nl.trim() && typeof l.en === 'string' && l.en.trim(), `${l.file} needs both titles`);
+    assert.equal(typeof l.flash, 'boolean');
+  }
   assert.ok(NL.LESSONS.some((l) => l.file === 'stationery_learning.html'));
   assert.ok(NL.LESSONS.some((l) => l.file === 'verb_adjective_preposition.html'));
-  assert.deepEqual(Object.keys(NL.LEARNERS), ['t1', 't2']);
 });
 
 test('progress and the streak keep working when storage is blocked', () => {
   const NL = load(blockedStorage);
   NL.setDone('greetings_learning.html', true);
   assert.equal(NL.isDone('greetings_learning.html'), true);
+  assert.equal(NL.streak(), 1);
   NL.setDone('greetings_learning.html', false);
   assert.equal(NL.isDone('greetings_learning.html'), false);
   assert.equal(NL.learner(), 't1');
+  NL.setLearner('t2');
+  assert.equal(NL.learner(), 't2');
 });
 
 test('old ticks (an array of file names) are read and written back as an array', () => {
@@ -50,44 +46,105 @@ test('old ticks (an array of file names) are read and written back as an array',
   assert.deepEqual(saved.sort(), ['food_learning.html', 'future_page.html', 'shapes_learning.html']);
 });
 
-test('corrupt or hostile stored progress ticks nothing and does not throw', () => {
-  for (const raw of ['{', 'null', '"x"', '123', '{"__proto__":true,"constructor":true,"shapes_learning.html":true}', '[1,{"a":1},null]']) {
-    const NL = load(memoryStorage({ 'dutchLearning.done': raw }));
-    const done = [...NL.done()];
-    assert.ok(done.every((f) => f === 'shapes_learning.html'), `${raw} gave ${done}`);
-  }
-  const NL = load(memoryStorage({ 'dutchLearning.done': '["shapes_learning.html", "x"]' }));
+test('corrupt or hostile stored progress ticks only what is really known', () => {
+  const expected = [
+    ['{', []],
+    ['null', []],
+    ['"x"', []],
+    ['123', []],
+    ['[1,{"a":1},null]', []],
+    ['["shapes_learning.html","x"]', ['shapes_learning.html']],
+    ['{"__proto__":true,"constructor":true,"shapes_learning.html":true,"food_learning.html":false}', ['shapes_learning.html']],
+  ];
+  for (const [raw, done] of expected) assert.deepEqual([...load(memoryStorage({ 'dutchLearning.done': raw })).done()], done, raw);
+  const NL = load(memoryStorage({ 'dutchLearning.done': '["shapes_learning.html","x"]' }));
   assert.equal(NL.isDone('shapes_learning.html'), true);
   assert.equal(NL.isDone('constructor'), false);
 });
 
-test('the streak counts local calendar days and ignores bad stored values', () => {
-  const storage = memoryStorage();
-  const NL = load(storage);
-  const day = (d, h = 12, m = 0) => new Date(2026, 0, d, h, m);
-  NL.bumpStreak(day(1, 0, 30));
-  assert.equal(NL.streak(day(1, 23, 0)), 1);
-  NL.bumpStreak(day(1, 9));
-  assert.equal(NL.streak(day(1, 10)), 1, 'a second lesson on the same day does not count again');
-  NL.bumpStreak(day(2, 0, 10));
-  assert.equal(NL.streak(day(2, 12)), 2);
-  assert.equal(NL.streak(day(3, 12)), 2, 'still alive the day after');
-  assert.equal(NL.streak(day(4, 12)), 0, 'a missed day ends it');
-  NL.bumpStreak(day(5, 8));
-  assert.equal(NL.streak(day(5, 9)), 1);
-  for (const raw of ['{"last":"<img onerror=x>","count":"y"}', '{"last":"2026-01-05","count":-4}', '{"last":"2026-01-05","count":99999}', '[]', 'x']) {
-    const bad = load(memoryStorage({ 'dutchLearning.streak': raw }));
-    assert.equal(bad.streak(day(5, 9)), 0, raw);
+test('a lesson done on one day starts a streak that grows on consecutive local days', () => {
+  const NL = load(memoryStorage());
+  NL.bumpStreak(at(2026, 1, 1));
+  assert.equal(NL.streak(at(2026, 1, 1)), 1);
+  NL.bumpStreak(at(2026, 1, 1));
+  assert.equal(NL.streak(at(2026, 1, 1)), 1, 'a second lesson on the same day does not count again');
+  NL.bumpStreak(at(2026, 1, 2));
+  assert.equal(NL.streak(at(2026, 1, 2)), 2);
+  assert.equal(NL.streak(at(2026, 1, 3)), 2, 'still alive the day after');
+  assert.equal(NL.streak(at(2026, 1, 4)), 0, 'a missed day ends it');
+  NL.bumpStreak(at(2026, 1, 5));
+  assert.equal(NL.streak(at(2026, 1, 5)), 1, 'and the next lesson starts again from one');
+});
+
+test('the streak crosses month ends, a leap day, a year end and both daylight-saving changes', () => {
+  const runs = [
+    [[2025, 12, 31], [2026, 1, 1]],
+    [[2026, 2, 28], [2026, 3, 1]],
+    [[2028, 2, 28], [2028, 2, 29], [2028, 3, 1]],
+    [[2026, 3, 28], [2026, 3, 29], [2026, 3, 30]],
+    [[2026, 10, 24], [2026, 10, 25], [2026, 10, 26]],
+  ];
+  for (const run of runs) {
+    const NL = load(memoryStorage());
+    for (const [y, m, d] of run) NL.bumpStreak(at(y, m, d));
+    const [y, m, d] = run[run.length - 1];
+    assert.equal(NL.streak(at(y, m, d)), run.length, run.map((r) => r.join('-')).join(' > '));
   }
 });
 
-test('only a known track is accepted', () => {
+test('a streak value that is not a valid date and count is ignored', () => {
+  const bad = [
+    '{"last":"<img onerror=x>","count":3}',
+    '{"last":"2026-1-5","count":3}',
+    '{"last":"2026-01-05","count":-4}',
+    '{"last":"2026-01-05","count":99999}',
+    '{"last":"2026-01-05","count":"3"}',
+    '{"last":"2026-01-05","count":1.5}',
+    '[]',
+    'x',
+  ];
+  for (const raw of bad) assert.equal(load(memoryStorage({ 'dutchLearning.streak': raw })).streak(at(2026, 1, 5)), 0, raw);
+  assert.equal(load(memoryStorage({ 'dutchLearning.streak': '{"last":"2026-01-05","count":3}' })).streak(at(2026, 1, 5)), 3);
+});
+
+test('only a known track is accepted and a choice is remembered', () => {
   for (const raw of ['constructor', '__proto__', 'x', '', 'T1']) assert.equal(load(memoryStorage({ 'dutchLearning.learner': raw })).learner(), 't1', raw);
   const storage = memoryStorage({ 'dutchLearning.learner': 't2' });
   const NL = load(storage);
   assert.equal(NL.learner(), 't2');
   NL.setLearner('nope');
   assert.equal(storage.data['dutchLearning.learner'], 't2');
+  NL.setLearner('t1');
+  assert.equal(storage.data['dutchLearning.learner'], 't1');
+  assert.equal(NL.learner(), 't1');
+});
+
+test('the theme is dark or light, saved only when asked, and a stored value is checked', () => {
+  const document = fakeDocument();
+  const storage = memoryStorage();
+  const NL = load(storage, { document });
+  const theme = () => document.documentElement.getAttribute('data-theme');
+  assert.equal(theme(), 'light');
+  NL.setTheme('dark');
+  assert.equal(theme(), 'dark');
+  assert.equal(storage.data.theme, 'dark');
+  NL.setTheme('light', false);
+  assert.equal(theme(), 'light');
+  assert.equal(storage.data.theme, 'dark', 'applying a theme without saving leaves the saved one alone');
+  NL.setTheme('Dark');
+  assert.equal(theme(), 'light', 'only the exact word dark gives dark');
+  assert.equal(storage.data.theme, 'light');
+
+  const saved = memoryStorage({ theme: 'dark' });
+  const doc2 = fakeDocument();
+  load(saved, { document: doc2 });
+  assert.equal(doc2.documentElement.getAttribute('data-theme'), 'dark');
+  assert.equal(saved.data.theme, 'dark', 'loading a page never rewrites the saved theme');
+  for (const raw of ['evil', '"dark"', '']) {
+    const doc3 = fakeDocument();
+    load(memoryStorage({ theme: raw }), { document: doc3 });
+    assert.equal(doc3.documentElement.getAttribute('data-theme'), 'light', raw);
+  }
 });
 
 test('flashcard answers never repeat an English meaning', () => {
@@ -105,6 +162,23 @@ test('flashcard answers never repeat an English meaning', () => {
   const two = [{ nl: 'Ja', en: 'Yes' }, { nl: 'Nee', en: 'No' }];
   assert.equal(NL.pickOptions(two, two[0]).length, 2);
   assert.equal(NL.pickOptions([two[0]], two[0]).length, 1);
+});
+
+test('the answer to a Dutch word never offers another entry with the same Dutch word', () => {
+  const NL = load(memoryStorage());
+  const words = [
+    { nl: 'Nicht', en: 'Niece' }, { nl: 'Nicht', en: 'Cousin (female)' },
+    { nl: 'Oom', en: 'Uncle' }, { nl: 'Tante', en: 'Aunt' }, { nl: 'Opa', en: 'Grandfather' },
+  ];
+  for (let i = 0; i < 100; i++) assert.ok(!NL.pickOptions(words, words[0]).some((o) => o.en === 'Cousin (female)'));
+});
+
+test('the shuffle can move the first element', () => {
+  const NL = load(memoryStorage());
+  const list = [1, 2, 3, 4, 5, 6];
+  assert.ok(Array.from({ length: 200 }, () => NL.shuffle(list)[0]).some((first) => first !== 1));
+  assert.deepEqual([...NL.shuffle(list)].sort(), list);
+  assert.deepEqual(list, [1, 2, 3, 4, 5, 6], 'the input list is left alone');
 });
 
 test('the spoken text is the explicit say or the first of "a / b"', () => {
@@ -129,6 +203,20 @@ test('hostile strings stay text and attributes, never markup', () => {
   assert.ok(walk(host).some((n) => n.children.includes('<b>bold</b> & more')));
 });
 
+test('a word row marks its language and keeps both respellings', () => {
+  const NL = load(memoryStorage(), { document: fakeDocument() });
+  const host = fakeDocument().createElement('div');
+  NL.renderWords(host, [{ nl: 'Hallo', en: 'Hello', pron: 'HAH-loh', enPron: 'heh-LOH' }]);
+  const all = walk(host);
+  const dutch = all.find((n) => n.attrs.class === 'word-nl');
+  const english = all.find((n) => n.attrs.class === 'word-en');
+  assert.equal(dutch.attrs.lang, 'nl');
+  assert.equal(english.attrs.lang, 'en');
+  assert.ok(all.some((n) => n.attrs.class === 'word-pron' && n.text === 'HAH-loh'));
+  assert.ok(all.some((n) => n.attrs.class === 'word-pron' && n.text === 'heh-LOH'));
+  assert.equal(all.find((n) => n.attrs.class === 'play').attrs.type, 'button');
+});
+
 test('the photo link encodes the term and refuses anything shaped like a URL', () => {
   const NL = load(memoryStorage(), { document: fakeDocument() });
   assert.equal(NL.photoUrl('good morning greeting'), 'https://www.google.com/search?tbm=isch&q=good%20morning%20greeting');
@@ -136,21 +224,15 @@ test('the photo link encodes the term and refuses anything shaped like a URL', (
   for (const bad of ['https://evil.example/x', 'x://y', '', '   ', undefined, 5, 'x'.repeat(101)]) assert.equal(NL.photoUrl(bad), null, String(bad));
 });
 
-test('a word row shows the English respelling and a safe photo link, and no link without a term', () => {
+test('a word row shows a safe photo link, and no link without a term', () => {
   const NL = load(memoryStorage(), { document: fakeDocument() });
   const host = fakeDocument().createElement('div');
-  NL.renderWords(host, [
-    { nl: 'Hallo', en: 'Hello', pron: 'HAH-loh', enPron: 'heh-LOH', photo: 'hello greeting' },
-    { nl: 'Hoi', en: 'Hi' },
-  ]);
-  const all = walk(host);
-  const links = all.filter((n) => n.tag === 'a');
+  NL.renderWords(host, [{ nl: 'Hallo', en: 'Hello', photo: 'hello greeting' }, { nl: 'Hoi', en: 'Hi' }]);
+  const links = walk(host).filter((n) => n.tag === 'a');
   assert.equal(links.length, 1);
   assert.equal(links[0].attrs.href, 'https://www.google.com/search?tbm=isch&q=hello%20greeting');
   assert.equal(links[0].attrs.rel, 'noopener noreferrer');
   assert.equal(links[0].attrs.target, '_blank');
-  assert.ok(all.some((n) => n.attrs.class === 'word-pron' && n.text === 'heh-LOH'));
-  assert.ok(all.some((n) => n.attrs.class === 'word-pron' && n.text === 'HAH-loh'));
 });
 
 test('a symbol is shown as text, large for an emoji and in the display font for a numeral or sign', () => {
@@ -161,6 +243,6 @@ test('a symbol is shown as text, large for an emoji and in the display font for 
   assert.deepEqual(cells.map((n) => [n.attrs.class, n.text, n.attrs['aria-hidden']]), [['word-sym', '✏️', 'true'], ['word-sym word-sym-text', '+', 'true']]);
 });
 
-test('the script never writes markup from data', () => {
-  assert.doesNotMatch(source, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|\beval\s*\(|new Function/);
+test('the script never writes markup or loads code from data', () => {
+  assert.doesNotMatch(coreSource, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|createContextualFragment|DOMParser|\beval\s*\(|new Function|srcdoc/);
 });
