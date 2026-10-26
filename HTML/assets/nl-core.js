@@ -16,7 +16,7 @@
     { file: 'bouw_learning.html', nl: 'Bouw', en: 'Letters & words', cat: 'Woordenschat', learner: 't1', flash: false },
     { file: 'bouw_games.html', nl: 'Bouwspellen', en: 'Word games', cat: 'Spellen', learner: 't1', flash: false },
     { file: 'dutch_stories.html', nl: 'Verhalen', en: 'Stories', cat: 'Spellen', learner: 't1', flash: false },
-    { file: 'house_learning.html', nl: 'Het huis', en: 'House & household', cat: 'Woordenschat', learner: 't1', flash: false },
+    { file: 'house_learning.html', nl: 'Het huis', en: 'House & household', cat: 'Woordenschat', learner: 't1', flash: true },
     { file: 'days_months_weather_learning.html', nl: 'Dagen & maanden', en: 'Days, months & seasons', cat: 'Basis', learner: 't1', flash: false },
     { file: 'body_parts_learning.html', nl: 'Het lichaam', en: 'Body parts', cat: 'Woordenschat', learner: 't1', flash: false },
     { file: 'outdoor_learning.html', nl: 'Buiten', en: 'Outdoor', cat: 'Woordenschat', learner: 't1', flash: true },
