@@ -257,11 +257,25 @@
   // An emoji gets a large cell of its own; a plain numeral or sign is set in the display font.
   const symbolCell = (w) => (w.sym ? el('span', { class: /\p{Extended_Pictographic}/u.test(w.sym) ? 'word-sym' : 'word-sym word-sym-text', 'aria-hidden': 'true', text: w.sym }) : null);
 
+  // A drawn shape points at a symbol in the page's own SVG sprite; the id is checked, so data cannot reach anything else.
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const shapeCell = (w) => {
+    if (typeof w.shape !== 'string' || !/^[a-z0-9-]+$/.test(w.shape)) return null;
+    const svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('class', 'word-shape');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('aria-hidden', 'true');
+    const use = document.createElementNS(SVG_NS, 'use');
+    use.setAttribute('href', `#s-${w.shape}`);
+    svg.append(use);
+    return svg;
+  };
+
   // Word rows: a play button, an optional symbol, the Dutch word with its respelling, and the English meaning with its respelling and extras.
   NL.renderWords = (host, words) => {
     host.replaceChildren(...words.map((w) => el('div', { class: 'word' },
       playButton(w),
-      symbolCell(w),
+      symbolCell(w) || shapeCell(w),
       el('span', { class: 'word-nl', lang: 'nl' }, w.nl, w.pron ? el('span', { class: 'word-pron', lang: 'en', text: w.pron }) : null),
       el('span', { class: 'word-en', lang: 'en' }, w.en, w.enPron ? el('span', { class: 'word-pron', text: w.enPron }) : null, metaLine(w)))));
   };

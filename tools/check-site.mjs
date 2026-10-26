@@ -156,11 +156,12 @@ function checkPage(files, file, html, findings, { site = true } = {}) {
   try { vm.runInNewContext(text(files, dataPath), sandbox, { timeout: 2000 }); } catch (e) { findings.push(finding('data-file', dataPath, `does not run: ${e.message}`)); return; }
   const data = sandbox.window.NL_PAGE;
   if (data?.file !== name) findings.push(finding('file-mismatch', dataPath, `NL_PAGE.file is ${JSON.stringify(data?.file)}, expected ${name}`));
-  checkPageData(dataPath, data, findings);
+  const symbolIds = new Set([...markup.matchAll(/<symbol\b[^>]*\sid\s*=\s*["']s-([a-z0-9-]+)["']/gi)].map((m) => m[1]));
+  checkPageData(dataPath, data, findings, symbolIds);
 }
 
 // The renderer trusts this shape, so a typo in a data file is caught here instead of on the page.
-function checkPageData(path, data, findings) {
+function checkPageData(path, data, findings, symbolIds) {
   const bad = (detail) => findings.push(finding('data-file', path, detail));
   if (!Array.isArray(data?.groups) || !data.groups.length) { bad('groups must be a non-empty array'); return; }
   data.groups.forEach((g, i) => {
@@ -169,6 +170,7 @@ function checkPageData(path, data, findings) {
     g.words.forEach((w, k) => {
       if (typeof w?.nl !== 'string' || !w.nl.trim() || typeof w.en !== 'string' || !w.en.trim()) bad(`group ${i + 1} word ${k + 1} needs nl and en`);
       for (const key of ['pron', 'enPron', 'say', 'photo', 'sym']) if (w?.[key] !== undefined && typeof w[key] !== 'string') bad(`group ${i + 1} word ${k + 1}: ${key} must be a string`);
+      if (w?.shape !== undefined && !(typeof w.shape === 'string' && symbolIds.has(w.shape))) bad(`group ${i + 1} word ${k + 1}: shape ${JSON.stringify(w.shape)} has no symbol in the page`);
       if (w?.tags !== undefined && !(Array.isArray(w.tags) && w.tags.every((t) => typeof t === 'string'))) bad(`group ${i + 1} word ${k + 1}: tags must be a list of strings`);
       if (w?.sound !== undefined && !(typeof w.sound?.label === 'string' && typeof w.sound?.say === 'string')) bad(`group ${i + 1} word ${k + 1}: sound needs a label and a say`);
     });
@@ -340,6 +342,7 @@ export function selfTest() {
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("{ nl: 'a', en: 'b' }", ''))],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("en: 'b' }", "en: 'b', sym: 5 }")), /sym must be a string/],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("en: 'b' }", "en: 'b', tags: 'land' }")), /tags must be a list of strings/],
+    ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("en: 'b' }", "en: 'b', shape: 'zz' }")), /shape "zz" has no symbol in the page/],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("en: 'b' }", "en: 'b', sound: { label: 'x' } }")), /sound needs a label and a say/],
     ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace('b_page.html', 'B_page.html')), /bad file name B_page\.html/],
     ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace("{ file: 'b_page.html' }", "{ file: 'a_page.html' }")), /duplicate a_page\.html/],

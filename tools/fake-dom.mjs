@@ -26,6 +26,7 @@ export function fakeDocument() {
   const app = node('main');
   Object.assign(doc, {
     createElement: node,
+    createElementNS: (ns, tag) => Object.assign(node(tag), { ns }),
     documentElement: node('html'),
     getElementById: (id) => (id === 'app' ? app : null),
     addEventListener() {},

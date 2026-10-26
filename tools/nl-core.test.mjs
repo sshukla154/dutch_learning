@@ -263,6 +263,20 @@ test('labels and an animal sound sit with the photo link, and a row without any 
   assert.equal(all.filter((n) => n.tag === 'a').length, 1);
 });
 
+test('a shape row points at a symbol of the page sprite and refuses any other id', () => {
+  const NL = load(memoryStorage(), { document: fakeDocument() });
+  const host = fakeDocument().createElement('div');
+  NL.renderWords(host, [{ nl: 'Cirkel', en: 'Circle', shape: 'circle' }, { nl: 'Fout', en: 'Bad', shape: '"><script>' }, { nl: 'Plat', en: 'Plain' }]);
+  const svgs = walk(host).filter((n) => n.tag === 'svg');
+  assert.equal(svgs.length, 1);
+  assert.equal(svgs[0].ns, 'http://www.w3.org/2000/svg');
+  assert.equal(svgs[0].attrs.class, 'word-shape');
+  assert.equal(svgs[0].attrs['aria-hidden'], 'true');
+  const [use] = svgs[0].children;
+  assert.equal(use.tag, 'use');
+  assert.equal(use.attrs.href, '#s-circle');
+});
+
 test('the element builder drops script handlers given as text and links that are not relative or https', () => {
   const NL = load(memoryStorage(), { document: fakeDocument() });
   const a = NL.el('a', { href: 'javascript:alert(1)', onclick: 'alert(1)', text: 'x' });
