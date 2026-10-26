@@ -249,15 +249,17 @@
   };
 
   // Flashcards: Dutch word, four English answers. opts.count sets the deck size; opts.onFinish gets (score, total).
+  // opts.focus moves focus into the deck straight away, for a restart the user asked for.
   NL.flashcards = (host, words, opts = {}) => {
+    if (words.length < 2) { host.hidden = true; return; }
     const deck = NL.shuffle(words).slice(0, opts.count || Math.min(12, words.length));
     let index = 0;
     let score = 0;
 
     const render = (moveFocus) => {
       if (index >= deck.length) {
-        const again = el('button', { class: 'btn btn-accent', type: 'button', text: 'Opnieuw' });
-        again.addEventListener('click', () => NL.flashcards(host, words, opts));
+        const again = el('button', { class: 'btn btn-accent', type: 'button', 'aria-label': `Opnieuw. Score ${score} van ${deck.length}`, text: 'Opnieuw' });
+        again.addEventListener('click', () => NL.flashcards(host, words, { ...opts, focus: true }));
         host.replaceChildren(
           el('div', { class: 'panel-label' }, el('span', { text: 'Flashcards' }), el('span', { text: 'Klaar' })),
           el('div', { class: 'flash-word', text: `${score} / ${deck.length}` }),
@@ -291,10 +293,10 @@
         el('div', { class: 'panel-label' }, el('span', { text: 'Flashcard' }), el('span', { text: `${index + 1} / ${deck.length}` })),
         el('span', { class: 'track', 'aria-hidden': 'true' }, fill),
         el('div', { class: 'flash-word' }, el('span', { lang: 'nl', text: card.nl }), playButton(card)),
-        el('div', { class: 'answers' }, buttons),
+        el('div', { class: 'answers', role: 'group', 'aria-label': `Betekenis van ${card.nl}` }, buttons),
         el('div', { class: 'flash-foot' }, scoreText, next));
       if (moveFocus) buttons[0].focus({ preventScroll: true });
     };
-    render(false);
+    render(opts.focus === true);
   };
 })();
