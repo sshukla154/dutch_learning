@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dutch2026 - Quiz Game</title>
+<meta name="referrer" content="no-referrer">
+<script src="assets/nl-theme-init.js"></script>
+<link rel="stylesheet" href="assets/nl-tokens.css">
+<link rel="stylesheet" href="assets/nl-topbar.css">
     <style>
+        :root { --ok: #137a3a; --bad: #c0392b; }
+        [data-theme="dark"] { --ok: #6fdc8c; --bad: #ff8a80; }
         * {
             margin: 0;
             padding: 0;
@@ -12,17 +18,18 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: var(--f-body);
+            background: var(--surface);
+            color: var(--ink);
             padding: 20px;
-            color: #333;
+            color: var(--ink);
             min-height: 100vh;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: var(--bg);
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
@@ -47,13 +54,13 @@
         }
         
         .header h1 {
-            color: #667eea;
+            color: var(--ink);
             font-size: 3em;
             margin-bottom: 10px;
         }
         
         .header p {
-            color: #666;
+            color: var(--muted);
             font-size: 1.2em;
         }
         
@@ -74,15 +81,15 @@
         }
         
         .level-card.easy {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: #137a3a;
         }
         
         .level-card.medium {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: #9a5b00;
         }
         
         .level-card.hard {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            background: #c0392b;
         }
         
         .level-card:hover {
@@ -127,34 +134,34 @@
             align-items: center;
             margin-bottom: 40px;
             padding-bottom: 20px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid var(--accent);
         }
         
         .lesson-title h2 {
-            color: #667eea;
+            color: var(--ink);
             font-size: 2.5em;
             margin-bottom: 5px;
         }
         
         .lesson-title p {
-            color: #666;
+            color: var(--muted);
             font-size: 1.2em;
         }
         
         .back-btn {
             padding: 12px 25px;
-            background: #e5e7eb;
+            background: var(--surface-2);
             border: none;
             border-radius: 10px;
             font-size: 1.1em;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            color: #333;
+            color: var(--ink);
         }
         
         .back-btn:hover {
-            background: #d1d5db;
+            background: var(--surface-2);
             transform: translateY(-2px);
         }
         
@@ -165,8 +172,8 @@
         }
         
         .lesson-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--inverse-bg);
+            color: var(--inverse-ink);
             padding: 35px;
             border-radius: 15px;
             cursor: pointer;
@@ -211,17 +218,17 @@
             align-items: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid var(--accent);
         }
         
         .quiz-title h2 {
-            color: #667eea;
+            color: var(--ink);
             font-size: 2em;
             margin-bottom: 5px;
         }
         
         .quiz-title p {
-            color: #666;
+            color: var(--muted);
             font-size: 1.1em;
         }
         
@@ -230,7 +237,7 @@
             justify-content: space-around;
             margin-bottom: 30px;
             padding: 20px;
-            background: #f8f9fa;
+            background: var(--surface);
             border-radius: 12px;
             flex-wrap: wrap;
             gap: 15px;
@@ -242,14 +249,14 @@
         
         .stat-label {
             font-size: 0.9em;
-            color: #666;
+            color: var(--muted);
             margin-bottom: 5px;
         }
         
         .stat-value {
             font-size: 2em;
             font-weight: bold;
-            color: #667eea;
+            color: var(--ink);
         }
         
         .quiz-table {
@@ -259,8 +266,8 @@
         }
         
         .quiz-table thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--inverse-bg);
+            color: var(--inverse-ink);
         }
         
         .quiz-table th {
@@ -280,12 +287,12 @@
         }
         
         .quiz-table tbody tr {
-            border-bottom: 2px solid #e5e7eb;
+            border-bottom: 2px solid var(--surface-2);
             transition: background 0.3s;
         }
         
         .quiz-table tbody tr:hover {
-            background: #f8f9fa;
+            background: var(--surface);
         }
         
         .quiz-table td {
@@ -295,14 +302,14 @@
         .question-number {
             text-align: center;
             font-weight: bold;
-            color: #667eea;
+            color: var(--ink);
             font-size: 1.1em;
         }
         
         .english-word {
             font-size: 1.2em;
             font-weight: 600;
-            color: #1e3c72;
+            color: var(--ink);
         }
         
         .options-cell {
@@ -313,8 +320,8 @@
         
         .option-btn {
             padding: 12px 20px;
-            background: white;
-            border: 2px solid #e5e7eb;
+            background: var(--bg);
+            border: 2px solid var(--surface-2);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
@@ -324,26 +331,26 @@
         }
         
         .option-btn:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
+            border-color: var(--accent);
+            background: var(--surface);
         }
         
         .option-btn.selected {
-            border-color: #667eea;
-            background: #e0e7ff;
+            border-color: var(--accent);
+            background: color-mix(in srgb, var(--accent) 18%, var(--bg));
         }
         
         .option-btn.correct {
-            background: #dcfce7;
-            border-color: #10b981;
-            color: #065f46;
+            background: color-mix(in srgb, var(--ok) 14%, var(--bg));
+            border-color: var(--ok);
+            color: var(--ink);
             font-weight: 600;
         }
         
         .option-btn.wrong {
-            background: #fee2e2;
-            border-color: #ef4444;
-            color: #991b1b;
+            background: color-mix(in srgb, var(--bad) 14%, var(--bg));
+            border-color: var(--bad);
+            color: var(--ink);
             font-weight: 600;
         }
         
@@ -364,8 +371,8 @@
         
         .submit-btn {
             padding: 15px 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--inverse-bg);
+            color: var(--inverse-ink);
             border: none;
             border-radius: 12px;
             font-size: 1.3em;
@@ -388,7 +395,7 @@
             display: none;
             text-align: center;
             padding: 30px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: #137a3a;
             color: white;
             border-radius: 12px;
             margin-top: 20px;
@@ -416,6 +423,13 @@
     </style>
 </head>
 <body>
+<header class="topbar">
+  <a class="brand" href="DUTCH_Learning.html"><span class="brand-mark" aria-hidden="true">nl</span>Leren</a>
+  <div class="theme-switch" role="group" aria-label="Thema">
+    <button type="button" data-theme-btn="light" aria-pressed="true">Licht</button>
+    <button type="button" data-theme-btn="dark" aria-pressed="false">Donker</button>
+  </div>
+</header>
     <div class="container">
         <!-- Level Selection Page -->
         <div class="level-page" id="levelPage">
@@ -431,7 +445,7 @@
                     <h2>Easy</h2>
                     <div class="level-info">Basic essential words</div>
                     <div class="level-info">Perfect for beginners</div>
-                    <div class="word-count">500 Words • 10 Lessons</div>
+                    <div class="word-count" data-words="easy"></div>
                 </div>
                 
                 <div class="level-card medium" onclick="selectLevel('medium')">
@@ -439,7 +453,7 @@
                     <h2>Medium</h2>
                     <div class="level-info">Intermediate vocabulary</div>
                     <div class="level-info">Build your fluency</div>
-                    <div class="word-count">250 Words • 5 Lessons</div>
+                    <div class="word-count" data-words="medium"></div>
                 </div>
                 
                 <div class="level-card hard" onclick="selectLevel('hard')">
@@ -447,7 +461,7 @@
                     <h2>Hard</h2>
                     <div class="level-info">Advanced expressions</div>
                     <div class="level-info">Master Dutch</div>
-                    <div class="word-count">350 Words • 7 Lessons</div>
+                    <div class="word-count" data-words="hard"></div>
                 </div>
             </div>
         </div>
@@ -488,7 +502,7 @@
                 </div>
                 <div class="stat-item">
                     <div class="stat-label">Correct</div>
-                    <div class="stat-value" id="correctCount" style="color: #10b981;">0</div>
+                    <div class="stat-value" id="correctCount" style="color: var(--ok);">0</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-label">Score</div>
@@ -536,6 +550,11 @@
             medium: {wordsPerLesson: 50, totalLessons: 5},
             hard: {wordsPerLesson: 50, totalLessons: 7}
         };
+        // The level cards state how many words each level holds.
+        document.querySelectorAll('[data-words]').forEach(card => {
+            const count = wordsData[card.dataset.words].length;
+            card.textContent = `${count} Words • ${Math.ceil(count / 50)} Lessons`;
+        });
         
         function selectLevel(level) {
             currentLevel = level;
@@ -715,7 +734,7 @@
                 const resultCell = document.getElementById(`result-${index}`);
                 if (userAnswer) {
                     resultCell.textContent = isCorrect ? '✓' : '✗';
-                    resultCell.style.color = isCorrect ? '#10b981' : '#ef4444';
+                    resultCell.style.color = isCorrect ? 'var(--ok)' : 'var(--bad)';
                 }
                 
                 // Update option buttons
@@ -757,6 +776,6 @@
             document.getElementById('lessonPage').classList.add('active');
         }
     </script>
-    <script src="assets/site-nav.js"></script>
+<script src="assets/nl-core.js"></script>
 </body>
 </html>
