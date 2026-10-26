@@ -116,6 +116,7 @@ function checkPage(files, file, html, findings, { site = true } = {}) {
     const attrs = m[2];
     const rel = (attrOf(attrs, 'rel') ?? '').toLowerCase();
     if (tag === 'iframe' || tag === 'frame') findings.push(finding('load-external', file, tag));
+    if (converted && !ownCss && /\son[a-z]+\s*=/i.test(attrs)) findings.push(finding('state', file, `converted page has an inline event handler on <${tag}>`));
     if (tag === 'meta' && /refresh/i.test(attrOf(attrs, 'http-equiv') ?? '')) checkRefresh(files, file, attrOf(attrs, 'content') ?? '', findings);
     const style = attrOf(attrs, 'style');
     if (style) checkCss(files, file, style, findings);
@@ -162,6 +163,7 @@ function checkPage(files, file, html, findings, { site = true } = {}) {
   const data = sandbox.window.NL_PAGE;
   if (data?.file !== name) findings.push(finding('file-mismatch', dataPath, `NL_PAGE.file is ${JSON.stringify(data?.file)}, expected ${name}`));
   if (data?.reveal === true && !src(/assets\/nl-practice\.js/)) findings.push(finding('state', file, 'a practice page needs nl-practice.js'));
+  if (data?.content === true && !/\sid\s*=\s*["']content["']/.test(markup)) findings.push(finding('state', file, 'a content page needs an element with id="content"'));
   const symbolIds = new Set([...markup.matchAll(/<symbol\b[^>]*\sid\s*=\s*["']s-([a-z0-9-]+)["']/gi)].map((m) => m[1]));
   checkPageData(dataPath, data, findings, symbolIds);
 }
@@ -169,6 +171,7 @@ function checkPage(files, file, html, findings, { site = true } = {}) {
 // The renderer trusts this shape, so a typo in a data file is caught here instead of on the page.
 function checkPageData(path, data, findings, symbolIds) {
   const bad = (detail) => findings.push(finding('data-file', path, detail));
+  if (data?.content === true) return;
   if (!Array.isArray(data?.groups) || !data.groups.length) { bad('groups must be a non-empty array'); return; }
   data.groups.forEach((g, i) => {
     if (typeof g.title !== 'string' || typeof g.en !== 'string') bad(`group ${i + 1} needs title and en`);
@@ -390,6 +393,9 @@ export function selfTest() {
       return n;
     }, /does not run/],
     ['state', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("file: 'b_page.html'", "file: 'b_page.html', reveal: true")), /needs nl-practice\.js/],
+    ['state', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("file: 'b_page.html'", "file: 'b_page.html', content: true")), /needs an element with id="content"/],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main id="app">', '<main id="app" onclick="x()">')), /inline event handler on <main>/],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main id="app">', '<main id="app"><button onclick="x()">go</button>')), /inline event handler on <button>/],
     ['runtime-request', (f) => set(f, 'HTML/assets/nl-core.js', (t) => `${t}\nfetch("x");`), /script makes a network request/],
     ['runtime-request', (f) => set(f, 'HTML/data/b_page.js', (t) => `${t}\nnew Image().src = "x";`), /network request/],
     ['runtime-request', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('</body>', '<script>new EventSource("x")</script></body>')), /inline script/],

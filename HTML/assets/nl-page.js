@@ -49,6 +49,8 @@
   function build() {
     // A practice page hides the answers instead of showing word rows and flashcards.
     const practice = page.reveal === true;
+    // A reference page keeps its written content in the shell, in the #content element, and only gains the header around it.
+    const content = page.content === true ? document.getElementById('content') : null;
     const flash = el('div', { class: 'flash', id: 'flashcards', role: 'region', 'aria-label': 'Flashcards' });
     const practiceHost = el('div', { class: 'groups' });
     const head = header();
@@ -56,15 +58,17 @@
       topbar(),
       head.node,
       el('p', { class: 'voice-note', role: 'note', text: 'Er is geen Nederlandse stem op dit apparaat gevonden: het geluid kan ontbreken.' }),
-      groups.length > 1 ? el('nav', { class: 'chips', 'aria-label': 'Secties' }, groups.map((g, i) => el('a', { class: 'chip', href: `#g${i}`, text: g.title }))) : null,
-      practice ? practiceHost : el('section', { class: 'split' }, el('div', { class: 'groups' }, groups.map(groupPanel)), allWords.length > 1 ? flash : null),
+      !content && groups.length > 1 ? el('nav', { class: 'chips', 'aria-label': 'Secties' }, groups.map((g, i) => el('a', { class: 'chip', href: `#g${i}`, text: g.title }))) : null,
+      content || (practice ? practiceHost : el('section', { class: 'split' }, el('div', { class: 'groups' }, groups.map(groupPanel)), allWords.length > 1 ? flash : null)),
       ...notes.map(NL.note),
     ];
     // replaceChildren turns a null into the text "null", unlike el().
     app.replaceChildren(...parts.filter(Boolean));
     // The theme buttons were just created, so the saved theme has to be marked on them again.
     NL.setTheme(document.documentElement.getAttribute('data-theme'), false);
-    if (practice) {
+    if (content) {
+      // Nothing more to build.
+    } else if (practice) {
       NL.practice(practiceHost, groups, page.practice);
     } else if (allWords.length > 1) {
       NL.flashcards(flash, allWords, { count: 12, onFinish: (score, total) => { if (score / total >= 0.8) { NL.setDone(page.file, true); head.sync(); } } });

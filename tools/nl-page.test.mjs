@@ -8,8 +8,9 @@ const read = (name) => readFileSync(new URL(`../HTML/assets/${name}`, import.met
 const storage = { getItem: () => null, setItem() {} };
 
 // Runs the shared script and the page builder against a fake page and returns the #app element.
-function build(page, flash) {
+function build(page, flash, prepare) {
   const document = fakeDocument();
+  if (prepare) prepare(document);
   const sandbox = { document, localStorage: storage };
   sandbox.window = sandbox;
   sandbox.NL_PAGE = page;
@@ -74,4 +75,16 @@ test('the Flashcards link follows the lesson flag, not the page content', () => 
   const linkTexts = (flash) => walk(build(page, flash)).filter((n) => n.tag === 'a').map((a) => a.text);
   assert.ok(linkTexts(true).includes('Flashcards'));
   assert.ok(!linkTexts(false).includes('Flashcards'));
+});
+
+test('a reference page keeps the written content of its shell and gains the header around it', () => {
+  const content = { tag: 'div', attrs: { id: 'content' }, children: ['written text'], text: '' };
+  const app = build({ file: 'dutch_grammar.html', content: true, groups: [] }, undefined, (document) => { document.ids.content = content; });
+  assert.ok(app.children.includes(content), 'the content element is part of the page');
+  assert.ok(app.children.every((c) => c !== null && typeof c === 'object'));
+  assert.equal(classes(app, 'lesson-head').length, 1);
+  assert.equal(classes(app, 'chips').length, 0);
+  assert.equal(classes(app, 'split').length, 0);
+  assert.equal(classes(app, 'flash').length, 0);
+  assert.equal(app.children.indexOf(content), app.children.length - 1 - 0, 'the content comes after the header');
 });
