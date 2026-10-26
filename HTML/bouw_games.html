@@ -271,13 +271,13 @@ h1 span { color:var(--coral); }
     <div class="lcard l1" onclick="launchLesson(1)">
       <span class="ico">1️⃣</span>
       <h2>Lesson 1</h2>
-      <p>24 words using letters<br><strong>O · P · S · K · I · A</strong></p>
+      <p><span data-lesson-count="1">24</span> words using letters<br><strong>O · P · S · K · I · A</strong></p>
       <button class="go-btn btn-blue">Play Lesson 1 →</button>
     </div>
     <div class="lcard l2" onclick="launchLesson(2)">
       <span class="ico">2️⃣</span>
       <h2>Lesson 2</h2>
-      <p>114 words using letters<br><strong>T · M · L · E · N · U</strong> + all previous</p>
+      <p><span data-lesson-count="2">115</span> words using letters<br><strong>T · M · L · E · N · U</strong> + all previous</p>
       <button class="go-btn btn-purple">Play Lesson 2 →</button>
     </div>
   </div>
@@ -482,6 +482,9 @@ const ALL_WORDS = {
     ['Tuk','Tuck','🛏️'],['Pul','Pull','↩️'],['Kun','Can (plural)','✅'],
   ]
 };
+
+// The card counts come from the data so they cannot drift from the lessons.
+document.querySelectorAll('[data-lesson-count]').forEach((el) => { el.textContent = ALL_WORDS[el.dataset.lessonCount].length; });
 
 /* ════ STATE ════ */
 const GAME_ORDER = ['listen','spell','match','meaning'];

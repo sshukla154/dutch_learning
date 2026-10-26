@@ -238,7 +238,7 @@
                 <span class="tile-icon">📖</span>
                 <div class="tile-title">Lesson 1</div>
                 <div class="tile-desc">Letters O, P, S, K, I, A — sounds &amp; first words</div>
-                <div><span class="tile-count cnt-1">24 words</span></div>
+                <div><span class="tile-count cnt-1" data-lesson-count="1">24 words</span></div>
                 <button class="tile-open-btn">Open Lesson →</button>
             </div>
 
@@ -246,7 +246,7 @@
                 <span class="tile-icon">📖</span>
                 <div class="tile-title">Lesson 2</div>
                 <div class="tile-desc">Letters T, M, L, E, N, U — new sounds &amp; more words</div>
-                <div><span class="tile-count cnt-2">114 words</span></div>
+                <div><span class="tile-count cnt-2" data-lesson-count="2">115 words</span></div>
                 <button class="tile-open-btn">Open Lesson →</button>
             </div>
 
@@ -525,6 +525,9 @@ const WORDS = {
         ['Pul','Pull'],['Kun','Can (plural)'],
     ]
 };
+
+// The tile counts come from the data so they cannot drift from the lessons.
+document.querySelectorAll('[data-lesson-count]').forEach((el) => { el.textContent = new Set(WORDS[el.dataset.lessonCount].map((w) => w[0])).size + ' words'; });
 
 /* ── RENDER ALPHABET TABLE ── */
 function renderAlpha(lesson) {
