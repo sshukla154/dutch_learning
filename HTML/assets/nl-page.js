@@ -46,28 +46,27 @@
   // A tip and any further notes sit under the lesson; a note's text is one line or an array of lines.
   const notes = [...(page.tip ? [{ label: 'Tip', text: page.tip }] : []), ...(page.notes || [])];
 
-  function noteBlock(note) {
-    const lines = [].concat(note.text);
-    return el('p', { class: 'tip', lang: 'en' }, el('strong', { text: `${note.label}: ` }),
-      lines.length === 1 ? lines[0] : lines.map((line) => el('span', { class: 'tip-line', text: line })));
-  }
-
   function build() {
+    // A practice page hides the answers instead of showing word rows and flashcards.
+    const practice = page.reveal === true;
     const flash = el('div', { class: 'flash', id: 'flashcards', role: 'region', 'aria-label': 'Flashcards' });
+    const practiceHost = el('div', { class: 'groups' });
     const head = header();
     const parts = [
       topbar(),
       head.node,
       el('p', { class: 'voice-note', role: 'note', text: 'Er is geen Nederlandse stem op dit apparaat gevonden: het geluid kan ontbreken.' }),
       groups.length > 1 ? el('nav', { class: 'chips', 'aria-label': 'Secties' }, groups.map((g, i) => el('a', { class: 'chip', href: `#g${i}`, text: g.title }))) : null,
-      el('section', { class: 'split' }, el('div', { class: 'groups' }, groups.map(groupPanel)), allWords.length > 1 ? flash : null),
-      ...notes.map(noteBlock),
+      practice ? practiceHost : el('section', { class: 'split' }, el('div', { class: 'groups' }, groups.map(groupPanel)), allWords.length > 1 ? flash : null),
+      ...notes.map(NL.note),
     ];
     // replaceChildren turns a null into the text "null", unlike el().
     app.replaceChildren(...parts.filter(Boolean));
     // The theme buttons were just created, so the saved theme has to be marked on them again.
     NL.setTheme(document.documentElement.getAttribute('data-theme'), false);
-    if (allWords.length > 1) {
+    if (practice) {
+      NL.practice(practiceHost, groups, page.practice);
+    } else if (allWords.length > 1) {
       NL.flashcards(flash, allWords, { count: 12, onFinish: (score, total) => { if (score / total >= 0.8) { NL.setDone(page.file, true); head.sync(); } } });
     }
   }

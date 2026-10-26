@@ -165,6 +165,13 @@
   };
   NL.el = el;
 
+  // A labelled note: the label in bold, then one line of text or several lines.
+  NL.note = (note) => {
+    const lines = [].concat(note.text);
+    return el('p', { class: 'tip', lang: 'en' }, el('strong', { text: `${note.label}: ` }),
+      lines.length === 1 ? lines[0] : lines.map((line) => el('span', { class: 'tip-line', text: line })));
+  };
+
   const root = document.documentElement;
 
   // Theme: the head script has already applied the saved one; a click is the only thing that saves.
@@ -235,6 +242,7 @@
   });
 
   const playButton = (word) => el('button', { class: 'play', type: 'button', 'data-say': NL.spoken(word), 'aria-label': `Luister: ${word.nl}`, text: '▶' });
+  NL.playButton = playButton;
 
   // The picture search is a click-only link; the term is encoded and anything shaped like a URL is refused.
   const PHOTO_BASE = 'https://www.google.com/search?tbm=isch&q=';

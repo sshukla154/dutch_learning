@@ -156,6 +156,7 @@ function checkPage(files, file, html, findings, { site = true } = {}) {
   try { vm.runInNewContext(text(files, dataPath), sandbox, { timeout: 2000 }); } catch (e) { findings.push(finding('data-file', dataPath, `does not run: ${e.message}`)); return; }
   const data = sandbox.window.NL_PAGE;
   if (data?.file !== name) findings.push(finding('file-mismatch', dataPath, `NL_PAGE.file is ${JSON.stringify(data?.file)}, expected ${name}`));
+  if (data?.reveal === true && !src(/assets\/nl-practice\.js/)) findings.push(finding('state', file, 'a practice page needs nl-practice.js'));
   const symbolIds = new Set([...markup.matchAll(/<symbol\b[^>]*\sid\s*=\s*["']s-([a-z0-9-]+)["']/gi)].map((m) => m[1]));
   checkPageData(dataPath, data, findings, symbolIds);
 }
@@ -375,6 +376,7 @@ export function selfTest() {
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<script src="assets/nl-core.js"></script>', '')), /missing nl-core\.js/],
     ['state', (f) => without(f, 'HTML/data/b_page.js'), /missing HTML\/data\/b_page\.js/],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', () => 'throw new Error("x");'), /does not run/],
+    ['state', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("file: 'b_page.html'", "file: 'b_page.html', reveal: true")), /needs nl-practice\.js/],
     ['runtime-request', (f) => set(f, 'HTML/assets/nl-core.js', (t) => `${t}\nfetch("x");`), /script makes a network request/],
     ['runtime-request', (f) => set(f, 'HTML/data/b_page.js', (t) => `${t}\nnew Image().src = "x";`), /network request/],
     ['runtime-request', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('</body>', '<script>new EventSource("x")</script></body>')), /inline script/],
