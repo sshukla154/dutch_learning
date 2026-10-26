@@ -102,6 +102,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .word-nl { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; font: 600 20px var(--f-display); overflow-wrap: anywhere; }
 .word-pron { font: 400 12px var(--f-mono); color: var(--muted); }
 .word-en { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; max-width: 45%; font-size: 15px; color: var(--muted); text-align: right; overflow-wrap: anywhere; }
+.word-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 4px 8px; }
+.tag { font: 700 12px var(--f-body); background: var(--surface-2); color: var(--ink); border-radius: var(--r-pill); padding: 3px 10px; }
+.sound { font: 700 12px var(--f-body); background: var(--accent); color: var(--on-accent); border-radius: var(--r-pill); padding: 4px 12px; min-height: 28px; }
+.sound.speaking { outline: 3px solid var(--ink); outline-offset: 2px; }
 .photo { display: inline-flex; align-items: center; min-height: 28px; font: 700 12px var(--f-body); color: var(--muted); text-decoration: underline; }
 .fact { background: var(--bg); border-radius: var(--r-item); padding: 12px 14px; font-size: 14px; color: var(--muted); }
 .fact strong { color: var(--ink); }
@@ -142,6 +146,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .kbd { display: none; }
   .panel { padding: 16px; }
   .answers { grid-template-columns: 1fr; }
+  .word-meta { justify-content: flex-start; }
   .word { flex-wrap: wrap; row-gap: 6px; }
   .word-nl { flex: 1 1 140px; }
   .word-en { flex: 1 1 100%; flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; max-width: none; padding-left: 58px; text-align: left; }
@@ -159,7 +164,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 @media print {
   :root[data-theme] { --ink: #000000; --muted: #333333; --bg: #ffffff; --surface: #ffffff; --surface-2: #eeeeee; }
-  .topbar, .flash, .btn-row, .chips, .back, .play, .voice-note { display: none; }
+  .topbar, .flash, .btn-row, .chips, .back, .play, .sound, .voice-note { display: none; }
   body { padding: 0; background: #ffffff; color: #000000; }
   .frame { border: 0; padding: 0; background: #ffffff; }
   .panel, .word { background: #ffffff; }

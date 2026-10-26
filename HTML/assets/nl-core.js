@@ -222,7 +222,7 @@
   });
   document.addEventListener('click', (e) => {
     const b = e.target.closest('[data-say]');
-    if (b) NL.speak(b.dataset.say, b, { lang: b.dataset.lang, pitch: Number(b.dataset.pitch) || 0 });
+    if (b) NL.speak(b.dataset.say, b, { lang: b.dataset.lang, rate: Number(b.dataset.rate) || 0, pitch: Number(b.dataset.pitch) || 0 });
   });
 
   // Ctrl/Cmd+K focuses the search box where a page has one.
@@ -245,16 +245,25 @@
     return href ? el('a', { class: 'photo', href, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `Foto van ${w.nl} (nieuw tabblad)`, text: 'Foto' }) : null;
   };
 
+  // An animal sound is English text read at a higher pitch, not a Dutch word.
+  const soundButton = (w) => (w.sound ? el('button', { class: 'sound', type: 'button', 'data-say': w.sound.say, 'data-lang': 'en-US', 'data-rate': '0.9', 'data-pitch': '1.2', 'aria-label': `Geluid: ${w.sound.label}`, text: `🔊 ${w.sound.label}` }) : null);
+
+  // Labels, the sound button and the picture link sit together under the English meaning.
+  const metaLine = (w) => {
+    const items = [...(w.tags || []).map((t) => el('span', { class: 'tag', text: t })), soundButton(w), photoLink(w)].filter(Boolean);
+    return items.length ? el('span', { class: 'word-meta' }, items) : null;
+  };
+
   // An emoji gets a large cell of its own; a plain numeral or sign is set in the display font.
   const symbolCell = (w) => (w.sym ? el('span', { class: /\p{Extended_Pictographic}/u.test(w.sym) ? 'word-sym' : 'word-sym word-sym-text', 'aria-hidden': 'true', text: w.sym }) : null);
 
-  // Word rows: a play button, an optional symbol, the Dutch word with its respelling, and the English meaning with its respelling and photo link.
+  // Word rows: a play button, an optional symbol, the Dutch word with its respelling, and the English meaning with its respelling and extras.
   NL.renderWords = (host, words) => {
     host.replaceChildren(...words.map((w) => el('div', { class: 'word' },
       playButton(w),
       symbolCell(w),
       el('span', { class: 'word-nl', lang: 'nl' }, w.nl, w.pron ? el('span', { class: 'word-pron', lang: 'en', text: w.pron }) : null),
-      el('span', { class: 'word-en', lang: 'en' }, w.en, w.enPron ? el('span', { class: 'word-pron', text: w.enPron }) : null, photoLink(w)))));
+      el('span', { class: 'word-en', lang: 'en' }, w.en, w.enPron ? el('span', { class: 'word-pron', text: w.enPron }) : null, metaLine(w)))));
   };
 
   // Flashcards: Dutch word, four English answers. opts.count sets the deck size; opts.onFinish gets (score, total).

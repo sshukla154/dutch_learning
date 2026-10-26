@@ -243,6 +243,26 @@ test('a symbol is shown as text, large for an emoji and in the display font for 
   assert.deepEqual(cells.map((n) => [n.attrs.class, n.text, n.attrs['aria-hidden']]), [['word-sym', '✏️', 'true'], ['word-sym word-sym-text', '+', 'true']]);
 });
 
+test('labels and an animal sound sit with the photo link, and a row without any has no extras line', () => {
+  const NL = load(memoryStorage(), { document: fakeDocument() });
+  const host = fakeDocument().createElement('div');
+  NL.renderWords(host, [
+    { nl: 'Hond', en: 'Dog', tags: ['🏡 Land', '🌊 Water'], sound: { label: 'Woef!', say: 'Woof woof!' }, photo: 'dog' },
+    { nl: 'Kat', en: 'Cat' },
+  ]);
+  const all = walk(host);
+  const metas = all.filter((n) => n.attrs.class === 'word-meta');
+  assert.equal(metas.length, 1);
+  assert.deepEqual(all.filter((n) => n.attrs.class === 'tag').map((n) => n.text), ['🏡 Land', '🌊 Water']);
+  const [sound] = all.filter((n) => n.attrs.class === 'sound');
+  assert.equal(sound.tag, 'button');
+  assert.equal(sound.attrs.type, 'button');
+  assert.equal(sound.text, '🔊 Woef!');
+  assert.equal(sound.attrs['aria-label'], 'Geluid: Woef!');
+  assert.deepEqual([sound.attrs['data-say'], sound.attrs['data-lang'], sound.attrs['data-pitch'], sound.attrs['data-rate']], ['Woof woof!', 'en-US', '1.2', '0.9']);
+  assert.equal(all.filter((n) => n.tag === 'a').length, 1);
+});
+
 test('the element builder drops script handlers given as text and links that are not relative or https', () => {
   const NL = load(memoryStorage(), { document: fakeDocument() });
   const a = NL.el('a', { href: 'javascript:alert(1)', onclick: 'alert(1)', text: 'x' });
