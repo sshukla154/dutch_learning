@@ -41,13 +41,17 @@
 
   // Storage can be blocked (private windows, site data off); the page then keeps its state in memory.
   const memory = {};
+  // Keys whose last write failed: memory holds the newer value, so it must win over what storage still has.
+  const unsaved = new Set();
   const store = {
     get(key) {
-      try {
-        const value = localStorage.getItem(key);
-        if (value !== null) return value;
-      } catch (e) {
-        // Blocked: fall through to memory.
+      if (!unsaved.has(key)) {
+        try {
+          const value = localStorage.getItem(key);
+          if (value !== null) return value;
+        } catch (e) {
+          // Blocked: fall through to memory.
+        }
       }
       return Object.hasOwn(memory, key) ? memory[key] : null;
     },
@@ -55,8 +59,9 @@
       memory[key] = value;
       try {
         localStorage.setItem(key, value);
+        unsaved.delete(key);
       } catch (e) {
-        // Blocked: the value lives in memory until the page closes.
+        unsaved.add(key);
       }
     },
   };
@@ -149,16 +154,21 @@
   if (typeof document === 'undefined') return;
 
   // Builds elements with textContent and attributes only, so data can never become markup.
-  const SAFE_URL = /^(?:https:\/\/|[^:]*$)/i;
+  // A link may be https or relative (no scheme, not starting with // or a backslash).
+  const SAFE_URL = /^(?:https:\/\/[^/\\]|[^:/\\][^:]*$)/i;
+  const URL_KEYS = new Set(['href', 'src', 'poster', 'data', 'action', 'formaction', 'background', 'xlink:href']);
+  // style and srcdoc carry markup or code; srcset is a list of addresses that cannot be checked as one.
+  const BLOCKED_KEYS = new Set(['style', 'srcdoc', 'srcset']);
   const el = (tag, props = {}, ...children) => {
     const node = document.createElement(tag);
-    for (const [key, value] of Object.entries(props)) {
+    for (const [rawKey, value] of Object.entries(props)) {
+      const key = rawKey.toLowerCase();
       if (value === undefined || value === null || value === false) continue;
-      if (key === 'class') node.className = value;
-      else if (key === 'text') node.textContent = value;
+      if (rawKey === 'class') node.className = value;
+      else if (rawKey === 'text') node.textContent = value;
       else if (key.startsWith('on')) { if (typeof value === 'function') node.addEventListener(key.slice(2), value); }
-      else if ((key === 'href' || key === 'src') && !SAFE_URL.test(String(value))) continue;
-      else node.setAttribute(key, value === true ? '' : String(value));
+      else if (BLOCKED_KEYS.has(key) || (URL_KEYS.has(key) && !SAFE_URL.test(String(value)))) continue;
+      else node.setAttribute(rawKey, value === true ? '' : String(value));
     }
     for (const child of children.flat()) if (child !== null && child !== undefined) node.append(child);
     return node;
@@ -241,7 +251,8 @@
     }
   });
 
-  const playButton = (word) => el('button', { class: 'play', type: 'button', 'data-say': NL.spoken(word), 'aria-label': `Luister: ${word.nl}`, text: '▶' });
+  // The name says which word is read; a practice row passes its own, because the Dutch is the hidden answer there.
+  const playButton = (word, label = `Luister: ${word.nl}`) => el('button', { class: 'play', type: 'button', 'data-say': NL.spoken(word), 'aria-label': label, text: '▶' });
   NL.playButton = playButton;
 
   // The picture search is a click-only link; the term is encoded and anything shaped like a URL is refused.

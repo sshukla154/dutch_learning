@@ -310,6 +310,37 @@ test('the element builder drops script handlers given as text and links that are
   assert.equal(clicked, 1);
 });
 
+test('the element builder checks keys without regard to case and refuses every other way to smuggle in a script or another site', () => {
+  const NL = load(memoryStorage(), { document: fakeDocument() });
+  const attrs = (props) => NL.el('a', props).attrs;
+  assert.equal(attrs({ HREF: 'javascript:alert(1)' }).HREF, undefined);
+  assert.equal(attrs({ href: '//evil.example/x' }).href, undefined, 'a scheme-relative address is another site');
+  assert.equal(attrs({ href: '\\\\evil.example\\x' }).href, undefined, 'nor is a backslash address');
+  assert.equal(attrs({ href: 'https:///x' }).href, undefined);
+  assert.equal(attrs({ href: 'HTTP://evil.example' }).href, undefined, 'plain http is not accepted either');
+  assert.equal(attrs({ href: '' }).href, undefined);
+  for (const key of ['action', 'formaction', 'srcset', 'poster', 'data', 'background', 'src']) assert.equal(attrs({ [key]: 'javascript:x' })[key], undefined, key);
+  assert.equal(attrs({ srcset: 'https://example.com/a.png 1x' }).srcset, undefined, 'a list of addresses cannot be checked, so it is refused');
+  for (const key of ['style', 'STYLE', 'srcdoc']) assert.equal(attrs({ [key]: 'x' })[key], undefined, key);
+  assert.deepEqual(NL.el('button', { ONCLICK: 'alert(1)' }).listeners, {});
+  assert.equal(attrs({ href: 'https://www.google.com/search?q=a' }).href, 'https://www.google.com/search?q=a');
+  assert.equal(attrs({ href: 'page.html#x' }).href, 'page.html#x');
+  assert.equal(attrs({ 'data-say': 'a:b' })['data-say'], 'a:b', 'data attributes may hold any text');
+});
+
+test('a value that could not be saved stays in force for the rest of the visit', () => {
+  const data = { 'dutchLearning.done': JSON.stringify(['food_learning.html']) };
+  let full = false;
+  const storage = { getItem: (k) => (Object.hasOwn(data, k) ? data[k] : null), setItem(k, v) { if (full) throw new Error('quota'); data[k] = String(v); } };
+  const NL = load(storage);
+  full = true;
+  NL.setDone('house_learning.html', true);
+  assert.deepEqual([...NL.done()].sort(), ['food_learning.html', 'house_learning.html'], 'the newer list wins over the older stored one');
+  full = false;
+  NL.setDone('shapes_learning.html', true);
+  assert.deepEqual(JSON.parse(data['dutchLearning.done']).sort(), ['food_learning.html', 'house_learning.html', 'shapes_learning.html'], 'once saving works again the stored value catches up');
+});
+
 test('the script never writes markup or loads code from data', () => {
-  assert.doesNotMatch(coreSource, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|createContextualFragment|DOMParser|\beval\s*\(|new Function|srcdoc/);
+  assert.doesNotMatch(coreSource, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|createContextualFragment|DOMParser|\beval\s*\(|new Function|\.srcdoc\s*=/);
 });
