@@ -3,11 +3,18 @@
   'use strict';
 
   const el = NL.el;
-  const page = window.NL_PAGE;
-  const lesson = NL.LESSONS.find((l) => l.file === page.file);
   const app = document.getElementById('app');
-  const groups = page.groups;
-  const allWords = groups.flatMap((g) => g.words);
+  const page = window.NL_PAGE;
+  const lesson = page && NL.LESSONS.find((l) => l.file === page.file);
+
+  // A broken data file must not leave a blank page; the site check catches these before they are published.
+  function fail(error) {
+    if (error) console.error(error);
+    app.replaceChildren(el('p', { class: 'empty', role: 'alert', text: 'Deze les kan niet worden getoond. Ververs de pagina of ga terug naar de lessen.' }), el('a', { class: 'btn btn-surface', href: 'DUTCH_Learning.html', text: '← Alle lessen' }));
+  }
+  if (!page || !lesson) { fail(new Error('missing page data or unknown lesson')); return; }
+  const groups = page.groups || [];
+  const allWords = groups.flatMap((g) => g.words || []);
 
   function topbar() {
     const button = (id, label) => el('button', { type: 'button', 'data-theme-btn': id, 'aria-pressed': 'false', text: label });
@@ -38,7 +45,7 @@
     const list = el('div', { class: 'words' });
     NL.renderWords(list, group.words);
     return el('div', { class: 'panel', id: `g${index}` },
-      el('div', { class: 'panel-label' }, el('span', { text: `${group.title} · ${group.en}` }), el('span', { text: String(group.words.length) })),
+      el('div', { class: 'panel-label' }, el('h2', { text: `${group.title} · ${group.en}` }), el('span', { text: String(group.words.length) })),
       list,
       group.fact ? el('p', { class: 'fact', lang: 'en' }, el('strong', { text: 'Weetje: ' }), group.fact) : null);
   }
@@ -75,5 +82,5 @@
     }
   }
 
-  build();
+  try { build(); } catch (error) { fail(error); }
 })();

@@ -20,6 +20,7 @@ function start(groups = [group(SENTENCES)], opts = { search: true }) {
   vm.runInNewContext(coreSource, sandbox);
   vm.runInNewContext(practiceSource, sandbox);
   const host = document.createElement('div');
+  host.doc = document;
   sandbox.window.NL.practice(host, groups, opts);
   return host;
 }
@@ -40,7 +41,8 @@ test('every sentence starts with the English visible and the Dutch and pronuncia
     assert.equal(nlText(row).hidden, true);
     assert.equal(pronText(row).hidden, true);
     assert.equal(revealButton(row, 0).text, 'Toon Nederlands');
-    assert.equal(revealButton(row, 0).attrs['aria-expanded'], 'false');
+    assert.equal(revealButton(row, 0).attrs['aria-label'], `Toon Nederlands: ${byClass(row, 'practice-en')[0].text}`, 'the name says which row it belongs to');
+    assert.equal(revealButton(row, 0).attrs['aria-expanded'], undefined, 'the changing name already says the state');
   }
   assert.deepEqual(rows(host).map((r) => byClass(r, 'practice-en')[0].text), SENTENCES.map((s) => s.en));
 });
@@ -54,10 +56,10 @@ test('a reveal button shows its own answer, says so, and hides it again', () => 
   assert.equal(pronText(first).hidden, true, 'the pronunciation stays hidden');
   assert.equal(nlText(second).hidden, true, 'another sentence is not touched');
   assert.equal(revealButton(first, 0).text, 'Verberg Nederlands');
-  assert.equal(revealButton(first, 0).attrs['aria-expanded'], 'true');
+  assert.equal(revealButton(first, 0).attrs['aria-label'], 'Verberg Nederlands: I work today.');
   revealButton(first, 0).click();
   assert.equal(nlText(first).hidden, true);
-  assert.equal(revealButton(first, 0).attrs['aria-expanded'], 'false');
+  assert.equal(revealButton(first, 0).attrs['aria-label'], 'Toon Nederlands: I work today.');
 });
 
 test('the group buttons reveal and hide everything, only the Dutch, or only the pronunciation, and the row buttons follow', () => {
@@ -73,7 +75,7 @@ test('the group buttons reveal and hide everything, only the Dutch, or only the 
   control(host, 'Toon alles').click();
   assert.ok(rows(host).every((r) => !nlText(r).hidden && !pronText(r).hidden));
   control(host, 'Verberg alles').click();
-  assert.ok(rows(host).every((r) => nlText(r).hidden && pronText(r).hidden && revealButton(r, 0).attrs['aria-expanded'] === 'false'));
+  assert.ok(rows(host).every((r) => nlText(r).hidden && pronText(r).hidden && revealButton(r, 0).attrs['aria-label'].startsWith('Toon Nederlands: ')));
 });
 
 test('the counters follow the reveals: rows fully revealed, and the share of all answers shown', () => {
@@ -106,8 +108,10 @@ test('search looks at the English, the hidden Dutch, the pronunciation and the l
   const host = start();
   const [input] = walk(host).filter((n) => n.tag === 'input');
   const [empty] = byClass(host, 'empty');
-  assert.equal(empty.hidden, true);
+  assert.equal(empty.text, '', 'no message while there is nothing to say');
+  assert.equal(empty.attrs.role, 'status');
   type(input, 'bread');
+  assert.equal(empty.text, '', 'and none with a single match');
   assert.equal(visible(host), 1);
   type(input, 'WERKT');
   assert.equal(visible(host), 1, 'the Dutch is searched while it is still hidden');
@@ -117,10 +121,10 @@ test('search looks at the English, the hidden Dutch, the pronunciation and the l
   assert.equal(visible(host), 2, 'and the labels');
   type(input, 'zzz');
   assert.equal(visible(host), 0);
-  assert.equal(empty.hidden, false);
+  assert.match(empty.text, /Geen resultaten/);
   type(input, '  ');
   assert.equal(visible(host), 3);
-  assert.equal(empty.hidden, true);
+  assert.equal(empty.text, '');
 });
 
 test('a page without search has no search box', () => {
@@ -196,7 +200,7 @@ test('searching a long list pages the matches and starts again at the first page
   type(input, 'woord 11');
   assert.equal(visible(host), 11, 'ten from 110 to 119 and word 11 itself');
   assert.equal(more.hidden, true);
-  assert.equal(byClass(host, 'empty')[0].hidden, true);
+  assert.equal(byClass(host, 'empty')[0].text, '');
 });
 
 test('notes of a group sit under its heading', () => {
@@ -204,4 +208,30 @@ test('notes of a group sit under its heading', () => {
   const [tip] = byClass(host, 'tip');
   assert.equal(tip.children[0].text, 'Tip: ');
   assert.equal(tip.children[1], 'Say it aloud');
+});
+
+test('after "Toon meer" focus moves to the first row that appeared, also when the button goes away', () => {
+  const host = start([group(numbered(120))], { search: true });
+  const more = walk(host).find((n) => String(n.text).startsWith('Toon meer'));
+  more.click();
+  assert.equal(host.doc.activeElement, revealButton(rows(host)[50], 0));
+  more.click();
+  assert.equal(more.hidden, true, 'the button is gone after the last page');
+  assert.equal(host.doc.activeElement, revealButton(rows(host)[100], 0), 'and focus did not fall back to the page');
+});
+
+test('the group title is a heading, the play button names the English (not the hidden Dutch) and the search box can be reached with Ctrl+K', () => {
+  const host = start();
+  const [title] = byClass(host, 'panel-label')[0].children;
+  assert.equal(title.tag, 'h2');
+  const play = byClass(rows(host)[0], 'play')[0];
+  assert.equal(play.attrs['aria-label'], 'Luister naar het Nederlands: I work today.');
+  assert.ok(!play.attrs['aria-label'].includes('werk'));
+  const [input] = walk(host).filter((n) => n.tag === 'input');
+  assert.equal(input.attrs['data-search'], '');
+});
+
+test('a tag that some rows lack does not count as a distinct value', () => {
+  const host = start([group([{ nl: 'a', en: 'a', tags: ['x'] }, { nl: 'b', en: 'b', tags: ['x'] }, { nl: 'c', en: 'c' }])], { unique: { index: 0, label: 'Uniek' } });
+  assert.equal(stat(byClass(host, 'practice')[0], 'Uniek'), '1');
 });

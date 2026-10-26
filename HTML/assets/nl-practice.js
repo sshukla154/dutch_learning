@@ -8,6 +8,7 @@
   // A list longer than PAGE_FROM shows PAGE_STEP rows at a time.
   const PAGE_FROM = 60;
   const PAGE_STEP = 50;
+  const NO_RESULTS = 'Geen resultaten gevonden. Probeer een ander woord.';
 
   const KINDS = {
     nl: { show: 'Toon Nederlands', hide: 'Verberg Nederlands' },
@@ -31,8 +32,8 @@
     const percent = el('strong', { text: '0%' });
     const fill = el('span', { class: 'track-fill' });
     fill.style.width = '0%';
-    const empty = el('p', { class: 'empty', role: 'status', text: 'Geen resultaten gevonden. Probeer een ander woord.' });
-    empty.hidden = true;
+    // The status element stays in the page and only its text changes, which is what screen readers announce.
+    const empty = el('p', { class: 'empty', role: 'status' });
     const more = el('button', { class: 'btn btn-surface', type: 'button', text: 'Toon meer' });
     more.hidden = true;
 
@@ -46,6 +47,7 @@
       fill.style.width = `${share}%`;
     };
 
+    const matching = () => rows.filter((row) => term === '' || row.haystack.includes(term));
     const refresh = () => {
       let matched = 0;
       rows.forEach((row) => {
@@ -53,7 +55,7 @@
         if (hit) matched += 1;
         row.node.hidden = !(hit && matched <= limit);
       });
-      empty.hidden = matched > 0;
+      empty.textContent = matched > 0 ? '' : NO_RESULTS;
       more.hidden = matched <= limit;
       more.textContent = `Toon meer (nog ${matched - limit})`;
     };
@@ -67,8 +69,9 @@
       const button = rows[i].buttons[kind];
       if (!button) return;
       const wording = kind === 'nl' && together ? KINDS.both : KINDS[kind];
-      button.textContent = on ? wording.hide : wording.show;
-      button.setAttribute('aria-expanded', String(on));
+      const text = on ? wording.hide : wording.show;
+      button.textContent = text;
+      button.setAttribute('aria-label', `${text}: ${words[i].en}`);
     };
     const toggle = (i, kind) => {
       const on = !shown[i][kind];
@@ -88,14 +91,15 @@
       const texts = { nl: el('p', { class: 'practice-nl', lang: 'nl', text: w.nl }), pron: w.pron ? el('p', { class: 'practice-pron', lang: 'en', text: w.pron }) : null };
       Object.values(texts).forEach((t) => { if (t) t.hidden = true; });
       const button = (kind) => {
-        const b = el('button', { class: 'btn btn-surface reveal', type: 'button', 'aria-expanded': 'false', text: (kind === 'nl' && together ? KINDS.both : KINDS[kind]).show });
+        const show = (kind === 'nl' && together ? KINDS.both : KINDS[kind]).show;
+        const b = el('button', { class: 'btn btn-surface reveal', type: 'button', 'aria-label': `${show}: ${w.en}`, text: show });
         b.addEventListener('click', () => toggle(i, kind));
         return b;
       };
       const buttons = { nl: button('nl'), pron: !together && w.pron ? button('pron') : null };
       const tags = (w.tags || []).map((t, k) => el('span', { class: 'tag', text: labels[k] ? `${labels[k]}: ${t}` : t }));
       const node = el('li', { class: 'practice-row' },
-        NL.playButton(w),
+        NL.playButton(w, `Luister naar het Nederlands: ${w.en}`),
         el('div', { class: 'practice-body' },
           el('p', { class: 'practice-en', lang: 'en', text: w.en }),
           el('div', { class: 'practice-answer' }, buttons.nl, texts.nl),
@@ -115,16 +119,23 @@
         control(KINDS.nl.show, ['nl'], true), control(KINDS.nl.hide, ['nl'], false),
         control(KINDS.pron.show, ['pron'], true), control(KINDS.pron.hide, ['pron'], false)];
 
-    more.addEventListener('click', () => { limit += PAGE_STEP; refresh(); });
+    // The button that was pressed may disappear, so focus goes to the first row that just appeared.
+    more.addEventListener('click', () => {
+      const before = limit;
+      limit += PAGE_STEP;
+      refresh();
+      const first = matching()[before];
+      if (first) first.buttons.nl.focus();
+    });
     let search = null;
     if (opts.search === true) {
-      search = el('input', { type: 'search', class: 'practice-search', 'aria-label': `Zoek in ${group.title}`, placeholder: 'Zoek', autocomplete: 'off' });
+      search = el('input', { type: 'search', class: 'practice-search', 'aria-label': `Zoek in ${group.title}`, placeholder: 'Zoek', autocomplete: 'off', 'data-search': true });
       search.addEventListener('input', () => { term = String(search.value).trim().toLowerCase(); limit = firstLimit; refresh(); });
     }
 
-    const unique = opts.unique ? new Set(words.map((w) => (w.tags || [])[opts.unique.index])).size : null;
+    const unique = opts.unique ? new Set(words.map((w) => (w.tags || [])[opts.unique.index]).filter((t) => t !== undefined)).size : null;
     const node = el('div', { class: 'panel practice', id: `g${index}` },
-      el('div', { class: 'panel-label' }, el('span', { text: `${group.title} · ${group.en}` }), el('span', { text: String(words.length) })),
+      el('div', { class: 'panel-label' }, el('h2', { text: `${group.title} · ${group.en}` }), el('span', { text: String(words.length) })),
       (group.notes || []).map(NL.note),
       el('div', { class: 'practice-stats' },
         el('span', {}, `${opts.unit || 'Zinnen'}: `, el('strong', { text: String(words.length) })),

@@ -88,3 +88,24 @@ test('a reference page keeps the written content of its shell and gains the head
   assert.equal(classes(app, 'flash').length, 0);
   assert.equal(app.children.indexOf(content), app.children.length - 1 - 0, 'the content comes after the header');
 });
+
+test('a page whose data is broken or unknown shows a message with a way back instead of staying blank', () => {
+  const broken = [
+    [undefined, 'no data'],
+    [{ file: 'nope.html', groups: [] }, 'unknown lesson'],
+    [{ file: 'greetings_learning.html', groups: [{ title: 'T', en: 'T', words: [{ nl: 'a', en: 'b', tags: 'land' }] }], reveal: true, practice: { unit: 'Woorden' } }, 'a tag list that is not a list'],
+  ];
+  for (const [page, why] of broken) {
+    const document = fakeDocument();
+    const sandbox = { document, localStorage: storage, console: { error() {} } };
+    sandbox.window = sandbox;
+    sandbox.NL_PAGE = page;
+    vm.runInNewContext(read('nl-core.js'), sandbox);
+    vm.runInNewContext(read('nl-practice.js'), sandbox);
+    vm.runInNewContext(read('nl-page.js'), sandbox);
+    const app = document.getElementById('app');
+    assert.equal(classes(app, 'empty').length, 1, why);
+    assert.equal(classes(app, 'empty')[0].attrs.role, 'alert', why);
+    assert.ok(walk(app).some((n) => n.tag === 'a' && n.attrs.href === 'DUTCH_Learning.html'), why);
+  }
+});
