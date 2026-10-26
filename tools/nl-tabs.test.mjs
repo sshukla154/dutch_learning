@@ -22,6 +22,7 @@ function page(hash = '') {
       },
       querySelectorAll(selector) { return /role="tab"/.test(selector) ? this.kids.filter((k) => role(k) === 'tab') : []; },
       focus() { doc.activeElement = this; },
+      scrollIntoView() { doc.scrolled = this.id; },
     };
     parent?.kids.push(n);
     return n;
@@ -34,6 +35,7 @@ function page(hash = '') {
   const main = list(root);
   const tArticles = tab(main, 'articles', true);
   const tVerbs = tab(main, 'verbs', false);
+  const tSoon = tab(main, undefined, false);
   const pArticles = panel('articles', root, false);
   const pVerbs = panel('verbs', root, true);
   const sub = list(pVerbs);
@@ -56,7 +58,7 @@ function page(hash = '') {
   };
   vm.runInNewContext(source, sandbox);
   const fire = (target, type, extra = {}) => (target.listeners[type] ?? []).forEach((fn) => fn({ target, preventDefault() { this.prevented = true; }, ...extra }));
-  return { doc, sandbox, win, fire, tArticles, tVerbs, tRegular, tModal, pArticles, pVerbs, pRegular, pModal, main, sub };
+  return { doc, sandbox, win, fire, tSoon, tArticles, tVerbs, tRegular, tModal, pArticles, pVerbs, pRegular, pModal, main, sub };
 }
 const state = (t) => [t.attrs['aria-selected'], t.tabIndex];
 
@@ -120,4 +122,50 @@ test('the address can change after the page loaded, and a bad or unknown one doe
     assert.doesNotThrow(() => p.win.listeners.hashchange.forEach((fn) => fn()), hash);
   }
   assert.equal(p.pVerbs.hidden, false, 'the open panel stays open');
+});
+
+test('every tab controls its panel and every panel is named by its tab', () => {
+  const p = page();
+  assert.equal(p.tVerbs.attrs['aria-controls'], 'verbs');
+  assert.equal(p.tVerbs.id, 'tab-verbs');
+  assert.equal(p.pVerbs.attrs['aria-labelledby'], 'tab-verbs');
+  assert.equal(p.tModal.attrs['aria-controls'], 'modal');
+  assert.equal(p.pModal.attrs['aria-labelledby'], 'tab-modal');
+});
+
+test('a placeholder tab without a panel is neither selected by a click nor reached by the arrow keys', () => {
+  const p = page();
+  p.fire(p.main, 'click', { target: p.tSoon });
+  assert.deepEqual([state(p.tArticles), state(p.tVerbs)], [['true', 0], ['false', -1]], 'nothing changed');
+  p.doc.activeElement = p.tVerbs;
+  p.fire(p.main, 'keydown', { key: 'ArrowRight' });
+  assert.equal(p.doc.activeElement, p.tArticles, 'the key skips the placeholder and wraps');
+  assert.equal(p.tSoon.attrs['aria-controls'], undefined);
+});
+
+test('keys with Alt, Ctrl, Meta or Shift held are left to the browser', () => {
+  const p = page();
+  p.doc.activeElement = p.tArticles;
+  for (const mod of ['altKey', 'ctrlKey', 'metaKey', 'shiftKey']) {
+    const event = { key: 'ArrowRight', [mod]: true, prevented: false, preventDefault() { this.prevented = true; } };
+    (p.main.listeners.keydown ?? []).forEach((fn) => fn(event));
+    assert.equal(event.prevented, false, mod);
+    assert.equal(p.doc.activeElement, p.tArticles, mod);
+  }
+});
+
+test('arrow keys stop the page from scrolling', () => {
+  const p = page();
+  p.doc.activeElement = p.tArticles;
+  const event = { key: 'ArrowRight', prevented: false, preventDefault() { this.prevented = true; } };
+  (p.main.listeners.keydown ?? []).forEach((fn) => fn(event));
+  assert.equal(event.prevented, true);
+});
+
+test('a later change of the address scrolls to the panel; the first load leaves that to the browser', () => {
+  const p = page('#modal');
+  assert.equal(p.doc.scrolled, undefined);
+  p.sandbox.location.hash = '#verbs';
+  p.win.listeners.hashchange.forEach((fn) => fn());
+  assert.equal(p.doc.scrolled, 'verbs');
 });
