@@ -97,7 +97,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .no-nl-voice .play { opacity: 0.5; }
 .word-nl { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; font: 600 20px var(--f-display); overflow-wrap: anywhere; }
 .word-pron { font: 400 12px var(--f-mono); color: var(--muted); }
-.word-en { font-size: 15px; color: var(--muted); text-align: right; overflow-wrap: anywhere; }
+.word-en { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; max-width: 45%; font-size: 15px; color: var(--muted); text-align: right; overflow-wrap: anywhere; }
+.photo { display: inline-flex; align-items: center; min-height: 28px; font: 700 12px var(--f-body); color: var(--muted); text-decoration: underline; }
+.fact { background: var(--bg); border-radius: var(--r-item); padding: 12px 14px; font-size: 14px; color: var(--muted); }
+.fact strong { color: var(--ink); }
+.tip { background: var(--surface); border-radius: var(--r-card); padding: 16px 24px; font-size: 15px; color: var(--muted); }
 
 /* Flashcards */
 .flash { background: var(--inverse-bg); color: var(--inverse-ink); border-radius: var(--r-card); padding: 28px; display: flex; flex-direction: column; gap: 18px; position: sticky; top: 24px; }
@@ -130,6 +134,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .frame { border-radius: 0; border-width: 0; padding: 20px; }
   .search input { font-size: 16px; }
   .kbd { display: none; }
+  .panel { padding: 16px; }
+  .word { flex-wrap: wrap; row-gap: 6px; }
+  .word-nl { flex-basis: calc(100% - 58px); }
+  .word-en { flex: 1 1 100%; flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; max-width: none; padding-left: 58px; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {

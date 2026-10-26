@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
+import { fakeDocument, walk } from './fake-dom.mjs';
 
 // NL_CORE_PATH lets a planted-mistake copy be tested; without it the real script is used.
 const source = readFileSync(process.env.NL_CORE_PATH ?? new URL('../HTML/assets/nl-core.js', import.meta.url), 'utf8');
@@ -17,29 +18,6 @@ function load(storage, extra = {}) {
   vm.runInNewContext(source, sandbox);
   return sandbox.window.NL;
 }
-
-// Just enough of a DOM to see which elements and attributes the renderer creates.
-function fakeDocument() {
-  const node = (tag) => ({
-    tag, attrs: {}, children: [], dataset: {}, style: {}, text: '',
-    classList: { add() {}, remove() {}, toggle() {} },
-    setAttribute(k, v) { this.attrs[k] = v; },
-    addEventListener() {},
-    append(...items) { this.children.push(...items); },
-    replaceChildren(...items) { this.children = items; },
-    set textContent(v) { this.text = String(v); },
-    set className(v) { this.attrs.class = v; },
-    focus() {},
-  });
-  return {
-    createElement: node,
-    documentElement: node('html'),
-    addEventListener() {},
-    querySelectorAll: () => [],
-    querySelector: () => null,
-  };
-}
-const walk = (n, out = []) => { out.push(n); for (const c of n.children ?? []) if (typeof c === 'object') walk(c, out); return out; };
 
 test('the lesson list matches the files and the two tracks', () => {
   const NL = load(memoryStorage());
@@ -148,7 +126,31 @@ test('hostile strings stay text and attributes, never markup', () => {
   assert.equal(play.attrs['data-say'], 'a"b');
   assert.equal(play.attrs['aria-label'], `Luister: ${hostile}`);
   assert.ok(walk(host).some((n) => n.children.includes(hostile)));
-  assert.ok(walk(host).some((n) => n.text === '<b>bold</b> & more'));
+  assert.ok(walk(host).some((n) => n.children.includes('<b>bold</b> & more')));
+});
+
+test('the photo link encodes the term and refuses anything shaped like a URL', () => {
+  const NL = load(memoryStorage(), { document: fakeDocument() });
+  assert.equal(NL.photoUrl('good morning greeting'), 'https://www.google.com/search?tbm=isch&q=good%20morning%20greeting');
+  assert.equal(NL.photoUrl('a&b=c#d'), 'https://www.google.com/search?tbm=isch&q=a%26b%3Dc%23d');
+  for (const bad of ['https://evil.example/x', 'x://y', '', '   ', undefined, 5, 'x'.repeat(101)]) assert.equal(NL.photoUrl(bad), null, String(bad));
+});
+
+test('a word row shows the English respelling and a safe photo link, and no link without a term', () => {
+  const NL = load(memoryStorage(), { document: fakeDocument() });
+  const host = fakeDocument().createElement('div');
+  NL.renderWords(host, [
+    { nl: 'Hallo', en: 'Hello', pron: 'HAH-loh', enPron: 'heh-LOH', photo: 'hello greeting' },
+    { nl: 'Hoi', en: 'Hi' },
+  ]);
+  const all = walk(host);
+  const links = all.filter((n) => n.tag === 'a');
+  assert.equal(links.length, 1);
+  assert.equal(links[0].attrs.href, 'https://www.google.com/search?tbm=isch&q=hello%20greeting');
+  assert.equal(links[0].attrs.rel, 'noopener noreferrer');
+  assert.equal(links[0].attrs.target, '_blank');
+  assert.ok(all.some((n) => n.attrs.class === 'word-pron' && n.text === 'heh-LOH'));
+  assert.ok(all.some((n) => n.attrs.class === 'word-pron' && n.text === 'HAH-loh'));
 });
 
 test('the script never writes markup from data', () => {

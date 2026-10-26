@@ -227,12 +227,21 @@
 
   const playButton = (word) => el('button', { class: 'play', type: 'button', 'data-say': NL.spoken(word), 'aria-label': `Luister: ${word.nl}`, text: '▶' });
 
-  // Word rows: a play button, the Dutch word with its pronunciation, and the English meaning.
+  // The picture search is a click-only link; the term is encoded and anything shaped like a URL is refused.
+  const PHOTO_BASE = 'https://www.google.com/search?tbm=isch&q=';
+  NL.photoUrl = (term) => (typeof term === 'string' && term.trim() && term.length <= 100 && !term.includes('://') ? PHOTO_BASE + encodeURIComponent(term.trim()) : null);
+
+  const photoLink = (w) => {
+    const href = NL.photoUrl(w.photo);
+    return href ? el('a', { class: 'photo', href, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `Foto van ${w.nl} (nieuw tabblad)`, text: 'Foto' }) : null;
+  };
+
+  // Word rows: a play button, the Dutch word with its respelling, and the English meaning with its respelling and photo link.
   NL.renderWords = (host, words) => {
     host.replaceChildren(...words.map((w) => el('div', { class: 'word' },
       playButton(w),
       el('span', { class: 'word-nl', lang: 'nl' }, w.nl, w.pron ? el('span', { class: 'word-pron', lang: 'en', text: w.pron }) : null),
-      el('span', { class: 'word-en', lang: 'en', text: w.en }))));
+      el('span', { class: 'word-en', lang: 'en' }, w.en, w.enPron ? el('span', { class: 'word-pron', text: w.enPron }) : null, photoLink(w)))));
   };
 
   // Flashcards: Dutch word, four English answers. opts.count sets the deck size; opts.onFinish gets (score, total).

@@ -110,11 +110,28 @@ function checkPage(files, file, html, findings) {
   if (scripts.some((s) => !attrOf(s.attrs, 'src') && s.body.trim())) findings.push(finding('state', file, 'converted page has an inline script'));
   if (/\sstyle\s*=/i.test(markup)) findings.push(finding('state', file, 'converted page has a style attribute'));
   if (isHome) return;
-  const dataPath = `${dirname(file)}/data/${name.replace(/\.html$/, '.js')}`;
+  if (!src(/assets\/nl-page\.js/)) findings.push(finding('state', file, 'missing nl-page.js'));
+  const dataPath =`${dirname(file)}/data/${name.replace(/\.html$/, '.js')}`;
   if (!files.has(dataPath)) { findings.push(finding('state', file, `missing ${dataPath}`)); return; }
   const sandbox = { window: {} };
   try { vm.runInNewContext(text(files, dataPath), sandbox, { timeout: 2000 }); } catch (e) { findings.push(finding('data-file', dataPath, `does not run: ${e.message}`)); return; }
-  if (sandbox.window.NL_PAGE?.file !== name) findings.push(finding('file-mismatch', dataPath, `NL_PAGE.file is ${JSON.stringify(sandbox.window.NL_PAGE?.file)}, expected ${name}`));
+  const data = sandbox.window.NL_PAGE;
+  if (data?.file !== name) findings.push(finding('file-mismatch', dataPath, `NL_PAGE.file is ${JSON.stringify(data?.file)}, expected ${name}`));
+  checkPageData(dataPath, data, findings);
+}
+
+// The renderer trusts this shape, so a typo in a data file is caught here instead of on the page.
+function checkPageData(path, data, findings) {
+  const bad = (detail) => findings.push(finding('data-file', path, detail));
+  if (!Array.isArray(data?.groups) || !data.groups.length) { bad('groups must be a non-empty array'); return; }
+  data.groups.forEach((g, i) => {
+    if (typeof g.title !== 'string' || typeof g.en !== 'string') bad(`group ${i + 1} needs title and en`);
+    if (!Array.isArray(g.words) || !g.words.length) { bad(`group ${i + 1} has no words`); return; }
+    g.words.forEach((w, k) => {
+      if (typeof w?.nl !== 'string' || !w.nl.trim() || typeof w.en !== 'string' || !w.en.trim()) bad(`group ${i + 1} word ${k + 1} needs nl and en`);
+      for (const key of ['pron', 'enPron', 'say', 'photo']) if (w?.[key] !== undefined && typeof w[key] !== 'string') bad(`group ${i + 1} word ${k + 1}: ${key} must be a string`);
+    });
+  });
 }
 
 function checkRegistry(files, findings) {
@@ -227,10 +244,11 @@ function fixture() {
   const files = new Map([
     ['HTML/DUTCH_Learning.html', enc(`${head()}<body><a href="a_page.html">A</a><a href="b_page.html">B</a><script src="assets/nl-core.js"></script></body></html>`)],
     ['HTML/a_page.html', enc('<!doctype html><html><head><meta charset="utf-8"></head><body><a href="DUTCH_Learning.html">home</a><script src="assets/site-nav.js"></script></body></html>')],
-    ['HTML/b_page.html', enc(`${head()}<body><main id="app"></main><script src="data/b_page.js"></script><script src="assets/nl-core.js"></script></body></html>`)],
-    ['HTML/data/b_page.js', enc("window.NL_PAGE = { file: 'b_page.html', groups: [] };")],
+    ['HTML/b_page.html', enc(`${head()}<body><main id="app"></main><script src="data/b_page.js"></script><script src="assets/nl-core.js"></script><script src="assets/nl-page.js"></script></body></html>`)],
+    ['HTML/data/b_page.js', enc("window.NL_PAGE = { file: 'b_page.html', groups: [ { title: 'T', en: 'T', words: [ { nl: 'a', en: 'b' } ] } ] };")],
     ['HTML/assets/site-nav.js', enc('(function () {})();')],
     ['HTML/assets/nl-theme-init.js', enc('(function () {})();')],
+    ['HTML/assets/nl-page.js', enc('(function () {})();')],
     ['HTML/assets/nl-core.js', enc("NL.LESSONS = [ { file: 'a_page.html' }, { file: 'b_page.html' } ];")],
     ['HTML/assets/nl-tokens.css', enc("@font-face { font-family: X; src: url(fonts/x.woff2) format('woff2'); }")],
     ['HTML/assets/nl-theme.css', enc('body { margin: 0; }')],
@@ -261,7 +279,12 @@ export function selfTest() {
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main', '<style>a{}</style><main'))],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main', '<script>var x = 1;</script><main'))],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main', '<main style="color:red"'))],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<script src="assets/nl-page.js"></script>', ''))],
     ['file-mismatch', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace('b_page.html', 'a_page.html'))],
+    ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace('groups: [', 'grups: ['))],
+    ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("nl: 'a'", "nl: ''"))],
+    ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("en: 'b' }", "en: 'b', photo: 5 }"))],
+    ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("{ nl: 'a', en: 'b' }", ''))],
     ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace('b_page.html', 'B_page.html'))],
     ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace(", { file: 'b_page.html' }", ''))],
     ['font-hash', (f) => { const n = new Map(f); n.set('HTML/assets/fonts/x.woff2', Buffer.from('wOF2changed')); return n; }],
