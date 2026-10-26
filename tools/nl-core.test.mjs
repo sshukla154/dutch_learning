@@ -277,6 +277,26 @@ test('a shape row points at a symbol of the page sprite and refuses any other id
   assert.equal(use.attrs.href, '#s-circle');
 });
 
+test('an explanation sits under the row in both languages with its own play button, and a row without one has none', () => {
+  const NL = load(memoryStorage(), { document: fakeDocument() });
+  const host = fakeDocument().createElement('div');
+  NL.renderWords(host, [
+    { nl: 'Lente', en: 'Spring', icons: '🌱🌷', hintEn: 'Flowers wake up.', hintNl: 'Bloemen worden wakker.', hintSay: 'Bloemen worden wakker' },
+    { nl: 'Zomer', en: 'Summer' },
+  ]);
+  const all = walk(host);
+  const hints = all.filter((n) => n.attrs.class === 'word-hint');
+  assert.equal(hints.length, 1);
+  const [en, nl] = walk(hints[0]).filter((n) => n.tag === 'p');
+  assert.deepEqual([en.attrs.lang, en.text, nl.attrs.lang, nl.text], ['en', 'Flowers wake up.', 'nl', 'Bloemen worden wakker.']);
+  const play = walk(hints[0]).find((n) => n.tag === 'button');
+  assert.equal(play.attrs['data-say'], 'Bloemen worden wakker');
+  assert.equal(play.attrs['aria-label'], 'Luister naar de uitleg bij Lente');
+  const [icons] = all.filter((n) => n.attrs.class === 'word-icons');
+  assert.deepEqual([icons.text, icons.attrs['aria-hidden']], ['🌱🌷', 'true']);
+  assert.equal(all.filter((n) => n.attrs.class === 'word').length, 2);
+});
+
 test('the element builder drops script handlers given as text and links that are not relative or https', () => {
   const NL = load(memoryStorage(), { document: fakeDocument() });
   const a = NL.el('a', { href: 'javascript:alert(1)', onclick: 'alert(1)', text: 'x' });

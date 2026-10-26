@@ -90,7 +90,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .panel { background: var(--surface); border-radius: var(--r-card); padding: 24px; display: flex; flex-direction: column; gap: 10px; }
 .panel-label { font: 700 14px var(--f-body); color: var(--muted); display: flex; justify-content: space-between; gap: 12px; }
 .words { display: flex; flex-direction: column; gap: 10px; }
-.word { display: flex; align-items: center; gap: 14px; background: var(--bg); border-radius: var(--r-item); padding: 12px 14px; }
+.word { display: flex; flex-direction: column; gap: 10px; background: var(--bg); border-radius: var(--r-item); padding: 12px 14px; }
+.word-main { display: flex; align-items: center; gap: 14px; }
+.word-hint { display: flex; align-items: flex-start; gap: 12px; padding-top: 10px; border-top: 1px solid var(--surface-2); font-size: 14px; }
+.hint-lines p + p { margin-top: 6px; color: var(--muted); }
+.word-icons { font: 400 18px/1.2 var(--f-body); letter-spacing: 2px; }
 .play { width: 44px; height: 44px; flex: none; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font-size: 13px; }
 .play.speaking { outline: 3px solid var(--ink); outline-offset: 2px; }
 .flash .play.speaking { outline-color: var(--inverse-ink); }
@@ -155,7 +159,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .answers { grid-template-columns: 1fr; }
   .word-meta { justify-content: flex-start; }
   .word-shape { width: 48px; height: 48px; }
-  .word { flex-wrap: wrap; row-gap: 6px; }
+  .word-main { flex-wrap: wrap; row-gap: 6px; }
   .word-nl { flex: 1 1 140px; }
   .word-en { flex: 1 1 100%; flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; max-width: none; padding-left: 58px; text-align: left; }
 }

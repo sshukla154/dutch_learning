@@ -271,13 +271,28 @@
     return svg;
   };
 
+  // A longer explanation under the row, in English and Dutch, with a button that reads the Dutch aloud.
+  const hintBlock = (w) => {
+    if (!w.hintEn && !w.hintNl) return null;
+    const read = w.hintSay ? el('button', { class: 'play', type: 'button', 'data-say': w.hintSay, 'aria-label': `Luister naar de uitleg bij ${w.nl}`, text: '▶' }) : null;
+    return el('div', { class: 'word-hint' },
+      read,
+      el('div', { class: 'hint-lines' },
+        w.hintEn ? el('p', { lang: 'en', text: w.hintEn }) : null,
+        w.hintNl ? el('p', { lang: 'nl', text: w.hintNl }) : null));
+  };
+
   // Word rows: a play button, an optional symbol, the Dutch word with its respelling, and the English meaning with its respelling and extras.
   NL.renderWords = (host, words) => {
     host.replaceChildren(...words.map((w) => el('div', { class: 'word' },
-      playButton(w),
-      symbolCell(w) || shapeCell(w),
-      el('span', { class: 'word-nl', lang: 'nl' }, w.nl, w.pron ? el('span', { class: 'word-pron', lang: 'en', text: w.pron }) : null),
-      el('span', { class: 'word-en', lang: 'en' }, w.en, w.enPron ? el('span', { class: 'word-pron', text: w.enPron }) : null, metaLine(w)))));
+      el('div', { class: 'word-main' },
+        playButton(w),
+        symbolCell(w) || shapeCell(w),
+        el('span', { class: 'word-nl', lang: 'nl' }, w.nl,
+          w.pron ? el('span', { class: 'word-pron', lang: 'en', text: w.pron }) : null,
+          w.icons ? el('span', { class: 'word-icons', 'aria-hidden': 'true', text: w.icons }) : null),
+        el('span', { class: 'word-en', lang: 'en' }, w.en, w.enPron ? el('span', { class: 'word-pron', text: w.enPron }) : null, metaLine(w))),
+      hintBlock(w))));
   };
 
   // Flashcards: Dutch word, four English answers. opts.count sets the deck size; opts.onFinish gets (score, total).
