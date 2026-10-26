@@ -7,7 +7,7 @@ Open the lessons online: https://sshukla154.github.io/dutch_learning/
 ## Layout
 
 - `HTML/` has the lesson pages. `DUTCH_Learning.html` is the home page and links to every lesson.
-- A page in the new design is a small shell plus a data file in `HTML/data/` with its words. `assets/nl-page.js` builds the page from that file, using `assets/nl-core.js` (lesson list, progress, speech, flashcards) and the styles in `assets/nl-tokens.css` and `assets/nl-theme.css`. The lesson list lives in `nl-core.js`.
+- A page in the new design is a small shell plus a data file in `HTML/data/` with its words. `assets/nl-page.js` builds the page from that file, using `assets/nl-core.js` (lesson list, progress, speech, flashcards), `assets/nl-practice.js` for pages that hide the answers until asked, and the styles in `assets/nl-tokens.css` and `assets/nl-theme.css`. The lesson list lives in `nl-core.js`.
 - Pages not yet moved to the new design still load `assets/site-nav.js`, which adds a link back to the lesson list.
 - `Inburgering/` has my plain-text study notes.
 - `HTML/assets/fonts/` has the page fonts, served from this site so no page asks a third party for them. They are under the SIL Open Font License 1.1; see the `OFL-*.txt` files and `SOURCES.txt` there.
