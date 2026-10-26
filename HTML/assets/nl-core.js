@@ -236,10 +236,14 @@
     return href ? el('a', { class: 'photo', href, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `Foto van ${w.nl} (nieuw tabblad)`, text: 'Foto' }) : null;
   };
 
-  // Word rows: a play button, the Dutch word with its respelling, and the English meaning with its respelling and photo link.
+  // An emoji gets a large cell of its own; a plain numeral or sign is set in the display font.
+  const symbolCell = (w) => (w.sym ? el('span', { class: /\p{Extended_Pictographic}/u.test(w.sym) ? 'word-sym' : 'word-sym word-sym-text', 'aria-hidden': 'true', text: w.sym }) : null);
+
+  // Word rows: a play button, an optional symbol, the Dutch word with its respelling, and the English meaning with its respelling and photo link.
   NL.renderWords = (host, words) => {
     host.replaceChildren(...words.map((w) => el('div', { class: 'word' },
       playButton(w),
+      symbolCell(w),
       el('span', { class: 'word-nl', lang: 'nl' }, w.nl, w.pron ? el('span', { class: 'word-pron', lang: 'en', text: w.pron }) : null),
       el('span', { class: 'word-en', lang: 'en' }, w.en, w.enPron ? el('span', { class: 'word-pron', text: w.enPron }) : null, photoLink(w)))));
   };

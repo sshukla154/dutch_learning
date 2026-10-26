@@ -153,6 +153,14 @@ test('a word row shows the English respelling and a safe photo link, and no link
   assert.ok(all.some((n) => n.attrs.class === 'word-pron' && n.text === 'HAH-loh'));
 });
 
+test('a symbol is shown as text, large for an emoji and in the display font for a numeral or sign', () => {
+  const NL = load(memoryStorage(), { document: fakeDocument() });
+  const host = fakeDocument().createElement('div');
+  NL.renderWords(host, [{ nl: 'Potlood', en: 'Pencil', sym: '✏️' }, { nl: 'Plus', en: 'Plus', sym: '+' }, { nl: 'Hoi', en: 'Hi' }]);
+  const cells = walk(host).filter((n) => String(n.attrs.class).startsWith('word-sym'));
+  assert.deepEqual(cells.map((n) => [n.attrs.class, n.text, n.attrs['aria-hidden']]), [['word-sym', '✏️', 'true'], ['word-sym word-sym-text', '+', 'true']]);
+});
+
 test('the script never writes markup from data', () => {
   assert.doesNotMatch(source, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|\beval\s*\(|new Function/);
 });
