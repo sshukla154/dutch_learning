@@ -27,17 +27,42 @@ const GENERIC_PRIVATE = [
   [/onedrive/i, 'a OneDrive reference'],
   [/(?<![\w.+-])[\w.+-]+@(?!users\.noreply\.github\.com)[\w-]+(\.[\w-]+)+/, 'an email address'],
 ];
-const RUNTIME_REQUEST = /\bfetch\s*\(|XMLHttpRequest|sendBeacon|new\s+WebSocket|\bimport\s*\(|\bnew\s+Image\b|\bEventSource\b|createElement\(\s*['"](?:script|iframe|img|link|embed|object)['"]/;
+// Ways a script can reach another site or open one; inline scripts and every script file are scanned for these.
+const RUNTIME_REQUEST = /\bfetch\s*\(|XMLHttpRequest|sendBeacon|new\s+WebSocket|\bimport\s*\(|\bimport\s*['"`]|\bnew\s+Image\b|\bnew\s+Audio\b|\bEventSource\b|\bwindow\.open\b|\blocation\s*(?:\.\s*(?:href|assign|replace)\s*(?:\(|=(?!=))|=(?!=))|createElement\s*\(\s*['"`](?:script|iframe|img|link|embed|object|audio|video|source)['"`]/;
+// Ways a script can turn text into markup or code; the shared scripts and data files may use none of them.
+const UNSAFE_SCRIPT = /\binnerHTML\b|\bouterHTML\b|\binsertAdjacentHTML\b|\bdocument\.write(?:ln)?\b|\bcreateContextualFragment\b|\bDOMParser\b|\beval\s*\(|\bnew\s+Function\b|\.srcdoc\s*=|setAttribute\s*\(\s*['"`](?:srcdoc|on[a-z]+)/i;
 const MIN_PAGES = 20;
 
 const text = (files, path) => files.get(path)?.toString('utf8') ?? '';
 const finding = (rule, file, detail) => ({ rule, file, detail });
-const attrOf = (attrs, name) => {
-  const m = new RegExp(`(?:^|\\s)${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, 'i').exec(attrs);
-  return m ? (m[1] ?? m[2] ?? m[3]) : undefined;
-};
-const isExternal = (url) => /^([a-z][a-z0-9+.-]*:)?\/\//i.test(url) || /^https?:/i.test(url);
-const isSkippable = (url) => !url || url.startsWith('#') || /^(mailto:|tel:|data:|javascript:)/i.test(url);
+// Attributes the way an HTML parser reads them: a name, then an optional value; text inside quotes is never read as a name,
+// and a slash, quote or space is enough to end the one before.
+function parseAttrs(attrs) {
+  const out = new Map();
+  for (const m of attrs.matchAll(/([^\s"'<>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g)) {
+    const name = m[1].toLowerCase();
+    if (!out.has(name)) out.set(name, decodeEntities(m[2] ?? m[3] ?? m[4] ?? ''));
+  }
+  return out;
+}
+// Browsers decode character references in attribute values before using them, so "java&#9;script:" is a javascript: address.
+const NAMED_ENTITIES = { colon: ':', tab: '\t', newline: '\n', sol: '/', amp: '&', quot: '"', apos: "'", lt: '<', gt: '>', lpar: '(', rpar: ')' };
+function decodeEntities(value) {
+  return value.replace(/&(?:#(\d+)|#x([0-9a-f]+)|([a-z]+));?/gi, (whole, dec, hex, named) => {
+    if (named) return NAMED_ENTITIES[named.toLowerCase()] ?? whole;
+    try { return String.fromCodePoint(dec !== undefined ? Number(dec) : parseInt(hex, 16)); } catch { return ''; }
+  });
+}
+const attrOf = (attrs, name) => parseAttrs(attrs).get(name.toLowerCase());
+const hasAttrPrefix = (attrs, prefix) => [...parseAttrs(attrs).keys()].some((k) => k.startsWith(prefix));
+// Browsers ignore tabs and line breaks inside a URL and spaces around it.
+const cleanUrl = (url) => String(url).replace(/[\t\n\r]/g, '').trim();
+const schemeOf = (url) => /^([a-z][a-z0-9+.-]*):/i.exec(cleanUrl(url))?.[1].toLowerCase() ?? '';
+const isExternal = (url) => /^([a-z][a-z0-9+.-]*:)?\/\//i.test(cleanUrl(url)) || /^https?:/i.test(cleanUrl(url)) || cleanUrl(url).startsWith('\\\\');
+// Only these can never lead to a request, a script or another page.
+const isSkippable = (url) => !cleanUrl(url) || cleanUrl(url).startsWith('#') || ['mailto', 'tel'].includes(schemeOf(url));
+// A data: address is harmless in an element that only shows or plays it.
+const PASSIVE_DATA = new Set(['img', 'source', 'video', 'audio', 'track']);
 
 // Resolves a relative URL against the file that contains it and reports whether a tracked file has that exact name.
 function resolves(files, fromFile, url) {
@@ -48,37 +73,48 @@ function resolves(files, fromFile, url) {
   return files.has(posix.normalize(posix.join(posix.dirname(fromFile), decoded)));
 }
 
-function checkCss(files, file, css, findings) {
+// CSS escapes (\72 for r) can spell url( or @import, so the text is read the way the browser reads it.
+const unescapeCss = (css) => css
+  .replace(/\/\*[\s\S]*?\*\//g, ' ')
+  .replace(/\\([0-9a-f]{1,6})[ \t\n]?/gi, (m, hex) => { try { return String.fromCodePoint(parseInt(hex, 16)); } catch { return ''; } })
+  .replace(/\\([\s\S])/g, '$1');
+
+function checkCss(files, file, rawCss, findings) {
+  const css = unescapeCss(rawCss);
+  const before = findings.length;
   if (/@import/i.test(css)) findings.push(finding('load-external', file, '@import in CSS'));
-  for (const m of css.matchAll(/url\(\s*(['"]?)([^)'"]+)\1\s*\)/gi)) {
-    const url = m[2].trim();
-    if (isSkippable(url)) continue;
-    if (isExternal(url)) findings.push(finding('load-external', file, `CSS url() to ${url}`));
-    else if (!resolves(files, file, url)) findings.push(finding('link-broken', file, `CSS url() ${url} does not match a file`));
-  }
+  const check = (url, how) => {
+    if (isSkippable(url) || (schemeOf(url) === 'data' && how === 'url()')) return;
+    if (isExternal(url) || ['javascript', 'blob', 'file', 'ftp'].includes(schemeOf(url))) findings.push(finding('load-external', file, `CSS ${how} to ${url}`));
+    else if (!resolves(files, file, url)) findings.push(finding('link-broken', file, `CSS ${how} ${url} does not match a file`));
+  };
+  for (const m of css.matchAll(/url\(\s*(['"]?)([^)'"]+)\1\s*\)/gi)) check(m[2].trim(), 'url()');
+  // image-set() also takes bare strings.
+  for (const set of css.matchAll(/image-set\(([^)]*)\)/gi)) for (const s of set[1].matchAll(/(['"])([^'"]+)\1/g)) check(s[2].trim(), 'image-set()');
+  // Whatever the syntax, an address of another site has no place in a stylesheet.
+  const loose = /(?:https?:)?\/\/[a-z0-9][^\s'")]*/i.exec(css.replace(/url\(\s*(['"]?)data:[^)]*\)/gi, ''));
+  if (loose && findings.length === before) findings.push(finding('load-external', file, `an address of another site in CSS: ${loose[0].slice(0, 60)}`));
 }
 
 // An element opening tag; quoted attribute values may contain ">".
 const TAG = /<([a-z][a-z0-9:-]*)\b((?:"[^"]*"|'[^']*'|[^>"'])*)>/gi;
-const URL_ATTRS = ['src', 'srcset', 'poster', 'data', 'href', 'xlink:href', 'action', 'formaction'];
-const LOADING_REL = /(?:^|\s)(?:stylesheet|icon|apple-touch-icon|preload|prefetch|modulepreload|preconnect|dns-prefetch|manifest)(?:\s|$)/;
+const URL_ATTRS = ['src', 'poster', 'data', 'href', 'xlink:href', 'action', 'formaction', 'background'];
+// A link whose every rel word is one of these names another address but loads nothing; any other link counts as a load.
+const HARMLESS_REL = new Set(['canonical', 'alternate', 'author', 'help', 'license', 'next', 'prev', 'search', 'bookmark', 'me', 'tag']);
+const JS_TYPES = new Set(['', 'text/javascript', 'application/javascript', 'module']);
 
-function urlsOf(attrs) {
-  const urls = [];
-  for (const name of URL_ATTRS) {
-    const value = attrOf(attrs, name);
-    if (value === undefined) continue;
-    if (name === 'srcset') urls.push(...value.split(',').map((part) => part.trim().split(/\s+/)[0]).filter(Boolean));
-    else urls.push(value);
-  }
+function urlsOf(parsed) {
+  const urls = URL_ATTRS.filter((name) => parsed.has(name)).map((name) => parsed.get(name));
+  if (parsed.has('srcset')) urls.push(...parsed.get('srcset').split(',').map((part) => part.trim().split(/\s+/)[0]).filter(Boolean));
   return urls;
 }
 
-function checkAnchor(files, file, attrs, converted, findings) {
-  const url = attrOf(attrs, 'href');
+function checkAnchor(files, file, parsed, converted, findings) {
+  const url = parsed.get('href');
   if (url === undefined) return;
-  if (/^\s*javascript:/i.test(url)) { findings.push(finding('anchor-host', file, 'javascript: link')); return; }
+  if (schemeOf(url) === 'javascript') { findings.push(finding('anchor-host', file, 'javascript: link')); return; }
   if (isSkippable(url)) return;
+  if (schemeOf(url) && !/^https?$/.test(schemeOf(url))) { findings.push(finding('anchor-host', file, `link with the ${schemeOf(url)}: scheme`)); return; }
   if (!isExternal(url)) {
     if (!resolves(files, file, url)) findings.push(finding('link-broken', file, `href ${url} does not match a file`));
     return;
@@ -86,74 +122,87 @@ function checkAnchor(files, file, attrs, converted, findings) {
   let u;
   try { u = new URL(url.startsWith('//') ? `https:${url}` : url); } catch { findings.push(finding('anchor-host', file, `unparseable ${url}`)); return; }
   if (!CLICK_HOSTS.some((h) => u.hostname === h.host && u.pathname.startsWith(h.path))) findings.push(finding('anchor-host', file, `link to ${u.hostname}${u.pathname}`));
-  const tokens = new Set((attrOf(attrs, 'rel') ?? '').toLowerCase().split(/\s+/));
+  const tokens = new Set((parsed.get('rel') ?? '').toLowerCase().split(/\s+/));
   if (converted && !(tokens.has('noopener') && tokens.has('noreferrer'))) findings.push(finding('anchor-rel', file, `external link without rel="noopener noreferrer": ${url.slice(0, 60)}`));
 }
 
 // A refresh to a page on this site is a redirect; a refresh anywhere else leaves the site without a click.
 function checkRefresh(files, file, content, findings) {
-  const target = /url\s*=\s*['"]?([^'";]+)/i.exec(content)?.[1]?.trim();
+  // "5; url=x", "5;url='x'" and the bare "5; x" all name a target after the delay.
+  const target = /^\s*[\d.]*\s*[;,\s]\s*(?:url\s*=\s*)?['"]?([^'"]+)/i.exec(content)?.[1]?.trim();
   if (!target) return;
-  if (isExternal(target) || /^\s*javascript:/i.test(target)) findings.push(finding('load-external', file, `meta refresh to ${target}`));
+  if (isExternal(target) || schemeOf(target)) findings.push(finding('load-external', file, `meta refresh to ${target}`));
   else if (!resolves(files, file, target)) findings.push(finding('link-broken', file, `meta refresh ${target} does not match a file`));
 }
 
 function checkPage(files, file, html, findings, { site = true } = {}) {
   const name = basename(file);
-  const bare = html.replace(/<!--[\s\S]*?-->/g, '');
-  const scripts = [...bare.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)].map((m) => ({ attrs: m[1], body: m[2] }));
+  // "<!-->" and "<!--->" are complete, empty comments in HTML.
+  const bare = html.replace(/<!--(?:-?>|[\s\S]*?--!?>)/g, '');
+  const scripts = [...bare.matchAll(/<script\b((?:"[^"]*"|'[^']*'|[^>"'])*)>([\s\S]*?)<\/script>/gi)].map((m) => ({ attrs: m[1], body: m[2] }));
   const styles = [...bare.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1]);
-  const markup = bare.replace(/(<script\b[^>]*>)[\s\S]*?(<\/script>)/gi, '$1$2').replace(/(<style\b[^>]*>)[\s\S]*?(<\/style>)/gi, '$1$2');
+  const markup = bare.replace(/(<script\b(?:"[^"]*"|'[^']*'|[^>"'])*>)[\s\S]*?(<\/script>)/gi, '$1$2').replace(/(<style\b[^>]*>)[\s\S]*?(<\/style>)/gi, '$1$2');
+  // Only a script of a JavaScript type runs; any other type is data and cannot stand in for a required script.
+  const jsScripts = scripts.filter((sc) => JS_TYPES.has((attrOf(sc.attrs, 'type') ?? '').trim().toLowerCase()));
+  const sheets = [];
+  let hasStyleAttr = false;
 
   const nlRefs = /assets\/nl-(core|tokens|theme|theme-init)\./.test(markup);
-  const navTags = scripts.filter((s) => /assets\/site-nav\.js/.test(attrOf(s.attrs, 'src') ?? '')).length;
+  const navTags = scripts.filter((sc) => /assets\/site-nav\.js/.test(attrOf(sc.attrs, 'src') ?? '')).length;
   const converted = nlRefs;
   const isHome = name === HOME;
   const ownCss = OWN_CSS_PAGES.has(name);
 
   for (const m of markup.matchAll(TAG)) {
     const tag = m[1].toLowerCase();
-    const attrs = m[2];
-    const rel = (attrOf(attrs, 'rel') ?? '').toLowerCase();
+    const parsed = parseAttrs(m[2]);
+    const rel = (parsed.get('rel') ?? '').toLowerCase();
     if (tag === 'iframe' || tag === 'frame') findings.push(finding('load-external', file, tag));
-    if (converted && !ownCss && /\son[a-z]+\s*=/i.test(attrs)) findings.push(finding('state', file, `converted page has an inline event handler on <${tag}>`));
-    if (tag === 'meta' && /refresh/i.test(attrOf(attrs, 'http-equiv') ?? '')) checkRefresh(files, file, attrOf(attrs, 'content') ?? '', findings);
-    const style = attrOf(attrs, 'style');
+    if (converted && !ownCss && [...parsed.keys()].some((k) => /^on[a-z]/.test(k))) findings.push(finding('state', file, `converted page has an inline event handler on <${tag}>`));
+    if (tag === 'meta' && /refresh/i.test(parsed.get('http-equiv') ?? '')) checkRefresh(files, file, parsed.get('content') ?? '', findings);
+    if (parsed.has('style')) hasStyleAttr = true;
+    const style = parsed.get('style');
     if (style) checkCss(files, file, style, findings);
-    if (tag === 'a') { checkAnchor(files, file, attrs, converted, findings); continue; }
-    if (tag === 'link' && /preconnect|dns-prefetch|prefetch|preload/.test(rel)) findings.push(finding('load-external', file, `link rel=${rel}`));
-    // A canonical or alternate link names another address but loads nothing.
-    if (tag === 'link' && !LOADING_REL.test(rel)) continue;
-    for (const url of urlsOf(attrs)) {
+    if (tag === 'a') { checkAnchor(files, file, parsed, converted, findings); continue; }
+    if (tag === 'link' && /preconnect|dns-prefetch|prefetch|preload|prerender/.test(rel)) findings.push(finding('load-external', file, `link rel=${rel}`));
+    if (tag === 'link' && rel.split(/\s+/).includes('stylesheet') && parsed.has('href')) sheets.push(parsed.get('href'));
+    if (tag === 'link' && rel && rel.split(/\s+/).every((w) => HARMLESS_REL.has(w))) continue;
+    for (const url of urlsOf(parsed)) {
       if (isSkippable(url)) continue;
+      const scheme = schemeOf(url);
+      if (scheme && !/^https?$/.test(scheme)) {
+        if (!(scheme === 'data' && PASSIVE_DATA.has(tag))) findings.push(finding('load-external', file, `${tag} uses a ${scheme}: address`));
+        continue;
+      }
       if (isExternal(url)) findings.push(finding('load-external', file, `${tag} loads ${url}`));
       else if (!resolves(files, file, url)) findings.push(finding('link-broken', file, `${tag} ${url} does not match a file`));
     }
   }
 
   styles.forEach((css) => checkCss(files, file, css, findings));
-  for (const s of scripts) if (RUNTIME_REQUEST.test(s.body)) findings.push(finding('runtime-request', file, 'inline script makes a network request'));
+  for (const sc of scripts) if (RUNTIME_REQUEST.test(sc.body)) findings.push(finding('runtime-request', file, 'inline script makes a network request'));
   if (!site) return;
 
   if (navTags) findings.push(finding('state', file, 'the page still loads site-nav.js, which no longer exists'));
   if (!converted) findings.push(finding('state', file, 'page does not use the shared files'));
   if (!converted) return;
 
-  const src = (re) => scripts.some((s) => re.test(attrOf(s.attrs, 'src') ?? '')) || re.test(markup);
+  const src = (re) => jsScripts.some((sc) => re.test(attrOf(sc.attrs, 'src') ?? ''));
+  const sheet = (re) => sheets.some((href) => re.test(href));
   if (!src(/assets\/nl-theme-init\.js/)) findings.push(finding('state', file, 'missing nl-theme-init.js'));
-  if (!/assets\/nl-tokens\.css/.test(markup)) findings.push(finding('state', file, 'missing nl-tokens.css'));
+  if (!sheet(/assets\/nl-tokens\.css/)) findings.push(finding('state', file, 'missing nl-tokens.css'));
   if (ownCss) return;
-  if (!/assets\/nl-theme\.css/.test(markup)) findings.push(finding('state', file, 'missing nl-theme.css'));
+  if (!sheet(/assets\/nl-theme\.css/)) findings.push(finding('state', file, 'missing nl-theme.css'));
   if (!src(/assets\/nl-core\.js/)) findings.push(finding('state', file, 'missing nl-core.js'));
   if (styles.length || /<style\b/i.test(markup)) findings.push(finding('state', file, 'converted page has an inline <style>'));
-  if (scripts.some((s) => !attrOf(s.attrs, 'src') && s.body.trim())) findings.push(finding('state', file, 'converted page has an inline script'));
-  if (/\sstyle\s*=/i.test(markup)) findings.push(finding('state', file, 'converted page has a style attribute'));
+  if (scripts.some((sc) => !attrOf(sc.attrs, 'src') && sc.body.trim())) findings.push(finding('state', file, 'converted page has an inline script'));
+  if (hasStyleAttr) findings.push(finding('state', file, 'converted page has a style attribute'));
   if (isHome) return;
   if (!src(/assets\/nl-page\.js/)) findings.push(finding('state', file, 'missing nl-page.js'));
   const dataPath =`${dirname(file)}/data/${name.replace(/\.html$/, '.js')}`;
   if (!files.has(dataPath)) { findings.push(finding('state', file, `missing ${dataPath}`)); return; }
   // A page may load shared data files before its own; they run in page order, as in a browser.
-  const dataScripts = scripts.map((s) => attrOf(s.attrs, 'src') ?? '').filter((u) => /^data\/[^/]+\.js$/.test(u));
+  const dataScripts = jsScripts.map((sc) => attrOf(sc.attrs, 'src') ?? '').filter((u) => /^data\/[^/]+\.js$/.test(u));
   if (!dataScripts.includes(`data/${name.replace(/\.html$/, '.js')}`)) findings.push(finding('state', file, 'does not load its own data file'));
   const sandbox = { window: {} };
   try {
@@ -249,7 +298,11 @@ export function checkSite(files, { terms = [], minPages = MIN_PAGES } = {}) {
   for (const p of files.keys()) if (/\.html$/i.test(p) && !pages.includes(p) && !p.startsWith('tools/')) checkPage(files, p, text(files, p), findings, { site: false });
   for (const [p, buf] of files) {
     if (p.endsWith('.css')) checkCss(files, p, buf.toString('utf8'), findings);
-    else if (/^HTML\/(assets|data)\/.+\.js$/.test(p) && RUNTIME_REQUEST.test(buf.toString('utf8'))) findings.push(finding('runtime-request', p, 'script makes a network request'));
+    else if (/^HTML\/(assets|data)\/.+\.js$/.test(p)) {
+      const code = buf.toString('utf8');
+      if (RUNTIME_REQUEST.test(code)) findings.push(finding('runtime-request', p, 'script makes a network request'));
+      if (UNSAFE_SCRIPT.test(code)) findings.push(finding('unsafe-script', p, 'script turns text into markup or code'));
+    }
   }
   checkRegistry(files, findings);
   checkFonts(files, findings);
@@ -399,6 +452,29 @@ export function selfTest() {
     ['runtime-request', (f) => set(f, 'HTML/data/b_page.js', (t) => `${t}\nnew Image().src = "x";`), /network request/],
     ['runtime-request', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('</body>', '<script>new EventSource("x")</script></body>')), /inline script/],
     ['runtime-request', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('</body>', '<script>document.createElement("script")</script></body>')), /inline script/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><script/src=https://example.com/x.js></script>')), /script loads https:\/\/example\.com\/x\.js/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><!--><script src="https://example.com/x.js"></script>-->')), /script loads/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><script src="data:text/javascript,alert(1)"></script>')), /script uses a data: address/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><form action="javascript:x()"></form>')), /form uses a javascript: address/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><button formaction="https://example.com/p">x</button>')), /button loads/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body background="https://example.com/x.png">')), /loads https:\/\/example\.com\/x\.png|body loads/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<head>', '<head><link rel="prerender" href="https://example.com/">')), /rel=prerender/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<head>', '<head><link href="https://example.com/s.css">')), /link loads/],
+    ['load-external', (f) => set(f, 'HTML/assets/nl-theme.css', () => 'body { background: image-set("https://example.com/x.png" 1x); }'), /image-set\(\)/],
+    ['load-external', (f) => set(f, 'HTML/assets/nl-theme.css', () => 'body { background: u\\72l(https://example.com/x.png); }'), /CSS url\(\)/],
+    ['load-external', (f) => set(f, 'HTML/assets/nl-theme.css', () => '@\\69mport "https://example.com/x.css";'), /@import/],
+    ['load-external', (f) => set(f, 'HTML/assets/nl-theme.css', () => 'body { cursor: image-set(//example.com/x.png 1x), auto; }'), /address of another site/],
+    ['load-external', (f) => set(f, 'index.html', (t) => t.replace('content="0; url=HTML/DUTCH_Learning.html"', 'content="0; https://example.com/"')), /meta refresh to https:\/\/example\.com\//],
+    ['load-external', (f) => set(f, 'index.html', (t) => t.replace('url=HTML/DUTCH_Learning.html', 'url=javascript:alert(1)')), /meta refresh to javascript:/],
+    ['anchor-host', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><a href="data:text/html,x">x</a>')), /data: scheme/],
+    ['anchor-host', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><a href="java&#9;script:x()">x</a><a href="  JavaScript:x()">y</a>')), /javascript: link/],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main id="app">', '<main id="app"/onclick="x()">')), /inline event handler on <main>/],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<script src="assets/nl-core.js"></script>', '<script type="text/plain" src="assets/nl-core.js"></script>')), /missing nl-core\.js/],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<link rel="stylesheet" href="assets/nl-theme.css">', '<link rel="alternate" href="assets/nl-theme.css">')), /missing nl-theme\.css/],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<link rel="stylesheet" href="assets/nl-theme.css">', '<!-- <link rel="stylesheet" href="assets/nl-theme.css"> -->')), /missing nl-theme\.css/],
+    ['unsafe-script', (f) => set(f, 'HTML/assets/nl-page.js', (t) => `${t}\nel.innerHTML = x;`), /markup or code/],
+    ['unsafe-script', (f) => set(f, 'HTML/data/b_page.js', (t) => `${t}\ndocument.write(x);`), /markup or code/],
+    ['unsafe-script', (f) => set(f, 'HTML/assets/nl-core.js', (t) => `${t}\nnew Function("return 1");`), /markup or code/],
     ['font-hash', (f) => set(f, 'HTML/assets/fonts/SOURCES.txt', (t) => `${t}${'0'.repeat(64)}  gone.woff2\n`), /listed in SOURCES\.txt but missing/],
     ['font-hash', (f) => { const n = new Map(f); n.set('HTML/assets/fonts/x.woff2', Buffer.from('wOF2changed')); return n; }],
     ['font-hash', (f) => { const n = new Map(f); n.set('HTML/assets/fonts/extra.woff2', Buffer.from('wOF2extra')); return n; }],
@@ -422,6 +498,9 @@ export function selfTest() {
   const bad = [
     ['commit-identity', { ...good, authorEmail: 'me@example.com' }],
     ['commit-attribution', { ...good, message: 'fix: x\n\nCo-authored-by: someone' }],
+    ['commit-attribution', { ...good, message: 'fix: x\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>' }],
+    ['commit-attribution', { ...good, message: 'fix: x\n\nGenerated with a tool' }],
+    ['commit-attribution', { ...good, message: 'fix: x\n\nwritten with Anthropic help' }],
     ['private-history', { ...good, added: 'a line with ZZPRIVATE inside' }],
   ];
   for (const [rule, commit] of bad) if (!checkCommits([commit], opts.terms).some((f) => f.rule === rule)) failures.push(`commit rule ${rule} did not fire`);
