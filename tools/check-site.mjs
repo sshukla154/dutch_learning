@@ -170,7 +170,7 @@ export function checkSite(files, { terms = [], minPages = MIN_PAGES } = {}) {
   for (const p of pages) checkPage(files, p, text(files, p), findings);
   for (const [p, buf] of files) {
     if (p.endsWith('.css')) checkCss(files, p, buf.toString('utf8'), findings);
-    else if (/^HTML\/(assets|data)\/.+\.js$/.test(p) && RUNTIME_REQUEST.test(buf.toString('utf8')) && p !== 'HTML/assets/nl-core.js') findings.push(finding('runtime-request', p, 'script makes a network request'));
+    else if (/^HTML\/(assets|data)\/.+\.js$/.test(p) && RUNTIME_REQUEST.test(buf.toString('utf8'))) findings.push(finding('runtime-request', p, 'script makes a network request'));
   }
   checkRegistry(files, findings);
   checkFonts(files, findings);
