@@ -1,0 +1,85 @@
+/* Design tokens and fonts shared by every page. Light is the default; dark is set with <html data-theme="dark">. */
+
+/* Latin subset of each family; the font files sit in fonts/ next to this file. */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url(fonts/bricolage-grotesque-latin-wght-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/atkinson-hyperlegible-latin-400-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/atkinson-hyperlegible-latin-700-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-400-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #f4f1ea;
+  --surface-2: #e5e1d8;
+  --ink: #111111;
+  --muted: #555555;
+  --accent: #ff5a1f;
+  --on-accent: #111111;
+  --inverse-bg: #111111;
+  --inverse-ink: #ffffff;
+  --inverse-tile: #222222;
+  --inverse-tile-ink: #ffffff;
+  --track-on-inverse: rgba(255, 255, 255, 0.2);
+  --frame-border: #111111;
+  --r-frame: 28px;
+  --r-card: 22px;
+  --r-tile: 18px;
+  --r-item: 14px;
+  --r-icon: 12px;
+  --r-pill: 999px;
+  --f-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --f-body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111111;
+  --surface: #1e1e1e;
+  --surface-2: #2e2e2e;
+  --ink: #f4f1ea;
+  --muted: #a3a09a;
+  --inverse-bg: #f4f1ea;
+  --inverse-ink: #111111;
+  --inverse-tile: #ffffff;
+  --inverse-tile-ink: #111111;
+  --track-on-inverse: rgba(0, 0, 0, 0.2);
+  --frame-border: #2e2e2e;
+}
