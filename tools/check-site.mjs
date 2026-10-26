@@ -152,8 +152,13 @@ function checkPage(files, file, html, findings, { site = true } = {}) {
   if (!src(/assets\/nl-page\.js/)) findings.push(finding('state', file, 'missing nl-page.js'));
   const dataPath =`${dirname(file)}/data/${name.replace(/\.html$/, '.js')}`;
   if (!files.has(dataPath)) { findings.push(finding('state', file, `missing ${dataPath}`)); return; }
+  // A page may load shared data files before its own; they run in page order, as in a browser.
+  const dataScripts = scripts.map((s) => attrOf(s.attrs, 'src') ?? '').filter((u) => /^data\/[^/]+\.js$/.test(u));
+  if (!dataScripts.includes(`data/${name.replace(/\.html$/, '.js')}`)) findings.push(finding('state', file, 'does not load its own data file'));
   const sandbox = { window: {} };
-  try { vm.runInNewContext(text(files, dataPath), sandbox, { timeout: 2000 }); } catch (e) { findings.push(finding('data-file', dataPath, `does not run: ${e.message}`)); return; }
+  try {
+    for (const u of dataScripts) vm.runInNewContext(text(files, `${dirname(file)}/${u}`), sandbox, { timeout: 2000 });
+  } catch (e) { findings.push(finding('data-file', dataPath, `does not run: ${e.message}`)); return; }
   const data = sandbox.window.NL_PAGE;
   if (data?.file !== name) findings.push(finding('file-mismatch', dataPath, `NL_PAGE.file is ${JSON.stringify(data?.file)}, expected ${name}`));
   if (data?.reveal === true && !src(/assets\/nl-practice\.js/)) findings.push(finding('state', file, 'a practice page needs nl-practice.js'));
@@ -376,6 +381,14 @@ export function selfTest() {
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<script src="assets/nl-core.js"></script>', '')), /missing nl-core\.js/],
     ['state', (f) => without(f, 'HTML/data/b_page.js'), /missing HTML\/data\/b_page\.js/],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', () => 'throw new Error("x");'), /does not run/],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<script src="data/b_page.js"></script>', '')), /does not load its own data file/],
+    ['data-file', (f) => {
+      // The shared file is loaded after the page data that needs it.
+      const n = set(f, 'HTML/b_page.html', (t) => t.replace('<script src="data/b_page.js"></script>', '<script src="data/b_page.js"></script><script src="data/shared.js"></script>'));
+      n.set('HTML/data/b_page.js', Buffer.from("window.NL_PAGE = { file: 'b_page.html', groups: [ { title: 'T', en: 'T', words: window.SHARED.map((w) => w) } ] };"));
+      n.set('HTML/data/shared.js', Buffer.from('window.SHARED = [ { nl: "a", en: "b" } ];'));
+      return n;
+    }, /does not run/],
     ['state', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("file: 'b_page.html'", "file: 'b_page.html', reveal: true")), /needs nl-practice\.js/],
     ['runtime-request', (f) => set(f, 'HTML/assets/nl-core.js', (t) => `${t}\nfetch("x");`), /script makes a network request/],
     ['runtime-request', (f) => set(f, 'HTML/data/b_page.js', (t) => `${t}\nnew Image().src = "x";`), /network request/],
