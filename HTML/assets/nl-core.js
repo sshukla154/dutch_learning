@@ -27,7 +27,7 @@
     { file: 'numbers_learning.html', nl: 'Getallen', en: 'Numbers & symbols', cat: 'Basis', learner: 't1', flash: true },
     { file: 'time_learning.html', nl: 'Tijd & richting', en: 'Time & directions', cat: 'Basis', learner: 't1', flash: true },
     { file: 'greetings_learning.html', nl: 'Begroetingen', en: 'Greetings', cat: 'Basis', learner: 't1', flash: true },
-    { file: 'seasons_months_learning.html', nl: 'Seizoenen', en: 'Seasons & months', cat: 'Basis', learner: 't1', flash: false },
+    { file: 'seasons_months_learning.html', nl: 'Seizoenen', en: 'Seasons & months', cat: 'Basis', learner: 't1', flash: true },
     { file: 'food_learning.html', nl: 'Eten', en: 'Food', cat: 'Woordenschat', learner: 't1', flash: true },
     { file: 'common_dutch_words.html', nl: 'Veelgebruikte woorden', en: 'Common words', cat: 'Woordenschat', learner: 't2', flash: false },
     { file: 'common_dutch_words_game.html', nl: 'Woordenspel', en: 'Common words game', cat: 'Spellen', learner: 't2', flash: false },
