@@ -23,7 +23,7 @@
     { file: 'shapes_learning.html', nl: 'Vormen', en: 'Shapes', cat: 'Basis', learner: 't1', flash: false },
     { file: 'stationery_learning.html', nl: 'Kantoorartikelen', en: 'Stationery', cat: 'Woordenschat', learner: 't1', flash: true },
     { file: 'family_tree_learning.html', nl: 'De familie', en: 'Family tree', cat: 'Woordenschat', learner: 't1', flash: true },
-    { file: 'animals_learning.html', nl: 'Dieren', en: 'Animals', cat: 'Woordenschat', learner: 't1', flash: false },
+    { file: 'animals_learning.html', nl: 'Dieren', en: 'Animals', cat: 'Woordenschat', learner: 't1', flash: true },
     { file: 'numbers_learning.html', nl: 'Getallen', en: 'Numbers & symbols', cat: 'Basis', learner: 't1', flash: true },
     { file: 'time_learning.html', nl: 'Tijd & richting', en: 'Time & directions', cat: 'Basis', learner: 't1', flash: true },
     { file: 'greetings_learning.html', nl: 'Begroetingen', en: 'Greetings', cat: 'Basis', learner: 't1', flash: true },
