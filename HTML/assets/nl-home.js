@@ -37,7 +37,7 @@
         el('span', { class: 'learner-state', text: active ? 'actief' : 'kies' })),
       el('span', { class: 'pct' }, String(percent), el('small', { text: '%' })),
       el('span', { class: 'track', 'aria-hidden': 'true' }, fill),
-      el('span', { class: 'learner-meta', text: `${done} van ${mine.length} lessen${streak ? ` · ${streak} dagen op rij` : ''}` }));
+      el('span', { class: 'learner-meta', text: `${done} van ${mine.length} lessen${streak ? ` · ${streak} ${streak === 1 ? 'dag' : 'dagen'} op rij` : ''}` }));
   }
 
   function chips() {

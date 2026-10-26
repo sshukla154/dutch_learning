@@ -32,8 +32,8 @@
     { file: 'common_dutch_words.html', nl: 'Veelgebruikte woorden', en: 'Common words', cat: 'Woordenschat', learner: 't2', flash: false },
     { file: 'common_dutch_words_game.html', nl: 'Woordenspel', en: 'Common words game', cat: 'Spellen', learner: 't2', flash: false },
     { file: 'dutch_pronunciation_guide.html', nl: 'Uitspraak', en: 'Pronunciation', cat: 'Grammatica', learner: 't2', flash: false },
-    { file: 'verb_adjective_preposition.html', nl: 'Werkwoord & bijvoeglijk', en: 'Verbs & adjectives', cat: 'Grammatica', learner: 't2', flash: false },
-    { file: 'noun_sentences.html', nl: 'Zinnen met zelfst. nw.', en: 'Noun sentences', cat: 'Oefenen', learner: 't2', flash: false },
+    { file: 'verb_adjective_preposition.html', nl: 'Werkwoorden & bijvoeglijke naamwoorden', en: 'Verbs & adjectives', cat: 'Grammatica', learner: 't2', flash: false },
+    { file: 'noun_sentences.html', nl: 'Zinnen met zelfstandige naamwoorden', en: 'Noun sentences', cat: 'Oefenen', learner: 't2', flash: false },
     { file: 'verb_sentences.html', nl: 'Zinnen met werkwoorden', en: 'Verb sentences', cat: 'Oefenen', learner: 't2', flash: false },
     { file: 'dutch_grammar.html', nl: 'Grammatica', en: 'Dutch grammar', cat: 'Grammatica', learner: 't2', flash: false },
   ];
@@ -68,7 +68,7 @@
     }
   };
 
-  // Finished lessons: a JSON array of file names, the same shape the old home page wrote.
+  // Finished lessons are a JSON array of file names, so the previous version of the site can still read them.
   const DONE_KEY = 'dutchLearning.done';
   const rawDone = () => {
     const v = readJson(DONE_KEY);
@@ -89,8 +89,9 @@
     if (value) NL.bumpStreak();
   };
 
-  // Streak in local calendar days.
+  // Days are local calendar days, so the streak does not end at UTC midnight.
   const STREAK_KEY = 'dutchLearning.streak';
+  const MAX_STREAK = 3660;
   const pad = (n) => String(n).padStart(2, '0');
   const dayKey = (offset, now) => {
     const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset, 12);
@@ -98,14 +99,14 @@
   };
   const readStreak = () => {
     const v = readJson(STREAK_KEY);
-    const ok = v && /^\d{4}-\d{2}-\d{2}$/.test(v.last) && Number.isSafeInteger(v.count) && v.count >= 0 && v.count <= 3660;
+    const ok = v && /^\d{4}-\d{2}-\d{2}$/.test(v.last) && Number.isSafeInteger(v.count) && v.count >= 0 && v.count <= MAX_STREAK;
     return ok ? { last: v.last, count: v.count } : { last: null, count: 0 };
   };
   NL.bumpStreak = (now = new Date()) => {
     const s = readStreak();
     const today = dayKey(0, now);
     if (s.last === today) return;
-    store.set(STREAK_KEY, JSON.stringify({ last: today, count: s.last === dayKey(-1, now) ? Math.min(s.count + 1, 3660) : 1 }));
+    store.set(STREAK_KEY, JSON.stringify({ last: today, count: s.last === dayKey(-1, now) ? Math.min(s.count + 1, MAX_STREAK) : 1 }));
   };
   NL.streak = (now = new Date()) => {
     const s = readStreak();
