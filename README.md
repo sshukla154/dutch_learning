@@ -21,3 +21,15 @@ python -m http.server --bind 127.0.0.1
 Then open http://127.0.0.1:8000/DUTCH_Learning.html.
 
 Lesson ticks are stored in the browser for the address you opened, so ticks made from a file do not appear on `127.0.0.1`.
+
+## Checks
+
+`tools/check-site.mjs` checks links, requests on page load, page structure, fonts and private words. It needs a plain-text file with one private word per line, kept outside the repo:
+
+```bash
+NL_PRIVATE_TERMS_FILE=/path/to/words.txt node tools/check-site.mjs
+node tools/check-site.mjs --self-test
+node --test
+```
+
+Add `--history` to also check the commits not yet pushed.
