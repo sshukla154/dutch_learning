@@ -8,6 +8,7 @@ Open the lessons online: https://sshukla154.github.io/dutch_learning/
 
 - `HTML/` has the lesson pages. `DUTCH_Learning.html` is the home page and links to every lesson; `assets/site-nav.js` adds a top bar to each lesson page that links back to the lesson list.
 - `Inburgering/` has my plain-text study notes.
+- `HTML/assets/fonts/` has the page fonts, served from this site so no page asks a third party for them. They are under the SIL Open Font License 1.1; see the `OFL-*.txt` files and `SOURCES.txt` there.
 
 ## Run it locally
 

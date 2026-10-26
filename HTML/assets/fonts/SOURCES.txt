@@ -1,0 +1,12 @@
+# Fonts in this folder are the unmodified latin woff2 files from the Fontsource packages below.
+# Each family is licensed under the SIL Open Font License 1.1; the licence text is in the OFL-*.txt files here.
+# One line per file: SHA-256, two spaces, file name. tools/check-site.mjs verifies them.
+# @fontsource-variable/bricolage-grotesque version 5.3.0, tarball sha512-TLi9Q4hJjS2UvoTMRSS2nHu6c4R56lAw60NR9QYtVRCHn0XtsFpiEhNffZ8Glsoxu6wEEwLKBP8lb94J52PNBA==, git 02b28c06b126c852a5b966b44aef777ca923f6f6, licence OFL-Bricolage-Grotesque.txt
+# @fontsource/atkinson-hyperlegible version 5.3.0, tarball sha512-Sp8Ve8+rQmENY2Lv02VH7sLpntzTTvnncnJMTbRE7DX6TLxGraN4ykZfzaUWIoCFmaomwkvNiqmlPkrKBuDoSA==, git 02b28c06b126c852a5b966b44aef777ca923f6f6, licence OFL-Atkinson-Hyperlegible.txt
+# @fontsource/ibm-plex-mono version 5.3.0, tarball sha512-eTgnZjZEGk1QtD3ZstF+Vclo2HLAni8YMy34/DxllwZvyz1lR/1RF/xTiAquOBO7MvqBx8D2Ig2WCPMVfdZu7Q==, git 02b28c06b126c852a5b966b44aef777ca923f6f6, licence OFL-IBM-Plex-Mono.txt
+
+d64ba838ef5472bba248620ec4fd8b5aa7cf0db2908e0bb230600caf279ba7bc  atkinson-hyperlegible-latin-400-normal.woff2
+140e2bd25a7315c8a062508391426b0d8c3297400c947b8d847be28f73a199f0  atkinson-hyperlegible-latin-700-normal.woff2
+a97804dc9fbe5fc972a08018c5eda4dab7ef2346f64c57e61419d05e6de4ea1c  bricolage-grotesque-latin-wght-normal.woff2
+08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7  ibm-plex-mono-latin-400-normal.woff2
+01d285447409c8a588692162439a038b8cbd7871309ee20267b0d2d91c6e8e22  ibm-plex-mono-latin-500-normal.woff2
