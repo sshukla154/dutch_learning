@@ -104,6 +104,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .fact { background: var(--bg); border-radius: var(--r-item); padding: 12px 14px; font-size: 14px; color: var(--muted); }
 .fact strong { color: var(--ink); }
 .tip { background: var(--surface); border-radius: var(--r-card); padding: 16px 24px; font-size: 15px; color: var(--muted); }
+.tip strong { color: var(--ink); }
+.tip-line { display: block; margin-top: 4px; }
 
 /* Flashcards */
 .flash { background: var(--inverse-bg); color: var(--inverse-ink); border-radius: var(--r-card); padding: 28px; display: flex; flex-direction: column; gap: 18px; position: sticky; top: 24px; }

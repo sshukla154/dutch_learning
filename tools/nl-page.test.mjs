@@ -50,6 +50,18 @@ test('flashcards need more than one word, and the tip is shown with its label', 
   assert.deepEqual(tip.children.map((c) => (typeof c === 'string' ? c : c.text)), ['Tip: ', 'Say it aloud']);
 });
 
+test('notes follow the tip, each with its label, and several lines stay separate', () => {
+  const app = build({
+    file: 'greetings_learning.html',
+    tip: 'First',
+    notes: [{ label: 'Voorbeelden', text: ['1 + 1 = 2', '2 + 2 = 4'] }, { label: 'Let op', text: 'Single line' }],
+    groups: [{ title: 'T', en: 'T', words: [word('a', 'b'), word('c', 'd')] }],
+  });
+  const shown = classes(app, 'tip').map((p) => p.children.map((c) => (typeof c === 'string' ? c : c.text)));
+  assert.deepEqual(shown, [['Tip: ', 'First'], ['Voorbeelden: ', '1 + 1 = 2', '2 + 2 = 4'], ['Let op: ', 'Single line']]);
+  assert.deepEqual(classes(app, 'tip-line').map((n) => n.text), ['1 + 1 = 2', '2 + 2 = 4']);
+});
+
 test('the Flashcards link follows the lesson flag, not the page content', () => {
   const page = { file: 'greetings_learning.html', groups: [{ title: 'T', en: 'T', words: [word('a', 'b'), word('c', 'd')] }] };
   const linkTexts = (flash) => walk(build(page, flash)).filter((n) => n.tag === 'a').map((a) => a.text);

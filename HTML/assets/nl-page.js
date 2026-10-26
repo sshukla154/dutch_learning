@@ -43,6 +43,15 @@
       group.fact ? el('p', { class: 'fact', lang: 'en' }, el('strong', { text: 'Weetje: ' }), group.fact) : null);
   }
 
+  // A tip and any further notes sit under the lesson; a note's text is one line or an array of lines.
+  const notes = [...(page.tip ? [{ label: 'Tip', text: page.tip }] : []), ...(page.notes || [])];
+
+  function noteBlock(note) {
+    const lines = [].concat(note.text);
+    return el('p', { class: 'tip', lang: 'en' }, el('strong', { text: `${note.label}: ` }),
+      lines.length === 1 ? lines[0] : lines.map((line) => el('span', { class: 'tip-line', text: line })));
+  }
+
   function build() {
     const flash = el('div', { class: 'flash', id: 'flashcards', role: 'region', 'aria-label': 'Flashcards' });
     const head = header();
@@ -51,7 +60,7 @@
       head.node,
       groups.length > 1 ? el('nav', { class: 'chips', 'aria-label': 'Secties' }, groups.map((g, i) => el('a', { class: 'chip', href: `#g${i}`, text: g.title }))) : null,
       el('section', { class: 'split' }, el('div', { class: 'groups' }, groups.map(groupPanel)), allWords.length > 1 ? flash : null),
-      page.tip ? el('p', { class: 'tip', lang: 'en' }, el('strong', { text: 'Tip: ' }), page.tip) : null,
+      ...notes.map(noteBlock),
     ];
     // replaceChildren turns a null into the text "null", unlike el().
     app.replaceChildren(...parts.filter(Boolean));
