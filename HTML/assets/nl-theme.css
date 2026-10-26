@@ -126,16 +126,19 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .answer:disabled { cursor: default; }
 .flash-foot { display: flex; justify-content: space-between; align-items: center; font: 700 14px var(--f-body); }
 
-@media (min-width: 901px) {
+/* Word rows need about 500px; below 1100px the flashcards go under the words instead of beside them. */
+@media (min-width: 1101px) {
   .flash { max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px); overflow-y: auto; }
+}
+@media (max-width: 1100px) {
+  .split { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr 1fr; }
   .continue { grid-column: 1 / -1; }
   .continue h2 { font-size: clamp(34px, 9vw, 52px); }
-  .split { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 900px), (max-height: 520px) {
+@media (max-width: 1100px), (max-height: 520px) {
   .flash { position: static; max-height: none; overflow: visible; }
 }
 @media (max-width: 560px) {
