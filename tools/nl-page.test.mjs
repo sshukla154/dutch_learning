@@ -62,6 +62,13 @@ test('notes follow the tip, each with its label, and several lines stay separate
   assert.deepEqual(classes(app, 'tip-line').map((n) => n.text), ['1 + 1 = 2', '2 + 2 = 4']);
 });
 
+test('a note about a missing Dutch voice is part of every lesson page, hidden by CSS until it applies', () => {
+  const app = build({ file: 'greetings_learning.html', groups: [{ title: 'T', en: 'T', words: [word('a', 'b'), word('c', 'd')] }] });
+  const [note] = classes(app, 'voice-note');
+  assert.equal(note.attrs.role, 'note');
+  assert.match(note.text, /Nederlandse stem/);
+});
+
 test('the Flashcards link follows the lesson flag, not the page content', () => {
   const page = { file: 'greetings_learning.html', groups: [{ title: 'T', en: 'T', words: [word('a', 'b'), word('c', 'd')] }] };
   const linkTexts = (flash) => walk(build(page, flash)).filter((n) => n.tag === 'a').map((a) => a.text);

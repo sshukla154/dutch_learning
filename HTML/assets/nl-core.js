@@ -178,7 +178,8 @@
   });
   if (typeof requestAnimationFrame === 'function') requestAnimationFrame(() => root.classList.add('nl-ready'));
 
-  // Speech: a Dutch voice stored on this device is preferred over an online one.
+  // A Dutch voice stored on this device is preferred over an online one.
+  const VOICE_WAIT_MS = 2000;
   let voice = null;
   let current = null;
   const pickVoice = () => {
@@ -186,15 +187,20 @@
     const dutch = all.filter((x) => x.lang.startsWith('nl'));
     const best = dutch.find((x) => x.lang === 'nl-nl' && x.v.localService) || dutch.find((x) => x.v.localService) || dutch.find((x) => x.lang === 'nl-nl') || dutch[0];
     voice = best ? best.v : null;
-    root.classList.toggle('no-nl-voice', all.length > 0 && !voice);
+    return all.length;
   };
+  const markVoice = () => root.classList.toggle('no-nl-voice', !voice);
   if ('speechSynthesis' in window) {
-    pickVoice();
-    speechSynthesis.addEventListener('voiceschanged', pickVoice);
+    if (pickVoice()) markVoice();
+    speechSynthesis.addEventListener('voiceschanged', () => { if (pickVoice()) markVoice(); });
+    // Some browsers never report a voice list, so look once more after the page has settled.
+    setTimeout(() => { pickVoice(); markVoice(); }, VOICE_WAIT_MS);
+  } else {
+    root.classList.add('no-nl-voice');
   }
-  // Resolves when the utterance ends, so a caller can chain several.
+  // Resolves true when the utterance ran to its end, false when it was cut off or could not start.
   NL.speak = (text, btn, opts = {}) => new Promise((resolve) => {
-    if (!('speechSynthesis' in window)) { resolve(); return; }
+    if (!('speechSynthesis' in window) || !String(text).trim()) { resolve(false); return; }
     if (!voice) pickVoice();
     if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
     document.querySelectorAll('.speaking').forEach((b) => b.classList.remove('speaking'));
@@ -206,9 +212,9 @@
     if (opts.pitch) u.pitch = opts.pitch;
     if (voice && lang.toLowerCase().startsWith('nl')) u.voice = voice;
     if (btn) btn.classList.add('speaking');
-    const finish = () => { if (btn && current === u) btn.classList.remove('speaking'); resolve(); };
-    u.onend = finish;
-    u.onerror = finish;
+    const finish = (ended) => { if (btn && current === u) btn.classList.remove('speaking'); resolve(ended); };
+    u.onend = () => finish(true);
+    u.onerror = () => finish(false);
     speechSynthesis.speak(u);
   });
   document.addEventListener('click', (e) => {

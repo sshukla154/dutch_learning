@@ -58,6 +58,7 @@
     const parts = [
       topbar(),
       head.node,
+      el('p', { class: 'voice-note', role: 'note', text: 'Er is geen Nederlandse stem op dit apparaat gevonden: het geluid kan ontbreken.' }),
       groups.length > 1 ? el('nav', { class: 'chips', 'aria-label': 'Secties' }, groups.map((g, i) => el('a', { class: 'chip', href: `#g${i}`, text: g.title }))) : null,
       el('section', { class: 'split' }, el('div', { class: 'groups' }, groups.map(groupPanel)), allWords.length > 1 ? flash : null),
       ...notes.map(noteBlock),
