@@ -12,7 +12,7 @@
 </head>
 <body>
 <main class="frame" id="app">
-<div id="content">
+<div id="content" lang="en">
   <div class="tabs" role="tablist" aria-label="Thema's">
   <button class="tab" type="button" role="tab" data-tab="articles" aria-selected="true">📖 Artikel</button>
   <button class="tab" type="button" role="tab" data-tab="pronomen" aria-selected="false" tabindex="-1">👤 Pronomen</button>
@@ -20,8 +20,8 @@
   <button class="tab" type="button" role="tab" data-tab="verbs" aria-selected="false" tabindex="-1">🔧 Verbs</button>
   <button class="tab" type="button" role="tab" data-tab="conjuncties" aria-selected="false" tabindex="-1">🔗 Conjuncties</button>
   <button class="tab" type="button" role="tab" data-tab="pluralis" aria-selected="false" tabindex="-1">📚 Pluralis</button>
-  <button class="tab" type="button" disabled title="Coming soon">📊 Comparatief / Superlatief</button>
-  <button class="tab" type="button" disabled title="Coming soon">❌ Negatie</button>
+  <button class="tab" type="button" role="tab" aria-disabled="true" disabled title="Coming soon">📊 Comparatief / Superlatief</button>
+  <button class="tab" type="button" role="tab" aria-disabled="true" disabled title="Coming soon">❌ Negatie</button>
   </div>
   <section class="tabpanel" id="articles" role="tabpanel">
   <a class="video-link" href="https://www.youtube.com/watch?v=zEj1pbv55SM" target="_blank" rel="noopener noreferrer">▶️ Watch: Artikel — De and Het (YouTube)</a>
@@ -74,7 +74,7 @@
   All <strong>plurals</strong> use <strong>de</strong>, regardless of the singular article: <em>het boek → de boeken</em>.</div>
   <div class="section-label">Example Sentences</div>
   <p class="section-desc">See <em>de</em>, <em>het</em>, and <em>een</em> in everyday sentences with pronunciation and voice.</p>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr><th>Dutch Sentence</th><th>English</th><th>Article</th><th>Pronunciation</th><th>🔊 Listen</th></tr>
@@ -177,7 +177,7 @@
   💡 <strong>Formal "u":</strong> Used for strangers, superiors, and people of an older generation. In modern casual Dutch, <em>jij / je</em> is used among friends and peers.<br>
   <strong>Tip:</strong> To avoid confusion, use the stressed form — it is always correct.
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr><th>Person</th><th>Stressed (emphatic)</th><th>Unstressed</th><th>English</th><th>Pronunciation</th><th>🔊 Listen</th></tr>
@@ -390,7 +390,7 @@
   <button class="play" type="button" data-say="Haar boek" aria-label="Luister: Haar boek">▶</button>
   </div>
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr><th>Person</th><th>Stressed (emphatic)</th><th>Unstressed</th><th>English</th><th>Note</th><th>Pronunciation</th><th>🔊 Listen</th></tr>
@@ -556,7 +556,7 @@
   </div>
   </div>
   <p class="section-desc">Object pronouns are used when the pronoun is the <strong>object</strong> of a verb — not the subject. Compare: <em>Ik help <strong>jou</strong></em> — here <em>jou</em> is the object form of <em>jij</em>.</p>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr><th>Person</th><th>Subject Form</th><th>Object Form</th><th>English</th><th>Pronunciation</th><th>🔊 Listen</th></tr>
@@ -777,7 +777,7 @@
   </div>
   <div class="tabpanel" id="proncomp" role="tabpanel" hidden>
   <p class="section-desc">A complete side-by-side reference of all subject, possessive, and object forms. Where stressed and unstressed differ, both are shown as <strong>stressed / unstressed</strong>.</p>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr>
@@ -894,7 +894,7 @@
   <div class="def-row"><span class="def-term">Plural</span><span class="def-meaning">All plural forms = full infinitive: <em>wij / jullie / zij luisteren / komen</em></span></div>
   </div>
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr>
@@ -1079,7 +1079,7 @@
   <div class="def-row"><span class="def-term">Inversion</span><span class="def-meaning">The -t drop rule still applies: <em>heb je / heb jij</em>  |  <em>ben je / ben jij</em></span></div>
   </div>
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr>
@@ -1247,7 +1247,7 @@
   <div class="def-row"><span class="def-term">Alternative forms</span><span class="def-meaning">For jij/u: <em>kunt / kan</em>, <em>wilt / wil</em>, <em>zult / zal</em> are all correct.</span></div>
   </div>
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr>
@@ -1489,7 +1489,7 @@
   </div>
   </div>
   <p class="section-label large">Regular Participle Examples</p>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr>
@@ -1887,7 +1887,7 @@
   </div>
   <p class="section-label large">Forming the Participle of Separable Verbs</p>
   <p class="section-desc">The <em>ge-</em> is inserted <strong>between</strong> the preposition and the verb stem. The result is one word.</p>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr>
@@ -2402,7 +2402,7 @@
   </div>
   <p class="section-label large">want vs omdat</p>
   <p class="section-desc">Both mean "because" — but their word order is completely different.</p>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr>
@@ -2641,7 +2641,7 @@
   </div>
   <p class="section-label large">Full T–M–P Examples</p>
   <p class="section-desc">The complete rest in Time → Manner → Place order</p>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr>
@@ -2850,7 +2850,7 @@
   </div>
   <p class="section-label large">Normal vs Inverted — Side by Side</p>
   <p class="section-desc">See how moving an element to the front pushes the subject after the verb.</p>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr>
@@ -3049,7 +3049,7 @@
   </div>
   </div>
   <p class="section-label large">Plural Forms at a Glance</p>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Table">
   <table class="ref">
   <thead>
   <tr>

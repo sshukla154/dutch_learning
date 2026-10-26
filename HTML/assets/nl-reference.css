@@ -1,11 +1,11 @@
 /* Reference pages (grammar, pronunciation): tabs, tables, cards, boxes. Colours come from nl-tokens.css; the tones below only add hues for grouping. */
 
 :root {
-  --tone-a: #0b7a75;
-  --tone-b: #9a5b00;
+  --tone-a: #0a6b66;
+  --tone-b: #8a5200;
   --tone-c: #6d3fc0;
-  --tone-good: #137a3a;
-  --tone-bad: #c0392b;
+  --tone-good: #0f6e32;
+  --tone-bad: #b32d20;
   --tone-on: #ffffff;
 }
 [data-theme="dark"] {
@@ -35,7 +35,7 @@
 .bold { font-weight: 700; }
 .caps { text-transform: uppercase; letter-spacing: 0.08em; }
 .center { text-align: center; }
-.faint { opacity: 0.75; }
+.faint { font-weight: 400; }
 .indent { margin-left: 20px; }
 .indent-2 { margin-left: 40px; }
 .row { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
@@ -166,7 +166,7 @@ table.ref td { padding: 10px 14px; border-top: 1px solid var(--surface-2); verti
 
 /* Diagrams */
 .panel-dark { background: var(--inverse-bg); color: var(--inverse-ink); border-radius: var(--r-card); padding: 24px 28px; display: flex; flex-direction: column; gap: 14px; --tone-a: #7de8eb; --tone-b: #f5d98e; --tone-c: #c4a8f5; --tone-good: #86efac; --tone-bad: #fca5a5; --tone-on: #111111; --muted: rgba(255, 255, 255, 0.6); }
-[data-theme="dark"] .panel-dark { --tone-a: #0b7a75; --tone-b: #9a5b00; --tone-c: #6d3fc0; --tone-good: #137a3a; --tone-bad: #c0392b; --tone-on: #ffffff; --muted: rgba(0, 0, 0, 0.6); }
+[data-theme="dark"] .panel-dark { --tone-a: #0a6b66; --tone-b: #8a5200; --tone-c: #6d3fc0; --tone-good: #0f6e32; --tone-bad: #b32d20; --tone-on: #ffffff; --muted: rgba(0, 0, 0, 0.6); }
 .visual-diagram { background: var(--surface); border-radius: var(--r-card); padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
 .visual-diagram h3 { font: 800 20px var(--f-display); }
 .flowchart { display: flex; align-items: stretch; justify-content: center; gap: 14px; flex-wrap: wrap; }
@@ -189,5 +189,6 @@ table.ref td { padding: 10px 14px; border-top: 1px solid var(--surface-2); verti
 @media print {
   .tabs { display: none; }
   .tabpanel[hidden] { display: flex !important; }
+  .coming-soon { display: none; }
   .section, .card, .vowel-card, .def-box, .example-block, .table-wrap { background: #ffffff; }
 }

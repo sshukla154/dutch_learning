@@ -12,7 +12,7 @@
 </head>
 <body>
 <main class="frame" id="app">
-<div id="content">
+<div id="content" lang="en">
   <div class="tabs" role="tablist" aria-label="Thema's">
   <button class="tab" type="button" role="tab" data-tab="vowels" aria-selected="true">Vowels</button>
   <button class="tab" type="button" role="tab" data-tab="consonants" aria-selected="false" tabindex="-1">Consonants</button>
@@ -183,7 +183,8 @@
   <div class="tabpanel" id="consonants" role="tabpanel" hidden>
   <div class="section">
   <h2 class="section-title">Special Dutch Consonants</h2>
-  <table class="ref consonant-table">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Consonants table">
+<table class="ref consonant-table">
   <tbody>
   <tr>
   <th>Letter(s)</th>
@@ -250,6 +251,7 @@
   </tr>
   </tbody>
   </table>
+</div>
   </div>
   </div>
   <div class="tabpanel" id="rules" role="tabpanel" hidden>
