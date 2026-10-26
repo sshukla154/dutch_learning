@@ -135,9 +135,8 @@ function checkPage(files, file, html, findings, { site = true } = {}) {
   for (const s of scripts) if (RUNTIME_REQUEST.test(s.body)) findings.push(finding('runtime-request', file, 'inline script makes a network request'));
   if (!site) return;
 
-  if (isHome && navTags) findings.push(finding('state', file, 'the home page must not carry the old top bar'));
-  if (!isHome && converted && navTags) findings.push(finding('state', file, 'page loads both site-nav.js and the new shared files'));
-  if (!isHome && !converted && navTags !== 1) findings.push(finding('state', file, `legacy page has ${navTags} site-nav.js tags, expected 1`));
+  if (navTags) findings.push(finding('state', file, 'the page still loads site-nav.js, which no longer exists'));
+  if (!converted) findings.push(finding('state', file, 'page does not use the shared files'));
   if (!converted) return;
 
   const src = (re) => scripts.some((s) => re.test(attrOf(s.attrs, 'src') ?? '')) || re.test(markup);
@@ -305,14 +304,13 @@ function fixture() {
   const font = Buffer.concat([enc('wOF2'), enc('font-bytes')]);
   const head = (extra = '') => `<!doctype html><html><head><meta charset="utf-8"><script src="assets/nl-theme-init.js"></script><link rel="stylesheet" href="assets/nl-tokens.css"><link rel="stylesheet" href="assets/nl-theme.css">${extra}</head>`;
   const files = new Map([
-    ['HTML/DUTCH_Learning.html', enc(`${head()}<body><a href="a_page.html">A</a><a href="b_page.html">B</a><script src="assets/nl-core.js"></script></body></html>`)],
-    ['HTML/a_page.html', enc('<!doctype html><html><head><meta charset="utf-8"></head><body><a href="DUTCH_Learning.html">home</a><script src="assets/site-nav.js"></script></body></html>')],
+    ['HTML/DUTCH_Learning.html', enc(`${head()}<body><a href="dutch_stories.html">A</a><a href="b_page.html">B</a><script src="assets/nl-core.js"></script></body></html>`)],
+    ['HTML/dutch_stories.html', enc('<!doctype html><html><head><meta charset="utf-8"><script src="assets/nl-theme-init.js"></script><link rel="stylesheet" href="assets/nl-tokens.css"></head><body><a href="DUTCH_Learning.html">home</a><script src="assets/nl-core.js"></script></body></html>')],
     ['HTML/b_page.html', enc(`${head()}<body><main id="app"></main><script src="data/b_page.js"></script><script src="assets/nl-core.js"></script><script src="assets/nl-page.js"></script></body></html>`)],
     ['HTML/data/b_page.js', enc("window.NL_PAGE = { file: 'b_page.html', groups: [ { title: 'T', en: 'T', words: [ { nl: 'a', en: 'b' } ] } ] };")],
-    ['HTML/assets/site-nav.js', enc('(function () {})();')],
     ['HTML/assets/nl-theme-init.js', enc('(function () {})();')],
     ['HTML/assets/nl-page.js', enc('(function () {})();')],
-    ['HTML/assets/nl-core.js', enc("window.NL = { LESSONS: [ { file: 'a_page.html' }, { file: 'b_page.html' } ] };")],
+    ['HTML/assets/nl-core.js', enc("window.NL = { LESSONS: [ { file: 'dutch_stories.html' }, { file: 'b_page.html' } ] };")],
     ['index.html', enc('<!doctype html><html><head><meta http-equiv="refresh" content="0; url=HTML/DUTCH_Learning.html"></head><body><a href="HTML/DUTCH_Learning.html">open</a></body></html>')],
     ['HTML/assets/nl-tokens.css', enc("@font-face { font-family: X; src: url(fonts/x.woff2) format('woff2'); }")],
     ['HTML/assets/nl-theme.css', enc('body { margin: 0; }')],
@@ -329,22 +327,23 @@ const without = (files, path) => { const next = new Map(files); next.delete(path
 export function selfTest() {
   const opts = { terms: ['zzprivate'], minPages: 3 };
   const cases = [
-    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<head>', '<head><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=X">'))],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<head>', '<head><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=X">'))],
     ['load-external', (f) => set(f, 'HTML/assets/nl-theme.css', () => "@import url('https://fonts.googleapis.com/css2');")],
     ['load-external', (f) => set(f, 'HTML/assets/nl-tokens.css', () => 'body { background: url(https://example.com/x.png); }')],
     ['anchor-host', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main', '<a href="https://evil.example/x" rel="noopener noreferrer">x</a><main'))],
     ['anchor-rel', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main', '<a href="https://www.google.com/search?q=x">x</a><main'))],
-    ['link-broken', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('DUTCH_Learning.html', 'missing.html'))],
-    ['link-broken', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('DUTCH_Learning.html', 'dutch_learning.html'))],
+    ['link-broken', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('DUTCH_Learning.html', 'missing.html'))],
+    ['link-broken', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('DUTCH_Learning.html', 'dutch_learning.html'))],
     ['link-broken', (f) => set(f, 'HTML/assets/nl-tokens.css', (t) => t.replace('x.woff2', 'y.woff2'))],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('</body>', '<script src="assets/site-nav.js"></script></body>'))],
-    ['state', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<script src="assets/site-nav.js"></script>', ''))],
+    ['state', (f) => set(f, 'HTML/dutch_stories.html', () => '<!doctype html><html><head><meta charset="utf-8"></head><body>old page</body></html>'), /does not use the shared files/],
+    ['state', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('</body>', '<script src="assets/site-nav.js"></script></body>')), /still loads site-nav.js/],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<link rel="stylesheet" href="assets/nl-theme.css">', ''))],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main', '<style>a{}</style><main'))],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main', '<script>var x = 1;</script><main'))],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main', '<main style="color:red"'))],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<script src="assets/nl-page.js"></script>', ''))],
-    ['file-mismatch', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace('b_page.html', 'a_page.html'))],
+    ['file-mismatch', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace('b_page.html', 'dutch_stories.html'))],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace('groups: [', 'grups: ['))],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("nl: 'a'", "nl: ''"))],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("en: 'b' }", "en: 'b', photo: 5 }"))],
@@ -355,30 +354,30 @@ export function selfTest() {
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("en: 'b' }", "en: 'b', shape: 'zz' }")), /shape "zz" has no symbol in the page/],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("en: 'b' }", "en: 'b', sound: { label: 'x' } }")), /sound needs a label and a say/],
     ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace('b_page.html', 'B_page.html')), /bad file name B_page\.html/],
-    ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace("{ file: 'b_page.html' }", "{ file: 'a_page.html' }")), /duplicate a_page\.html/],
+    ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace("{ file: 'b_page.html' }", "{ file: 'dutch_stories.html' }")), /duplicate dutch_stories\.html/],
     ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace("{ file: 'b_page.html' } ]", "{ file: 'b_page.html' }, { file: 'ghost.html' } ]")), /ghost\.html does not match a page/],
     ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace(", { file: 'b_page.html' }", '')), /page is not in the lesson registry/],
     ['registry', (f) => set(f, 'HTML/assets/nl-core.js', () => 'window.NL = { LESSONS: 5 };'), /not a list/],
     ['registry', (f) => set(f, 'HTML/assets/nl-core.js', () => 'throw new Error("x");'), /does not run/],
     ['registry', (f) => without(f, 'HTML/assets/nl-core.js'), /nl-core\.js but the file is missing/],
     ['load-external', (f) => set(f, 'HTML/assets/nl-theme.css', () => '@import "https://example.com/x.css";'), /@import/],
-    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<head>', '<head><link rel="preconnect" href="https://example.com">')), /rel=preconnect/],
-    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><iframe src="DUTCH_Learning.html"></iframe>')), /iframe/],
-    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><img srcset="a.png 1x, https://example.com/b.png 2x">')), /img loads https:\/\/example\.com\/b\.png/],
-    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><video poster="https://example.com/p.png"></video>')), /video loads/],
-    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><object data="https://example.com/o"></object>')), /object loads/],
-    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><img alt="a>b" src="https://example.com/x.png">')), /img loads/],
-    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><div style="background:url(https://example.com/x.png)"></div>')), /CSS url\(\) to/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<head>', '<head><link rel="preconnect" href="https://example.com">')), /rel=preconnect/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><iframe src="DUTCH_Learning.html"></iframe>')), /iframe/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><img srcset="a.png 1x, https://example.com/b.png 2x">')), /img loads https:\/\/example\.com\/b\.png/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><video poster="https://example.com/p.png"></video>')), /video loads/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><object data="https://example.com/o"></object>')), /object loads/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><img alt="a>b" src="https://example.com/x.png">')), /img loads/],
+    ['load-external', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><div style="background:url(https://example.com/x.png)"></div>')), /CSS url\(\) to/],
     ['load-external', (f) => set(f, 'index.html', (t) => t.replace('url=HTML/DUTCH_Learning.html', 'url=https://example.com/')), /meta refresh to/],
     ['link-broken', (f) => set(f, 'index.html', (t) => t.replace('url=HTML/DUTCH_Learning.html', 'url=HTML/gone.html')), /meta refresh HTML\/gone\.html/],
     ['link-broken', (f) => set(f, 'index.html', (t) => t.replace('<a href="HTML/DUTCH_Learning.html">', '<a href="HTML/gone.html">')), /href HTML\/gone\.html/],
     ['link-broken', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('data/b_page.js', 'data/zz.js')), /script data\/zz\.js/],
     ['link-broken', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('assets/nl-theme.css', 'assets/nl-theme2.css')), /link assets\/nl-theme2\.css/],
-    ['link-broken', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><img src="x.png">')), /img x\.png/],
-    ['link-broken', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('DUTCH_Learning.html', '100%.html')), /100%\.html/],
-    ['anchor-host', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><a href="https://">x</a>')), /unparseable/],
-    ['anchor-host', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><a href="javascript:alert(1)">x</a>')), /javascript: link/],
-    ['state', (f) => set(f, 'HTML/DUTCH_Learning.html', (t) => t.replace('</body>', '<script src="assets/site-nav.js"></script></body>')), /home page must not carry/],
+    ['link-broken', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><img src="x.png">')), /img x\.png/],
+    ['link-broken', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('DUTCH_Learning.html', '100%.html')), /100%\.html/],
+    ['anchor-host', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><a href="https://">x</a>')), /unparseable/],
+    ['anchor-host', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('<body>', '<body><a href="javascript:alert(1)">x</a>')), /javascript: link/],
+    ['state', (f) => set(f, 'HTML/DUTCH_Learning.html', (t) => t.replace('</body>', '<script src="assets/site-nav.js"></script></body>')), /still loads site-nav.js/],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<script src="assets/nl-theme-init.js"></script>', '')), /missing nl-theme-init\.js/],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<link rel="stylesheet" href="assets/nl-tokens.css">', '')), /missing nl-tokens\.css/],
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<script src="assets/nl-core.js"></script>', '')), /missing nl-core\.js/],
@@ -398,8 +397,8 @@ export function selfTest() {
     ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<main id="app">', '<main id="app"><button onclick="x()">go</button>')), /inline event handler on <button>/],
     ['runtime-request', (f) => set(f, 'HTML/assets/nl-core.js', (t) => `${t}\nfetch("x");`), /script makes a network request/],
     ['runtime-request', (f) => set(f, 'HTML/data/b_page.js', (t) => `${t}\nnew Image().src = "x";`), /network request/],
-    ['runtime-request', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('</body>', '<script>new EventSource("x")</script></body>')), /inline script/],
-    ['runtime-request', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('</body>', '<script>document.createElement("script")</script></body>')), /inline script/],
+    ['runtime-request', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('</body>', '<script>new EventSource("x")</script></body>')), /inline script/],
+    ['runtime-request', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('</body>', '<script>document.createElement("script")</script></body>')), /inline script/],
     ['font-hash', (f) => set(f, 'HTML/assets/fonts/SOURCES.txt', (t) => `${t}${'0'.repeat(64)}  gone.woff2\n`), /listed in SOURCES\.txt but missing/],
     ['font-hash', (f) => { const n = new Map(f); n.set('HTML/assets/fonts/x.woff2', Buffer.from('wOF2changed')); return n; }],
     ['font-hash', (f) => { const n = new Map(f); n.set('HTML/assets/fonts/extra.woff2', Buffer.from('wOF2extra')); return n; }],
@@ -407,8 +406,8 @@ export function selfTest() {
     ['private-term', (f) => set(f, 'README.md', (t) => `${t}ZZPrivate\n`)],
     ['private-generic', (f) => set(f, 'README.md', (t) => `${t}C:\\Users\\someone\n`)],
     ['private-generic', (f) => set(f, 'README.md', (t) => `${t}mail me at someone@example.com\n`)],
-    ['runtime-request', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('</body>', '<script>fetch("x")</script></body>'))],
-    ['coverage', (f) => without(without(f, 'HTML/a_page.html'), 'HTML/b_page.html')],
+    ['runtime-request', (f) => set(f, 'HTML/dutch_stories.html', (t) => t.replace('</body>', '<script>fetch("x")</script></body>'))],
+    ['coverage', (f) => without(without(f, 'HTML/dutch_stories.html'), 'HTML/b_page.html')],
   ];
   const failures = [];
   const clean = checkSite(fixture(), opts);
