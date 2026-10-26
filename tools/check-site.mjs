@@ -27,7 +27,7 @@ const GENERIC_PRIVATE = [
   [/onedrive/i, 'a OneDrive reference'],
   [/(?<![\w.+-])[\w.+-]+@(?!users\.noreply\.github\.com)[\w-]+(\.[\w-]+)+/, 'an email address'],
 ];
-const RUNTIME_REQUEST = /\bfetch\s*\(|XMLHttpRequest|sendBeacon|new\s+WebSocket|\bimport\s*\(/;
+const RUNTIME_REQUEST = /\bfetch\s*\(|XMLHttpRequest|sendBeacon|new\s+WebSocket|\bimport\s*\(|\bnew\s+Image\b|\bEventSource\b|createElement\(\s*['"](?:script|iframe|img|link|embed|object)['"]/;
 const MIN_PAGES = 20;
 
 const text = (files, path) => files.get(path)?.toString('utf8') ?? '';
@@ -43,7 +43,9 @@ const isSkippable = (url) => !url || url.startsWith('#') || /^(mailto:|tel:|data
 function resolves(files, fromFile, url) {
   const clean = url.split(/[?#]/)[0];
   if (!clean) return true;
-  return files.has(posix.normalize(posix.join(posix.dirname(fromFile), decodeURIComponent(clean))));
+  let decoded = clean;
+  try { decoded = decodeURIComponent(clean); } catch { return false; }
+  return files.has(posix.normalize(posix.join(posix.dirname(fromFile), decoded)));
 }
 
 function checkCss(files, file, css, findings) {
@@ -56,7 +58,47 @@ function checkCss(files, file, css, findings) {
   }
 }
 
-function checkPage(files, file, html, findings) {
+// An element opening tag; quoted attribute values may contain ">".
+const TAG = /<([a-z][a-z0-9:-]*)\b((?:"[^"]*"|'[^']*'|[^>"'])*)>/gi;
+const URL_ATTRS = ['src', 'srcset', 'poster', 'data', 'href', 'xlink:href', 'action', 'formaction'];
+const LOADING_REL = /(?:^|\s)(?:stylesheet|icon|apple-touch-icon|preload|prefetch|modulepreload|preconnect|dns-prefetch|manifest)(?:\s|$)/;
+
+function urlsOf(attrs) {
+  const urls = [];
+  for (const name of URL_ATTRS) {
+    const value = attrOf(attrs, name);
+    if (value === undefined) continue;
+    if (name === 'srcset') urls.push(...value.split(',').map((part) => part.trim().split(/\s+/)[0]).filter(Boolean));
+    else urls.push(value);
+  }
+  return urls;
+}
+
+function checkAnchor(files, file, attrs, converted, findings) {
+  const url = attrOf(attrs, 'href');
+  if (url === undefined) return;
+  if (/^\s*javascript:/i.test(url)) { findings.push(finding('anchor-host', file, 'javascript: link')); return; }
+  if (isSkippable(url)) return;
+  if (!isExternal(url)) {
+    if (!resolves(files, file, url)) findings.push(finding('link-broken', file, `href ${url} does not match a file`));
+    return;
+  }
+  let u;
+  try { u = new URL(url.startsWith('//') ? `https:${url}` : url); } catch { findings.push(finding('anchor-host', file, `unparseable ${url}`)); return; }
+  if (!CLICK_HOSTS.some((h) => u.hostname === h.host && u.pathname.startsWith(h.path))) findings.push(finding('anchor-host', file, `link to ${u.hostname}${u.pathname}`));
+  const tokens = new Set((attrOf(attrs, 'rel') ?? '').toLowerCase().split(/\s+/));
+  if (converted && !(tokens.has('noopener') && tokens.has('noreferrer'))) findings.push(finding('anchor-rel', file, `external link without rel="noopener noreferrer": ${url.slice(0, 60)}`));
+}
+
+// A refresh to a page on this site is a redirect; a refresh anywhere else leaves the site without a click.
+function checkRefresh(files, file, content, findings) {
+  const target = /url\s*=\s*['"]?([^'";]+)/i.exec(content)?.[1]?.trim();
+  if (!target) return;
+  if (isExternal(target) || /^\s*javascript:/i.test(target)) findings.push(finding('load-external', file, `meta refresh to ${target}`));
+  else if (!resolves(files, file, target)) findings.push(finding('link-broken', file, `meta refresh ${target} does not match a file`));
+}
+
+function checkPage(files, file, html, findings, { site = true } = {}) {
   const name = basename(file);
   const bare = html.replace(/<!--[\s\S]*?-->/g, '');
   const scripts = [...bare.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)].map((m) => ({ attrs: m[1], body: m[2] }));
@@ -69,31 +111,28 @@ function checkPage(files, file, html, findings) {
   const isHome = name === HOME;
   const ownCss = OWN_CSS_PAGES.has(name);
 
-  for (const m of markup.matchAll(/<(link|script|img|iframe|source|base|a)\b([^>]*)>/gi)) {
+  for (const m of markup.matchAll(TAG)) {
     const tag = m[1].toLowerCase();
-    const url = attrOf(m[2], tag === 'link' || tag === 'a' || tag === 'base' ? 'href' : 'src');
-    const rel = (attrOf(m[2], 'rel') ?? '').toLowerCase();
+    const attrs = m[2];
+    const rel = (attrOf(attrs, 'rel') ?? '').toLowerCase();
+    if (tag === 'iframe' || tag === 'frame') findings.push(finding('load-external', file, tag));
+    if (tag === 'meta' && /refresh/i.test(attrOf(attrs, 'http-equiv') ?? '')) checkRefresh(files, file, attrOf(attrs, 'content') ?? '', findings);
+    const style = attrOf(attrs, 'style');
+    if (style) checkCss(files, file, style, findings);
+    if (tag === 'a') { checkAnchor(files, file, attrs, converted, findings); continue; }
     if (tag === 'link' && /preconnect|dns-prefetch|prefetch|preload/.test(rel)) findings.push(finding('load-external', file, `link rel=${rel}`));
-    if (tag === 'iframe') findings.push(finding('load-external', file, 'iframe'));
-    if (url === undefined || isSkippable(url)) continue;
-    if (tag === 'a') {
-      if (!isExternal(url)) {
-        if (!resolves(files, file, url)) findings.push(finding('link-broken', file, `href ${url} does not match a file`));
-        continue;
-      }
-      let u;
-      try { u = new URL(url.startsWith('//') ? `https:${url}` : url); } catch { findings.push(finding('anchor-host', file, `unparseable ${url}`)); continue; }
-      if (!CLICK_HOSTS.some((h) => u.hostname === h.host && u.pathname.startsWith(h.path))) findings.push(finding('anchor-host', file, `link to ${u.hostname}${u.pathname}`));
-      const tokens = new Set((attrOf(m[2], 'rel') ?? '').toLowerCase().split(/\s+/));
-      if (converted && !(tokens.has('noopener') && tokens.has('noreferrer'))) findings.push(finding('anchor-rel', file, `external link without rel="noopener noreferrer": ${url.slice(0, 60)}`));
-      continue;
+    // A canonical or alternate link names another address but loads nothing.
+    if (tag === 'link' && !LOADING_REL.test(rel)) continue;
+    for (const url of urlsOf(attrs)) {
+      if (isSkippable(url)) continue;
+      if (isExternal(url)) findings.push(finding('load-external', file, `${tag} loads ${url}`));
+      else if (!resolves(files, file, url)) findings.push(finding('link-broken', file, `${tag} ${url} does not match a file`));
     }
-    if (isExternal(url)) findings.push(finding('load-external', file, `${tag} loads ${url}`));
-    else if (!resolves(files, file, url)) findings.push(finding('link-broken', file, `${tag} ${url} does not match a file`));
   }
 
   styles.forEach((css) => checkCss(files, file, css, findings));
   for (const s of scripts) if (RUNTIME_REQUEST.test(s.body)) findings.push(finding('runtime-request', file, 'inline script makes a network request'));
+  if (!site) return;
 
   if (isHome && navTags) findings.push(finding('state', file, 'the home page must not carry the old top bar'));
   if (!isHome && converted && navTags) findings.push(finding('state', file, 'page loads both site-nav.js and the new shared files'));
@@ -136,8 +175,17 @@ function checkPageData(path, data, findings) {
 
 function checkRegistry(files, findings) {
   const core = 'HTML/assets/nl-core.js';
-  if (!files.has(core)) return;
-  const names = [...text(files, core).matchAll(/\{\s*file:\s*'([^']+)'/g)].map((m) => m[1]);
+  if (!files.has(core)) {
+    const used = [...files.keys()].some((p) => /^HTML\/[^/]+\.html$/.test(p) && /assets\/nl-core\.js/.test(text(files, p)));
+    if (used) findings.push(finding('registry', core, 'a page loads nl-core.js but the file is missing'));
+    return;
+  }
+  // The list is read by running the script, the way a browser sees it, not by pattern matching its source.
+  const sandbox = { window: {} };
+  try { vm.runInNewContext(text(files, core), sandbox, { timeout: 2000 }); } catch (e) { findings.push(finding('registry', core, `does not run: ${e.message}`)); return; }
+  const lessons = sandbox.window.NL?.LESSONS;
+  if (!Array.isArray(lessons)) { findings.push(finding('registry', core, 'NL.LESSONS is not a list')); return; }
+  const names = lessons.map((l) => String(l?.file));
   const seen = new Set();
   for (const n of names) {
     if (!/^[a-z0-9_]+\.html$/.test(n)) findings.push(finding('registry', core, `bad file name ${n}`));
@@ -185,6 +233,8 @@ export function checkSite(files, { terms = [], minPages = MIN_PAGES } = {}) {
   const pages = [...files.keys()].filter((p) => /^HTML\/[^/]+\.html$/.test(p));
   if (pages.length < minPages) findings.push(finding('coverage', SITE, `scanned ${pages.length} pages, expected at least ${minPages}`));
   for (const p of pages) checkPage(files, p, text(files, p), findings);
+  // Pages outside HTML/ (the root redirect) are served too, so they get the same request and link checks.
+  for (const p of files.keys()) if (/\.html$/i.test(p) && !pages.includes(p) && !p.startsWith('tools/')) checkPage(files, p, text(files, p), findings, { site: false });
   for (const [p, buf] of files) {
     if (p.endsWith('.css')) checkCss(files, p, buf.toString('utf8'), findings);
     else if (/^HTML\/(assets|data)\/.+\.js$/.test(p) && RUNTIME_REQUEST.test(buf.toString('utf8'))) findings.push(finding('runtime-request', p, 'script makes a network request'));
@@ -249,7 +299,8 @@ function fixture() {
     ['HTML/assets/site-nav.js', enc('(function () {})();')],
     ['HTML/assets/nl-theme-init.js', enc('(function () {})();')],
     ['HTML/assets/nl-page.js', enc('(function () {})();')],
-    ['HTML/assets/nl-core.js', enc("NL.LESSONS = [ { file: 'a_page.html' }, { file: 'b_page.html' } ];")],
+    ['HTML/assets/nl-core.js', enc("window.NL = { LESSONS: [ { file: 'a_page.html' }, { file: 'b_page.html' } ] };")],
+    ['index.html', enc('<!doctype html><html><head><meta http-equiv="refresh" content="0; url=HTML/DUTCH_Learning.html"></head><body><a href="HTML/DUTCH_Learning.html">open</a></body></html>')],
     ['HTML/assets/nl-tokens.css', enc("@font-face { font-family: X; src: url(fonts/x.woff2) format('woff2'); }")],
     ['HTML/assets/nl-theme.css', enc('body { margin: 0; }')],
     ['HTML/assets/fonts/x.woff2', font],
@@ -285,8 +336,41 @@ export function selfTest() {
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("nl: 'a'", "nl: ''"))],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("en: 'b' }", "en: 'b', photo: 5 }"))],
     ['data-file', (f) => set(f, 'HTML/data/b_page.js', (t) => t.replace("{ nl: 'a', en: 'b' }", ''))],
-    ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace('b_page.html', 'B_page.html'))],
-    ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace(", { file: 'b_page.html' }", ''))],
+    ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace('b_page.html', 'B_page.html')), /bad file name B_page\.html/],
+    ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace("{ file: 'b_page.html' }", "{ file: 'a_page.html' }")), /duplicate a_page\.html/],
+    ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace("{ file: 'b_page.html' } ]", "{ file: 'b_page.html' }, { file: 'ghost.html' } ]")), /ghost\.html does not match a page/],
+    ['registry', (f) => set(f, 'HTML/assets/nl-core.js', (t) => t.replace(", { file: 'b_page.html' }", '')), /page is not in the lesson registry/],
+    ['registry', (f) => set(f, 'HTML/assets/nl-core.js', () => 'window.NL = { LESSONS: 5 };'), /not a list/],
+    ['registry', (f) => set(f, 'HTML/assets/nl-core.js', () => 'throw new Error("x");'), /does not run/],
+    ['registry', (f) => without(f, 'HTML/assets/nl-core.js'), /nl-core\.js but the file is missing/],
+    ['load-external', (f) => set(f, 'HTML/assets/nl-theme.css', () => '@import "https://example.com/x.css";'), /@import/],
+    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<head>', '<head><link rel="preconnect" href="https://example.com">')), /rel=preconnect/],
+    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><iframe src="DUTCH_Learning.html"></iframe>')), /iframe/],
+    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><img srcset="a.png 1x, https://example.com/b.png 2x">')), /img loads https:\/\/example\.com\/b\.png/],
+    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><video poster="https://example.com/p.png"></video>')), /video loads/],
+    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><object data="https://example.com/o"></object>')), /object loads/],
+    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><img alt="a>b" src="https://example.com/x.png">')), /img loads/],
+    ['load-external', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><div style="background:url(https://example.com/x.png)"></div>')), /CSS url\(\) to/],
+    ['load-external', (f) => set(f, 'index.html', (t) => t.replace('url=HTML/DUTCH_Learning.html', 'url=https://example.com/')), /meta refresh to/],
+    ['link-broken', (f) => set(f, 'index.html', (t) => t.replace('url=HTML/DUTCH_Learning.html', 'url=HTML/gone.html')), /meta refresh HTML\/gone\.html/],
+    ['link-broken', (f) => set(f, 'index.html', (t) => t.replace('<a href="HTML/DUTCH_Learning.html">', '<a href="HTML/gone.html">')), /href HTML\/gone\.html/],
+    ['link-broken', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('data/b_page.js', 'data/zz.js')), /script data\/zz\.js/],
+    ['link-broken', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('assets/nl-theme.css', 'assets/nl-theme2.css')), /link assets\/nl-theme2\.css/],
+    ['link-broken', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><img src="x.png">')), /img x\.png/],
+    ['link-broken', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('DUTCH_Learning.html', '100%.html')), /100%\.html/],
+    ['anchor-host', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><a href="https://">x</a>')), /unparseable/],
+    ['anchor-host', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('<body>', '<body><a href="javascript:alert(1)">x</a>')), /javascript: link/],
+    ['state', (f) => set(f, 'HTML/DUTCH_Learning.html', (t) => t.replace('</body>', '<script src="assets/site-nav.js"></script></body>')), /home page must not carry/],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<script src="assets/nl-theme-init.js"></script>', '')), /missing nl-theme-init\.js/],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<link rel="stylesheet" href="assets/nl-tokens.css">', '')), /missing nl-tokens\.css/],
+    ['state', (f) => set(f, 'HTML/b_page.html', (t) => t.replace('<script src="assets/nl-core.js"></script>', '')), /missing nl-core\.js/],
+    ['state', (f) => without(f, 'HTML/data/b_page.js'), /missing HTML\/data\/b_page\.js/],
+    ['data-file', (f) => set(f, 'HTML/data/b_page.js', () => 'throw new Error("x");'), /does not run/],
+    ['runtime-request', (f) => set(f, 'HTML/assets/nl-core.js', (t) => `${t}\nfetch("x");`), /script makes a network request/],
+    ['runtime-request', (f) => set(f, 'HTML/data/b_page.js', (t) => `${t}\nnew Image().src = "x";`), /network request/],
+    ['runtime-request', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('</body>', '<script>new EventSource("x")</script></body>')), /inline script/],
+    ['runtime-request', (f) => set(f, 'HTML/a_page.html', (t) => t.replace('</body>', '<script>document.createElement("script")</script></body>')), /inline script/],
+    ['font-hash', (f) => set(f, 'HTML/assets/fonts/SOURCES.txt', (t) => `${t}${'0'.repeat(64)}  gone.woff2\n`), /listed in SOURCES\.txt but missing/],
     ['font-hash', (f) => { const n = new Map(f); n.set('HTML/assets/fonts/x.woff2', Buffer.from('wOF2changed')); return n; }],
     ['font-hash', (f) => { const n = new Map(f); n.set('HTML/assets/fonts/extra.woff2', Buffer.from('wOF2extra')); return n; }],
     ['font-magic', (f) => { const bad = Buffer.from('XXXXfont'); const n = new Map(f); n.set('HTML/assets/fonts/x.woff2', bad); n.set('HTML/assets/fonts/SOURCES.txt', Buffer.from(`${createHash('sha256').update(bad).digest('hex')}  x.woff2\n`)); return n; }],
@@ -299,9 +383,10 @@ export function selfTest() {
   const failures = [];
   const clean = checkSite(fixture(), opts);
   if (clean.length) failures.push(`clean fixture reports: ${JSON.stringify(clean)}`);
-  for (const [rule, mutate] of cases) {
+  // A case may also name the detail it must produce, so another rule firing on the same mistake cannot hide a dead one.
+  for (const [rule, mutate, detail] of cases) {
     const found = checkSite(mutate(fixture()), opts);
-    if (!found.some((f) => f.rule === rule)) failures.push(`rule ${rule} did not fire (found: ${found.map((f) => f.rule).join(',') || 'nothing'})`);
+    if (!found.some((f) => f.rule === rule && (!detail || detail.test(f.detail)))) failures.push(`rule ${rule}${detail ? ` ${detail}` : ''} did not fire (found: ${found.map((f) => `${f.rule}: ${f.detail}`).join('; ') || 'nothing'})`);
   }
   const good = { sha: 'a'.repeat(40), authorEmail: '1+me@users.noreply.github.com', committerEmail: 'noreply@github.com', message: 'fix: x', added: '' };
   if (checkCommits([good], opts.terms).length) failures.push('a clean commit was rejected');
