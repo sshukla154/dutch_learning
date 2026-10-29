@@ -263,6 +263,41 @@ test('labels and an animal sound sit with the photo link, and a row without any 
   assert.equal(all.filter((n) => n.tag === 'a').length, 1);
 });
 
+test('clock hand angles are computed from the hour and minute', () => {
+  const NL = load(memoryStorage());
+  const pair = (h, m) => { const a = NL.clockAngles(h, m); return [a.hour, a.minute]; };
+  assert.deepEqual(pair(3, 0), [90, 0]);
+  assert.deepEqual(pair(12, 0), [0, 0]);
+  assert.deepEqual(pair(3, 30), [105, 180]);
+  assert.deepEqual(pair(6, 45), [202.5, 270]);
+  assert.deepEqual(pair(15, 65), pair(3, 5), 'an hour or minute outside the usual range wraps the way a real clock does');
+});
+
+test('a clock row draws a face, twelve ticks and two hands; an invalid time draws nothing', () => {
+  const NL = load(memoryStorage(), { document: fakeDocument() });
+  const host = fakeDocument().createElement('div');
+  NL.renderWords(host, [
+    { nl: 'Drie uur', en: 'Three o\'clock', clock: { hour: 3, minute: 0 } },
+    { nl: 'Fout', en: 'Bad', clock: { hour: 13, minute: 0 } },
+    { nl: 'Plat', en: 'Plain' },
+  ]);
+  const svgs = walk(host).filter((n) => n.tag === 'svg');
+  assert.equal(svgs.length, 1, 'only the valid clock draws an svg');
+  const svg = svgs[0];
+  assert.equal(svg.attrs.class, 'word-clock');
+  assert.equal(svg.attrs['aria-hidden'], 'true');
+  const circles = svg.children.filter((n) => n.tag === 'circle');
+  const lines = svg.children.filter((n) => n.tag === 'line');
+  assert.equal(circles.length, 1);
+  assert.equal(lines.length, 14, '12 ticks plus an hour hand and a minute hand');
+  const hour = lines.find((n) => n.attrs.class === 'clock-hour');
+  const minute = lines.find((n) => n.attrs.class === 'clock-minute');
+  assert.ok(hour && minute, 'the hour and minute hands are each their own line');
+  // 3 o'clock: the hour hand points right, the minute hand points straight up.
+  assert.ok(Number(hour.attrs.x2) > 50 && Math.abs(Number(hour.attrs.y2) - 50) < 0.01);
+  assert.ok(Math.abs(Number(minute.attrs.x2) - 50) < 0.01 && Number(minute.attrs.y2) < 50);
+});
+
 test('a shape row points at a symbol of the page sprite and refuses any other id', () => {
   const NL = load(memoryStorage(), { document: fakeDocument() });
   const host = fakeDocument().createElement('div');

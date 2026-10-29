@@ -151,6 +151,14 @@
   };
   NL.shuffle = (list) => shuffle(list, Math.random);
 
+  // Hand angles in degrees clockwise from 12, for drawing an analog clock face. An hour or minute
+  // outside its usual range wraps the way a real clock does, instead of drawing a hand off the face.
+  NL.clockAngles = (hour, minute) => {
+    const h = ((Math.trunc(hour) % 12) + 12) % 12;
+    const m = ((Math.trunc(minute) % 60) + 60) % 60;
+    return { hour: h * 30 + m * 0.5, minute: m * 6 };
+  };
+
   if (typeof document === 'undefined') return;
 
   // Builds elements with textContent and attributes only, so data can never become markup.
@@ -290,6 +298,38 @@
     return svg;
   };
 
+  // A clock face drawn from w.clock = { hour: 1-12, minute: 0-59 }; an out-of-range time draws nothing,
+  // the same way an unknown shape id draws nothing.
+  const clockCell = (w) => {
+    const c = w.clock;
+    if (!c || !Number.isInteger(c.hour) || !Number.isInteger(c.minute) || c.hour < 1 || c.hour > 12 || c.minute < 0 || c.minute > 59) return null;
+    const { hour: hourDeg, minute: minuteDeg } = NL.clockAngles(c.hour, c.minute);
+    const round = (n) => Math.round(n * 100) / 100;
+    const point = (deg, r) => {
+      const rad = (deg * Math.PI) / 180;
+      return { x: round(50 + r * Math.sin(rad)), y: round(50 - r * Math.cos(rad)) };
+    };
+    const line = (cls, from, to) => {
+      const l = document.createElementNS(SVG_NS, 'line');
+      l.setAttribute('class', cls);
+      l.setAttribute('x1', String(from.x)); l.setAttribute('y1', String(from.y));
+      l.setAttribute('x2', String(to.x)); l.setAttribute('y2', String(to.y));
+      return l;
+    };
+    const svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('class', 'word-clock');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('aria-hidden', 'true');
+    const face = document.createElementNS(SVG_NS, 'circle');
+    face.setAttribute('class', 'clock-face');
+    face.setAttribute('cx', '50'); face.setAttribute('cy', '50'); face.setAttribute('r', '46');
+    svg.append(face);
+    const centre = { x: 50, y: 50 };
+    for (let i = 0; i < 12; i++) svg.append(line('clock-tick', point(i * 30, 40), point(i * 30, 46)));
+    svg.append(line('clock-hour', centre, point(hourDeg, 24)), line('clock-minute', centre, point(minuteDeg, 38)));
+    return svg;
+  };
+
   // A longer explanation under the row, in English and Dutch, with a button that reads the Dutch aloud.
   const hintBlock = (w) => {
     if (!w.hintEn && !w.hintNl) return null;
@@ -306,7 +346,7 @@
     host.replaceChildren(...words.map((w) => el('div', { class: 'word' },
       el('div', { class: 'word-main' },
         playButton(w),
-        symbolCell(w) || shapeCell(w),
+        symbolCell(w) || shapeCell(w) || clockCell(w),
         el('span', { class: 'word-nl', lang: 'nl' }, w.nl,
           w.pron ? el('span', { class: 'word-pron', lang: 'en', text: w.pron }) : null,
           w.icons ? el('span', { class: 'word-icons', 'aria-hidden': 'true', text: w.icons }) : null),
