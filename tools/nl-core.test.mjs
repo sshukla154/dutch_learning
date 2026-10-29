@@ -8,10 +8,10 @@ const at = (year, month, day) => ({ getFullYear: () => year, getMonth: () => mon
 
 test('the lesson list is complete and well formed', () => {
   const NL = load(memoryStorage());
-  assert.equal(NL.LESSONS.length, 23);
-  assert.equal(NL.lessonsOf('t1').length, 16);
+  assert.equal(NL.LESSONS.length, 24);
+  assert.equal(NL.lessonsOf('t1').length, 17);
   assert.equal(NL.lessonsOf('t2').length, 7);
-  assert.equal(new Set(NL.LESSONS.map((l) => l.file)).size, 23);
+  assert.equal(new Set(NL.LESSONS.map((l) => l.file)).size, 24);
   assert.deepEqual(Object.keys(NL.LEARNERS), ['t1', 't2']);
   for (const l of NL.LESSONS) {
     assert.match(l.file, /^[a-z0-9_]+\.html$/);

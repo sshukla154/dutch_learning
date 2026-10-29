@@ -26,6 +26,7 @@
     { file: 'animals_learning.html', nl: 'Dieren', en: 'Animals', cat: 'Woordenschat', learner: 't1', flash: true },
     { file: 'numbers_learning.html', nl: 'Getallen', en: 'Numbers & symbols', cat: 'Basis', learner: 't1', flash: true },
     { file: 'time_learning.html', nl: 'Tijd & richting', en: 'Time & directions', cat: 'Basis', learner: 't1', flash: true },
+    { file: 'klok_lezen_learning.html', nl: 'Klok lezen', en: 'Reading the clock', cat: 'Basis', learner: 't1', flash: true },
     { file: 'greetings_learning.html', nl: 'Begroetingen', en: 'Greetings', cat: 'Basis', learner: 't1', flash: true },
     { file: 'seasons_months_learning.html', nl: 'Seizoenen', en: 'Seasons & months', cat: 'Basis', learner: 't1', flash: true },
     { file: 'food_learning.html', nl: 'Eten', en: 'Food', cat: 'Woordenschat', learner: 't1', flash: true },
